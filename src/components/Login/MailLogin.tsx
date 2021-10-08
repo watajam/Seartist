@@ -28,7 +28,7 @@ const MailLogin: React.VFC<Props> = (props) => {
       {/* ログイン＆アカウント作成のForm */}
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* メールアドレスのフォームとバリデーション */}
-        <label htmlFor="email" className="block mt-8 text-base text-gray-400 ">
+        <label className="block mt-8 text-base text-gray-400 ">
           メールアドレス
           <input
             placeholder="メールアドレスを入力してください"
@@ -48,10 +48,7 @@ const MailLogin: React.VFC<Props> = (props) => {
           <p className="text-red-600">{errors.email?.message}</p>
         )}
         {/* パスワードのフォームとバリデーション */}
-        <label
-          htmlFor="password"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label className="block mt-8 text-base text-gray-400 ">
           パスワード
           <input
             type="password"
@@ -75,7 +72,7 @@ const MailLogin: React.VFC<Props> = (props) => {
         )}
         <div className="mt-4 text-right">
           <Link href="">
-            <a className="block text-base text-gray-400 underline cursor-pointer hover:text-gray-600 ">
+            <a className="inline-block text-base text-gray-400 underline cursor-pointer hover:text-gray-600 ">
               {props.isLogin ? "パスワードを忘れた場合" : null}
             </a>
           </Link>
