@@ -1,8 +1,12 @@
 import React, { memo, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { signInWithEmailAndPassword } from "@firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "@firebase/auth";
 import { auth } from "../../../lib/firebase";
+import { useRouter } from "next/dist/client/router";
 
 type LoginFormData = {
   email: string;
@@ -17,46 +21,40 @@ type Props = {
 const MailLogin: React.VFC<Props> = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>();
+    formState: { errors, isDirty, isValid },
+  } = useForm<LoginFormData>({
+    mode: "onChange",
+  });
 
-  const onSubmit = useCallback(
-    (data: LoginFormData) => {
-      setEmail(data.email);
-      setPassword(data.password);
-    },
-    [email, password]
-  );
-
-  const handeleChengeEmail = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(e.target.value);
-    },
-    []
-  );
-
-  const handeleChengePassword = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(e.target.value);
-    },
-    []
-  );
+  const onSubmit = (data: LoginFormData) => {
+    setEmail(data.email);
+    setPassword(data.password);
+  };
 
   //ログイン機能
-  const login = useCallback(
-    async (e: React.MouseEvent<HTMLButtonElement>) => {
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        <Link href="/"></Link>;
-      } catch (error) {
-        alert("ログインできませんでした");
-      }
-    },
-    [auth, email, password]
-  );
+  const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push(`/`);
+    } catch (error) {
+      alert("アカウントが見つかりません");
+    }
+  };
+
+  //新規アカウント作成
+  const signin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push(`/`);
+    } catch (error) {
+      alert("アカウントを作成できません");
+    }
+  };
 
   return (
     <>
@@ -76,8 +74,7 @@ const MailLogin: React.VFC<Props> = (props) => {
                 message: "正しい形式で入力してください",
               },
             })}
-            className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300"
-            onChange={handeleChengeEmail}
+            className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
           />
         </label>
         {errors.email && (
@@ -101,7 +98,6 @@ const MailLogin: React.VFC<Props> = (props) => {
             })}
             className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300"
             type="password"
-            onChange={handeleChengePassword}
           />
         </label>
         {errors.password && (
@@ -115,7 +111,8 @@ const MailLogin: React.VFC<Props> = (props) => {
           </Link>
         </div>
         <button
-          onClick={login}
+          onClick={props.isLogin ? login : signin}
+          disabled={!isDirty || !isValid}
           className="w-full py-3 mt-10 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400"
         >
           {props.isLogin ? "ログイン" : "アカウント作成"}
