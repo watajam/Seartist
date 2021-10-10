@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState } from "react";
 
-import MailLogin from "./MailLogin";
+import MailLogin from "./EmailLogin";
 import GuestLogin from "./GuestLogin";
 import GoogleLogin from "./GoogleLogin";
 
