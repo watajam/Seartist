@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import {
@@ -18,28 +18,21 @@ type Props = {
   handleIsLogin: (e: React.MouseEvent<HTMLParagraphElement>) => void;
 };
 
-const MailLogin: React.VFC<Props> = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const EmailLogin: React.VFC<Props> = (props) => {
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty, isValid },
+    formState: { errors },
   } = useForm<LoginFormData>({
     mode: "onChange",
   });
 
-  const onSubmit = (data: LoginFormData) => {
-    setEmail(data.email);
-    setPassword(data.password);
-  };
-
   //ログイン機能
-  const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const login = async (data: LoginFormData) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, data.email, data.password);
       router.push(`/`);
     } catch (error) {
       alert("アカウントが見つかりません");
@@ -47,9 +40,9 @@ const MailLogin: React.VFC<Props> = (props) => {
   };
 
   //新規アカウント作成
-  const signin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const signin = async (data: LoginFormData) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
       router.push(`/`);
     } catch (error) {
       alert("アカウントを作成できません");
@@ -58,48 +51,57 @@ const MailLogin: React.VFC<Props> = (props) => {
 
   return (
     <>
-      {/* ログイン＆アカウント作成のForm */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      {/* ログイン＆新規アカウント作成のForm */}
+      <form
+        onSubmit={props.isLogin ? handleSubmit(login) : handleSubmit(signin)}
+      >
         {/* メールアドレスのフォームとバリデーション */}
-        <label className="block mt-8 text-base text-gray-400 ">
+        <label htmlFor="email" className="block mt-8 text-base text-gray-400 ">
           メールアドレス
-          <input
-            type="email"
-            placeholder="メールアドレスを入力してください"
-            {...register("email", {
-              required: "必須項目です。",
-              pattern: {
-                value:
-                  /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
-                message: "正しい形式で入力してください",
-              },
-            })}
-            className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
-          />
         </label>
+        <input
+          type="email"
+          id="email"
+          placeholder="メールアドレスを入力してください"
+          {...register("email", {
+            required: "必須項目です。",
+            pattern: {
+              value:
+                /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/,
+              message: "正しい形式で入力してください",
+            },
+          })}
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+        />
+
         {errors.email && (
           <p className="text-red-600">{errors.email?.message}</p>
         )}
         {/* パスワードのフォームとバリデーション */}
-        <label className="block mt-8 text-base text-gray-400 ">
+        <label
+          htmlFor="password"
+          className="block mt-8 text-base text-gray-400 "
+        >
           パスワード
-          <input
-            placeholder="パスワードを入力してください"
-            {...register("password", {
-              required: "必須項目です。",
-              minLength: {
-                value: 6,
-                message: "パスワードは6文字数以上16文字以下で入力してください",
-              },
-              maxLength: {
-                value: 16,
-                message: "パスワードは6文字数以上16文字以下で入力してください",
-              },
-            })}
-            className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300"
-            type="password"
-          />
         </label>
+        <input
+          type="password"
+          id="password"
+          placeholder="パスワードを入力してください"
+          {...register("password", {
+            required: "必須項目です。",
+            minLength: {
+              value: 6,
+              message: "パスワードは6文字数以上16文字以下で入力してください",
+            },
+            maxLength: {
+              value: 16,
+              message: "パスワードは6文字数以上16文字以下で入力してください",
+            },
+          })}
+          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300"
+        />
+
         {errors.password && (
           <p className="text-red-600"> {errors.password?.message} </p>
         )}
@@ -110,11 +112,7 @@ const MailLogin: React.VFC<Props> = (props) => {
             </a>
           </Link>
         </div>
-        <button
-          onClick={props.isLogin ? login : signin}
-          disabled={!isDirty || !isValid}
-          className="w-full py-3 mt-10 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400"
-        >
+        <button className="w-full py-3 mt-10 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400">
           {props.isLogin ? "ログイン" : "アカウント作成"}
         </button>
       </form>
@@ -130,4 +128,4 @@ const MailLogin: React.VFC<Props> = (props) => {
   );
 };
 
-export default memo(MailLogin);
+export default memo(EmailLogin);
