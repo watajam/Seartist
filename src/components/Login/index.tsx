@@ -8,12 +8,9 @@ const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   //ログインと新規作成の切り替え
-  const handleIsLogin = useCallback(
-    (e: React.MouseEvent<HTMLParagraphElement>) => {
-      setIsLogin((prevIsLogin) => !prevIsLogin);
-    },
-    []
-  );
+  const handleIsLogin = useCallback(() => {
+    setIsLogin((prevIsLogin) => !prevIsLogin);
+  }, []);
 
   return (
     <>
