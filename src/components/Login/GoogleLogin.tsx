@@ -16,7 +16,7 @@ const GoogleLogin = () => {
         router.push(`/`);
       })
       .catch((error) => {
-        console.log(error.message);
+        alert("ログインできません。")
       });
   };
 
