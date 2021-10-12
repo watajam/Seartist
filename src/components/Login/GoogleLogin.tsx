@@ -11,12 +11,13 @@ const GoogleLogin = () => {
 
   //Googleログイン
   const googleLogin = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-      router.push(`/`);
-    } catch (error) {
-      alert(`ログインできません`);
-    }
+    signInWithPopup(auth, provider)
+      .then(() => {
+        router.push(`/`);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
