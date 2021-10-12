@@ -14,7 +14,6 @@ const Login = () => {
 
   return (
     <>
-      <p>FireBaseのドメイン設定を変更したので再デプロイで実験</p>
       <h1 className="text-2xl font-bold text-center text-orange-300 ">
         {isLogin ? "ログイン" : "アカウント作成"}
       </h1>
