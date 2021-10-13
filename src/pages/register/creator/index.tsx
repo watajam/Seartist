@@ -1,7 +1,7 @@
 import CreatorForm from "../../../components/CreatorForm";
 
-const index = () => {
+const CreatorPage = () => {
   return <CreatorForm />;
 };
 
-export default index;
+export default CreatorPage;
