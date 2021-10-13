@@ -107,7 +107,7 @@ const EmailLogin: React.VFC<Props> = (props) => {
           <p className="text-red-600"> {errors.password?.message} </p>
         )}
         <div className="mt-4 text-right">
-          <Link href="/login/changepassword">
+          <Link href="/login/ChangePasswordPage">
             <a className="inline-block text-base text-orange-200 underline cursor-pointer hover:text-orange-400 ">
               {props.isLogin ? "パスワードを忘れた場合" : null}
             </a>

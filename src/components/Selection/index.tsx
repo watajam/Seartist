@@ -13,7 +13,7 @@ export const Selection: React.VFC = () => {
         </a>
       </Link>
       <hr className="mt-14 border-gray-400" />
-      <Link href="">
+      <Link href="/register/creator">
         <a className="w-full block  py-3 text-center mt-14 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400">
           アーティストや主催者の方はこちら
         </a>
