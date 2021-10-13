@@ -1,8 +1,8 @@
 import React from "react";
 import ResetPassword from "../../components/Login/ResetPassword";
 
-const changepassword = () => {
+const ChangePasswordPage = () => {
   return <ResetPassword />;
 };
 
-export default changepassword;
+export default ChangePasswordPage;

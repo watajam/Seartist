@@ -43,7 +43,8 @@ const EmailLogin: React.VFC<Props> = (props) => {
   const signin = async (data: LoginFormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      router.push(`/`);
+      router.push(`/selection`);
+      alert("プロフィールを登録しましょう");
     } catch (error) {
       alert("アカウントを作成できません");
     }
