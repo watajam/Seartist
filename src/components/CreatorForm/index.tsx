@@ -1,9 +1,10 @@
+import { useRouter } from "next/dist/client/router";
 import React, { memo } from "react";
 import { useForm } from "react-hook-form";
 
 import FormButton from "../FormButton";
 
-type LoginFormData = {
+type CreatorFormData = {
   name: string;
   location: string;
   genre: string;
@@ -12,15 +13,21 @@ type LoginFormData = {
 };
 
 export const CreatorForm: React.VFC = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
+  } = useForm<CreatorFormData>({
     mode: "onChange",
   });
 
-  const onSubmit = (data: LoginFormData) => console.log(data);
+  const onSubmit = (data: CreatorFormData) => {
+    console.log(data)
+    router.push("/register/creator/second");
+  };
+  
   return (
     <>
       <h1 className="text-2xl font-bold text-center text-orange-300 ">
@@ -139,7 +146,7 @@ export const CreatorForm: React.VFC = () => {
           })}
           type="date"
           id="birthday"
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
         ></input>
         {errors.birthday && (
           <p className="text-red-600">{errors.birthday?.message}</p>
@@ -178,7 +185,7 @@ export const CreatorForm: React.VFC = () => {
             type="radio"
             value="その他"
           />
-          <span className="ml-2">その他</span>
+          <span>その他</span>
         </label>
         {errors.gender && (
           <p className="text-red-600">{errors.gender?.message}</p>
