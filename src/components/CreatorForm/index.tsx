@@ -11,7 +11,7 @@ type LoginFormData = {
   gender: string;
 };
 
-export const index: React.VFC = () => {
+export const CreatorForm: React.VFC = () => {
   const {
     register,
     handleSubmit,
@@ -191,4 +191,4 @@ export const index: React.VFC = () => {
   );
 };
 
-export default memo(index);
+export default memo(CreatorForm);
