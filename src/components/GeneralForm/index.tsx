@@ -11,7 +11,7 @@ type GeneralFormData = {
   gender: string;
 };
 
-export const CreatorForm: React.VFC = () => {
+export const GeneralForm: React.VFC = () => {
   const router = useRouter();
 
   const {
@@ -24,7 +24,7 @@ export const CreatorForm: React.VFC = () => {
 
   const onSubmit = (data: GeneralFormData) => {
     console.log(data);
-    router.push("");
+    router.push("/register/general/second");
   };
 
   return (
@@ -33,15 +33,15 @@ export const CreatorForm: React.VFC = () => {
         プロフィール登録
       </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* 氏名/アーティスト名 */}
+        {/* 氏名 */}
         <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
-          氏名/アーティスト名
+          氏名
           <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
         <input
           type="text"
           id="name"
-          placeholder="氏名 or アーティスト名を入力してください"
+          placeholder="氏名を入力してください"
           {...register("name", {
             required: "必須項目です。",
           })}
@@ -168,4 +168,4 @@ export const CreatorForm: React.VFC = () => {
   );
 };
 
-export default memo(CreatorForm);
+export default memo(GeneralForm);
