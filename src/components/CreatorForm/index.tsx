@@ -6,8 +6,8 @@ import FormButton from "../FormButton";
 
 type CreatorFormData = {
   name: string;
-  location: string;
   genre: string;
+  location: string;
   birthday: string;
   gender: string;
 };
