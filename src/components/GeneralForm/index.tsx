@@ -4,9 +4,8 @@ import { useForm } from "react-hook-form";
 
 import FormButton from "../FormButton";
 
-type CreatorFormData = {
+type GeneralFormData = {
   name: string;
-  genre: string;
   location: string;
   birthday: string;
   gender: string;
@@ -19,13 +18,13 @@ export const CreatorForm: React.VFC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<CreatorFormData>({
+  } = useForm<GeneralFormData>({
     mode: "onChange",
   });
 
-  const onSubmit = (data: CreatorFormData) => {
+  const onSubmit = (data: GeneralFormData) => {
     console.log(data);
-    router.push("/register/creator/second");
+    router.push("");
   };
 
   return (
@@ -50,36 +49,14 @@ export const CreatorForm: React.VFC = () => {
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
 
-        {/* ジャンル */}
-        <label htmlFor="genre" className="block mt-8 text-base text-gray-400 ">
-          ジャンル
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
-        </label>
-        <input
-          type="text"
-          id="genre"
-          placeholder="例：ロックバンド"
-          {...register("genre", {
-            required: "必須項目です。",
-          })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
-        />
-        {errors.genre && (
-          <p className="text-red-600">{errors.genre?.message}</p>
-        )}
-
         {/* 所在地 */}
         <label
           htmlFor="location"
           className="block mt-8 text-base text-gray-400 "
         >
           所在地
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
         <select
-          {...register("location", {
-            required: true,
-          })}
           id="location"
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
         >
@@ -138,19 +115,12 @@ export const CreatorForm: React.VFC = () => {
           className="block mt-8 text-base text-gray-400 "
         >
           生年月日
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
         <input
-          {...register("birthday", {
-            required: "必須項目です。",
-          })}
           type="date"
           id="birthday"
           className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
         ></input>
-        {errors.birthday && (
-          <p className="text-red-600">{errors.birthday?.message}</p>
-        )}
 
         {/* 性別 */}
         <label className="block mt-8 text-base text-gray-400 ">
@@ -160,7 +130,7 @@ export const CreatorForm: React.VFC = () => {
         <label className="mt-4 mr-14 inline-block">
           <input
             {...register("gender", {
-              required: true,
+              required: "必須項目です。",
             })}
             type="radio"
             value="男性"

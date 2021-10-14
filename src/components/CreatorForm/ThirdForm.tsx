@@ -54,7 +54,7 @@ export const ThirdForm: React.VFC = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         {/* プロフィール画像追加 */}
-        <div {...getRootProps()} className="  w-36 h-36  m-auto ">
+        <div {...getRootProps()} className="w-36 h-36  m-auto rounded-full outline-none">
           <input {...getInputProps()} />
           <Image
             src={img}
