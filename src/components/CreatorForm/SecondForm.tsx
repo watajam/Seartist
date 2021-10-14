@@ -3,7 +3,6 @@ import React, { memo } from "react";
 import { useForm } from "react-hook-form";
 import FormButton from "../FormButton";
 
-
 type SecondFormData = {
   twitterUrl: string;
   instagramUrl: string;
@@ -23,7 +22,7 @@ export const SecondPage: React.VFC = () => {
 
   const onSubmit = (data: SecondFormData) => {
     console.log(data);
-    router.push("");
+    router.push("/register/creator/third");
   };
   return (
     <>
@@ -121,7 +120,7 @@ export const SecondPage: React.VFC = () => {
           <p className="text-red-600">{errors.otherUrl?.message}</p>
         )}
         <div className="mt-14">
-          <FormButton backButtonurl="/register/creator" />
+          <FormButton backButtonurl="/register/creator" title="次へ" />
         </div>
       </form>
     </>

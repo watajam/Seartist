@@ -24,10 +24,10 @@ export const CreatorForm: React.VFC = () => {
   });
 
   const onSubmit = (data: CreatorFormData) => {
-    console.log(data)
+    console.log(data);
     router.push("/register/creator/second");
   };
-  
+
   return (
     <>
       <h1 className="text-2xl font-bold text-center text-orange-300 ">
@@ -177,7 +177,7 @@ export const CreatorForm: React.VFC = () => {
           />
           <span className="ml-2">女性</span>
         </label>
-        <label className="mt-4 mr-14 inline-block">
+        <label className="mt-4 inline-block">
           <input
             {...register("gender", {
               required: "必須項目です。",
@@ -185,13 +185,13 @@ export const CreatorForm: React.VFC = () => {
             type="radio"
             value="その他"
           />
-          <span>その他</span>
+          <span className="ml-2">その他</span>
         </label>
         {errors.gender && (
           <p className="text-red-600">{errors.gender?.message}</p>
         )}
         <div className="mt-14">
-          <FormButton backButtonurl="/selection" />
+          <FormButton backButtonurl="/selection" title="次へ" />
         </div>
       </form>
     </>

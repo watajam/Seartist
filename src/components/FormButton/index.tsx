@@ -3,6 +3,7 @@ import Link from "next/link";
 
 type Props = {
   backButtonurl: string;
+  title: string;
 };
 
 export const index: React.VFC<Props> = (props) => {
@@ -14,7 +15,7 @@ export const index: React.VFC<Props> = (props) => {
         </a>
       </Link>
       <button className="w-12/25  py-3  text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400">
-        次へ
+        {props.title}
       </button>
     </div>
   );
