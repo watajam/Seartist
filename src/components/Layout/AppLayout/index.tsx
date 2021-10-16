@@ -11,7 +11,7 @@ const AppLayout: React.VFC<Props> = (props) => {
     <div className="min-h-screen w-full">
       <Header />
       <BottomNavigation />
-      <div className=" px-5 py-12  ">{props.children}</div>;
+      <div className=" px-5 py-12  ">{props.children}</div>
     </div>
   );
 };
