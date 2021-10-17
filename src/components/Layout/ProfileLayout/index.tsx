@@ -11,7 +11,7 @@ const ProfileLayout: React.VFC<Props> = (props) => {
     <div className="min-h-screen">
       <Header />
       <BottomNavigation />
-      <div className="pt-5 mb-14">{props.children}</div>
+      <div className="pt-5 pb-20">{props.children}</div>
     </div>
   );
 };
