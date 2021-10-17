@@ -6,14 +6,14 @@ type Props = {
   children: React.ReactNode;
 };
 
-const AppLayout: React.VFC<Props> = (props) => {
+const ProfileLayout: React.VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
       <Header />
       <BottomNavigation />
-      <div className=" px-5  mb-14 ">{props.children}</div>
+      <div className="pt-5 mb-14">{props.children}</div>
     </div>
   );
 };
 
-export default memo(AppLayout);
+export default memo(ProfileLayout);
