@@ -55,23 +55,43 @@ const Profile: React.VFC = () => {
         </p>
         <nav className="mt-6">
           <ul className="flex justify-between ">
-            <li className=" bg-gray-400 p-4 rounded-full">
-              <a href="" target="_blank" rel="noopener noreferrer">
+            <li className=" flex">
+              <a
+                href=""
+                target="_blank"
+                rel="noopener noreferrer "
+                className="p-4 rounded-full bg-gray-400 "
+              >
                 <BsInstagram className="text-white w-6 h-6" />
               </a>
             </li>
-            <li className="bg-gray-400 p-4 rounded-full">
-              <a href="" target="_blank" rel="noopener noreferrer">
+            <li className="flex">
+              <a
+                href=""
+                target="_blank"
+                rel="noopener noreferrer "
+                className="p-4 rounded-full bg-gray-400 "
+              >
                 <FiTwitter className="text-white w-6 h-6" />
               </a>
             </li>
-            <li className="bg-gray-400 p-4 rounded-full">
-              <a href="" target="_blank" rel="noopener noreferrer">
+            <li className="flex">
+              <a
+                href=""
+                target="_blank"
+                rel="noopener noreferrer "
+                className="p-4 rounded-full bg-gray-400 "
+              >
                 <IoHomeOutline className="text-white w-6 h-6" />
               </a>
             </li>
-            <li className="bg-gray-400 p-4 rounded-full">
-              <a href="" target="_blank" rel="noopener noreferrer">
+            <li className="flex">
+              <a
+                href=""
+                target="_blank"
+                rel="noopener noreferrer "
+                className="p-4 rounded-full bg-gray-400 "
+              >
                 <FiPaperclip className="text-white w-6 h-6" />
               </a>
             </li>
