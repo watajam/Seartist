@@ -15,41 +15,40 @@ export const BottomNavigation: React.VFC = () => {
   return (
     <aside>
       <nav className="w-full fixed  bottom-0 z-10 bg-orange-400 ">
-        <ul className="flex justify-around">
-          <li className="pt-2 pb-4">
-            <Link href="/posts">
-              <a className="w-full  justify-center inline-block text-center ">
-                {router.pathname === "/posts" ? (
-                  <HiHome className="w-7 h-7  text-white inline-block  " />
-                ) : (
-                  <HiOutlineHome className="w-7 h-7  text-white inline-block  " />
-                )}
-              </a>
-            </Link>
-          </li>
-          <li className="pt-2 pb-4">
-            <Link href="/profile/user">
-              <a className="w-full  justify-center inline-block text-center ">
-                {router.pathname === "/profile/user" ? (
-                  <BiSearchAlt className="w-7 h-7 text-white inline-block  " />
-                ) : (
-                  <BiSearch className="w-7 h-7 text-white inline-block  " />
-                )}
-              </a>
-            </Link>
-          </li>
-          <li className="pt-2 pb-4">
-            <Link href="/profile/[userId]">
-              <a className="w-full  justify-center inline-block text-center ">
-                {router.pathname === "/profile/[userId]" ? (
-                  <HiUserCircle className="w-7 h-7 text-white inline-block  " />
-                ) : (
-                  <BiUserCircle className="w-7 h-7 text-white inline-block  " />
-                )}
-              </a>
-            </Link>
-          </li>
-        </ul>
+        <div className="flex justify-around">
+          <Link href="/posts">
+            <a className="w-full  justify-center inline-block text-center pt-2 pb-3">
+              {router.pathname === "/posts" ? (
+                <HiHome className="w-7 h-7  text-white inline-block  mb-1" />
+              ) : (
+                <HiOutlineHome className="w-7 h-7  text-white inline-block  mb-1" />
+              )}
+              <span className="block text-sm text-white">ホーム</span>
+            </a>
+          </Link>
+
+          <Link href="/profile/user">
+            <a className="w-full  justify-center inline-block text-center pt-2 pb-3">
+              {router.pathname === "/profile/user" ? (
+                <BiSearchAlt className="w-7 h-7 text-white inline-block  mb-1" />
+              ) : (
+                <BiSearch className="w-7 h-7 text-white inline-block  mb-1" />
+              )}
+            <span className="block text-sm text-white">投稿</span>
+            </a>
+          </Link>
+
+          <Link href="/profile/[userId]">
+            <a className="w-full  justify-center inline-block text-center pt-2 pb-3">
+              {router.pathname === "/profile/[userId]" ? (
+                <HiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
+              ) : (
+                <BiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
+              )}
+              <span className="block text-sm text-white">プロフィール</span>
+            </a>
+          </Link>
+        </div>
       </nav>
       <Link href="/posts">
         <a className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4">
