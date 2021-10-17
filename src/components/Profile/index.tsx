@@ -9,6 +9,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { FiPaperclip } from "react-icons/fi";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
+import Posts from "../Posts";
 
 const Profile: React.VFC = () => {
   const [chengePage, setChengePage] = useState(true);
@@ -42,7 +43,7 @@ const Profile: React.VFC = () => {
             </a>
           </Link>
         </div>
-        <h1 className="text-2xl font-bold mt-2">Wataru</h1>
+        <h1 className="text-2xl font-bold mt-2">WATARU</h1>
         <div className="flex items-center text-gray-400">
           <span className="mr-4">@seartist_jp</span>
           <AiOutlineStar />
@@ -56,22 +57,22 @@ const Profile: React.VFC = () => {
           <ul className="flex justify-between ">
             <li className=" bg-gray-400 p-4 rounded-full">
               <a href="" target="_blank" rel="noopener noreferrer">
-                <BsInstagram className="text-white text-2xl" />
+                <BsInstagram className="text-white w-6 h-6" />
               </a>
             </li>
             <li className="bg-gray-400 p-4 rounded-full">
               <a href="" target="_blank" rel="noopener noreferrer">
-                <FiTwitter className="text-white text-2xl" />
+                <FiTwitter className="text-white w-6 h-6" />
               </a>
             </li>
             <li className="bg-gray-400 p-4 rounded-full">
               <a href="" target="_blank" rel="noopener noreferrer">
-                <IoHomeOutline className="text-white text-2xl" />
+                <IoHomeOutline className="text-white w-6 h-6" />
               </a>
             </li>
             <li className="bg-gray-400 p-4 rounded-full">
               <a href="" target="_blank" rel="noopener noreferrer">
-                <FiPaperclip className="text-white text-2xl" />
+                <FiPaperclip className="text-white w-6 h-6" />
               </a>
             </li>
           </ul>
@@ -84,21 +85,21 @@ const Profile: React.VFC = () => {
       {/* タブ */}
       <div className="mt-6 flex">
         <button
-          className={`w-2/4 flex justify-center border-b-2 text-2xl pb-2 ${
+          className={`w-2/4 flex justify-center border-b-2 pb-2 ${
             chengePage ? "border-orange-400" : "border-gray-400"
           }   `}
           onClick={handleChengePage}
           disabled={chengePage}
         >
           <AiOutlineEye
-            className={`text-2xl ${
+            className={`w-6 h-6 ${
               chengePage ? "text-orange-400" : "text-gray-400 "
             }   `}
           />
         </button>
 
         <button
-          className={`w-2/4 flex justify-center border-b-2 text-2xl pb-2 ${
+          className={`w-2/4 flex justify-center border-b-2 pb-2 ${
             chengePage ? "border-gray-400" : " border-orange-400"
           }   `}
           onClick={handleChengePage}
@@ -106,14 +107,16 @@ const Profile: React.VFC = () => {
         >
           <AiOutlineHeart
             onClick={handleChengePage}
-            className={`text-2xl ${
+            className={`w-6 h-6 ${
               chengePage ? "text-gray-400 " : "text-orange-400  "
             }  `}
           />
         </button>
       </div>
 
-      <div className="px-5"></div>
+      <div className="px-5 mt-4">
+        <Posts />
+      </div>
     </>
   );
 };
