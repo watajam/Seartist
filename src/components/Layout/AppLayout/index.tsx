@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { BottomNavigation } from "../../BottomNavigation";
-import Header from "../../Header";
+import AppHeader from "../../Header/AppHeader";
 
 type Props = {
   children: React.ReactNode;
@@ -9,9 +9,9 @@ type Props = {
 const AppLayout: React.VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
-      <Header />
+      <AppHeader />
       <BottomNavigation />
-      <div className=" px-5  pb-20">{props.children}</div>
+      <div className="px-5  py-20">{props.children}</div>
     </div>
   );
 };
