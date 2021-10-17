@@ -8,7 +8,7 @@ type Props = {
 
 const AppLayout: React.VFC<Props> = (props) => {
   return (
-    <div className="min-h-screen w-full">
+    <div className="min-h-screen">
       <Header />
       <BottomNavigation />
       <div className=" px-5  mb-14 ">{props.children}</div>
