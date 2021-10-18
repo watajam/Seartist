@@ -123,17 +123,17 @@ const Profile: React.VFC = () => {
             chengePage ? "border-gray-400" : " border-orange-400"
           }   `}
           onClick={handleChengePage}
-          disabled={chengePage}
+          disabled={!chengePage}
         >
           <AiOutlineHeart
-            onClick={handleChengePage}
             className={`w-6 h-6 ${
               chengePage ? "text-gray-400 " : "text-orange-400  "
             }  `}
           />
         </button>
       </div>
-
+      {console.log(chengePage)}
+      {console.log(!chengePage)}
       <div className="px-5 mt-4">
         <Posts />
       </div>
