@@ -1,20 +1,19 @@
 import React, { memo } from "react";
-import { PostsCord } from "../PostsCord";
+import { ListItem } from "./ListItem";
 
 export const index: React.VFC = () => {
   return (
     <div className="grid gap-6 ">
       {/* テスト */}
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
-      <PostsCord />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
     </div>
   );
 };
