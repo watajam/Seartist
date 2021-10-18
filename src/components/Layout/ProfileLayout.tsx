@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { BottomNavigation } from "../../BottomNavigation";
-import AppHeader from "../../Header/AppHeader";
+import { BottomNavigation } from "../BottomNavigation";
+import AppHeader from "../Header/AppHeader";
 
 type Props = {
   children: React.ReactNode;
