@@ -6,14 +6,14 @@ import Image from "next/image";
 
 import FormButton from "../FormButton";
 
-type ThirdFormData = {
+type SelfLntroductionFormData = {
   image: string;
   twitterUrl: string;
   userId: String;
   writing: string;
 };
 
-export const ThirdForm: React.VFC = () => {
+export const SelfLntroductionFormList: React.VFC = () => {
   const [img, setImg] = useState("/camera.svg");
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export const ThirdForm: React.VFC = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<ThirdFormData>({
+  } = useForm<SelfLntroductionFormData>({
     mode: "onChange",
   });
 
@@ -41,7 +41,7 @@ export const ThirdForm: React.VFC = () => {
     onDrop,
   });
 
-  const onSubmit = (data: ThirdFormData) => {
+  const onSubmit = (data: SelfLntroductionFormData) => {
     console.log(data);
     router.push("");
   };
@@ -54,7 +54,10 @@ export const ThirdForm: React.VFC = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         {/* プロフィール画像追加 */}
-        <div {...getRootProps()} className="w-36 h-36  m-auto rounded-full outline-none">
+        <div
+          {...getRootProps()}
+          className="w-36 h-36  m-auto rounded-full outline-none"
+        >
           <input {...getInputProps()} />
           <Image
             src={img}
@@ -118,11 +121,11 @@ export const ThirdForm: React.VFC = () => {
           <p className="text-red-600">{errors.writing?.message}</p>
         )}
         <div className="mt-14">
-          <FormButton backButtonurl="/register/creator/second" title="始める" />
+          <FormButton backButtonurl="/listener" title="始める" />
         </div>
       </form>
     </>
   );
 };
 
-export default memo(ThirdForm);
+export default memo(SelfLntroductionFormList);

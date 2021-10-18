@@ -6,7 +6,7 @@ type Props = {
   title: string;
 };
 
-export const index: React.VFC<Props> = (props) => {
+export const FormButton: React.VFC<Props> = (props) => {
   return (
     <div className="flex justify-between ">
       <Link href={props.backButtonurl}>
@@ -21,4 +21,4 @@ export const index: React.VFC<Props> = (props) => {
   );
 };
 
-export default memo(index);
+export default memo(FormButton);

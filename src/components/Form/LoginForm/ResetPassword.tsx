@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { sendPasswordResetEmail } from "@firebase/auth";
-import { auth } from "../../../lib/firebase";
+import { auth } from "../../../../lib/firebase";
 import { useRouter } from "next/dist/client/router";
 
 type ResetFormData = {

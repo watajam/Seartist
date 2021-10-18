@@ -1,13 +1,13 @@
 import React from "react";
 import HeaderLayout from "../../components/Layout/HeaderLayout";
-import Login from "../../components/Login";
+import LoginForm from "../../components/Form/LoginForm";
 
-const LoginPage = () => {
+const Login = () => {
     return (
       <HeaderLayout>
-        <Login />
+        <LoginForm />
       </HeaderLayout>
     );
 };
 
-export default LoginPage;
+export default Login;

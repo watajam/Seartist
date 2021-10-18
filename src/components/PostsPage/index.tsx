@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import { ListItem } from "./ListItem";
+import { ListItem } from "../Posts/ListItem";
+
 
 export const Posts: React.VFC = () => {
   return (
