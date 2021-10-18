@@ -34,7 +34,7 @@ export const BottomNavigation: React.VFC = () => {
               ) : (
                 <BiSearch className="w-7 h-7 text-white inline-block  mb-1" />
               )}
-            <span className="block text-sm text-white">投稿</span>
+              <span className="block text-sm text-white">投稿</span>
             </a>
           </Link>
 
@@ -50,11 +50,13 @@ export const BottomNavigation: React.VFC = () => {
           </Link>
         </div>
       </nav>
-      <Link href="/posts">
-        <a className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4">
-          <RiQuillPenLine className="w-6 h-6  text-white " />
-        </a>
-      </Link>
+      {router.pathname === "/posts" ? (
+        <Link href="/posts">
+          <a className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4">
+            <RiQuillPenLine className="w-6 h-6  text-white " />
+          </a>
+        </Link>
+      ) : null}
     </aside>
   );
 };
