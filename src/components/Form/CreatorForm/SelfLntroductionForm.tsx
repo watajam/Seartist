@@ -6,14 +6,14 @@ import Image from "next/image";
 
 import FormButton from "../FormButton";
 
-type SecondFormData = {
+type SelfLntroductionFormData = {
   image: string;
   twitterUrl: string;
   userId: String;
   writing: string;
 };
 
-export const SecondFormData: React.VFC = () => {
+export const SelfLntroductionFormList: React.VFC = () => {
   const [img, setImg] = useState("/camera.svg");
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export const SecondFormData: React.VFC = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<SecondFormData>({
+  } = useForm<SelfLntroductionFormData>({
     mode: "onChange",
   });
 
@@ -41,7 +41,7 @@ export const SecondFormData: React.VFC = () => {
     onDrop,
   });
 
-  const onSubmit = (data: SecondFormData) => {
+  const onSubmit = (data: SelfLntroductionFormData) => {
     console.log(data);
     router.push("");
   };
@@ -121,11 +121,11 @@ export const SecondFormData: React.VFC = () => {
           <p className="text-red-600">{errors.writing?.message}</p>
         )}
         <div className="mt-14">
-          <FormButton backButtonurl="/register/general" title="始める" />
+          <FormButton backButtonurl="/creator/urlform" title="始める" />
         </div>
       </form>
     </>
   );
 };
 
-export default memo(SecondFormData);
+export default memo(SelfLntroductionFormList);

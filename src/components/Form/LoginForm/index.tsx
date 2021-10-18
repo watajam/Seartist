@@ -4,7 +4,7 @@ import MailLogin from "./EmailLogin";
 import GuestLogin from "./GuestLogin";
 import GoogleLogin from "./GoogleLogin";
 
-const Login = () => {
+const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   //ログインと新規作成の切り替え
@@ -31,4 +31,4 @@ const Login = () => {
   );
 };
 
-export default memo(Login);
+export default memo(LoginForm);

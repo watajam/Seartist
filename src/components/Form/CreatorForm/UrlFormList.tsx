@@ -3,26 +3,26 @@ import React, { memo } from "react";
 import { useForm } from "react-hook-form";
 import FormButton from "../FormButton";
 
-type SecondFormData = {
+type UrlFormData = {
   twitterUrl: string;
   instagramUrl: string;
   homepageUrl: String;
   otherUrl: String;
 };
 
-export const SecondPage: React.VFC = () => {
+export const UrlFormList: React.VFC = () => {
   const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SecondFormData>({
+  } = useForm<UrlFormData>({
     mode: "onChange",
   });
 
-  const onSubmit = (data: SecondFormData) => {
+  const onSubmit = (data: UrlFormData) => {
     console.log(data);
-    router.push("/register/creator/third");
+    router.push("/creator/selflntroductionform");
   };
   return (
     <>
@@ -120,11 +120,11 @@ export const SecondPage: React.VFC = () => {
           <p className="text-red-600">{errors.otherUrl?.message}</p>
         )}
         <div className="mt-14">
-          <FormButton backButtonurl="/register/creator" title="次へ" />
+          <FormButton backButtonurl="/creator" title="次へ" />
         </div>
       </form>
     </>
   );
 };
 
-export default memo(SecondPage);
+export default memo(UrlFormList);

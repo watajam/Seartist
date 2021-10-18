@@ -1,6 +1,6 @@
 import React from "react";
 import AppLayout from "../../components/Layout/AppLayout";
-import Posts from "../../components/Posts";
+import { Posts } from "../../components/Posts";
 
 export const PostsPage = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import HeaderLayout from "../../components/Layout/HeaderLayout";
-import { Selection } from "../../components/Selection";
+import Selection from "../../components/Selection";
 
 const SelectionPage = () => {
   return (

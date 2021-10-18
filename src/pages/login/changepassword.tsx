@@ -1,6 +1,6 @@
 import React from "react";
 import HeaderLayout from "../../components/Layout/HeaderLayout";
-import ResetPassword from "../../components/Login/ResetPassword";
+import ResetPassword from "../../components/Form/LoginForm/ResetPassword";
 
 const ChangePasswordPage = () => {
   return (
