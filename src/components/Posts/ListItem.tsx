@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { HiUserCircle } from "react-icons/hi";
 
-export const PostsCord:React.VFC = () => {
+export const ListItem: React.VFC = () => {
   return (
     <div className="shadow rounded-2xl">
       <header className="bg-gray-400 text-white flex  p-4 rounded-t-2xl items-center font-bold text-base ">
@@ -17,8 +17,10 @@ export const PostsCord:React.VFC = () => {
         </p>
         <div className="bg-gray-200 text-center  h-48 mt-6">写真</div>
         <dl className="flex flex-wrap text-base font-bold mt-4">
-          <dt className="w-3/12">開催時間</dt>
-          <dd className="w-3/4">22:00~4:00</dd>
+          <dt className="w-3/12">ジャンル</dt>
+          <dd className="w-3/4">パーティー</dd>
+          <dt className="w-3/12 mt-2">開催時間</dt>
+          <dd className="w-3/4 mt-2">22:00~4:00</dd>
           <dt className="w-3/12 mt-2">開催場所</dt>
           <dd className="mt-2">Zepp Tokyo</dd>
           <dt className="ml-auto mt-2">♡</dt>
@@ -29,4 +31,4 @@ export const PostsCord:React.VFC = () => {
   );
 };
 
-export default memo(PostsCord);
+export default memo(ListItem);
