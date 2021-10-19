@@ -6,9 +6,9 @@ import FormButton from "../FormButton";
 
 type ListenerFormData = {
   name: string;
+  userId: String;
   location: string;
   birthday: string;
-  gender: string;
 };
 
 export const ListenerFormList: React.VFC = () => {
@@ -44,10 +44,46 @@ export const ListenerFormList: React.VFC = () => {
           placeholder="氏名を入力してください"
           {...register("name", {
             required: "必須項目です。",
+            maxLength: {
+              value: 30,
+              message: "氏名は30字以下で入力してください",
+            },
           })}
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
+        {/* ユーザーID */}
+        <label
+          htmlFor="ユーザーID"
+          className="block mt-8 text-base text-gray-400 "
+        >
+          ユーザーID
+          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+        </label>
+        <input
+          type="text"
+          id="ユーザーID"
+          placeholder="例 : seartist_jp"
+          {...register("userId", {
+            required: "必須項目です。",
+            pattern: {
+              value: /[0-9a-zA-Z_]{1,15}/,
+              message: "正しい形式で入力してください",
+            },
+            minLength: {
+              value: 4,
+              message: "ユーザーIDは4文字以上15字以下で入力してください",
+            },
+            maxLength: {
+              value: 15,
+              message: "ユーザーIDは4文字以上15字以下で入力してください",
+            },
+          })}
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+        />
+        {errors.userId && (
+          <p className="text-red-600">{errors.userId?.message}</p>
+        )}
 
         {/* 所在地 */}
         <label
@@ -57,6 +93,7 @@ export const ListenerFormList: React.VFC = () => {
           所在地
         </label>
         <select
+          {...register("location")}
           id="location"
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
         >
@@ -117,49 +154,12 @@ export const ListenerFormList: React.VFC = () => {
           生年月日
         </label>
         <input
+          {...register("birthday")}
           type="date"
           id="birthday"
           className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
         ></input>
 
-        {/* 性別 */}
-        <label className="block mt-8 text-base text-gray-400 ">
-          性別
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
-        </label>
-        <label className="mt-4 mr-14 inline-block">
-          <input
-            {...register("gender", {
-              required: "必須項目です。",
-            })}
-            type="radio"
-            value="男性"
-          />
-          <span className="ml-2">男性</span>
-        </label>
-        <label className="mt-4 mr-14 inline-block">
-          <input
-            {...register("gender", {
-              required: "必須項目です。",
-            })}
-            type="radio"
-            value="女性"
-          />
-          <span className="ml-2">女性</span>
-        </label>
-        <label className="mt-4 inline-block">
-          <input
-            {...register("gender", {
-              required: "必須項目です。",
-            })}
-            type="radio"
-            value="その他"
-          />
-          <span className="ml-2">その他</span>
-        </label>
-        {errors.gender && (
-          <p className="text-red-600">{errors.gender?.message}</p>
-        )}
         <div className="mt-14">
           <FormButton backButtonurl="/selection" title="次へ" />
         </div>
