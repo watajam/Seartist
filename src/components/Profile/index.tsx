@@ -2,13 +2,15 @@ import Link from "next/link";
 
 import React, { memo, useState } from "react";
 import Image from "next/image";
-import { AiOutlineStar } from "react-icons/ai";
 import { BsInstagram } from "react-icons/bs";
 import { FiTwitter } from "react-icons/fi";
 import { IoHomeOutline } from "react-icons/io5";
 import { FiPaperclip } from "react-icons/fi";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
+import { FaBirthdayCake } from "react-icons/fa";
+import { IoLocationSharp } from "react-icons/io5";
 import Posts from "../Posts";
 
 const Profile: React.VFC = () => {
@@ -44,10 +46,14 @@ const Profile: React.VFC = () => {
           </Link>
         </div>
         <h1 className="text-2xl font-bold mt-2">WATARU</h1>
+        <span className="text-gray-400">@seartist_jp</span>
         <div className="flex items-center text-gray-400">
-          <span className="mr-4">@seartist_jp</span>
-          <AiOutlineStar />
-          <span>ギターリスト</span>
+          <AiFillStar className="mr-1" />
+          <span className="mr-4">ギターリスト</span>
+          <IoLocationSharp className="mr-1" />
+          <span className="mr-4">静岡県</span>
+          <FaBirthdayCake className="mr-1" />
+          <span>2000/01/24</span>
         </div>
         <p className="mt-4 text-bold">
           2000年1月24日生まれ静岡県出身
@@ -97,7 +103,7 @@ const Profile: React.VFC = () => {
             </li>
           </ul>
         </nav>
-        <p className=" bg-orange-400 text-white text-center mt-6">
+        <p className=" bg-orange-400 text-white text-center mt-6 p-1">
           プロフィール編集
         </p>
       </div>
