@@ -27,9 +27,9 @@ export const BottomNavigation: React.VFC = () => {
             </a>
           </Link>
 
-          <Link href="/profile/user">
+          <Link href="/explore">
             <a className="w-full  justify-center inline-block text-center pt-2 pb-3">
-              {router.pathname === "/profile/user" ? (
+              {router.pathname === "/explore" ? (
                 <BiSearchAlt className="w-7 h-7 text-white inline-block  mb-1" />
               ) : (
                 <BiSearch className="w-7 h-7 text-white inline-block  mb-1" />
@@ -38,9 +38,9 @@ export const BottomNavigation: React.VFC = () => {
             </a>
           </Link>
 
-          <Link href="/profile/[userId]">
+          <Link href="/profile/1">
             <a className="w-full  justify-center inline-block text-center pt-2 pb-3">
-              {router.pathname === "/profile/[userId]" ? (
+              {router.pathname === "/profile/[id]" ? (
                 <HiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
               ) : (
                 <BiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
@@ -50,7 +50,7 @@ export const BottomNavigation: React.VFC = () => {
           </Link>
         </div>
       </nav>
-      {router.pathname === "/posts" ? (
+      {router.pathname !== `/posts/[id]` ? (
         <Link href="/posts">
           <a className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4">
             <RiQuillPenLine className="w-6 h-6  text-white " />
