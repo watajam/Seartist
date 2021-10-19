@@ -14,7 +14,7 @@ const PostsDetail = () => {
         </div>
       </div>
 
-      <p className="text-lg  font-bold mt-4">
+      <p className="text-base font-bold mt-4">
         XXXXX開催！！ 今回は演出をパワーアップして開催します お待ちしてます！
       </p>
       <div className="bg-gray-200 text-center  h-48 mt-6">写真</div>
