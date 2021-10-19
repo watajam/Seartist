@@ -26,19 +26,19 @@ const Profile: React.VFC = () => {
       <div className="px-5">
         <div className="flex items-center justify-between">
           <Image src="/camera.svg" width={91} height={91} />
-          <Link href="">
+          <Link href="#">
             <a className="flex flex-col items-center font-bold">
               <span>9</span>
               <span>投稿</span>
             </a>
           </Link>
-          <Link href="">
+          <Link href="#">
             <a className="flex flex-col items-center font-bold">
               <span>500</span>
               <span>フォロワー</span>
             </a>
           </Link>
-          <Link href="">
+          <Link href="#">
             <a className="flex flex-col items-center font-bold">
               <span>500</span>
               <span>フォロー中</span>
@@ -138,8 +138,6 @@ const Profile: React.VFC = () => {
           />
         </button>
       </div>
-      {console.log(chengePage)}
-      {console.log(!chengePage)}
       <div className="px-5 mt-4">
         <Posts />
       </div>
