@@ -8,8 +8,6 @@ import FormButton from "../FormButton";
 
 type SelfLntroductionFormData = {
   image: string;
-  twitterUrl: string;
-  userId: String;
   writing: string;
 };
 
@@ -43,7 +41,7 @@ export const SelfLntroductionFormList: React.VFC = () => {
 
   const onSubmit = (data: SelfLntroductionFormData) => {
     console.log(data);
-    router.push("");
+    router.push("/posts");
   };
 
   return (
@@ -75,30 +73,7 @@ export const SelfLntroductionFormList: React.VFC = () => {
           プロフィール写真を追加
         </button>
 
-        {/* ユーザーID */}
-        <label
-          htmlFor="ユーザーID"
-          className="block mt-10 text-base text-gray-400 "
-        >
-          ユーザーID
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
-        </label>
-        <input
-          type="text"
-          id="ユーザーID"
-          placeholder="例 : seartist_jp"
-          {...register("userId", {
-            required: "必須項目です。",
-            pattern: {
-              value: /[0-9a-zA-Z_]{1,15}/,
-              message: "正しい形式で入力してください",
-            },
-          })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
-        />
-        {errors.userId && (
-          <p className="text-red-600">{errors.userId?.message}</p>
-        )}
+       
 
         {/* 自己紹介 */}
         <label
