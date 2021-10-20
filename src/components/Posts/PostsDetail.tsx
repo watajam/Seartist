@@ -28,30 +28,34 @@ const PostsDetail = () => {
         </thead>
         <tbody className="mt-2">
           <tr className="bg-gray-100">
+            <td className="border px-4 py-2">イベント名</td>
+            <td className="border px-4 py-2">Night 2021</td>
+          </tr>
+          <tr>
             <td className="border px-4 py-2">ジャンル</td>
             <td className="border px-4 py-2">パーティー</td>
           </tr>
-          <tr>
+          <tr className="bg-gray-100">
             <td className="border px-4 py-2">開催日</td>
             <td className="border px-4 py-2">2022/01/24</td>
           </tr>
-          <tr className="bg-gray-100">
+          <tr>
             <td className="border px-4 py-2">開催時間</td>
             <td className="border px-4 py-2">22:00~4:00</td>
           </tr>
-          <tr>
+          <tr className="bg-gray-100">
             <td className="border px-4 py-2">開催場所</td>
             <td className="border px-4 py-2">Ageha Tokyo</td>
           </tr>
-          <tr className="bg-gray-100">
+          <tr>
             <td className="border px-4 py-2">値段</td>
             <td className="border px-4 py-2">1000~2000</td>
           </tr>
-          <tr>
+          <tr className="bg-gray-100">
             <td className="border px-4 py-2">チケット</td>
             <td className="border px-4 py-2">あり</td>
           </tr>
-          <tr className="bg-gray-100">
+          <tr>
             <td className="border px-4 py-2">クーポンコード</td>
             <td className="border px-4 py-2">fsfkfksnfk</td>
           </tr>
