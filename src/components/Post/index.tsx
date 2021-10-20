@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { ListItem } from "./ListItem";
 
-export const Posts: React.VFC = () => {
+const Post: React.VFC = () => {
   return (
     <div className="grid gap-6 ">
       {/* テスト */}
@@ -18,4 +18,4 @@ export const Posts: React.VFC = () => {
   );
 };
 
-export default memo(Posts);
+export default memo(Post);

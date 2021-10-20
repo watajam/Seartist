@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { HiUserCircle } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 
-const PostsDetail = () => {
+const PostDetail = () => {
   return (
     <div>
       <div className=" flex  rounded-t-2xl items-center font-bold text-base ">
@@ -69,4 +69,4 @@ const PostsDetail = () => {
   );
 };
 
-export default memo(PostsDetail);
+export default memo(PostDetail);

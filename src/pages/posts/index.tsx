@@ -1,13 +1,13 @@
 import React from "react";
 import AppLayout from "../../components/Layout/AppLayout";
-import { Posts } from "../../components/Posts";
+import Post from "../../components/Post";
 
-export const PostsPage = () => {
+export const Posts = () => {
   return (
     <AppLayout>
-      <Posts />
+      <Post />
     </AppLayout>
   );
 };
 
-export default PostsPage;
+export default Posts;

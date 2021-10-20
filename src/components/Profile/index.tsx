@@ -11,7 +11,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 import { FaBirthdayCake } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
-import Posts from "../Posts";
+import Post from "../Post";
 
 const Profile: React.VFC = () => {
   const [chengePage, setChengePage] = useState(true);
@@ -139,7 +139,7 @@ const Profile: React.VFC = () => {
         </button>
       </div>
       <div className="px-5 mt-4">
-        <Posts />
+        <Post />
       </div>
     </>
   );
