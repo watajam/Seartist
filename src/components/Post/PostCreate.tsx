@@ -220,7 +220,7 @@ const PostCreate: React.VFC = () => {
           開催時間
           <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
-        <div className="flex justify-between">
+        <div className="flex">
           <input
             type="time"
             id="開催時間"
@@ -229,7 +229,7 @@ const PostCreate: React.VFC = () => {
             })}
             className="h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 w-2/5 "
           />
-          <span className="self-center">～</span>
+          <span className="self-center mx-2">～</span>
           <input
             type="time"
             id="開催時間"
@@ -250,11 +250,11 @@ const PostCreate: React.VFC = () => {
         <label htmlFor="値段" className="block mt-8 text-base text-gray-400">
           値段
         </label>
-        <div className="flex justify-between">
+        <div className="flex ">
           <input
             type="number"
             id="値段"
-            placeholder="0000"
+            placeholder="00000000"
             {...register("minAmount", {
               maxLength: {
                 value: 7,
@@ -264,11 +264,11 @@ const PostCreate: React.VFC = () => {
             className="  h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 w-2/5 "
           />
 
-          <span className="self-center">～</span>
+          <span className="self-center mx-2">～</span>
           <input
             type="number"
             id="値段"
-            placeholder="9999"
+            placeholder="9999999"
             {...register("maxAmount", {
               maxLength: {
                 value: 7,
