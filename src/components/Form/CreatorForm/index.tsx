@@ -104,8 +104,10 @@ export const CreatorFormList: React.VFC = () => {
           <option defaultValue="J-POP">J-POP</option>
           <option defaultValue="K-POP">K-POP</option>
           <option defaultValue="HIP-HOP">HIP-HOP</option>
-          <option defaultValue="EDM">EDM</option>
           <option defaultValue="R&B">R&B</option>
+          <option defaultValue="ダンス/エレクトロニック">
+            ダンス/エレクトロニック
+          </option>
           <option defaultValue="アニメ">アニメ</option>
           <option defaultValue="邦楽ロック">邦楽ロック</option>
           <option defaultValue="洋楽ロック">洋楽ロック</option>
@@ -120,6 +122,21 @@ export const CreatorFormList: React.VFC = () => {
           <option defaultValue="インスゥルメンタル">インスゥルメンタル</option>
           <option defaultValue="演歌">演歌</option>
           <option defaultValue="民族音楽">民族音楽</option>
+
+          <option defaultValue="展示会">展示会</option>
+          <option defaultValue="スポーツイベント">スポーツイベント</option>
+          <option defaultValue="講演会">講演会</option>
+          <option defaultValue="祭り">祭り</option>
+          <option defaultValue="フリーマーケット">フリーマーケット</option>
+          <option defaultValue="展示即売会">展示即売会</option>
+          <option defaultValue="セレモニー・式典">セレモニー・式典</option>
+          <option defaultValue="団体・企業の大会">団体・企業の大会</option>
+          <option defaultValue="プロモーションイベント">
+            プロモーションイベント
+          </option>
+          <option defaultValue="学園祭">学園祭</option>
+          <option defaultValue="発表会">発表会</option>
+          <option defaultValue="その他">その他</option>
         </select>
         {errors.genre && (
           <p className="text-red-600">{errors.genre?.message}</p>
