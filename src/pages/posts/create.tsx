@@ -1,13 +1,14 @@
 import React from "react";
 import AppLayout from "../../components/Layout/AppLayout";
-import Post from "../../components/Post";
+import PostCreate from "../../components/Post/PostCreate";
 
-export const Posts = () => {
+
+export const Create = () => {
   return (
     <AppLayout>
-      <Post />
+      <PostCreate />
     </AppLayout>
   );
 };
 
-export default Posts;
+export default Create;

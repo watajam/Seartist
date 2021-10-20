@@ -9,7 +9,7 @@ const HeaderLayout: React.VFC<Props> = (props) => {
   return (
     <div className="min-h-screen ">
       <Header />
-      <div className=" px-5 py-12">{props.children}</div>;
+      <div className=" px-5 py-12">{props.children}</div>
     </div>
   );
 };
