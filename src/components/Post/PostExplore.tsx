@@ -1,7 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import React, { memo } from "react";
 import { useForm } from "react-hook-form";
-import { AiOutlineSearch } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import PostSearch from "./PostSearch";
 
