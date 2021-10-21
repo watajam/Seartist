@@ -51,7 +51,7 @@ export const BottomNavigation: React.VFC = () => {
         </div>
       </nav>
       {router.pathname === `/posts/[id]` ? null : router.pathname ===
-        `/posts/create` ? null : (
+        `/posts/create` ? null : router.pathname === `/explore` ? null : (
         <Link href="/posts/create">
           <a className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4">
             <RiQuillPenLine className="w-6 h-6  text-white " />
