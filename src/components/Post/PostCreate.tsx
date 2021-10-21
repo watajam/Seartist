@@ -45,7 +45,7 @@ const PostCreate: React.VFC = () => {
     if (acceptedFiles.length != 0) setImg(createObjectURL(acceptedFiles[0]));
   }, []);
 
-  const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     accept: ["image/*"],
     onDrop,
   });
