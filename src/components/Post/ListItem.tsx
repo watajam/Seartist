@@ -23,19 +23,19 @@ export const ListItem: React.VFC = () => {
           <table className="table-fixed text-center text-base w-full mt-6 ">
             <tbody className="mt-2">
               <tr className="bg-gray-100">
-                <td className="border px-4 py-2">イベント名</td>
+                <th className="border px-4 py-2">イベント名</th>
                 <td className="border px-4 py-2">Night 2021</td>
               </tr>
               <tr>
-                <td className="border px-4 py-2">ジャンル</td>
+                <th className="border px-4 py-2">ジャンル</th>
                 <td className="border px-4 py-2">パーティー</td>
               </tr>
               <tr className="bg-gray-100">
-                <td className="border px-4 py-2">開催日</td>
+                <th className="border px-4 py-2">開催日</th>
                 <td className="border px-4 py-2">2022/01/24</td>
               </tr>
               <tr>
-                <td className="border px-4 py-2">開催時間</td>
+                <th className="border px-4 py-2">開催時間</th>
                 <td className="border px-4 py-2">22:00~4:00</td>
               </tr>
             </tbody>
