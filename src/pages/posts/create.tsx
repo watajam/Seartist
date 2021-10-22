@@ -1,13 +1,13 @@
 import React from "react";
-import PostCreateLayout from "../../components/Layout/PostCreateLayout";
+import PostCreateAndExploreLayout from "../../components/Layout/PostCreateAndExploreLayout";
 import PostCreate from "../../components/Post/PostCreate";
 
 
 export const Create = () => {
   return (
-    <PostCreateLayout>
+    <PostCreateAndExploreLayout>
       <PostCreate />
-    </PostCreateLayout>
+    </PostCreateAndExploreLayout>
   );
 };
 
