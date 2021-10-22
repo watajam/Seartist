@@ -34,7 +34,7 @@ export const BottomNavigation: React.VFC = () => {
               ) : (
                 <BiSearch className="w-7 h-7 text-white inline-block  mb-1" />
               )}
-              <span className="block text-sm text-white">投稿</span>
+              <span className="block text-sm text-white">検索</span>
             </a>
           </Link>
 
