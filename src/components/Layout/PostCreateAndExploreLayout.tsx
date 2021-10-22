@@ -6,7 +6,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const PostCreateLayout: React.VFC<Props> = (props) => {
+const PostCreateAndExploreLayout: React.VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
       <Header />
@@ -16,4 +16,4 @@ const PostCreateLayout: React.VFC<Props> = (props) => {
   );
 };
 
-export default memo(PostCreateLayout);
+export default memo(PostCreateAndExploreLayout);

@@ -1,11 +1,11 @@
-import AppLayout from "../../components/Layout/AppLayout";
+import PostCreateAndExploreLayout from "../../components/Layout/PostCreateAndExploreLayout";
 import PostExplore from "../../components/Post/PostExplore";
 
 const Explore = () => {
   return (
-    <AppLayout>
+    <PostCreateAndExploreLayout>
       <PostExplore />
-    </AppLayout>
+    </PostCreateAndExploreLayout>
   );
 };
 
