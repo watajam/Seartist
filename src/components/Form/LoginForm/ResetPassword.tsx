@@ -56,7 +56,7 @@ const ResetPassword = () => {
               message: "正しい形式で入力してください",
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.email && (
           <p className="text-red-600">{errors.email?.message}</p>
