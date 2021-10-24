@@ -1,37 +1,17 @@
-import { useRouter } from "next/dist/client/router";
 import React, { memo } from "react";
-import { useForm } from "react-hook-form";
+import { useReactHookForm } from "../../../hooks/uselReactHookForm";
 
-import FormButton from "../FormButton";
-
-type ListenerFormData = {
-  name: string;
-  userId: String;
-  location: string;
-  birthday: string;
+type Props = {
+  children: React.ReactNode;
 };
 
-export const ListenerFormList: React.VFC = () => {
-  const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ListenerFormData>({
-    mode: "onChange",
-  });
-
-  const onSubmit = (data: ListenerFormData) => {
-    console.log(data);
-    router.push("/listener/selflntroductionform");
-  };
+const ListenerProfilrFormList: React.VFC<Props> = (props) => {
+  const { register, handleSubmit, errors, onSubmit } = useReactHookForm(
+    "/listener/selflntroductionform"
+  );
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center text-orange-300 ">
-        プロフィール登録
-      </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 氏名 */}
         <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
@@ -49,7 +29,7 @@ export const ListenerFormList: React.VFC = () => {
               message: "氏名は30字以下で入力してください",
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
         {/* ユーザーID */}
@@ -79,7 +59,7 @@ export const ListenerFormList: React.VFC = () => {
               message: "ユーザーIDは4文字以上15字以下で入力してください",
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.userId && (
           <p className="text-red-600">{errors.userId?.message}</p>
@@ -160,12 +140,10 @@ export const ListenerFormList: React.VFC = () => {
           className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
         ></input>
 
-        <div className="mt-14">
-          <FormButton backButtonurl="/selection" title="次へ" />
-        </div>
+        <div className="mt-14">{props.children}</div>
       </form>
     </>
   );
 };
 
-export default memo(ListenerFormList);
+export default memo(ListenerProfilrFormList);

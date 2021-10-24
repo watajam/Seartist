@@ -1,11 +1,17 @@
-
-import { UrlFormList } from "../../components/Form/CreatorForm/UrlFormList";
+import UrlFormList from "../../components/Form/FormList/UrlFormList";
+import FormButton from "../../components/Form/FormButton";
 import HeaderLayout from "../../components/Layout/HeaderLayout";
+import FormProfileTitle from "../../components/Form/FormProfileTitle";
+import SelfLntroductionFormSubTitle from "../../components/Form/SelfLntroductionFormSubTitle";
 
-export const UrlForm = () => {
+const UrlForm = () => {
   return (
     <HeaderLayout>
-      <UrlFormList />
+      <FormProfileTitle />
+      <SelfLntroductionFormSubTitle />
+      <UrlFormList>
+        <FormButton backButtonUrl="/creator" title="次へ" />
+      </UrlFormList>
     </HeaderLayout>
   );
 };

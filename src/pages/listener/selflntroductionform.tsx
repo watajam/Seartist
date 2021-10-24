@@ -1,10 +1,15 @@
-import SelfLntroductionFormList from "../../components/Form/ListenerForm/SelfLntroductionForm";
+import FormButton from "../../components/Form/FormButton";
+import SelfLntroductionFormList from "../../components/Form/FormList/SelfLntroductionFormList";
+import FormProfileTitle from "../../components/Form/FormProfileTitle";
 import HeaderLayout from "../../components/Layout/HeaderLayout";
 
-export const SelfLntroductionForm = () => {
+const SelfLntroductionForm = () => {
   return (
     <HeaderLayout>
-      <SelfLntroductionFormList />
+      <FormProfileTitle />
+      <SelfLntroductionFormList>
+        <FormButton backButtonUrl="/listener" title="始める" />
+      </SelfLntroductionFormList>
     </HeaderLayout>
   );
 };

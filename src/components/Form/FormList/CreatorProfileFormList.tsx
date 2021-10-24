@@ -1,38 +1,16 @@
-import { useRouter } from "next/dist/client/router";
 import React, { memo } from "react";
-import { useForm } from "react-hook-form";
+import { useReactHookForm } from "../../../hooks/uselReactHookForm";
 
-import FormButton from "../FormButton";
-
-type CreatorFormData = {
-  name: string;
-  userId: string;
-  genre: string;
-  location: string;
-  birthday: string;
+type Props = {
+  children: React.ReactNode;
 };
 
-export const CreatorFormList: React.VFC = () => {
-  const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<CreatorFormData>({
-    mode: "onChange",
-  });
-
-  const onSubmit = (data: CreatorFormData) => {
-    console.log(data);
-    router.push("/creator/urlform");
-  };
+const CreatorProfileFormList: React.VFC<Props> = (props) => {
+  const { register, handleSubmit, errors, onSubmit } =
+    useReactHookForm("/creator/urlform");
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center text-orange-300 ">
-        プロフィール登録
-      </h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 氏名/アーティスト名 */}
         <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
@@ -50,7 +28,7 @@ export const CreatorFormList: React.VFC = () => {
               message: "氏名 or アーティスト名は30字以下で入力してください",
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
 
@@ -81,7 +59,7 @@ export const CreatorFormList: React.VFC = () => {
               message: "ユーザーIDは4文字以上15字以下で入力してください",
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.userId && (
           <p className="text-red-600">{errors.userId?.message}</p>
@@ -97,7 +75,7 @@ export const CreatorFormList: React.VFC = () => {
             required: true,
           })}
           id="genre"
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         >
           <option defaultValue="アーティスト">アーティスト</option>
           <option defaultValue="イベント主催者">イベント主催者</option>
@@ -155,7 +133,7 @@ export const CreatorFormList: React.VFC = () => {
             required: true,
           })}
           id="location"
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         >
           <option defaultValue="北海道">北海道</option>
           <option defaultValue="青森県">青森県</option>
@@ -220,18 +198,16 @@ export const CreatorFormList: React.VFC = () => {
           })}
           type="date"
           id="birthday"
-          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         ></input>
         {errors.birthday && (
           <p className="text-red-600">{errors.birthday?.message}</p>
         )}
 
-        <div className="mt-14">
-          <FormButton backButtonurl="/selection" title="次へ" />
-        </div>
+        <div className="mt-14">{props.children}</div>
       </form>
     </>
   );
 };
 
-export default memo(CreatorFormList);
+export default memo(CreatorProfileFormList);
