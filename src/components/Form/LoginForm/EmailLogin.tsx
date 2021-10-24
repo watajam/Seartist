@@ -72,7 +72,7 @@ const EmailLogin: React.VFC<Props> = (props) => {
               message: "正しい形式で入力してください",
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
 
         {errors.email && (
@@ -100,7 +100,7 @@ const EmailLogin: React.VFC<Props> = (props) => {
               message: "パスワードは6文字数以上16文字以下で入力してください",
             },
           })}
-          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300"
+          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
 
         {errors.password && (

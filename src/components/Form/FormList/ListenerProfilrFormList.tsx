@@ -75,7 +75,7 @@ const ListenerProfilrFormList: React.VFC<Props> = (props) => {
         <select
           {...register("location")}
           id="location"
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         >
           <option defaultValue="北海道">北海道</option>
           <option defaultValue="青森県">青森県</option>
@@ -137,7 +137,7 @@ const ListenerProfilrFormList: React.VFC<Props> = (props) => {
           {...register("birthday")}
           type="date"
           id="birthday"
-          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         ></input>
 
         <div className="mt-14">{props.children}</div>
