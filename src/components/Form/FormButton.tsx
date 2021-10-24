@@ -2,14 +2,14 @@ import React, { memo } from "react";
 import Link from "next/link";
 
 type Props = {
-  backButtonurl: string;
+  backButtonUrl: string;
   title: string;
 };
 
-export const FormButton: React.VFC<Props> = (props) => {
+ const FormButton: React.VFC<Props> = (props) => {
   return (
     <div className="flex justify-between ">
-      <Link href={props.backButtonurl}>
+      <Link href={props.backButtonUrl}>
         <a className="w-12/25   text-center inline-block py-3  text-2xl font-bold text-white rounded-xl bg-gray-400 hover:bg-gray-500">
           戻る
         </a>

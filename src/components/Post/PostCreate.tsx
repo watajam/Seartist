@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
-import { FormButton } from "../Form/FormButton";
+import FormButton from "../Form/FormButton";
 
 type PostCreateFormData = {
   image: string;
@@ -398,7 +398,7 @@ const PostCreate: React.VFC = () => {
         </label>
 
         <div className="mt-8">
-          <FormButton backButtonurl="/posts" title="投稿" />
+          <FormButton backButtonUrl="/posts" title="投稿" />
         </div>
       </form>
     </>
