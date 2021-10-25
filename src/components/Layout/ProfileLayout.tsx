@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { BottomNavigation } from "../BottomNavigation";
+import { PostBottomNavigation } from "../BottomNavigation/PostBottomNavigation";
 import AppHeader from "../Header/AppHeader";
 
 type Props = {
@@ -10,7 +10,7 @@ const ProfileLayout: React.VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
       <AppHeader />
-      <BottomNavigation />
+      <PostBottomNavigation />
       <div className="py-20">{props.children}</div>
     </div>
   );
