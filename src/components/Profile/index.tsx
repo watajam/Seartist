@@ -33,7 +33,7 @@ const Profile: React.VFC = () => {
       <ProfileEditingModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="px-5">
         <div className="flex items-center justify-between">
-          <Image src="/camera.svg" width={91} height={91} />
+          <Image src="/camera.svg" width={96} height={96} />
           <Link href="#">
             <a className="flex flex-col items-center font-bold">
               <span>9</span>

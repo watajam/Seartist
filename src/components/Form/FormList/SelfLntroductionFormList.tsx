@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import Image from "next/image";
 import { useReactHookForm } from "../../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../../hooks/useReactDropzon";
+import { AiOutlineCamera } from "react-icons/ai";
 
 type Props = {
   children: React.ReactNode;
@@ -20,15 +20,15 @@ const SelfLntroductionFormList: React.VFC<Props> = (props) => {
         {/* プロフィール画像追加 */}
         <div
           {...getRootProps()}
-          className="w-36 h-36  m-auto rounded-full outline-none appearance-none"
+          className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200 relative"
         >
+          <span className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <AiOutlineCamera className="w-6 h-6" />
+          </span>
           <input {...getInputProps()} />
-          <Image
+          <img
             src={img}
-            alt="プロフィールアイコン"
-            width={144}
-            height={144}
-            className="w-36   rounded-full object-cover "
+            className="object-cover h-24 w-24  rounded-full  m-auto  relative "
           />
         </div>
         <button
@@ -36,7 +36,7 @@ const SelfLntroductionFormList: React.VFC<Props> = (props) => {
           className=" text-base text-gray-400 mt-4 block m-auto"
           type="button"
         >
-          プロフィール写真を追加
+          プロフィール写真を変更
         </button>
 
         {/* 自己紹介 */}

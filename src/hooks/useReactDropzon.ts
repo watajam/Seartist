@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 export const useReactDropzon = () => {
-  const [img, setImg] = useState("/camera.svg");
+  const [img, setImg] = useState("");
 
   // URL.createObjectURL() を用いて画像パスをセットします。
   const onDrop = useCallback((acceptedFiles) => {
