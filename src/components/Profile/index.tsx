@@ -12,17 +12,10 @@ import { AiFillStar } from "react-icons/ai";
 import { FaBirthdayCake } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import Post from "../Post";
-import ProfileEditingModal from "./ProfileEditingModal";
 
 const Profile: React.VFC = () => {
   const [chengePage, setChengePage] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
 
-  const handleIsOpen = () => {
-    setIsOpen((prevIsOpen) => {
-      return !prevIsOpen;
-    });
-  };
   const handleChengePage = () => {
     setChengePage((prevChengePage) => {
       return !prevChengePage;
@@ -30,7 +23,6 @@ const Profile: React.VFC = () => {
   };
   return (
     <>
-      <ProfileEditingModal isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="px-5">
         <div className="flex items-center justify-between">
           <Image src="/camera.svg" width={96} height={96} />
@@ -111,12 +103,11 @@ const Profile: React.VFC = () => {
             </li>
           </ul>
         </nav>
-        <p
-          onClick={handleIsOpen}
-          className=" bg-orange-400 text-white text-center mt-6 p-1"
-        >
-          プロフィール編集
-        </p>
+        <Link href="/profile/editprofile">
+          <a className="bg-orange-400 text-white text-center mt-6 p-1 block">
+            プロフィール編集
+          </a>
+        </Link>
       </div>
 
       {/* タブ */}
