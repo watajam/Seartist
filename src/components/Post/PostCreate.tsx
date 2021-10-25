@@ -1,59 +1,16 @@
-import { useRouter } from "next/dist/client/router";
-import React, { memo, useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDropzone } from "react-dropzone";
+import React, { memo } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import FormButton from "../Form/FormButton";
-
-type PostCreateFormData = {
-  image: string;
-  writing: string;
-  eventName: string;
-  genre: string;
-  location: string;
-  eventLocation: string;
-  eventDate: string;
-  openTime: string;
-  closeTime: string;
-  minAmount: string;
-  maxAmount: string;
-  coupon: string;
-  tickets: string;
-};
+import { useReactHookForm } from "../../hooks/uselReactHookForm";
+import { useReactDropzon } from "../../hooks/useReactDropzon";
 
 const PostCreate: React.VFC = () => {
-  const [img, setImg] = useState("");
-  const router = useRouter();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<PostCreateFormData>({
-    mode: "onChange",
-  });
+  const { register, handleSubmit, errors, onSubmit, setValue } =
+    useReactHookForm("/posts");
+  const { getRootProps, getInputProps, open, img } = useReactDropzon();
 
   setValue("image", img);
-
-  // URL.createObjectURL() を用いて画像パスをセットします。
-  const onDrop = useCallback((acceptedFiles) => {
-    const createObjectURL = (window.URL || window.webkitURL).createObjectURL;
-
-    //追加画像は１枚まで
-    if (acceptedFiles.length != 0) setImg(createObjectURL(acceptedFiles[0]));
-  }, []);
-
-  const { getRootProps, getInputProps, open } = useDropzone({
-    accept: ["image/*"],
-    onDrop,
-  });
-
-  const onSubmit = (data: PostCreateFormData) => {
-    console.log(data);
-    router.push("/posts");
-  };
 
   return (
     <>

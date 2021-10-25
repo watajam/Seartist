@@ -1,22 +1,9 @@
-import { useRouter } from "next/dist/client/router";
 import React, { memo } from "react";
-import { useForm } from "react-hook-form";
 import { AiOutlineSearch } from "react-icons/ai";
-
-type PostExploreData = {
-  search: string;
-};
+import { useReactHookForm } from "../../hooks/uselReactHookForm";
 
 const PostExplore: React.VFC = () => {
-  const router = useRouter();
-  const { register, handleSubmit } = useForm<PostExploreData>({
-    mode: "onChange",
-  });
-
-  const onSubmit = (data: PostExploreData) => {
-    console.log(data);
-    router.push("/posts");
-  };
+  const { register, handleSubmit, onSubmit } = useReactHookForm("/posts");
 
   return (
     <>

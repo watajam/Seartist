@@ -1,64 +1,24 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo } from "react";
 import { Dialog } from "@headlessui/react";
-import { useDropzone } from "react-dropzone";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/dist/client/router";
 import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Disclosure } from "@headlessui/react";
 import ProfileEditingLayout from "../Layout/ProfileEditingLayout";
+import { useReactHookForm } from "../../hooks/uselReactHookForm";
+import { useReactDropzon } from "../../hooks/useReactDropzon";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-type ProfileEditingFormData = {
-  image: string;
-  name: string;
-  userId: string;
-  writing: string;
-  genre: string;
-  location: string;
-  birthday: string;
-  twitterUrl: string;
-  instagramUrl: string;
-  homepageUrl: String;
-  otherUrl: String;
-};
-
 const ProfileEditingModal: React.VFC<Props> = (props) => {
-  const [img, setImg] = useState("");
-  const router = useRouter();
+  const { register, handleSubmit, errors, onSubmit, setValue } =
+    useReactHookForm("/posts");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm<ProfileEditingFormData>({
-    mode: "onChange",
-  });
+  const { getRootProps, getInputProps, open, img } = useReactDropzon();
 
   setValue("image", img);
-
-  // URL.createObjectURL() を用いて画像パスをセットします。
-  const onDrop = useCallback((acceptedFiles) => {
-    const createObjectURL = (window.URL || window.webkitURL).createObjectURL;
-
-    //追加画像は１枚まで
-    if (acceptedFiles.length != 0) setImg(createObjectURL(acceptedFiles[0]));
-  }, []);
-
-  const { getRootProps, getInputProps, open } = useDropzone({
-    accept: ["image/*"],
-    onDrop,
-  });
-
-  const onSubmit = (data: ProfileEditingFormData) => {
-    console.log(data);
-    router.push("/posts");
-  };
 
   return (
     <>

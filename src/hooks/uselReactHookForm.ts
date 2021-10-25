@@ -14,6 +14,16 @@ type FormData = {
   instagramUrl: string;
   homepageUrl: String;
   otherUrl: String;
+  eventName: string;
+  eventLocation: string;
+  eventDate: string;
+  openTime: string;
+  closeTime: string;
+  minAmount: string;
+  maxAmount: string;
+  coupon: string;
+  tickets: string;
+  search: string;
 };
 
 export const useReactHookForm = (url: string) => {
