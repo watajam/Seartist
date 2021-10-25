@@ -6,9 +6,10 @@ import { BiSearchAlt } from "react-icons/bi";
 import { BiSearch } from "react-icons/bi";
 import { BiUserCircle } from "react-icons/bi";
 import { HiUserCircle } from "react-icons/hi";
+import { RiQuillPenLine } from "react-icons/ri";
 import { useRouter } from "next/dist/client/router";
 
-export const BottomNavigation: React.VFC = () => {
+export const PostBottomNavigation: React.VFC = () => {
   const router = useRouter();
 
   return (
@@ -49,8 +50,14 @@ export const BottomNavigation: React.VFC = () => {
           </Link>
         </div>
       </nav>
+
+      <Link href="/posts/create">
+        <a className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4">
+          <RiQuillPenLine className="w-6 h-6  text-white " />
+        </a>
+      </Link>
     </aside>
   );
 };
 
-export default memo(BottomNavigation);
+export default memo(PostBottomNavigation);
