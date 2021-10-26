@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { useReactHookForm } from "../../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../../hooks/useReactDropzon";
 import { AiOutlineCamera } from "react-icons/ai";
+import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ const SelfLntroductionFormList: React.VFC<Props> = (props) => {
 
   return (
     <>
+      <FormProfileTitle title="プロフィール編集" />
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         {/* プロフィール画像追加 */}
         <div

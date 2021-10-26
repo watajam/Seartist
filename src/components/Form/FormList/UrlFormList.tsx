@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { useReactHookForm } from "../../../hooks/uselReactHookForm";
+import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
   children: React.ReactNode;
@@ -12,6 +13,10 @@ const UrlFormList: React.VFC<Props> = (props) => {
 
   return (
     <>
+      <FormProfileTitle title="プロフィール編集" />
+      <p className="text-base font-bold text-center text-gray-400 underline mt-6">
+        URLを入力するとプロフィールに表示されます
+      </p>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Twitter */}
         <label

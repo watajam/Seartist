@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import { useReactHookForm } from "../../../hooks/uselReactHookForm";
+import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
   children: React.ReactNode;
@@ -11,6 +12,7 @@ const CreatorProfileFormList: React.VFC<Props> = (props) => {
 
   return (
     <>
+      <FormProfileTitle title="プロフィール編集" />
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 氏名/アーティスト名 */}
         <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
