@@ -3,7 +3,7 @@ import { HiUserCircle } from "react-icons/hi";
 import { AiOutlineHeart } from "react-icons/ai";
 import Link from "next/link";
 
-export const ListItem: React.VFC = () => {
+const ListItem: React.VFC = () => {
   return (
     <Link href={`/posts/${1}`}>
       <a className="shadow rounded-2xl">
