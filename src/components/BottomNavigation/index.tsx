@@ -8,7 +8,7 @@ import { BiUserCircle } from "react-icons/bi";
 import { HiUserCircle } from "react-icons/hi";
 import { useRouter } from "next/dist/client/router";
 
-export const BottomNavigation: React.VFC = () => {
+const BottomNavigation: React.VFC = () => {
   const router = useRouter();
 
   return (

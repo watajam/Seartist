@@ -9,7 +9,7 @@ import { HiUserCircle } from "react-icons/hi";
 import { RiQuillPenLine } from "react-icons/ri";
 import { useRouter } from "next/dist/client/router";
 
-export const PostBottomNavigation: React.VFC = () => {
+const PostBottomNavigation: React.VFC = () => {
   const router = useRouter();
 
   return (
