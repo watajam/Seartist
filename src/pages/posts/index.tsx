@@ -1,12 +1,12 @@
 import React from "react";
-import AppLayout from "../../components/Layout/AppLayout";
+import PostLayout from "../../components/Layout/PostLayout";
 import Post from "../../components/Post";
 
 export const Posts = () => {
   return (
-    <AppLayout>
+    <PostLayout>
       <Post />
-    </AppLayout>
+    </PostLayout>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { BottomNavigation } from "../BottomNavigation";
+import BottomNavigation from "../BottomNavigation";
 import PostDetailHeader from "../Header/PostDetailHeader";
 
 type Props = {

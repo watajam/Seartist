@@ -1,10 +1,14 @@
 import React, { memo } from "react";
 
-const FormProfileTitle: React.VFC = () => {
+type Props = {
+  title: string;
+};
+
+const FormProfileTitle: React.VFC<Props> = (props) => {
   return (
     <>
       <h1 className="text-2xl font-bold text-center text-orange-300 ">
-        プロフィール登録
+        {props.title}
       </h1>
     </>
   );

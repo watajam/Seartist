@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useReactHookForm } from "../../hooks/uselReactHookForm";
+import FormProfileTitle from "../Form/FormProfileTitle";
 import PostSearch from "./PostSearch";
 
 
@@ -10,7 +11,7 @@ const PostExplore: React.VFC = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center text-orange-300 ">検索</h1>
+      <FormProfileTitle title="検索" />
       <PostSearch />
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <h2 className=" text-base text-gray-400 mt-10 underline">

@@ -4,6 +4,7 @@ import { AiFillCaretDown } from "react-icons/ai";
 import FormButton from "../Form/FormButton";
 import { useReactHookForm } from "../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../hooks/useReactDropzon";
+import FormProfileTitle from "../Form/FormProfileTitle";
 
 const PostCreate: React.VFC = () => {
   const { register, handleSubmit, errors, onSubmit, setValue } =
@@ -14,9 +15,7 @@ const PostCreate: React.VFC = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center text-orange-300 ">
-        投稿作成
-      </h1>
+      <FormProfileTitle title="投稿作成" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         {/* 投稿写真 */}
