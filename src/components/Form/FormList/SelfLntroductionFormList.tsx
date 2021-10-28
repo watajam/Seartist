@@ -1,14 +1,14 @@
-import React, { memo } from "react";
+import React, { memo, ReactNode, VFC } from "react";
 import { useReactHookForm } from "../../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../../hooks/useReactDropzon";
 import { AiOutlineCamera } from "react-icons/ai";
 import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const SelfLntroductionFormList: React.VFC<Props> = (props) => {
+const SelfLntroductionFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit, setValue } =
     useReactHookForm("/posts");
   const { getRootProps, getInputProps, open, img } = useReactDropzon();

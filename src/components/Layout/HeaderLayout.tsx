@@ -1,11 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, ReactNode, VFC } from "react";
 import Header from "../Header";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const HeaderLayout: React.VFC<Props> = (props) => {
+const HeaderLayout: VFC<Props> = (props) => {
   return (
     <div className="min-h-screen ">
       <Header />

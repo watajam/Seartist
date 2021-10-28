@@ -1,12 +1,12 @@
+import React, { memo, VFC } from "react";
 import { signInWithPopup } from "@firebase/auth";
 import { useRouter } from "next/dist/client/router";
-import React, { memo } from "react";
 
 import { FcGoogle } from "react-icons/fc";
 import { auth, provider } from "../../../../lib/firebase";
 
 //Googleログイン
-const GoogleLogin = () => {
+const GoogleLogin: VFC = () => {
   const router = useRouter();
 
   //Googleログイン

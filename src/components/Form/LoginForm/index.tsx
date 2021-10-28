@@ -1,10 +1,10 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useState, VFC } from "react";
 
 import MailLogin from "./EmailLogin";
 import GuestLogin from "./GuestLogin";
 import GoogleLogin from "./GoogleLogin";
 
-const LoginForm = () => {
+const LoginForm: VFC = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   //ログインと新規作成の切り替え

@@ -1,7 +1,7 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import ListItem from "./ListItem";
 
-const Post: React.VFC = () => {
+const Post: VFC = () => {
   return (
     <div className="grid gap-6 ">
       {/* テスト */}

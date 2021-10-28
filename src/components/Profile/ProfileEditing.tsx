@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Disclosure } from "@headlessui/react";
@@ -6,7 +6,7 @@ import { useReactHookForm } from "../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../hooks/useReactDropzon";
 import ProfileEditHeader from "../Header/ProfileEditHeader";
 
-const ProfileEditing: React.VFC = () => {
+const ProfileEditing: VFC = () => {
   const { register, handleSubmit, errors, onSubmit, setValue } =
     useReactHookForm("/posts");
 

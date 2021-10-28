@@ -1,11 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, ReactNode, VFC } from "react";
 import BottomNavigation from "../BottomNavigation";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const ProfileEditLayout: React.VFC<Props> = (props) => {
+const ProfileEditLayout: VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
       <BottomNavigation />
