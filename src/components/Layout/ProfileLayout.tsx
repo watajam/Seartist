@@ -1,6 +1,6 @@
 import React, { memo, ReactNode, VFC } from "react";
 import PostBottomNavigation from "../BottomNavigation/PostBottomNavigation";
-import PostAndProfileHeader from "../Header/PostAndProfileHeader.tsx";
+import ProfileHeader from "../Header/ProfileHeader";
 
 type Props = {
   children: ReactNode;
@@ -9,7 +9,7 @@ type Props = {
 const ProfileLayout: VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
-      <PostAndProfileHeader />
+      <ProfileHeader />
       <PostBottomNavigation />
       <div className="py-20">{props.children}</div>
     </div>
