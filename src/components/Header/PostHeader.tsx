@@ -1,6 +1,6 @@
 import React, { memo, VFC } from "react";
 
-const PostAndProfileHeader: VFC = () => {
+const PostHeader: VFC = () => {
   return (
     <header className="px-4 py-3 text-4xl font-bold text-white bg-orange-300 fixed w-full bg-opacity-95 z-10">
       Seartist
@@ -8,4 +8,4 @@ const PostAndProfileHeader: VFC = () => {
   );
 };
 
-export default memo(PostAndProfileHeader);
+export default memo(PostHeader);
