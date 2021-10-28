@@ -1,9 +1,9 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import { HiUserCircle } from "react-icons/hi";
 import { AiOutlineHeart } from "react-icons/ai";
 import Link from "next/link";
 
-const ListItem: React.VFC = () => {
+const ListItem: VFC = () => {
   return (
     <Link href={`/posts/${1}`}>
       <a className="shadow rounded-2xl">
@@ -19,7 +19,9 @@ const ListItem: React.VFC = () => {
             XXXXX開催！！ 今回は演出をパワーアップして開催します
             お待ちしてます！
           </p>
-          <div className="bg-gray-200 text-center  h-48 mt-6 rounded-2xl">写真</div>
+          <div className="bg-gray-200 text-center  h-48 mt-6 rounded-2xl">
+            写真
+          </div>
           <table className="table-fixed text-center text-base w-full mt-6 ">
             <tbody className="mt-2">
               <tr className="bg-gray-100">

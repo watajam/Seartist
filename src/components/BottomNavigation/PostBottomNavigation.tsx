@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import Link from "next/link";
 import { HiHome } from "react-icons/hi";
 import { HiOutlineHome } from "react-icons/hi";
@@ -9,7 +9,7 @@ import { HiUserCircle } from "react-icons/hi";
 import { RiQuillPenLine } from "react-icons/ri";
 import { useRouter } from "next/dist/client/router";
 
-const PostBottomNavigation: React.VFC = () => {
+const PostBottomNavigation: VFC = () => {
   const router = useRouter();
 
   return (

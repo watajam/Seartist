@@ -1,9 +1,8 @@
-import React from "react";
+import React, { VFC } from "react";
 import PostCreateAndExploreLayout from "../../components/Layout/PostCreateAndExploreLayout";
 import PostCreate from "../../components/Post/PostCreate";
 
-
-export const Create = () => {
+export const Create: VFC = () => {
   return (
     <PostCreateAndExploreLayout>
       <PostCreate />

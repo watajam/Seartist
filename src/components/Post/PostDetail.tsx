@@ -1,8 +1,8 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import { HiUserCircle } from "react-icons/hi";
 import { FiHeart } from "react-icons/fi";
 
-const PostDetail = () => {
+const PostDetail:VFC = () => {
   return (
     <div>
       <div className=" flex  rounded-t-2xl items-center font-bold text-base ">

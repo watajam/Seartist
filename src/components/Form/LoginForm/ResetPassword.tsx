@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { sendPasswordResetEmail } from "@firebase/auth";
@@ -9,7 +9,7 @@ type ResetFormData = {
   email: string;
 };
 
-const ResetPassword = () => {
+const ResetPassword: VFC = () => {
   const router = useRouter();
 
   const {

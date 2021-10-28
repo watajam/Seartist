@@ -1,7 +1,7 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import Link from "next/link";
 
-const Selection: React.VFC = () => {
+const Selection: VFC = () => {
   return (
     <>
       <h1 className="text-xl font-bold text-center text-gray-400 underline mt-8">
@@ -15,7 +15,9 @@ const Selection: React.VFC = () => {
       <hr className="mt-14 border-gray-400" />
       <Link href="/creator">
         <a className="w-full block  py-3 text-center mt-14 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400">
-          アーティストや<br/>イベント主催者の方はこちら
+          アーティストや
+          <br />
+          イベント主催者の方はこちら
         </a>
       </Link>
     </>

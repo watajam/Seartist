@@ -1,12 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, ReactNode, VFC } from "react";
 import { useReactHookForm } from "../../../hooks/uselReactHookForm";
 import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const CreatorProfileFormList: React.VFC<Props> = (props) => {
+const CreatorProfileFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit } =
     useReactHookForm("/creator/urlform");
 

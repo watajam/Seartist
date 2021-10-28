@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import FormButton from "../Form/FormButton";
@@ -6,7 +6,7 @@ import { useReactHookForm } from "../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../hooks/useReactDropzon";
 import FormProfileTitle from "../Form/FormProfileTitle";
 
-const PostCreate: React.VFC = () => {
+const PostCreate: VFC = () => {
   const { register, handleSubmit, errors, onSubmit, setValue } =
     useReactHookForm("/posts");
   const { getRootProps, getInputProps, open, img } = useReactDropzon();

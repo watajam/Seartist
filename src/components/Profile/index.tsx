@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import React, { memo, useState } from "react";
+import React, { memo, useState, VFC } from "react";
 import Image from "next/image";
 import { BsInstagram } from "react-icons/bs";
 import { FiTwitter } from "react-icons/fi";
@@ -13,7 +13,7 @@ import { FaBirthdayCake } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import Post from "../Post";
 
-const Profile: React.VFC = () => {
+const Profile: VFC = () => {
   const [chengePage, setChengePage] = useState(true);
 
   const handleChengePage = () => {

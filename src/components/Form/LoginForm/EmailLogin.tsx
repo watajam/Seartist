@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import {
@@ -18,7 +18,7 @@ type Props = {
   handleIsLogin: (e: React.MouseEvent<HTMLParagraphElement>) => void;
 };
 
-const EmailLogin: React.VFC<Props> = (props) => {
+const EmailLogin: VFC<Props> = (props) => {
   const router = useRouter();
 
   const {

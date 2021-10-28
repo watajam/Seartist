@@ -1,12 +1,9 @@
-import type { NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
+import { VFC } from "react";
 
-import styles from "../styles/Home.module.css";
-
-const Home: NextPage = () => {
+const Home: VFC = () => {
   return (
-    <div className={styles.container}>
+    <div className="flex justify-center items-center min-h-screen">
       <Link href="/login">
         <a className="inline-block text-base text-orange-200 underline cursor-pointer hover:text-orange-400 ">
           ログインページへ

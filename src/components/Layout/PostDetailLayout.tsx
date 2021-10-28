@@ -1,12 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, ReactNode, VFC } from "react";
 import BottomNavigation from "../BottomNavigation";
 import PostDetailHeader from "../Header/PostDetailHeader";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const PostDetailLayout: React.VFC<Props> = (props) => {
+const PostDetailLayout: VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
       <PostDetailHeader />

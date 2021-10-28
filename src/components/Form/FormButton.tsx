@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, VFC } from "react";
 import Link from "next/link";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   title: string;
 };
 
- const FormButton: React.VFC<Props> = (props) => {
+const FormButton: VFC<Props> = (props) => {
   return (
     <div className="flex justify-between ">
       <Link href={props.backButtonUrl}>

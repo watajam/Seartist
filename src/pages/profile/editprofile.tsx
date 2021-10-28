@@ -1,8 +1,8 @@
-import React from "react";
+import React, { VFC } from "react";
 import ProfileEditing from "../../components/Profile/ProfileEditing";
 import ProfileEditLayout from "../../components/Layout/ProfileEditLayout";
 
-const Editprofile = () => {
+const Editprofile: VFC = () => {
   return (
     <ProfileEditLayout>
       <ProfileEditing />

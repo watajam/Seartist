@@ -1,8 +1,8 @@
-import React from "react";
+import React, { VFC } from "react";
 import HeaderLayout from "../../components/Layout/HeaderLayout";
 import Selection from "../../components/Selection";
 
-const SelectionPage = () => {
+const SelectionPage: VFC = () => {
   return (
     <HeaderLayout>
       <Selection />

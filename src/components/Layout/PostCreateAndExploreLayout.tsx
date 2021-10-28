@@ -1,12 +1,12 @@
-import React, { memo } from "react";
+import React, { memo, ReactNode, VFC } from "react";
 import BottomNavigation from "../BottomNavigation";
 import Header from "../Header";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
-const PostCreateAndExploreLayout: React.VFC<Props> = (props) => {
+const PostCreateAndExploreLayout: VFC<Props> = (props) => {
   return (
     <div className="min-h-screen">
       <Header />
