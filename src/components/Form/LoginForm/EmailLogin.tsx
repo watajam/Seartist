@@ -40,7 +40,7 @@ const EmailLogin: VFC<Props> = (props) => {
   };
 
   //新規アカウント作成
-  const signin = async (data: LoginFormData) => {
+  const signup = async (data: LoginFormData) => {
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       router.push(`/selection`);
@@ -54,7 +54,7 @@ const EmailLogin: VFC<Props> = (props) => {
     <>
       {/* ログイン＆新規アカウント作成のForm */}
       <form
-        onSubmit={props.isLogin ? handleSubmit(login) : handleSubmit(signin)}
+        onSubmit={props.isLogin ? handleSubmit(login) : handleSubmit(signup)}
       >
         {/* メールアドレスのフォームとバリデーション */}
         <label htmlFor="email" className="block mt-8 text-base text-gray-400 ">
@@ -113,7 +113,7 @@ const EmailLogin: VFC<Props> = (props) => {
             </a>
           </Link>
         </div>
-        <button className="w-full py-3 mt-10 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400">
+        <button className="w-full py-3 mt-10 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400 ">
           {props.isLogin ? "ログイン" : "アカウント作成"}
         </button>
       </form>
