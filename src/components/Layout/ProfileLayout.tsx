@@ -12,7 +12,7 @@ const ProfileLayout: VFC<Props> = (props) => {
       <PostBottomNavigation />
       <div className="flex-1">
         <ProfileHeader />
-        <div className="py-20">{props.children}</div>
+        <main className="py-20">{props.children}</main>
       </div>
     </div>
   );

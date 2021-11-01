@@ -1,5 +1,6 @@
 import React, { memo, ReactNode, VFC } from "react";
 import BottomNavigation from "../BottomNavigation";
+import PostDetailHeader from "../Header/PostDetailHeader";
 
 type Props = {
   children: ReactNode;
@@ -7,9 +8,12 @@ type Props = {
 
 const ProfileEditLayout: VFC<Props> = (props) => {
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen">
       <BottomNavigation />
-      {props.children}
+      <main className="flex-1">
+        <PostDetailHeader />
+        {props.children}
+      </main>
     </div>
   );
 };
