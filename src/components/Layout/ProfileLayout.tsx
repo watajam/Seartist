@@ -1,4 +1,4 @@
-import { memo, ReactNode, VFC } from "react";
+import React, { memo, ReactNode, VFC } from "react";
 import PostBottomNavigation from "../BottomNavigation/PostBottomNavigation";
 import ProfileHeader from "../Header/ProfileHeader";
 
