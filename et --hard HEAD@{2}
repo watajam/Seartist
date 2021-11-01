@@ -1,0 +1,22 @@
+[33m87a4820[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to 87a482026086558043639de04c1940e03aaa2259
+[33m1bda926[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{1}: reset: moving to HEAD@{1}
+[33mc1173f9[m HEAD@{2}: revert: Revert "💥 変更"
+[33m1bda926[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{3}: reset: moving to 1bda926c84351a447a4e2475c9cdcb4746f82131
+[33m1bda926[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{4}: commit: 💥 変更
+[33m87a4820[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{5}: pull: Fast-forward
+[33m2fc9fc2[m HEAD@{6}: checkout: moving from プロフィール＆投稿作成＆投稿詳細＆プロフィール編集ページのレスポンシブデザイン to main
+[33m33e0908[m[33m ([m[1;32mプロフィール＆投稿作成＆投稿詳細＆プロフィール編集ページのレスポンシブデザイン[m[33m)[m HEAD@{7}: commit: 🚚 ファイル名の変更
+[33m7728f8e[m[33m ([m[1;31morigin/プロフィール＆投稿作成＆投稿詳細＆プロフィール編集ページのレスポンシブデザイン[m[33m)[m HEAD@{8}: commit: 📱 プロフィール＆投稿作成＆投稿詳細＆プロフィール編集ページのレスポンシブデザイン
+[33m2fc9fc2[m HEAD@{9}: checkout: moving from main to プロフィール＆投稿作成＆投稿詳細＆プロフィール編集ページのレスポンシブデザイン
+[33m2fc9fc2[m HEAD@{10}: pull: Fast-forward
+[33m4b9c668[m HEAD@{11}: checkout: moving from 投稿ページのレスポンシブ to main
+[33m5c0aef4[m[33m ([m[1;31morigin/投稿ページのレスポンシブ[m[33m)[m HEAD@{12}: commit: 📱 レスポンシブデザインの修正
+[33mfed4d00[m HEAD@{13}: commit: 📱 postsページとプロフィールページのレスポンシブデザイン
+[33m4b9c668[m HEAD@{14}: checkout: moving from main to 投稿ページのレスポンシブ
+[33m4b9c668[m HEAD@{15}: pull: Fast-forward
+[33m1ae1810[m HEAD@{16}: checkout: moving from ログイン画面＆プロフィール登録画面のレスポンシブ to main
+[33m5ea3bb0[m[33m ([m[1;31morigin/ログイン画面＆プロフィール登録画面のレスポンシブ[m[33m)[m HEAD@{17}: commit: ✏️ signinからsignupに変更
+[33m2f568fe[m HEAD@{18}: commit: 📱 ログイン画面＆プロフィール登録画面のレスポンシブ
+[33m1ae1810[m HEAD@{19}: Branch: renamed refs/heads/ログイン画面のレスポンシブ to refs/heads/ログイン画面＆プロフィール登録画面のレスポンシブ
+[33m1ae1810[m HEAD@{21}: checkout: moving from main to ログイン画面のレスポンシブ
+[33m1ae1810[m HEAD@{22}: pull: Fast-forward
