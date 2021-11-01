@@ -23,7 +23,6 @@ module.exports = {
         "4xl": ["2.25rem", "1"],
         "5xl": ["3rem", "1"],
         "6xl": ["4rem", "1"],
-
         "7xl": ["5rem", "1"],
       },
       colors: {
