@@ -8,10 +8,12 @@ type Props = {
 
 const ProfileLayout: VFC<Props> = (props) => {
   return (
-    <div className="min-h-screen">
-      <ProfileHeader />
+    <div className="flex min-h-screen">
       <PostBottomNavigation />
-      <div className="py-20">{props.children}</div>
+      <div className="flex-1">
+        <ProfileHeader />
+        <div className="py-20">{props.children}</div>
+      </div>
     </div>
   );
 };
