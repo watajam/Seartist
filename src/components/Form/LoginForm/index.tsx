@@ -14,7 +14,7 @@ const LoginForm: VFC = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center text-orange-300 ">
+      <h1 className="text-2xl font-bold text-center text-orange-300 sm:text-4xl">
         {isLogin ? "ログイン" : "アカウント作成"}
       </h1>
       {/* メールログイン */}
