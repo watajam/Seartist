@@ -8,10 +8,12 @@ type Props = {
 
 const PostCreateAndExploreLayout: VFC<Props> = (props) => {
   return (
-    <div className="min-h-screen">
-      <Header />
+    <div className="flex min-h-screen">
       <BottomNavigation />
-      <div className="px-5  pt-12 pb-20">{props.children}</div>
+      <div className="flex-1">
+        <Header />
+        <main className="px-5  pt-12 pb-20">{props.children}</main>
+      </div>
     </div>
   );
 };

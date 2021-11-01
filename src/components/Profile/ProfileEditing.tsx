@@ -4,9 +4,14 @@ import { AiFillCaretDown } from "react-icons/ai";
 import { Disclosure } from "@headlessui/react";
 import { useReactHookForm } from "../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../hooks/useReactDropzon";
-import ProfileEditHeader from "../Header/ProfileEditHeader";
+import FormButton from "../Form/FormButton";
+import { useRouter } from "next/dist/client/router";
 
 const ProfileEditing: VFC = () => {
+  const router = useRouter()
+  console.log(router.query.id);
+
+
   const { register, handleSubmit, errors, onSubmit, setValue } =
     useReactHookForm("/posts");
 
@@ -17,7 +22,6 @@ const ProfileEditing: VFC = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ProfileEditHeader />
         <div className="px-5  pt-28 pb-20">
           <h1 className="text-2xl font-bold text-center text-orange-300 mb-6">
             プロフィール編集
@@ -374,6 +378,13 @@ const ProfileEditing: VFC = () => {
               </>
             )}
           </Disclosure>
+
+          <div className="mt-8">
+            <FormButton
+              backButtonUrl={`/profile/${router.query.id}`}
+              title="保存"
+            />
+          </div>
         </div>
       </form>
     </>
