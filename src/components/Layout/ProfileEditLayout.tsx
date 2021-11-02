@@ -8,12 +8,12 @@ type Props = {
 
 const ProfileEditLayout: VFC<Props> = (props) => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex  min-h-screen md:justify-center md:bg-gray-100">
       <BottomNavigation />
-      <main className="flex-1">
+      <div className="flex-1 md:max-w-xl lg:max-w-2xl md:bg-white">
         <PostDetailHeader />
-        {props.children}
-      </main>
+        <main>{props.children}</main>
+      </div>
     </div>
   );
 };
