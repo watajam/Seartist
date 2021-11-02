@@ -8,9 +8,9 @@ type Props = {
 
 const PostDetailLayout: VFC<Props> = (props) => {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex  min-h-screen md:justify-center md:bg-gray-100 ">
       <BottomNavigation />
-      <div className="flex-1">
+      <div className="md:max-w-xl lg:max-w-2xl md:bg-white">
         <PostDetailHeader />
         <main className="px-5  py-20">{props.children}</main>
       </div>

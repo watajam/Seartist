@@ -2,7 +2,7 @@ import React, { memo, VFC } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useReactHookForm } from "../../hooks/uselReactHookForm";
 
-const PostExplore: VFC = () => {
+const PostDetailExplore: VFC = () => {
   const { register, handleSubmit, onSubmit } = useReactHookForm("/posts");
 
   return (
@@ -24,4 +24,4 @@ const PostExplore: VFC = () => {
   );
 };
 
-export default memo(PostExplore);
+export default memo(PostDetailExplore);
