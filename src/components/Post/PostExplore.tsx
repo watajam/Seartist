@@ -2,7 +2,7 @@ import React, { memo, VFC } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useReactHookForm } from "../../hooks/uselReactHookForm";
 import FormProfileTitle from "../Form/FormProfileTitle";
-import PostSearch from "./PostSearch";
+import PostDetailExplore from "./PostDetailExplore";
 
 const PostExplore: VFC = () => {
   const { register, handleSubmit, onSubmit } = useReactHookForm("/posts");
@@ -10,7 +10,7 @@ const PostExplore: VFC = () => {
   return (
     <>
       <FormProfileTitle title="検索" />
-      <PostSearch />
+      <PostDetailExplore />
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <h2 className=" text-base text-gray-400 mt-10 underline">
           条件を指定して検索
