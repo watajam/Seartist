@@ -1,8 +1,8 @@
 import React, { memo, ReactNode, VFC } from "react";
-import { useReactHookForm } from "../../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../../hooks/useReactDropzon";
 import { AiOutlineCamera } from "react-icons/ai";
 import FormProfileTitle from "../FormProfileTitle";
+import { useSelfLntroductionReactHookForm } from "../../../hooks/useSelfLntroductionReactHookForm ";
 
 type Props = {
   children: ReactNode;
@@ -10,7 +10,7 @@ type Props = {
 
 const SelfLntroductionFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit, setValue } =
-    useReactHookForm("/posts");
+    useSelfLntroductionReactHookForm("/posts");
   const { getRootProps, getInputProps, open, img } = useReactDropzon();
 
   setValue("image", img);

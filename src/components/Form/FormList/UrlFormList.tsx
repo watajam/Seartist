@@ -1,5 +1,5 @@
 import React, { memo, ReactNode, VFC } from "react";
-import { useReactHookForm } from "../../../hooks/uselReactHookForm";
+import { useUrlReactHookForm } from "../../../hooks/useUrlReactHookForm";
 import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 const UrlFormList: VFC<Props> = (props) => {
-  const { register, handleSubmit, errors, onSubmit } = useReactHookForm(
+  const { register, handleSubmit, errors, onSubmit } = useUrlReactHookForm(
     "/creator/selflntroductionform"
   );
 
