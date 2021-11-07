@@ -1,6 +1,6 @@
 import React, { memo, VFC } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { useReactHookForm } from "../../hooks/uselReactHookForm";
+import { useReactHookForm } from "../../hooks/useReactHookForm";
 
 const PostDetailExplore: VFC = () => {
   const { register, handleSubmit, onSubmit } = useReactHookForm("/posts");
