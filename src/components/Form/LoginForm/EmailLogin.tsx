@@ -33,7 +33,7 @@ const EmailLogin: VFC<Props> = (props) => {
   const login = async (data: LoginFormData) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      router.push(`/`);
+      router.push(`/selection`);
     } catch (error) {
       alert("アカウントが見つかりません");
     }

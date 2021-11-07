@@ -2,10 +2,11 @@ import React, { memo, VFC } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Disclosure } from "@headlessui/react";
-import { useReactHookForm } from "../../hooks/uselReactHookForm";
 import { useReactDropzon } from "../../hooks/useReactDropzon";
 import FormButton from "../Form/FormButton";
 import { useRouter } from "next/dist/client/router";
+import { useProfileEditReactHookForm } from "../../hooks/useProfileEditReactHookForm";
+
 
 const ProfileEditing: VFC = () => {
   const router = useRouter()
@@ -13,7 +14,7 @@ const ProfileEditing: VFC = () => {
 
 
   const { register, handleSubmit, errors, onSubmit, setValue } =
-    useReactHookForm("/posts");
+    useProfileEditReactHookForm("/posts");
 
   const { getRootProps, getInputProps, open, img } = useReactDropzon();
 

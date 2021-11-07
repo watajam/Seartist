@@ -1,21 +1,25 @@
 import React, { memo, ReactNode, VFC } from "react";
-import { useReactHookForm } from "../../../hooks/uselReactHookForm";
+import { useCreatorAndListenerReactHookForm } from "../../../hooks/useCreatorAndListenerReactHookForm";
 import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
   children: ReactNode;
 };
 
+
 const CreatorProfileFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit } =
-    useReactHookForm("/creator/urlform");
+    useCreatorAndListenerReactHookForm("/creator/urlform");
 
   return (
     <>
       <FormProfileTitle title="プロフィール編集" />
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 氏名/アーティスト名 */}
-        <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
+        <label
+          htmlFor="name"
+          className="block mt-8 text-base text-gray-400 "
+        >
           氏名/アーティスト名
           <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
@@ -33,7 +37,6 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
-
         {/* ユーザーID */}
         <label
           htmlFor="ユーザーID"
@@ -66,7 +69,6 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
         {errors.userId && (
           <p className="text-red-600">{errors.userId?.message}</p>
         )}
-
         {/* ジャンル */}
         <label htmlFor="genre" className="block mt-8 text-base text-gray-400 ">
           ジャンル
@@ -121,7 +123,6 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
         {errors.genre && (
           <p className="text-red-600">{errors.genre?.message}</p>
         )}
-
         {/* 所在地 */}
         <label
           htmlFor="location"
@@ -185,7 +186,6 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           <option defaultValue="鹿児島県">鹿児島県</option>
           <option defaultValue="沖縄県">沖縄県</option>
         </select>
-
         {/* 生年月日 */}
         <label
           htmlFor="birthday"
@@ -205,7 +205,6 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
         {errors.birthday && (
           <p className="text-red-600">{errors.birthday?.message}</p>
         )}
-
         <div className="mt-14">{props.children}</div>
       </form>
     </>

@@ -1,6 +1,7 @@
 import React, { memo, VFC } from "react";
 import { AiFillCaretDown } from "react-icons/ai";
-import { useReactHookForm } from "../../hooks/uselReactHookForm";
+import { useReactHookForm } from "../../hooks/useReactHookForm";
+
 import FormProfileTitle from "../Form/FormProfileTitle";
 import PostDetailExplore from "./PostDetailExplore";
 

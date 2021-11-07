@@ -1,5 +1,5 @@
 import React, { memo, ReactNode, VFC } from "react";
-import { useReactHookForm } from "../../../hooks/uselReactHookForm";
+import { useCreatorAndListenerReactHookForm } from "../../../hooks/useCreatorAndListenerReactHookForm";
 import FormProfileTitle from "../FormProfileTitle";
 
 type Props = {
@@ -7,9 +7,8 @@ type Props = {
 };
 
 const ListenerProfilrFormList: VFC<Props> = (props) => {
-  const { register, handleSubmit, errors, onSubmit } = useReactHookForm(
-    "/listener/selflntroductionform"
-  );
+  const { register, handleSubmit, errors, onSubmit } =
+    useCreatorAndListenerReactHookForm("/listener/selflntroductionform");
 
   return (
     <>
@@ -79,6 +78,7 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
           id="location"
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         >
+          <option defaultValue=""></option>
           <option defaultValue="北海道">北海道</option>
           <option defaultValue="青森県">青森県</option>
           <option defaultValue="岩手県">岩手県</option>

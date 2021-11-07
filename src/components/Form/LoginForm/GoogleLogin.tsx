@@ -13,7 +13,7 @@ const GoogleLogin: VFC = () => {
   const googleLogin = async () => {
     try {
       await signInWithPopup(auth, provider);
-      router.push(`/`);
+      router.push(`/selection`);
     } catch (error) {
       alert("ログインできません。");
     }
