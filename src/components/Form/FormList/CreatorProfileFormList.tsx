@@ -6,7 +6,6 @@ type Props = {
   children: ReactNode;
 };
 
-
 const CreatorProfileFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit } =
     useCreatorAndListenerReactHookForm("/creator/urlform");
@@ -16,10 +15,7 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
       <FormProfileTitle title="プロフィール編集" />
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 氏名/アーティスト名 */}
-        <label
-          htmlFor="name"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
           氏名/アーティスト名
           <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
