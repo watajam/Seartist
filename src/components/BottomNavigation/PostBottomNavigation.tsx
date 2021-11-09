@@ -13,7 +13,7 @@ const PostBottomNavigation: VFC = () => {
   const router = useRouter();
 
   return (
-    <aside className="w-full fixed  bottom-0 z-10 bg-orange-400  md:static  md:w-1/4 md:max-w-xs md:bg-orange-300">
+    <aside className="w-full fixed  bottom-0 z-10 bg-orange-400  md:static  md:w-1/4 md:max-w-xs md:bg-orange-300 h-auto">
       <nav className="flex justify-around md:fixed  md:flex-col  md:w-1/4 md:max-w-xs md:justify-center">
         <Link href="/posts">
           <a className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8">
