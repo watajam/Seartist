@@ -270,7 +270,7 @@ const PostCreate: VFC = () => {
             type="time"
             id="開催時間"
             {...register("closeTime", {
-              required: "最大時間は必須項目です。",
+              required: "クローズ時間は必須項目です。",
             })}
             className="h-10  mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 w-2/5 appearance-none"
           />
