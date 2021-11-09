@@ -1,6 +1,6 @@
 import React, { VFC } from "react";
 
-const SkeletonLoading: VFC = () => {
+const SkeletonLoadingItem: VFC = () => {
   return (
     <div className="rounded-2xl shadow-md animate-pulse key={post.id}">
       <div className="bg-gray-400   text-white flex  p-7 rounded-t-2xl items-center font-bold text-base "></div>
@@ -38,4 +38,4 @@ const SkeletonLoading: VFC = () => {
   );
 };
 
-export default SkeletonLoading;
+export default SkeletonLoadingItem;

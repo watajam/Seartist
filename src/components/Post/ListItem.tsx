@@ -15,23 +15,32 @@ type Props = {
     openTime: string;
     closeTime: string;
   };
+  user: {
+    userId: string;
+    name: string;
+    image: string;
+  };
 };
 
 const ListItem: VFC<Props> = (props) => {
   return (
     <div className="rounded-2xl shadow">
-      <Link href={`/profile/1`}>
+      <Link href={`/profile/${props.user.userId}`}>
         <a>
           <header className="bg-gray-400 text-white flex  p-4 rounded-t-2xl items-center font-bold text-base ">
-            <HiUserCircle className="w-8 h-8" />
-            <h1 className="ml-2">WATARU</h1>
+            {props.user.image !== "" ? (
+              <img src={props.user.image} className="w-8 h-8 rounded-full" />
+            ) : (
+              <HiUserCircle className="w-8 h-8" />
+            )}
+            <h1 className="ml-2">{props.user.name}</h1>
             <time dateTime={props.post.eventDate} className="ml-auto text-lg">
               {props.post.eventDate}
             </time>
           </header>
         </a>
       </Link>
-      <Link href={`/posts/{props.post.id}`}>
+      <Link href={`/posts/${props.post.id}`}>
         <a>
           <div className="p-4">
             <p className="text-base text-bold font-bold break-words max-w-sm  sm:max-w-md md:max-w-lg">
@@ -39,14 +48,14 @@ const ListItem: VFC<Props> = (props) => {
             </p>
 
             {/* テスト中 */}
-            {props.post.image !== "" ? (
+            {/* {props.post.image !== "" ? (
               <div className="flex justify-center items-center mt-6">
                 <img
                   src={props.post.image}
                   className="text-center  h-48  rounded-2xl object-contain "
                 />
               </div>
-            ) : null}
+            ) : null} */}
 
             <table className="table-fixed text-center text-base w-full mt-6 ">
               <tbody className="mt-2">
