@@ -57,6 +57,7 @@ export const usePostCreateReactHookForm = (url: string) => {
       coupon: data.coupon,
       tickets: data.tickets,
       timestamp: serverTimestamp(),
+      email: userEmail?.email,
     });
     router.push(url);
   }, []);

@@ -21,4 +21,5 @@ export type FormData = {
   coupon: string;
   tickets: string;
   search: string;
+  email: string;
 };
