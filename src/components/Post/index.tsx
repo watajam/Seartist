@@ -52,11 +52,11 @@ const Post: VFC = () => {
   //ログインしているユーザーのデータを取得
   useEffect(() => {
     if (userEmail !== null) {
-      const postsRef = query(
+      const q = query(
         collection(db, "users", userEmail.email, "posts"),
         orderBy("timestamp", "desc")
       );
-      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
+      const unsubscribe = onSnapshot(q, (snapshot) => {
         setPosts(
           snapshot.docs.map((doc) => ({
             id: doc.id,

@@ -9,8 +9,8 @@ export type FormData = {
   writing: string;
   twitterUrl: string;
   instagramUrl: string;
-  homepageUrl: String;
-  otherUrl: String;
+  homepageUrl: string;
+  otherUrl: string;
   eventName: string;
   eventLocation: string;
   eventDate: string;

@@ -11,8 +11,10 @@ import {
 } from "@firebase/firestore";
 import { auth, db } from "../../lib/firebase";
 import { FormData } from "../../types/FormData";
+import { useRecoilSetEmail } from "./useRecoilSetEmail";
 
 export const useCreatorAndListenerReactHookForm = (url: string) => {
+  const { userEmail } = useRecoilSetEmail();
   const router = useRouter();
 
   const {
@@ -44,6 +46,7 @@ export const useCreatorAndListenerReactHookForm = (url: string) => {
         genre: data.genre ? data.genre : "",
         location: data.location,
         birthday: data.birthday,
+        email: userEmail?.email,
       });
       router.push(url);
     }
