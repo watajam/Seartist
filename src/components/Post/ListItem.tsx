@@ -60,7 +60,7 @@ const ListItem: VFC<Props> = (props) => {
             <table className="table-fixed text-center text-base w-full mt-6 ">
               <tbody className="mt-2">
                 <tr className="bg-gray-100">
-                  <th className="border px-4 py-2 text-left w-1/3">
+                  <th className="border px-4 py-2 text-left w-2/5">
                     イベント名
                   </th>
                   <td className="border px-4 py-2 text-left break-words max-w-sm ">
