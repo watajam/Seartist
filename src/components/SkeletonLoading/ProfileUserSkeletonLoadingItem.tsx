@@ -17,15 +17,13 @@ const ProfileUserSkeletonLoadingItem: VFC = () => {
         </a>
 
         <a className="flex flex-col items-center font-bold">
-           <span className="bg-gray-300 p-2"></span>
+          <span className="bg-gray-300 p-2"></span>
           <span className="mt-2 bg-gray-300 w-10 h-4 rounded"></span>
         </a>
       </div>
 
-      {/* {props.user?.name} */}
       <div className="bg-gray-300 h-4 w-24 mt-2 rounded"></div>
 
-      {/* {`@ ${props.user?.userId}`} */}
       <div className="bg-gray-300 h-2 w-16 mt-2 rounded"></div>
 
       <div className="flex items-center text-gray-400 mt-2">
@@ -37,31 +35,31 @@ const ProfileUserSkeletonLoadingItem: VFC = () => {
         <span className="bg-gray-300 h-4 w-12 rounded" />
       </div>
 
-      {/* writing */}
       <div className="mt-8  bg-gray-300 h-4 rounded"></div>
       <div className="mt-2  bg-gray-300 h-4 rounded w-3/4"></div>
 
       <nav className="mt-6">
         <ul className="flex w-full">
           <li className="flex justify-center w-1/4">
-            <span className="p-7 rounded-full bg-gray-300 "></span>
+            <span className="p-6 rounded-full bg-gray-300 "></span>
           </li>
 
           <li className="flex justify-center w-1/4">
-            <span className="p-7 rounded-full bg-gray-300 "></span>
+            <span className="p-6 rounded-full bg-gray-300 "></span>
           </li>
 
           <li className="flex justify-center w-1/4">
-            <span className="p-7 rounded-full bg-gray-300 "></span>
+            <span className="p-6 rounded-full bg-gray-300 "></span>
           </li>
 
           <li className="flex justify-center w-1/4">
-            <span className="p-7 rounded-full bg-gray-300 "></span>
+            <span className="p-6 rounded-full bg-gray-300 "></span>
           </li>
         </ul>
       </nav>
 
-      <a className="bg-gray-300 h-7 text-white text-center mt-6 p-1 block"></a>
+      <div className="bg-gray-300 h-8 text-white text-center mt-6 p-1 block"></div>
+
     </div>
   );
 };
