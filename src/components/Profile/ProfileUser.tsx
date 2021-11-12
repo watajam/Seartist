@@ -25,27 +25,33 @@ type Props = {
     otherUrl: string;
     email: string;
   };
+  postsLength: number;
 
   userEmail: {
     email: string;
   };
   userLoading: boolean;
+  postsLoading: boolean;
 };
 
 const ProfileUser: VFC<Props> = (props) => {
   if (props.userLoading) {
     return <ProfileUserSkeletonLoadingItem />;
   }
+  if (props.postsLoading) {
+    return <ProfileUserSkeletonLoadingItem />;
+  }
   if (props.user === null) {
     return <p>エラー</p>;
   }
+
   return (
     <>
       <div className="flex items-center justify-between">
         <Image src="/camera.svg" width={96} height={96} />
         <Link href="#">
           <a className="flex flex-col items-center font-bold">
-            <span>9</span>
+            <span>{props.postsLength}</span>
             <span>投稿</span>
           </a>
         </Link>
