@@ -1,11 +1,8 @@
-import React, { memo, useEffect, useState, VFC } from "react";
-
-import { AiOutlineEye } from "react-icons/ai";
-import { AiOutlineHeart } from "react-icons/ai";
-import Post from "../Post";
+import React, { memo, useCallback, useEffect, useState, VFC } from "react";
 import {
   collection,
   onSnapshot,
+  orderBy,
   query,
   where,
 } from "@firebase/firestore";
@@ -14,6 +11,8 @@ import { useRouter } from "next/dist/client/router";
 import { FormData } from "../../../types/FormData";
 import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
 import ProfileUser from "./ProfileUser";
+import PostProfile from "../Post/PostProfile";
+import ProfileTab from "./ProfileTab";
 
 const Profile: VFC = () => {
   const [user, setUser] =
@@ -34,100 +33,119 @@ const Profile: VFC = () => {
         | "email"
       >
     >(null);
+  const [posts, setPosts] = useState<
+    Pick<
+      FormData,
+      | "id"
+      | "image"
+      | "writing"
+      | "eventName"
+      | "genre"
+      | "eventLocation"
+      | "eventDate"
+      | "openTime"
+      | "closeTime"
+    >[]
+  >([]);
   const [chengePage, setChengePage] = useState(true);
   const { userEmail } = useRecoilSetEmail();
   const [userLoading, setUserLoading] = useState(true);
+  const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();
 
-  const handleChengePage = () => {
+  const handleChengePage = useCallback(() => {
     setChengePage((prevChengePage) => {
       return !prevChengePage;
     });
-  };
+  }, []);
 
   useEffect(() => {
     const userRef = collection(db, "users");
+
     if (router.query.id !== "undefined") {
       const q = query(userRef, where("userId", "==", `${router.query.id}`));
+
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        setUser({
-          name: snapshot.docs[0].data().name,
-          userId: snapshot.docs[0].data().userId,
-          genre: snapshot.docs[0].data().genre,
-          location: snapshot.docs[0].data().location,
-          birthday: snapshot.docs[0].data().birthday,
-          writing: snapshot.docs[0].data().writing,
-          image: snapshot.docs[0].data().image,
-          twitterUrl: snapshot.docs[0].data().twitterUrl,
-          instagramUrl: snapshot.docs[0].data().instagramUrl,
-          homepageUrl: snapshot.docs[0].data().homepageUrl,
-          otherUrl: snapshot.docs[0].data().otherUrl,
-          email: snapshot.docs[0].data().email,
-        });
+        if (snapshot.docs.length !== 0) {
+          setUser({
+            name: snapshot.docs[0].data().name,
+            userId: snapshot.docs[0].data().userId,
+            genre: snapshot.docs[0].data().genre,
+            location: snapshot.docs[0].data().location,
+            birthday: snapshot.docs[0].data().birthday,
+            writing: snapshot.docs[0].data().writing,
+            image: snapshot.docs[0].data().image,
+            twitterUrl: snapshot.docs[0].data().twitterUrl,
+            instagramUrl: snapshot.docs[0].data().instagramUrl,
+            homepageUrl: snapshot.docs[0].data().homepageUrl,
+            otherUrl: snapshot.docs[0].data().otherUrl,
+            email: snapshot.docs[0].data().email,
+          });
+        } else {
+          alert("存在しないページです");
+        }
+
         setUserLoading(false);
       });
       return () => unsubscribe();
     }
   }, [router.query.id]);
 
-
+  useEffect(() => {
+    if (user?.email !== undefined) {
+      const q = query(
+        collection(db, "users", `${user.email}`, "posts"),
+        orderBy("timestamp", "desc")
+      );
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            image: doc.data().image,
+            writing: doc.data().writing,
+            eventName: doc.data().eventName,
+            genre: doc.data().genre,
+            eventLocation: doc.data().eventLocation,
+            eventDate: doc.data().eventDate,
+            openTime: doc.data().openTime,
+            closeTime: doc.data().closeTime,
+          }))
+        );
+        setPostsLoading(false);
+      });
+      return () => unsubscribe();
+    }
+  }, [user]);
 
   return (
     <>
       <div className="px-5">
         <ProfileUser
           user={user}
+          postsLength={posts.length}
           userEmail={userEmail}
           userLoading={userLoading}
+          postsLoading={postsLoading}
         />
       </div>
 
       {/* タブ */}
       <div className="mt-6 flex">
-        {user?.genre ? (
-          <>
-            <button
-              className={`w-2/4 flex justify-center border-b-2 pb-2 ${
-                chengePage ? "border-orange-400" : "border-gray-400"
-              }   `}
-              onClick={handleChengePage}
-              disabled={chengePage}
-            >
-              <AiOutlineEye
-                className={`w-6 h-6 ${
-                  chengePage ? "text-orange-400" : "text-gray-400 "
-                }   `}
-              />
-            </button>
-
-            <button
-              className={`w-2/4 flex justify-center border-b-2 pb-2 ${
-                chengePage ? "border-gray-400" : " border-orange-400"
-              }   `}
-              onClick={handleChengePage}
-              disabled={!chengePage}
-            >
-              <AiOutlineHeart
-                className={`w-6 h-6 ${
-                  chengePage ? "text-gray-400 " : "text-orange-400  "
-                }  `}
-              />
-            </button>
-          </>
-        ) : null}
-        {user?.genre === "" ? (
-          <>
-            <button
-              className="w-full flex justify-center border-b-2 pb-2
-            border-orange-400"
-            >
-              <AiOutlineHeart className="w-6 h-6 text-orange-400" />
-            </button>
-          </>
-        ) : null}
+        <ProfileTab
+          user={user}
+          userLoading={userLoading}
+          handleChengePage={handleChengePage}
+          chengePage={chengePage}
+        />
       </div>
-      <div className="px-5 mt-4">
-        <Post />
+
+      <div className="px-5 mt-4 grid gap-6  md:max-w-xl lg:max-w-2xl">
+        <PostProfile
+          posts={posts}
+          user={user}
+          userLoading={userLoading}
+          postsLoading={postsLoading}
+        />
       </div>
     </>
   );
