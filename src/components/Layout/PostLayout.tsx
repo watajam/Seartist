@@ -12,7 +12,7 @@ const PostLayout: VFC<Props> = (props) => {
       <PostBottomNavigation />
       <div className="flex-1 md:max-w-xl md:bg-white lg:max-w-2xl">
         <PostHeader />
-        <main className="px-5  py-20">{props.children}</main>
+        <main className="px-5  pt-20 pb-36">{props.children}</main>
       </div>
     </div>
   );
