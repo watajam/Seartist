@@ -125,15 +125,13 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           className="block mt-8 text-base text-gray-400 "
         >
           所在地
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
         <select
-          {...register("location", {
-            required: true,
-          })}
+          {...register("location")}
           id="location"
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         >
+          <option defaultValue=""></option>
           <option defaultValue="北海道">北海道</option>
           <option defaultValue="青森県">青森県</option>
           <option defaultValue="岩手県">岩手県</option>
