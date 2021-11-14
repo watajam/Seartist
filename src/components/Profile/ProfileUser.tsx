@@ -75,7 +75,7 @@ const ProfileUser: VFC<Props> = (props) => {
         <span className="text-gray-400">{`@ ${props.user?.userId}`}</span>
       ) : null}
 
-      <div className="flex items-center text-gray-400">
+      <div className="flex items-center flex-wrap text-gray-400">
         {props.user?.genre ? (
           <>
             <AiFillStar className="mr-1" />
