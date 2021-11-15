@@ -1,10 +1,13 @@
 import {
   collection,
   doc,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
+  where,
 } from "@firebase/firestore";
+import { useRouter } from "next/router";
 import React, { memo, useEffect, useState, VFC } from "react";
 import { db } from "../../../lib/firebase";
 import { FormData } from "../../../types/FormData";
@@ -32,6 +35,24 @@ const Post: VFC = () => {
   const [postLoading, setPostLoading] = useState(true);
   const [userloading, setUserLoading] = useState(true);
   const { userEmail } = useRecoilSetEmail();
+  const router = useRouter();
+
+  //データがない場合にselectionページに遷移
+  useEffect(() => {
+    const userCheck = async () => {
+      if (userEmail !== null) {
+        const q = query(
+          collection(db, "users"),
+          where("email", "==", userEmail.email)
+        );
+        const user = await getDocs(q);
+        if (!user.docs.length) {
+          router.push("/selection");
+        }
+      }
+    };
+    userCheck();
+  }, [userEmail]);
 
   // ユーザー情報取得
   useEffect(() => {

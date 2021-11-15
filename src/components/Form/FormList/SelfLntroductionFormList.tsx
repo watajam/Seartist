@@ -1,8 +1,12 @@
-import React, { memo, ReactNode, VFC } from "react";
+import React, { memo, ReactNode, useEffect, VFC } from "react";
 import { useReactDropzon } from "../../../hooks/useReactDropzon";
 import { AiOutlineCamera } from "react-icons/ai";
 import FormProfileTitle from "../FormProfileTitle";
 import { useSelfLntroductionReactHookForm } from "../../../hooks/useSelfLntroductionReactHookForm ";
+import { useRecoilSetEmail } from "../../../hooks/useRecoilSetEmail";
+import { useRouter } from "next/router";
+import { collection, getDocs, query, where } from "@firebase/firestore";
+import { db } from "../../../../lib/firebase";
 
 type Props = {
   children: ReactNode;
@@ -12,8 +16,27 @@ const SelfLntroductionFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit, setValue } =
     useSelfLntroductionReactHookForm("/posts");
   const { getRootProps, getInputProps, open, img } = useReactDropzon();
+  const { userEmail } = useRecoilSetEmail();
+  const router = useRouter();
 
   setValue("image", img);
+
+  //データがない場合にselectionページに遷移
+  useEffect(() => {
+    const userCheck = async () => {
+      if (userEmail !== null) {
+        const q = query(
+          collection(db, "users"),
+          where("email", "==", userEmail.email)
+        );
+        const user = await getDocs(q);
+        if (!user.docs.length) {
+          router.push("/selection");
+        }
+      }
+    };
+    userCheck();
+  }, [userEmail]);
 
   return (
     <>
