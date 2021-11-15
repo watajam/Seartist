@@ -186,12 +186,9 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           className="block mt-8 text-base text-gray-400 "
         >
           生年月日
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
         <input
-          {...register("birthday", {
-            required: "必須項目です。",
-          })}
+          {...register("birthday")}
           type="date"
           id="birthday"
           className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"

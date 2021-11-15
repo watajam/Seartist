@@ -130,26 +130,6 @@ const ProfileEditing: VFC = () => {
           {errors.userId && (
             <p className="text-red-600">{errors.userId?.message}</p>
           )}
-          {/* 生年月日 */}
-          <label
-            htmlFor="birthday"
-            className="block mt-8 text-base text-gray-400 "
-          >
-            生年月日
-            <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
-          </label>
-          <input
-            {...register("birthday", {
-              required: "必須項目です。",
-            })}
-            type="date"
-            id="birthday"
-            className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
-          ></input>
-          {errors.birthday && (
-            <p className="text-red-600">{errors.birthday?.message}</p>
-          )}
-
           {/* ジャンル */}
           {user?.genre ? (
             <>
@@ -223,6 +203,7 @@ const ProfileEditing: VFC = () => {
               </div>
             </>
           ) : null}
+
           {/* 所在地 */}
           <label
             htmlFor="location"
@@ -289,6 +270,23 @@ const ProfileEditing: VFC = () => {
               <AiFillCaretDown />
             </div>
           </div>
+          {/* 生年月日 */}
+          <label
+            htmlFor="birthday"
+            className="block mt-8 text-base text-gray-400 "
+          >
+            生年月日
+          </label>
+          <input
+            {...register("birthday")}
+            type="date"
+            id="birthday"
+            className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          ></input>
+          {errors.birthday && (
+            <p className="text-red-600">{errors.birthday?.message}</p>
+          )}
+
           {/* 自己紹介 */}
           <label
             htmlFor="紹介文"
