@@ -1,12 +1,23 @@
-import React, { memo, VFC } from "react";
+import React, { memo, useCallback, useEffect, VFC } from "react";
 import Link from "next/link";
 import { doc, setDoc } from "@firebase/firestore";
-import { auth, db } from "../../../lib/firebase";
+import { db } from "../../../lib/firebase";
+import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
 
 const Selection: VFC = () => {
-  const handleSetUserEmail = async () => {
-    await setDoc(doc(db, "users", auth.currentUser.email), {});
-  };
+  const { userEmail } = useRecoilSetEmail();
+
+  const handleSetUserEmail = useCallback(() => {
+    if (userEmail !== null) {
+      setDoc(doc(db, "users", userEmail.email), {
+        name: "",
+        userId: "",
+        genre: "",
+        location: "",
+        birthday: "",
+      });
+    }
+  }, [userEmail]);
 
   return (
     <>
