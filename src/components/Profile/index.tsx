@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useEffect, useState, VFC } from "react";
 import {
   collection,
+  getDocs,
   onSnapshot,
   orderBy,
   query,
@@ -52,6 +53,23 @@ const Profile: VFC = () => {
   const [userLoading, setUserLoading] = useState(true);
   const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();
+
+  //データがない場合にselectionページに遷移
+  useEffect(() => {
+    const userCheck = async () => {
+      if (userEmail !== null) {
+        const q = query(
+          collection(db, "users"),
+          where("email", "==", userEmail.email)
+        );
+        const user = await getDocs(q);
+        if (!user.docs.length) {
+          router.push("/selection");
+        }
+      }
+    };
+    userCheck();
+  }, [userEmail]);
 
   const handleChengePage = useCallback(() => {
     setChengePage((prevChengePage) => {
