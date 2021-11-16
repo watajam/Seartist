@@ -32,22 +32,19 @@ const EmailLogin: VFC<Props> = (props) => {
 
   //ログイン機能
   const login = async (data: LoginFormData) => {
-    const q = query(collection(db, "users"), where("email", "==", data.email));
-    const user = await getDocs(q);
     try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      const q = query(collection(db, "users"), where("email", "==", data.email));
+      const user = await getDocs(q);
       if (user.docs.length) {
-        await signInWithEmailAndPassword(auth, data.email, data.password);
         router.push(`/posts`);
       } else {
-        await signInWithEmailAndPassword(auth, data.email, data.password);
         router.push(`/selection`);
       }
     } catch (error) {
       alert("アカウントが見つかりません");
     }
   };
-
-  
 
   //新規アカウント作成
   const signup = async (data: LoginFormData) => {
