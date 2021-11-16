@@ -5,8 +5,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "@firebase/auth";
-import { auth } from "../../../../lib/firebase";
+import { auth, db } from "../../../../lib/firebase";
 import { useRouter } from "next/dist/client/router";
+import { collection, getDocs, query, where } from "@firebase/firestore";
 
 type LoginFormData = {
   email: string;
@@ -31,13 +32,22 @@ const EmailLogin: VFC<Props> = (props) => {
 
   //ログイン機能
   const login = async (data: LoginFormData) => {
+    const q = query(collection(db, "users"), where("email", "==", data.email));
+    const user = await getDocs(q);
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
-      router.push(`/selection`);
+      if (user.docs.length) {
+        await signInWithEmailAndPassword(auth, data.email, data.password);
+        router.push(`/posts`);
+      } else {
+        await signInWithEmailAndPassword(auth, data.email, data.password);
+        router.push(`/selection`);
+      }
     } catch (error) {
       alert("アカウントが見つかりません");
     }
   };
+
+  
 
   //新規アカウント作成
   const signup = async (data: LoginFormData) => {
