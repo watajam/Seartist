@@ -1,11 +1,9 @@
 import {
   collection,
   doc,
-  getDocs,
   onSnapshot,
   orderBy,
   query,
-  where,
 } from "@firebase/firestore";
 import { useRouter } from "next/router";
 import React, { memo, useEffect, useState, VFC } from "react";
@@ -39,19 +37,15 @@ const Post: VFC = () => {
 
   //データがない場合にselectionページに遷移
   useEffect(() => {
-    const userCheck = async () => {
-      if (userEmail !== null) {
-        const q = query(
-          collection(db, "users"),
-          where("email", "==", userEmail.email)
-        );
-        const user = await getDocs(q);
-        if (!user.docs.length) {
+    if (userEmail !== null) {
+      const postsRef = doc(db, "users", userEmail.email);
+      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
+        if (snapshot.data().email !== userEmail.email) {
           router.push("/selection");
         }
-      }
-    };
-    userCheck();
+      });
+      return () => unsubscribe();
+    }
   }, [userEmail]);
 
   // ユーザー情報取得

@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useEffect, useState, VFC } from "react";
 import {
   collection,
-  getDocs,
+  doc,
   onSnapshot,
   orderBy,
   query,
@@ -56,19 +56,15 @@ const Profile: VFC = () => {
 
   //データがない場合にselectionページに遷移
   useEffect(() => {
-    const userCheck = async () => {
-      if (userEmail !== null) {
-        const q = query(
-          collection(db, "users"),
-          where("email", "==", userEmail.email)
-        );
-        const user = await getDocs(q);
-        if (!user.docs.length) {
+    if (userEmail !== null) {
+      const postsRef = doc(db, "users", userEmail.email);
+      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
+        if (snapshot.data().email !== userEmail.email) {
           router.push("/selection");
         }
-      }
-    };
-    userCheck();
+      });
+      return () => unsubscribe();
+    }
   }, [userEmail]);
 
   const handleChengePage = useCallback(() => {

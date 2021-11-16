@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from "@firebase/firestore";
+import { doc, onSnapshot } from "@firebase/firestore";
 import { useRouter } from "next/router";
 import React, { memo, ReactNode, useEffect, VFC } from "react";
 import { db } from "../../../../lib/firebase";
@@ -20,19 +20,15 @@ const UrlFormList: VFC<Props> = (props) => {
 
   //データがない場合にselectionページに遷移
   useEffect(() => {
-    const userCheck = async () => {
-      if (userEmail !== null) {
-        const q = query(
-          collection(db, "users"),
-          where("email", "==", userEmail.email)
-        );
-        const user = await getDocs(q);
-        if (!user.docs.length) {
+    if (userEmail !== null) {
+      const postsRef = doc(db, "users", userEmail.email);
+      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
+        if (snapshot.data().email !== userEmail.email) {
           router.push("/selection");
         }
-      }
-    };
-    userCheck();
+      });
+      return () => unsubscribe();
+    }
   }, [userEmail]);
 
   return (

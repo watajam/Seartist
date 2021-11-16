@@ -5,7 +5,7 @@ import FormProfileTitle from "../FormProfileTitle";
 import { useSelfLntroductionReactHookForm } from "../../../hooks/useSelfLntroductionReactHookForm ";
 import { useRecoilSetEmail } from "../../../hooks/useRecoilSetEmail";
 import { useRouter } from "next/router";
-import { collection, getDocs, query, where } from "@firebase/firestore";
+import { doc, onSnapshot } from "@firebase/firestore";
 import { db } from "../../../../lib/firebase";
 
 type Props = {
@@ -23,19 +23,15 @@ const SelfLntroductionFormList: VFC<Props> = (props) => {
 
   //データがない場合にselectionページに遷移
   useEffect(() => {
-    const userCheck = async () => {
-      if (userEmail !== null) {
-        const q = query(
-          collection(db, "users"),
-          where("email", "==", userEmail.email)
-        );
-        const user = await getDocs(q);
-        if (!user.docs.length) {
+    if (userEmail !== null) {
+      const postsRef = doc(db, "users", userEmail.email);
+      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
+        if (snapshot.data().email !== userEmail.email) {
           router.push("/selection");
         }
-      }
-    };
-    userCheck();
+      });
+      return () => unsubscribe();
+    }
   }, [userEmail]);
 
   return (
