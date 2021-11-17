@@ -23,10 +23,14 @@ const UrlFormList: VFC<Props> = (props) => {
     if (userEmail !== null) {
       const postsRef = doc(db, "users", userEmail.email);
       const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        if (snapshot.data().email === "") {
-          router.push("/selection");
+        if (
+          snapshot.data().email === undefined ||
+          snapshot.data().email === ""
+        ) {
+          router.push("selection");
         }
       });
+
       return () => unsubscribe();
     }
   }, [userEmail]);
