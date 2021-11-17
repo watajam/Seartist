@@ -26,7 +26,10 @@ const SelfLntroductionFormList: VFC<Props> = (props) => {
     if (userEmail !== null) {
       const postsRef = doc(db, "users", userEmail.email);
       const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        if (snapshot.data().email !== userEmail.email) {
+        if (
+          snapshot.data().email === undefined ||
+          snapshot.data().email === ""
+        ) {
           router.push("/selection");
         }
       });
