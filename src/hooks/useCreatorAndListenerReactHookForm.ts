@@ -47,8 +47,13 @@ export const useCreatorAndListenerReactHookForm = (url: string) => {
         location: data.location,
         birthday: data.birthday,
         email: userEmail?.email,
-      });
-      router.push(url);
+      })
+        .then(() => {
+          router.push(url);
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   }, []);
 
