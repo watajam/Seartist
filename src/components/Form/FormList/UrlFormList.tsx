@@ -34,7 +34,7 @@ const UrlFormList: VFC<Props> = (props) => {
 
   return (
     <>
-      <FormProfileTitle title="プロフィール編集" />
+      <FormProfileTitle title="プロフィール登録" />
       <p className="text-base font-bold text-center text-gray-400 underline mt-6">
         URLを入力するとプロフィールに表示されます
       </p>
