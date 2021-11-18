@@ -4,7 +4,7 @@ import { FiHeart } from "react-icons/fi";
 import { useRouter } from "next/dist/client/router";
 import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
 import { deleteDoc, doc, onSnapshot } from "@firebase/firestore";
-import { db } from "../../../lib/firebase";
+import { auth, db } from "../../../lib/firebase";
 import { FormData } from "../../../types/FormData";
 import PostDetailSkeletonLoadingItem from "../SkeletonLoading/PostDetailSkeletonLoadingItem";
 
@@ -17,6 +17,7 @@ const PostDetail: VFC = () => {
         | "image"
         | "eventName"
         | "genre"
+        | "location"
         | "eventDate"
         | "eventLocation"
         | "openTime"
@@ -28,7 +29,7 @@ const PostDetail: VFC = () => {
         | "email"
       >
     >();
-  const [user, setUser] = useState<Pick<FormData, "name">>(null);
+  const [user, setUser] = useState<Pick<FormData, "image" | "name">>(null);
   const { userEmail } = useRecoilSetEmail();
   const [postsLoading, setPostsLoading] = useState(true);
   const [userloading, setUserLoading] = useState(true);
@@ -50,6 +51,7 @@ const PostDetail: VFC = () => {
           image: snapshot.data()?.image,
           eventName: snapshot.data()?.eventName,
           genre: snapshot.data()?.genre,
+          location: snapshot.data()?.location,
           eventDate: snapshot.data()?.eventDate,
           eventLocation: snapshot.data()?.eventLocation,
           openTime: snapshot.data()?.openTime,
@@ -72,6 +74,7 @@ const PostDetail: VFC = () => {
       const postsRef = doc(db, "users", `${post.email}`);
       const unsubscribe = onSnapshot(postsRef, (snapshot) => {
         setUser({
+          image: snapshot.data()?.image,
           name: snapshot.data()?.name,
         });
         setUserLoading(false);
@@ -81,14 +84,13 @@ const PostDetail: VFC = () => {
   }, [post]);
 
   const deletePost = useCallback(async () => {
-    if (post?.email !== undefined) {
-      confirm("削除しますか？");
+    if (confirm("削除しますか？")) {
       await deleteDoc(
-        doc(db, "users", `${post.email}`, "posts", `${router.query.id}`)
+        doc(db, "users", auth.currentUser.email, "posts", `${router.query.id}`)
       );
       router.push("/posts");
     }
-  }, [post]);
+  }, []);
 
   if (postsLoading) {
     return <PostDetailSkeletonLoadingItem />;
@@ -108,7 +110,11 @@ const PostDetail: VFC = () => {
   return (
     <div>
       <div className=" flex  rounded-t-2xl items-center font-bold text-base ">
-        <HiUserCircle className="w-8 h-8" />
+        {user?.image !== "" ? (
+          <img src={user?.image} className="w-8 h-8 rounded-full" />
+        ) : (
+          <HiUserCircle className="w-8 h-8" />
+        )}
         <h1 className="ml-2">{user?.name}</h1>
         <div className="ml-auto ">
           <FiHeart className="inline" />
@@ -117,7 +123,11 @@ const PostDetail: VFC = () => {
       </div>
 
       <p className="text-base font-bold mt-4">{post?.writing}</p>
-      <div className="bg-gray-200 text-center  h-48 mt-6">写真</div>
+      {post?.image !== "" ? (
+        <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
+          <img src={post?.image} className="text-center object-contain " />
+        </div>
+      ) : null}
 
       <table className="table-fixed text-center text-base w-full mt-6">
         <tbody className="mt-2">
@@ -132,28 +142,34 @@ const PostDetail: VFC = () => {
             <td className="border px-4 py-2 text-left">{post?.genre}</td>
           </tr>
           <tr className="bg-gray-100">
+            <th className="border px-4 py-2 text-left">都道府県</th>
+            <td className="border px-4 py-2 text-left">{post?.location}</td>
+          </tr>
+          <tr>
             <th className="border px-4 py-2 text-left">開催日</th>
             <td className="border px-4 py-2 text-left">{post?.eventDate}</td>
           </tr>
-          <tr>
+          <tr className="bg-gray-100">
             <th className="border px-4 py-2 text-left">開催場所</th>
             <td className="border px-4 py-2 text-left break-words max-w-sm">
               {post?.eventLocation}
             </td>
           </tr>
-          <tr className="bg-gray-100">
+          <tr>
             <th className="border px-4 py-2 text-left">開催時間</th>
             <td className="border px-4 py-2 text-left">{`${post?.openTime}～${post?.closeTime}`}</td>
           </tr>
-          <tr>
-            <th className="border px-4 py-2 text-left">値段</th>
-            <td className="border px-4 py-2 text-left">{`${post?.minAmount}～${post?.maxAmount}`}</td>
-          </tr>
           <tr className="bg-gray-100">
+            <th className="border px-4 py-2 text-left">値段</th>
+            <td className="border px-4 py-2 text-left">
+              {post?.minAmount}～{post?.maxAmount}
+            </td>
+          </tr>
+          <tr>
             <th className="border px-4 py-2 text-left">チケット</th>
             <td className="border px-4 py-2 text-left">{post?.tickets}</td>
           </tr>
-          <tr>
+          <tr className="bg-gray-100">
             <th className="border px-4 py-2 text-left">クーポンコード</th>
             <td className="border px-4 py-2 text-left break-words max-w-sm">
               {post?.coupon}
@@ -161,12 +177,14 @@ const PostDetail: VFC = () => {
           </tr>
         </tbody>
       </table>
-      <button
-        onClick={deletePost}
-        className="text-white font-bold block ml-auto mt-6 p-1 bg-red-500 hover:bg-red-600"
-      >
-        投稿を削除する
-      </button>
+      {userEmail.email === post?.email ? (
+        <button
+          onClick={deletePost}
+          className="text-white font-bold block ml-auto mt-6 p-1 bg-red-500 hover:bg-red-600"
+        >
+          投稿を削除する
+        </button>
+      ) : null}
     </div>
   );
 };
