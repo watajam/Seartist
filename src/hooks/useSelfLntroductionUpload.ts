@@ -45,7 +45,7 @@ export const useSelfLntroductionUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (data: Pick<FormData, "image" | "writing">) => {
+  const handleUpload = async (data: Pick<FormData, "writing">) => {
     try {
       if (!myFiles) return;
       const storageRef = ref(storage, `/images/${myFiles[0].name}`);
