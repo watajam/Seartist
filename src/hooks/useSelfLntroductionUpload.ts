@@ -106,7 +106,7 @@ export const useSelfLntroductionUpload = () => {
         }
       );
     } catch (error) {
-      if (src !== null) {
+      if (src === "/profile.png") {
         router.push("/posts");
       } else {
         console.log("エラーキャッチ", error);
