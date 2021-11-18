@@ -1,26 +1,28 @@
 import React, { memo, useEffect, useState, VFC } from "react";
-import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Disclosure } from "@headlessui/react";
-import { useReactDropzon } from "../../hooks/useReactDropzon";
 import FormButton from "../Form/FormButton";
-import { useRouter } from "next/router";
-import { useProfileEditReactHookForm } from "../../hooks/useProfileEditReactHookForm";
 import { doc, onSnapshot } from "@firebase/firestore";
 import { db } from "../../../lib/firebase";
 import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
 import { FormData } from "../../../types/FormData";
+import { useProfileEditUpload } from "../../hooks/useProfileEditUpload";
 
 const ProfileEditing: VFC = () => {
-  const [user, setUser] = useState<Pick<FormData, "userId" | "genre">>(null);
-  const router = useRouter();
+  const [user, setUser] =
+    useState<Pick<FormData, "image" | "userId" | "genre">>(null);
 
-  const { register, handleSubmit, errors, onSubmit, setValue } =
-    useProfileEditReactHookForm();
-
-  const { getRootProps, getInputProps, open, img } = useReactDropzon();
-
-  setValue("image", img);
+  const {
+    getRootProps,
+    getInputProps,
+    open,
+    handleUpload,
+    src,
+    register,
+    handleSubmit,
+    setValue,
+    errors,
+  } = useProfileEditUpload();
 
   const { userEmail } = useRecoilSetEmail();
 
@@ -30,11 +32,13 @@ const ProfileEditing: VFC = () => {
       const q = doc(db, "users", userEmail.email);
       const unsubscribe = onSnapshot(q, (snapshot) => {
         setUser({
+          image: snapshot.data().image,
           userId: snapshot.data().userId,
           genre: snapshot.data().genre,
         });
-        setValue("userId", snapshot.data().userId);
+        setValue("image", snapshot.data().image);
         setValue("name", snapshot.data().name);
+        setValue("userId", snapshot.data().userId);
         setValue("birthday", snapshot.data().birthday);
         setValue("genre", snapshot.data().genre);
         setValue("location", snapshot.data().location);
@@ -51,7 +55,7 @@ const ProfileEditing: VFC = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleUpload)}>
         <div className="px-5  pt-28 pb-20">
           <h1 className="text-2xl font-bold text-center text-orange-300 mb-6">
             プロフィール編集
@@ -59,15 +63,19 @@ const ProfileEditing: VFC = () => {
           {/* 投稿写真 */}
           <div
             {...getRootProps()}
-            className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200 relative"
+            className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200"
           >
-            <span className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <AiOutlineCamera className="w-6 h-6" />
-            </span>
             <input {...getInputProps()} />
+
             <img
-              src={img}
-              className="object-cover h-24 w-24  rounded-full  m-auto  relative "
+              src={
+                user?.image === "" || user?.image === undefined
+                  ? src
+                  : src === "/profile.png"
+                  ? user?.image
+                  : src
+              }
+              className="object-cover h-24 w-24  rounded-full  m-auto  "
             />
           </div>
           <button

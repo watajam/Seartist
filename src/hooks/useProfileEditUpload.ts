@@ -1,4 +1,11 @@
-import { doc, updateDoc } from "@firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "@firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
@@ -13,14 +20,31 @@ export type firebaseOnLoadProp = {
   state: "error" | "paused" | "running" | "success";
 };
 
-export const useSelfLntroductionUpload = () => {
+export const useProfileEditUpload = () => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [src, setSrc] = useState("/profile.png");
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Pick<FormData, "writing">>({
+    setValue,
+    setError,
+  } = useForm<
+    Pick<
+      FormData,
+      | "image"
+      | "name"
+      | "userId"
+      | "birthday"
+      | "genre"
+      | "location"
+      | "writing"
+      | "twitterUrl"
+      | "instagramUrl"
+      | "homepageUrl"
+      | "otherUrl"
+    >
+  >({
     mode: "onChange",
   });
   const router = useRouter();
@@ -45,7 +69,22 @@ export const useSelfLntroductionUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (data: Pick<FormData, "writing">) => {
+  const handleUpload = async (
+    data: Pick<
+      FormData,
+      | "image"
+      | "name"
+      | "userId"
+      | "birthday"
+      | "genre"
+      | "location"
+      | "writing"
+      | "twitterUrl"
+      | "instagramUrl"
+      | "homepageUrl"
+      | "otherUrl"
+    >
+  ) => {
     try {
       if (!myFiles) return;
       const storageRef = ref(storage, `/images/${myFiles[0].name}`);
@@ -82,11 +121,34 @@ export const useSelfLntroductionUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            await updateDoc(doc(db, "users", auth.currentUser.email), {
-              image: url,
-              writing: data.writing,
-            });
-            router.push("/posts");
+            const q = query(
+              collection(db, "users"),
+              where("userId", "==", data.userId),
+              where("email", "==", auth.currentUser?.email)
+            );
+
+            const currentUser = await getDocs(q);
+            if (currentUser.docs.length !== 1) {
+              setError("userId", {
+                type: "validate",
+                message: "このユーザーIDは既に使用されています",
+              });
+            } else {
+              await updateDoc(doc(db, "users", auth.currentUser.email), {
+                image: url,
+                name: data.name,
+                userId: data.userId,
+                genre: data.genre ? data.genre : "",
+                location: data.location,
+                birthday: data.birthday,
+                writing: data.writing,
+                twitterUrl: data.twitterUrl,
+                instagramUrl: data.instagramUrl,
+                homepageUrl: data.homepageUrl,
+                otherUrl: data.otherUrl,
+              });
+              router.back();
+            }
           } catch (error) {
             switch (error.code) {
               case "storage/object-not-found":
@@ -106,8 +168,34 @@ export const useSelfLntroductionUpload = () => {
         }
       );
     } catch (error) {
-      if (src !== null) {
-        router.push("/posts");
+      if (src === "/profile.png") {
+        const q = query(
+          collection(db, "users"),
+          where("userId", "==", data.userId),
+          where("email", "==", auth.currentUser?.email)
+        );
+
+        const currentUser = await getDocs(q);
+        if (currentUser.docs.length !== 1) {
+          setError("userId", {
+            type: "validate",
+            message: "このユーザーIDは既に使用されています",
+          });
+        } else {
+          await updateDoc(doc(db, "users", auth.currentUser.email), {
+            name: data.name,
+            userId: data.userId,
+            genre: data.genre ? data.genre : "",
+            location: data.location,
+            birthday: data.birthday,
+            writing: data.writing,
+            twitterUrl: data.twitterUrl,
+            instagramUrl: data.instagramUrl,
+            homepageUrl: data.homepageUrl,
+            otherUrl: data.otherUrl,
+          });
+          router.back();
+        }
       } else {
         console.log("エラーキャッチ", error);
       }
@@ -137,6 +225,7 @@ export const useSelfLntroductionUpload = () => {
     src,
     register,
     handleSubmit,
+    setValue,
     errors,
   };
 };
