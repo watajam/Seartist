@@ -66,11 +66,14 @@ const ProfileEditing: VFC = () => {
             className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200"
           >
             <input {...getInputProps()} />
+
             <img
               src={
                 user?.image === "" || user?.image === undefined
                   ? src
-                  : user?.image
+                  : src === "/profile.png"
+                  ? user?.image
+                  : src
               }
               className="object-cover h-24 w-24  rounded-full  m-auto  "
             />
