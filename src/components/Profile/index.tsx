@@ -20,6 +20,7 @@ const Profile: VFC = () => {
     useState<
       Pick<
         FormData,
+        | "image"
         | "name"
         | "userId"
         | "genre"
@@ -82,13 +83,13 @@ const Profile: VFC = () => {
       const unsubscribe = onSnapshot(q, (snapshot) => {
         if (snapshot.docs.length !== 0) {
           setUser({
+            image: snapshot.docs[0].data().image,
             name: snapshot.docs[0].data().name,
             userId: snapshot.docs[0].data().userId,
             genre: snapshot.docs[0].data().genre,
             location: snapshot.docs[0].data().location,
             birthday: snapshot.docs[0].data().birthday,
             writing: snapshot.docs[0].data().writing,
-            image: snapshot.docs[0].data().image,
             twitterUrl: snapshot.docs[0].data().twitterUrl,
             instagramUrl: snapshot.docs[0].data().instagramUrl,
             homepageUrl: snapshot.docs[0].data().homepageUrl,
