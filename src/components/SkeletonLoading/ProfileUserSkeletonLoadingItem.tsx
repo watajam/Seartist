@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import React, { VFC } from 'react';
 
 const ProfileUserSkeletonLoadingItem: VFC = () => {
   return (
@@ -59,7 +59,6 @@ const ProfileUserSkeletonLoadingItem: VFC = () => {
       </nav>
 
       <div className="bg-gray-300 h-8 text-white text-center mt-6 p-1 block"></div>
-
     </div>
   );
 };

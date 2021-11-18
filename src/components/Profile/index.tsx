@@ -1,52 +1,37 @@
-import React, { memo, useCallback, useEffect, useState, VFC } from "react";
-import {
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  where,
-} from "@firebase/firestore";
-import { db } from "../../../lib/firebase";
-import { useRouter } from "next/dist/client/router";
-import { FormData } from "../../../types/FormData";
-import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
-import ProfileUser from "./ProfileUser";
-import PostProfile from "../Post/PostProfile";
-import ProfileTab from "./ProfileTab";
+import React, { memo, useCallback, useEffect, useState, VFC } from 'react';
+import { collection, doc, onSnapshot, orderBy, query, where } from '@firebase/firestore';
+import { db } from '../../../lib/firebase';
+import { useRouter } from 'next/dist/client/router';
+import { FormData } from '../../../types/FormData';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import ProfileUser from './ProfileUser';
+import PostProfile from '../Post/PostProfile';
+import ProfileTab from './ProfileTab';
 
 const Profile: VFC = () => {
   const [user, setUser] =
     useState<
       Pick<
         FormData,
-        | "image"
-        | "name"
-        | "userId"
-        | "genre"
-        | "location"
-        | "birthday"
-        | "writing"
-        | "image"
-        | "twitterUrl"
-        | "instagramUrl"
-        | "homepageUrl"
-        | "otherUrl"
-        | "email"
+        | 'image'
+        | 'name'
+        | 'userId'
+        | 'genre'
+        | 'location'
+        | 'birthday'
+        | 'writing'
+        | 'image'
+        | 'twitterUrl'
+        | 'instagramUrl'
+        | 'homepageUrl'
+        | 'otherUrl'
+        | 'email'
       >
     >(null);
   const [posts, setPosts] = useState<
     Pick<
       FormData,
-      | "id"
-      | "image"
-      | "writing"
-      | "eventName"
-      | "genre"
-      | "eventLocation"
-      | "eventDate"
-      | "openTime"
-      | "closeTime"
+      'id' | 'image' | 'writing' | 'eventName' | 'genre' | 'eventLocation' | 'eventDate' | 'openTime' | 'closeTime'
     >[]
   >([]);
   const [chengePage, setChengePage] = useState(true);
@@ -58,10 +43,10 @@ const Profile: VFC = () => {
   //データがない場合にselectionページに遷移
   useEffect(() => {
     if (userEmail !== null) {
-      const postsRef = doc(db, "users", userEmail.email);
+      const postsRef = doc(db, 'users', userEmail.email);
       const unsubscribe = onSnapshot(postsRef, (snapshot) => {
         if (snapshot.data().email !== userEmail.email) {
-          router.push("/selection");
+          router.push('/selection');
         }
       });
       return () => unsubscribe();
@@ -75,10 +60,10 @@ const Profile: VFC = () => {
   }, []);
 
   useEffect(() => {
-    const userRef = collection(db, "users");
+    const userRef = collection(db, 'users');
 
-    if (router.query.id !== "undefined") {
-      const q = query(userRef, where("userId", "==", `${router.query.id}`));
+    if (router.query.id !== 'undefined') {
+      const q = query(userRef, where('userId', '==', `${router.query.id}`));
 
       const unsubscribe = onSnapshot(q, (snapshot) => {
         if (snapshot.docs.length !== 0) {
@@ -97,7 +82,7 @@ const Profile: VFC = () => {
             email: snapshot.docs[0].data().email,
           });
         } else {
-          alert("存在しないページです");
+          alert('存在しないページです');
         }
 
         setUserLoading(false);
@@ -108,10 +93,7 @@ const Profile: VFC = () => {
 
   useEffect(() => {
     if (user?.email !== undefined) {
-      const q = query(
-        collection(db, "users", `${user.email}`, "posts"),
-        orderBy("timestamp", "desc")
-      );
+      const q = query(collection(db, 'users', `${user.email}`, 'posts'), orderBy('timestamp', 'desc'));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         setPosts(
           snapshot.docs.map((doc) => ({
@@ -146,21 +128,11 @@ const Profile: VFC = () => {
 
       {/* タブ */}
       <div className="mt-6 flex">
-        <ProfileTab
-          user={user}
-          userLoading={userLoading}
-          handleChengePage={handleChengePage}
-          chengePage={chengePage}
-        />
+        <ProfileTab user={user} userLoading={userLoading} handleChengePage={handleChengePage} chengePage={chengePage} />
       </div>
 
       <div className="px-5 mt-4 grid gap-6  md:max-w-xl lg:max-w-2xl">
-        <PostProfile
-          posts={posts}
-          user={user}
-          userLoading={userLoading}
-          postsLoading={postsLoading}
-        />
+        <PostProfile posts={posts} user={user} userLoading={userLoading} postsLoading={postsLoading} />
       </div>
     </>
   );

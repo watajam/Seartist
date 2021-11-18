@@ -1,6 +1,6 @@
-import React, { memo, VFC } from "react";
-import { IoMdArrowBack } from "react-icons/io";
-import Link from "next/link";
+import React, { memo, VFC } from 'react';
+import { IoMdArrowBack } from 'react-icons/io';
+import Link from 'next/link';
 
 const ProfileEditHeader: VFC = () => {
   return (

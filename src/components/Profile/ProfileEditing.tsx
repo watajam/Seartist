@@ -1,52 +1,42 @@
-import React, { memo, useEffect, useState, VFC } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
-import { Disclosure } from "@headlessui/react";
-import FormButton from "../Form/FormButton";
-import { doc, onSnapshot } from "@firebase/firestore";
-import { db } from "../../../lib/firebase";
-import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
-import { FormData } from "../../../types/FormData";
-import { useProfileEditUpload } from "../../hooks/useProfileEditUpload";
+import React, { memo, useEffect, useState, VFC } from 'react';
+import { AiFillCaretDown } from 'react-icons/ai';
+import { Disclosure } from '@headlessui/react';
+import FormButton from '../Form/FormButton';
+import { doc, onSnapshot } from '@firebase/firestore';
+import { db } from '../../../lib/firebase';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import { FormData } from '../../../types/FormData';
+import { useProfileEditUpload } from '../../hooks/useProfileEditUpload';
 
 const ProfileEditing: VFC = () => {
-  const [user, setUser] =
-    useState<Pick<FormData, "image" | "userId" | "genre">>(null);
+  const [user, setUser] = useState<Pick<FormData, 'image' | 'userId' | 'genre'>>(null);
 
-  const {
-    getRootProps,
-    getInputProps,
-    open,
-    handleUpload,
-    src,
-    register,
-    handleSubmit,
-    setValue,
-    errors,
-  } = useProfileEditUpload();
+  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, setValue, errors } =
+    useProfileEditUpload();
 
   const { userEmail } = useRecoilSetEmail();
 
   // ユーザー情報取得
   useEffect(() => {
     if (userEmail !== null) {
-      const q = doc(db, "users", userEmail.email);
+      const q = doc(db, 'users', userEmail.email);
       const unsubscribe = onSnapshot(q, (snapshot) => {
         setUser({
           image: snapshot.data().image,
           userId: snapshot.data().userId,
           genre: snapshot.data().genre,
         });
-        setValue("image", snapshot.data().image);
-        setValue("name", snapshot.data().name);
-        setValue("userId", snapshot.data().userId);
-        setValue("birthday", snapshot.data().birthday);
-        setValue("genre", snapshot.data().genre);
-        setValue("location", snapshot.data().location);
-        setValue("writing", snapshot.data().writing);
-        setValue("twitterUrl", snapshot.data().twitterUrl);
-        setValue("instagramUrl", snapshot.data().instagramUrl);
-        setValue("homepageUrl", snapshot.data().homepageUrl);
-        setValue("otherUrl", snapshot.data().otherUrl);
+        setValue('image', snapshot.data().image);
+        setValue('name', snapshot.data().name);
+        setValue('userId', snapshot.data().userId);
+        setValue('birthday', snapshot.data().birthday);
+        setValue('genre', snapshot.data().genre);
+        setValue('location', snapshot.data().location);
+        setValue('writing', snapshot.data().writing);
+        setValue('twitterUrl', snapshot.data().twitterUrl);
+        setValue('instagramUrl', snapshot.data().instagramUrl);
+        setValue('homepageUrl', snapshot.data().homepageUrl);
+        setValue('otherUrl', snapshot.data().otherUrl);
       });
 
       return () => unsubscribe();
@@ -57,32 +47,17 @@ const ProfileEditing: VFC = () => {
     <>
       <form onSubmit={handleSubmit(handleUpload)}>
         <div className="px-5  pt-28 pb-20">
-          <h1 className="text-2xl font-bold text-center text-orange-300 mb-6">
-            プロフィール編集
-          </h1>
+          <h1 className="text-2xl font-bold text-center text-orange-300 mb-6">プロフィール編集</h1>
           {/* 投稿写真 */}
-          <div
-            {...getRootProps()}
-            className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200"
-          >
+          <div {...getRootProps()} className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200">
             <input {...getInputProps()} />
 
             <img
-              src={
-                user?.image === "" || user?.image === undefined
-                  ? src
-                  : src === "/profile.png"
-                  ? user?.image
-                  : src
-              }
+              src={user?.image === '' || user?.image === undefined ? src : src === '/profile.png' ? user?.image : src}
               className="object-cover h-24 w-24  rounded-full  m-auto  "
             />
           </div>
-          <button
-            onClick={open}
-            className=" text-base text-gray-400 mt-4 block m-auto"
-            type="button"
-          >
+          <button onClick={open} className=" text-base text-gray-400 mt-4 block m-auto" type="button">
             プロフィール写真を変更
           </button>
           {/* 氏名/アーティスト名 */}
@@ -94,23 +69,18 @@ const ProfileEditing: VFC = () => {
             type="text"
             id="name"
             placeholder="氏名 or アーティスト名を入力してください"
-            {...register("name", {
-              required: "必須項目です。",
+            {...register('name', {
+              required: '必須項目です。',
               maxLength: {
                 value: 30,
-                message: "氏名 or アーティスト名は30字以下で入力してください",
+                message: '氏名 or アーティスト名は30字以下で入力してください',
               },
             })}
             className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
           />
-          {errors.name && (
-            <p className="text-red-600">{errors.name?.message}</p>
-          )}
+          {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
           {/* ユーザーID */}
-          <label
-            htmlFor="ユーザーID"
-            className="block mt-8 text-base text-gray-400 "
-          >
+          <label htmlFor="ユーザーID" className="block mt-8 text-base text-gray-400 ">
             ユーザーID
             <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
           </label>
@@ -118,41 +88,34 @@ const ProfileEditing: VFC = () => {
             type="text"
             id="ユーザーID"
             placeholder="例 : seartist_jp"
-            {...register("userId", {
-              required: "必須項目です。",
+            {...register('userId', {
+              required: '必須項目です。',
               pattern: {
                 value: /[0-9a-zA-Z_]{1,15}/,
-                message: "正しい形式で入力してください",
+                message: '正しい形式で入力してください',
               },
               minLength: {
                 value: 4,
-                message: "ユーザーIDは4文字以上15字以下で入力してください",
+                message: 'ユーザーIDは4文字以上15字以下で入力してください',
               },
               maxLength: {
                 value: 15,
-                message: "ユーザーIDは4文字以上15字以下で入力してください",
+                message: 'ユーザーIDは4文字以上15字以下で入力してください',
               },
             })}
             className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
           />
-          {errors.userId && (
-            <p className="text-red-600">{errors.userId?.message}</p>
-          )}
+          {errors.userId && <p className="text-red-600">{errors.userId?.message}</p>}
           {/* ジャンル */}
           {user?.genre ? (
             <>
-              <label
-                htmlFor="genre"
-                className="block mt-8 text-base text-gray-400 "
-              >
+              <label htmlFor="genre" className="block mt-8 text-base text-gray-400 ">
                 ジャンル
-                <span className="ml-2 bg-orange-200 text-white text-sm">
-                  必須
-                </span>
+                <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
               </label>
               <div className="relative  mt-2">
                 <select
-                  {...register("genre")}
+                  {...register('genre')}
                   id="genre"
                   className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
                 >
@@ -162,9 +125,7 @@ const ProfileEditing: VFC = () => {
                   <option defaultValue="K-POP">K-POP</option>
                   <option defaultValue="HIP-HOP">HIP-HOP</option>
                   <option defaultValue="R&B">R&B</option>
-                  <option defaultValue="ダンス/エレクトロニック">
-                    ダンス/エレクトロニック
-                  </option>
+                  <option defaultValue="ダンス/エレクトロニック">ダンス/エレクトロニック</option>
                   <option defaultValue="アニメ">アニメ</option>
                   <option defaultValue="邦楽ロック">邦楽ロック</option>
                   <option defaultValue="洋楽ロック">洋楽ロック</option>
@@ -176,31 +137,19 @@ const ProfileEditing: VFC = () => {
                   <option defaultValue="ファンク">ファンク</option>
                   <option defaultValue="ラテン">ラテン</option>
                   <option defaultValue="ニューエイジ">ニューエイジ</option>
-                  <option defaultValue="インスゥルメンタル">
-                    インスゥルメンタル
-                  </option>
+                  <option defaultValue="インスゥルメンタル">インスゥルメンタル</option>
                   <option defaultValue="演歌">演歌</option>
                   <option defaultValue="民族音楽">民族音楽</option>
 
                   <option defaultValue="展示会">展示会</option>
-                  <option defaultValue="スポーツイベント">
-                    スポーツイベント
-                  </option>
+                  <option defaultValue="スポーツイベント">スポーツイベント</option>
                   <option defaultValue="講演会">講演会</option>
                   <option defaultValue="祭り">祭り</option>
-                  <option defaultValue="フリーマーケット">
-                    フリーマーケット
-                  </option>
+                  <option defaultValue="フリーマーケット">フリーマーケット</option>
                   <option defaultValue="展示即売会">展示即売会</option>
-                  <option defaultValue="セレモニー・式典">
-                    セレモニー・式典
-                  </option>
-                  <option defaultValue="団体・企業の大会">
-                    団体・企業の大会
-                  </option>
-                  <option defaultValue="プロモーションイベント">
-                    プロモーションイベント
-                  </option>
+                  <option defaultValue="セレモニー・式典">セレモニー・式典</option>
+                  <option defaultValue="団体・企業の大会">団体・企業の大会</option>
+                  <option defaultValue="プロモーションイベント">プロモーションイベント</option>
                   <option defaultValue="学園祭">学園祭</option>
                   <option defaultValue="発表会">発表会</option>
                   <option defaultValue="その他">その他</option>
@@ -213,15 +162,12 @@ const ProfileEditing: VFC = () => {
           ) : null}
 
           {/* 所在地 */}
-          <label
-            htmlFor="location"
-            className="block mt-8 text-base text-gray-400 "
-          >
+          <label htmlFor="location" className="block mt-8 text-base text-gray-400 ">
             所在地
           </label>
           <div className="relative  mt-2">
             <select
-              {...register("location")}
+              {...register('location')}
               id="location"
               className=" w-full h-10 pl-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
             >
@@ -279,42 +225,32 @@ const ProfileEditing: VFC = () => {
             </div>
           </div>
           {/* 生年月日 */}
-          <label
-            htmlFor="birthday"
-            className="block mt-8 text-base text-gray-400 "
-          >
+          <label htmlFor="birthday" className="block mt-8 text-base text-gray-400 ">
             生年月日
           </label>
           <input
-            {...register("birthday")}
+            {...register('birthday')}
             type="date"
             id="birthday"
             className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
           ></input>
-          {errors.birthday && (
-            <p className="text-red-600">{errors.birthday?.message}</p>
-          )}
+          {errors.birthday && <p className="text-red-600">{errors.birthday?.message}</p>}
 
           {/* 自己紹介 */}
-          <label
-            htmlFor="紹介文"
-            className="block mt-8 text-base text-gray-400"
-          >
+          <label htmlFor="紹介文" className="block mt-8 text-base text-gray-400">
             紹介文
           </label>
           <textarea
             id="紹介文"
-            {...register("writing", {
+            {...register('writing', {
               maxLength: {
                 value: 140,
-                message: "紹介文は140文字以下で入力してください",
+                message: '紹介文は140文字以下で入力してください',
               },
             })}
             className=" w-full h-32 pt-2 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
           />
-          {errors.writing && (
-            <p className="text-red-600">{errors.writing?.message}</p>
-          )}
+          {errors.writing && <p className="text-red-600">{errors.writing?.message}</p>}
           {user?.genre ? (
             <>
               <Disclosure as="div" className="mt-2">
@@ -325,109 +261,77 @@ const ProfileEditing: VFC = () => {
                        text-white bg-orange-100 rounded-lg h-10  hover:bg-orange-200 focus:outline-none "
                     >
                       <span>各URLの編集はこちら</span>
-                      <AiFillCaretDown
-                        className={`${open ? "transform rotate-180" : ""}  `}
-                      />
+                      <AiFillCaretDown className={`${open ? 'transform rotate-180' : ''}  `} />
                     </Disclosure.Button>
                     <Disclosure.Panel className=" pt-4 pb-2 text-sm text-gray-500">
                       {/* Twitter */}
-                      <label
-                        htmlFor="twitter"
-                        className="block  text-base text-gray-400 "
-                      >
+                      <label htmlFor="twitter" className="block  text-base text-gray-400 ">
                         Twitter
                       </label>
                       <input
                         type="url"
                         id="twitter"
                         placeholder="URLを入力してください"
-                        {...register("twitterUrl", {
+                        {...register('twitterUrl', {
                           pattern: {
-                            value:
-                              /(https|http):\/\/(twitter.com)\/([A-Za-z0-9_]*)/,
-                            message: "正しい形式で入力してください",
+                            value: /(https|http):\/\/(twitter.com)\/([A-Za-z0-9_]*)/,
+                            message: '正しい形式で入力してください',
                           },
                         })}
                         className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
                       />
-                      {errors.twitterUrl && (
-                        <p className="text-red-600">
-                          {errors.twitterUrl?.message}
-                        </p>
-                      )}
+                      {errors.twitterUrl && <p className="text-red-600">{errors.twitterUrl?.message}</p>}
                       {/* Instagram */}
-                      <label
-                        htmlFor="instagram"
-                        className="block mt-8 text-base text-gray-400 "
-                      >
+                      <label htmlFor="instagram" className="block mt-8 text-base text-gray-400 ">
                         Instagram
                       </label>
                       <input
                         type="url"
                         id="instagram"
                         placeholder="URLを入力してください"
-                        {...register("instagramUrl", {
+                        {...register('instagramUrl', {
                           pattern: {
-                            value:
-                              /(https|http):\/\/(www.instagram.com)\/([A-Za-z0-9_]*)/,
-                            message: "正しい形式で入力してください",
+                            value: /(https|http):\/\/(www.instagram.com)\/([A-Za-z0-9_]*)/,
+                            message: '正しい形式で入力してください',
                           },
                         })}
                         className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
                       />
-                      {errors.instagramUrl && (
-                        <p className="text-red-600">
-                          {errors.instagramUrl?.message}
-                        </p>
-                      )}
+                      {errors.instagramUrl && <p className="text-red-600">{errors.instagramUrl?.message}</p>}
                       {/* HomePage */}
-                      <label
-                        htmlFor="homepage"
-                        className="block mt-8 text-base text-gray-400 "
-                      >
+                      <label htmlFor="homepage" className="block mt-8 text-base text-gray-400 ">
                         HomePage
                       </label>
                       <input
                         type="url"
                         id="homepage"
                         placeholder="URLを入力してください"
-                        {...register("homepageUrl", {
+                        {...register('homepageUrl', {
                           pattern: {
                             value: /(https|http):\/\//,
-                            message: "正しい形式で入力してください",
+                            message: '正しい形式で入力してください',
                           },
                         })}
                         className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
                       />
-                      {errors.homepageUrl && (
-                        <p className="text-red-600">
-                          {errors.homepageUrl?.message}
-                        </p>
-                      )}
+                      {errors.homepageUrl && <p className="text-red-600">{errors.homepageUrl?.message}</p>}
                       {/* その他 */}
-                      <label
-                        htmlFor="other"
-                        className="block mt-8 text-base text-gray-400 "
-                      >
+                      <label htmlFor="other" className="block mt-8 text-base text-gray-400 ">
                         その他
                       </label>
                       <input
                         type="url"
                         id="other"
                         placeholder="URLを入力してください"
-                        {...register("otherUrl", {
+                        {...register('otherUrl', {
                           pattern: {
                             value: /(https|http):\/\//,
-                            message: "正しい形式で入力してください",
+                            message: '正しい形式で入力してください',
                           },
                         })}
                         className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
                       />
-                      {errors.otherUrl && (
-                        <p className="text-red-600">
-                          {errors.otherUrl?.message}
-                        </p>
-                      )}
+                      {errors.otherUrl && <p className="text-red-600">{errors.otherUrl?.message}</p>}
                     </Disclosure.Panel>
                   </>
                 )}

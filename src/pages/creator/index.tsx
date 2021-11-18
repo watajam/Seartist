@@ -1,9 +1,9 @@
-import CreatorProfileFormList from "../../components/Form/FormList/CreatorProfileFormList";
-import FormButton from "../../components/Form/FormButton";
-import HeaderLayout from "../../components/Layout/HeaderLayout";
-import { VFC } from "react";
+import CreatorProfileFormList from '../../components/Form/FormList/CreatorProfileFormList';
+import FormButton from '../../components/Form/FormButton';
+import HeaderLayout from '../../components/Layout/HeaderLayout';
+import { VFC } from 'react';
 
-const Creator:VFC = () => {
+const Creator: VFC = () => {
   return (
     <HeaderLayout>
       <CreatorProfileFormList>

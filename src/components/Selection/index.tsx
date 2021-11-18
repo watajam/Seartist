@@ -1,29 +1,27 @@
-import React, { memo, useCallback, useEffect, VFC } from "react";
-import Link from "next/link";
-import { doc, setDoc } from "@firebase/firestore";
-import { db } from "../../../lib/firebase";
-import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
+import React, { memo, useCallback, useEffect, VFC } from 'react';
+import Link from 'next/link';
+import { doc, setDoc } from '@firebase/firestore';
+import { db } from '../../../lib/firebase';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 
 const Selection: VFC = () => {
   const { userEmail } = useRecoilSetEmail();
 
   const handleSetUserEmail = useCallback(() => {
     if (userEmail !== null) {
-      setDoc(doc(db, "users", userEmail.email), {
-        name: "",
-        userId: "",
-        genre: "",
-        location: "",
-        birthday: "",
+      setDoc(doc(db, 'users', userEmail.email), {
+        name: '',
+        userId: '',
+        genre: '',
+        location: '',
+        birthday: '',
       });
     }
   }, [userEmail]);
 
   return (
     <>
-      <h1 className="text-xl font-bold text-center text-gray-400 underline mt-8">
-        該当している方を選択してください
-      </h1>
+      <h1 className="text-xl font-bold text-center text-gray-400 underline mt-8">該当している方を選択してください</h1>
       <Link href="/listener">
         <a
           onClick={handleSetUserEmail}

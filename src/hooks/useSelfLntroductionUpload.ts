@@ -1,27 +1,27 @@
-import { doc, updateDoc } from "@firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
-import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { useForm } from "react-hook-form";
-import { auth, db, storage } from "../../lib/firebase";
-import { FormData } from "../../types/FormData";
+import { doc, updateDoc } from '@firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { useForm } from 'react-hook-form';
+import { auth, db, storage } from '../../lib/firebase';
+import { FormData } from '../../types/FormData';
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
   totalBytes: number;
-  state: "error" | "paused" | "running" | "success";
+  state: 'error' | 'paused' | 'running' | 'success';
 };
 
 export const useSelfLntroductionUpload = () => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
-  const [src, setSrc] = useState("/profile.png");
+  const [src, setSrc] = useState('/profile.png');
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Pick<FormData, "writing">>({
-    mode: "onChange",
+  } = useForm<Pick<FormData, 'writing'>>({
+    mode: 'onChange',
   });
   const router = useRouter();
 
@@ -36,80 +36,79 @@ export const useSelfLntroductionUpload = () => {
   }, []);
 
   const onDropRejected = () => {
-    alert("画像のみ受け付けることができます。");
+    alert('画像のみ受け付けることができます。');
   };
 
   const { getRootProps, getInputProps, open } = useDropzone({
-    accept: ["image/*"],
+    accept: ['image/*'],
     onDrop,
     onDropRejected,
   });
 
-  const handleUpload = async (data: Pick<FormData, "writing">) => {
+  const handleUpload = async (data: Pick<FormData, 'writing'>) => {
     try {
       if (!myFiles) return;
       const storageRef = ref(storage, `/images/${myFiles[0].name}`);
       const uploadTask = uploadBytesResumable(storageRef, myFiles[0]);
 
       uploadTask.on(
-        "state_changed",
+        'state_changed',
         async (snapshot) => {
-          const progress: number =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
+          const progress: number = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
           switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
+            case 'paused':
+              console.log('Upload is paused');
               break;
-            case "running":
-              console.log("Upload is running");
+            case 'running':
+              console.log('Upload is running');
               break;
           }
         },
         (error: any) => {
           switch (error.code) {
-            case "storage/unauthorized":
-              console.error("許可がありません");
+            case 'storage/unauthorized':
+              console.error('許可がありません');
               break;
-            case "storage/canceled":
-              console.error("アップロードがキャンセルされました");
+            case 'storage/canceled':
+              console.error('アップロードがキャンセルされました');
               break;
-            case "storage/unknown":
-              console.error("不明なエラーが発生しました");
+            case 'storage/unknown':
+              console.error('不明なエラーが発生しました');
               break;
           }
         },
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            await updateDoc(doc(db, "users", auth.currentUser.email), {
+            await updateDoc(doc(db, 'users', auth.currentUser.email), {
               image: url,
               writing: data.writing,
             });
-            router.push("/posts");
+            router.push('/posts');
           } catch (error) {
             switch (error.code) {
-              case "storage/object-not-found":
-                console.log("ファイルが存在しませんでした");
+              case 'storage/object-not-found':
+                console.log('ファイルが存在しませんでした');
                 break;
-              case "storage/unauthorized":
-                console.log("許可がありません");
+              case 'storage/unauthorized':
+                console.log('許可がありません');
                 break;
-              case "storage/canceled":
-                console.log("キャンセルされました");
+              case 'storage/canceled':
+                console.log('キャンセルされました');
                 break;
-              case "storage/unknown":
-                console.log("予期せぬエラーが生じました");
+              case 'storage/unknown':
+                console.log('予期せぬエラーが生じました');
                 break;
             }
           }
         }
       );
     } catch (error) {
-      if (src === "/profile.png") {
-        router.push("/posts");
+      if (src === '/profile.png') {
+        router.push('/posts');
       } else {
-        console.log("エラーキャッチ", error);
+        console.log('エラーキャッチ', error);
       }
     }
   };

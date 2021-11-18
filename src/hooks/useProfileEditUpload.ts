@@ -1,28 +1,21 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "@firebase/firestore";
-import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
-import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { useForm } from "react-hook-form";
-import { auth, db, storage } from "../../lib/firebase";
-import { FormData } from "../../types/FormData";
+import { collection, doc, getDocs, query, updateDoc, where } from '@firebase/firestore';
+import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { useForm } from 'react-hook-form';
+import { auth, db, storage } from '../../lib/firebase';
+import { FormData } from '../../types/FormData';
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
   totalBytes: number;
-  state: "error" | "paused" | "running" | "success";
+  state: 'error' | 'paused' | 'running' | 'success';
 };
 
 export const useProfileEditUpload = () => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
-  const [src, setSrc] = useState("/profile.png");
+  const [src, setSrc] = useState('/profile.png');
   const {
     register,
     handleSubmit,
@@ -32,20 +25,20 @@ export const useProfileEditUpload = () => {
   } = useForm<
     Pick<
       FormData,
-      | "image"
-      | "name"
-      | "userId"
-      | "birthday"
-      | "genre"
-      | "location"
-      | "writing"
-      | "twitterUrl"
-      | "instagramUrl"
-      | "homepageUrl"
-      | "otherUrl"
+      | 'image'
+      | 'name'
+      | 'userId'
+      | 'birthday'
+      | 'genre'
+      | 'location'
+      | 'writing'
+      | 'twitterUrl'
+      | 'instagramUrl'
+      | 'homepageUrl'
+      | 'otherUrl'
     >
   >({
-    mode: "onChange",
+    mode: 'onChange',
   });
   const router = useRouter();
 
@@ -60,11 +53,11 @@ export const useProfileEditUpload = () => {
   }, []);
 
   const onDropRejected = () => {
-    alert("画像のみ受け付けることができます。");
+    alert('画像のみ受け付けることができます。');
   };
 
   const { getRootProps, getInputProps, open } = useDropzone({
-    accept: ["image/*"],
+    accept: ['image/*'],
     onDrop,
     onDropRejected,
   });
@@ -72,17 +65,17 @@ export const useProfileEditUpload = () => {
   const handleUpload = async (
     data: Pick<
       FormData,
-      | "image"
-      | "name"
-      | "userId"
-      | "birthday"
-      | "genre"
-      | "location"
-      | "writing"
-      | "twitterUrl"
-      | "instagramUrl"
-      | "homepageUrl"
-      | "otherUrl"
+      | 'image'
+      | 'name'
+      | 'userId'
+      | 'birthday'
+      | 'genre'
+      | 'location'
+      | 'writing'
+      | 'twitterUrl'
+      | 'instagramUrl'
+      | 'homepageUrl'
+      | 'otherUrl'
     >
   ) => {
     try {
@@ -91,30 +84,29 @@ export const useProfileEditUpload = () => {
       const uploadTask = uploadBytesResumable(storageRef, myFiles[0]);
 
       uploadTask.on(
-        "state_changed",
+        'state_changed',
         async (snapshot) => {
-          const progress: number =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log("Upload is " + progress + "% done");
+          const progress: number = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
           switch (snapshot.state) {
-            case "paused":
-              console.log("Upload is paused");
+            case 'paused':
+              console.log('Upload is paused');
               break;
-            case "running":
-              console.log("Upload is running");
+            case 'running':
+              console.log('Upload is running');
               break;
           }
         },
         (error: any) => {
           switch (error.code) {
-            case "storage/unauthorized":
-              console.error("許可がありません");
+            case 'storage/unauthorized':
+              console.error('許可がありません');
               break;
-            case "storage/canceled":
-              console.error("アップロードがキャンセルされました");
+            case 'storage/canceled':
+              console.error('アップロードがキャンセルされました');
               break;
-            case "storage/unknown":
-              console.error("不明なエラーが発生しました");
+            case 'storage/unknown':
+              console.error('不明なエラーが発生しました');
               break;
           }
         },
@@ -122,23 +114,23 @@ export const useProfileEditUpload = () => {
           try {
             const url = await getDownloadURL(storageRef);
             const q = query(
-              collection(db, "users"),
-              where("userId", "==", data.userId),
-              where("email", "==", auth.currentUser?.email)
+              collection(db, 'users'),
+              where('userId', '==', data.userId),
+              where('email', '==', auth.currentUser?.email)
             );
 
             const currentUser = await getDocs(q);
             if (currentUser.docs.length !== 1) {
-              setError("userId", {
-                type: "validate",
-                message: "このユーザーIDは既に使用されています",
+              setError('userId', {
+                type: 'validate',
+                message: 'このユーザーIDは既に使用されています',
               });
             } else {
-              await updateDoc(doc(db, "users", auth.currentUser.email), {
+              await updateDoc(doc(db, 'users', auth.currentUser.email), {
                 image: url,
                 name: data.name,
                 userId: data.userId,
-                genre: data.genre ? data.genre : "",
+                genre: data.genre ? data.genre : '',
                 location: data.location,
                 birthday: data.birthday,
                 writing: data.writing,
@@ -151,41 +143,41 @@ export const useProfileEditUpload = () => {
             }
           } catch (error) {
             switch (error.code) {
-              case "storage/object-not-found":
-                console.log("ファイルが存在しませんでした");
+              case 'storage/object-not-found':
+                console.log('ファイルが存在しませんでした');
                 break;
-              case "storage/unauthorized":
-                console.log("許可がありません");
+              case 'storage/unauthorized':
+                console.log('許可がありません');
                 break;
-              case "storage/canceled":
-                console.log("キャンセルされました");
+              case 'storage/canceled':
+                console.log('キャンセルされました');
                 break;
-              case "storage/unknown":
-                console.log("予期せぬエラーが生じました");
+              case 'storage/unknown':
+                console.log('予期せぬエラーが生じました');
                 break;
             }
           }
         }
       );
     } catch (error) {
-      if (src === "/profile.png") {
+      if (src === '/profile.png') {
         const q = query(
-          collection(db, "users"),
-          where("userId", "==", data.userId),
-          where("email", "==", auth.currentUser?.email)
+          collection(db, 'users'),
+          where('userId', '==', data.userId),
+          where('email', '==', auth.currentUser?.email)
         );
 
         const currentUser = await getDocs(q);
         if (currentUser.docs.length !== 1) {
-          setError("userId", {
-            type: "validate",
-            message: "このユーザーIDは既に使用されています",
+          setError('userId', {
+            type: 'validate',
+            message: 'このユーザーIDは既に使用されています',
           });
         } else {
-          await updateDoc(doc(db, "users", auth.currentUser.email), {
+          await updateDoc(doc(db, 'users', auth.currentUser.email), {
             name: data.name,
             userId: data.userId,
-            genre: data.genre ? data.genre : "",
+            genre: data.genre ? data.genre : '',
             location: data.location,
             birthday: data.birthday,
             writing: data.writing,
@@ -197,7 +189,7 @@ export const useProfileEditUpload = () => {
           router.back();
         }
       } else {
-        console.log("エラーキャッチ", error);
+        console.log('エラーキャッチ', error);
       }
     }
   };

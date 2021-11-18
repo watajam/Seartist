@@ -1,4 +1,4 @@
-import React, { memo, VFC } from "react";
+import React, { memo, VFC } from 'react';
 
 type Props = {
   title: string;
@@ -7,9 +7,7 @@ type Props = {
 const FormProfileTitle: VFC<Props> = (props) => {
   return (
     <>
-      <h1 className="text-2xl font-bold text-center text-orange-300 ">
-        {props.title}
-      </h1>
+      <h1 className="text-2xl font-bold text-center text-orange-300 ">{props.title}</h1>
     </>
   );
 };

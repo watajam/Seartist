@@ -1,10 +1,10 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 type User = {
   email: string;
 };
 
 export const userEmailState = atom<User>({
-  key: "userEmailState",
+  key: 'userEmailState',
   default: null,
 });

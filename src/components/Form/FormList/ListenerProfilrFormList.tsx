@@ -1,14 +1,15 @@
-import React, { memo, ReactNode, VFC } from "react";
-import { useCreatorAndListenerReactHookForm } from "../../../hooks/useCreatorAndListenerReactHookForm";
-import FormProfileTitle from "../FormProfileTitle";
+import React, { memo, ReactNode, VFC } from 'react';
+import { useCreatorAndListenerReactHookForm } from '../../../hooks/useCreatorAndListenerReactHookForm';
+import FormProfileTitle from '../FormProfileTitle';
 
 type Props = {
   children: ReactNode;
 };
 
 const ListenerProfilrFormList: VFC<Props> = (props) => {
-  const { register, handleSubmit, errors, onSubmit } =
-    useCreatorAndListenerReactHookForm("/listener/selflntroductionform");
+  const { register, handleSubmit, errors, onSubmit } = useCreatorAndListenerReactHookForm(
+    '/listener/selflntroductionform'
+  );
 
   return (
     <>
@@ -23,21 +24,18 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
           type="text"
           id="name"
           placeholder="氏名を入力してください"
-          {...register("name", {
-            required: "必須項目です。",
+          {...register('name', {
+            required: '必須項目です。',
             maxLength: {
               value: 30,
-              message: "氏名は30字以下で入力してください",
+              message: '氏名は30字以下で入力してください',
             },
           })}
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
         {/* ユーザーID */}
-        <label
-          htmlFor="ユーザーID"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label htmlFor="ユーザーID" className="block mt-8 text-base text-gray-400 ">
           ユーザーID
           <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
@@ -45,36 +43,31 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
           type="text"
           id="ユーザーID"
           placeholder="例 : seartist_jp"
-          {...register("userId", {
-            required: "必須項目です。",
+          {...register('userId', {
+            required: '必須項目です。',
             pattern: {
               value: /[0-9a-zA-Z_]{1,15}/,
-              message: "正しい形式で入力してください",
+              message: '正しい形式で入力してください',
             },
             minLength: {
               value: 4,
-              message: "ユーザーIDは4文字以上15字以下で入力してください",
+              message: 'ユーザーIDは4文字以上15字以下で入力してください',
             },
             maxLength: {
               value: 15,
-              message: "ユーザーIDは4文字以上15字以下で入力してください",
+              message: 'ユーザーIDは4文字以上15字以下で入力してください',
             },
           })}
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
-        {errors.userId && (
-          <p className="text-red-600">{errors.userId?.message}</p>
-        )}
+        {errors.userId && <p className="text-red-600">{errors.userId?.message}</p>}
 
         {/* 所在地 */}
-        <label
-          htmlFor="location"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label htmlFor="location" className="block mt-8 text-base text-gray-400 ">
           所在地
         </label>
         <select
-          {...register("location")}
+          {...register('location')}
           id="location"
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         >
@@ -129,14 +122,11 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
         </select>
 
         {/* 生年月日 */}
-        <label
-          htmlFor="birthday"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label htmlFor="birthday" className="block mt-8 text-base text-gray-400 ">
           生年月日
         </label>
         <input
-          {...register("birthday")}
+          {...register('birthday')}
           type="date"
           id="birthday"
           className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"

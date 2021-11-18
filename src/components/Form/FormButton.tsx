@@ -1,6 +1,6 @@
-import React, { memo, VFC } from "react";
-import Link from "next/link";
-import { useBackPage } from "../../hooks/useBackPage";
+import React, { memo, VFC } from 'react';
+import Link from 'next/link';
+import { useBackPage } from '../../hooks/useBackPage';
 
 type Props = {
   backButtonUrl?: string;
@@ -19,8 +19,8 @@ const FormButton: VFC<Props> = (props) => {
         </Link>
       ) : (
         <button
-            onClick={backPage}
-            type="button"
+          onClick={backPage}
+          type="button"
           className="w-12/25   text-center inline-block py-3  text-2xl font-bold text-white rounded-xl bg-gray-400 hover:bg-gray-500"
         >
           戻る
