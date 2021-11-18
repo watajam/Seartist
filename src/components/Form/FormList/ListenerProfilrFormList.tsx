@@ -12,7 +12,7 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
 
   return (
     <>
-      <FormProfileTitle title="プロフィール編集" />
+      <FormProfileTitle title="プロフィール登録" />
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 氏名 */}
         <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">

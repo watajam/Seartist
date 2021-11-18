@@ -1,8 +1,11 @@
 import { doc, updateDoc } from "@firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "@firebase/storage";
+import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useForm } from "react-hook-form";
 import { auth, db, storage } from "../../lib/firebase";
+import { FormData } from "../../types/FormData";
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
@@ -10,16 +13,22 @@ export type firebaseOnLoadProp = {
   state: "error" | "paused" | "running" | "success";
 };
 
-export const useProfileUpload = () => {
+export const useSelfLntroductionUpload = () => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
-  const [clickable, setClickable] = useState(false);
-  const [src, setSrc] = useState("");
+  const [src, setSrc] = useState("/profile.png");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Pick<FormData, "writing">>({
+    mode: "onChange",
+  });
+  const router = useRouter();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
     try {
       setMyFiles([...acceptedFiles]);
-      setClickable(true);
       handlePreview(acceptedFiles);
     } catch (error) {
       alert(error);
@@ -36,12 +45,9 @@ export const useProfileUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (writing: string) => {
+  const handleUpload = async (data: Pick<FormData, "image" | "writing">) => {
     try {
       if (!myFiles) return;
-
-      console.log(myFiles[0].name);
-
       const storageRef = ref(storage, `/images/${myFiles[0].name}`);
       const uploadTask = uploadBytesResumable(storageRef, myFiles[0]);
 
@@ -59,13 +65,6 @@ export const useProfileUpload = () => {
               console.log("Upload is running");
               break;
           }
-          if (progress === 100) {
-            const url = await getDownloadURL(storageRef);
-            await updateDoc(doc(db, "users", auth.currentUser.email), {
-              image: url,
-              writing: writing,
-            });
-          }
         },
         (error: any) => {
           switch (error.code) {
@@ -80,13 +79,14 @@ export const useProfileUpload = () => {
               break;
           }
         },
-        () => {
+        async () => {
           try {
-            () => {
-              getDownloadURL(uploadTask.snapshot.ref).then((url: string) => {
-                console.log("ダウンロードしたURL" + url);
-              });
-            };
+            const url = await getDownloadURL(storageRef);
+            await updateDoc(doc(db, "users", auth.currentUser.email), {
+              image: url,
+              writing: data.writing,
+            });
+            router.push("/posts");
           } catch (error) {
             switch (error.code) {
               case "storage/object-not-found":
@@ -106,7 +106,11 @@ export const useProfileUpload = () => {
         }
       );
     } catch (error) {
-      console.log("エラーキャッチ", error);
+      if (src !== null) {
+        router.push("/posts");
+      } else {
+        console.log("エラーキャッチ", error);
+      }
     }
   };
 
@@ -131,7 +135,8 @@ export const useProfileUpload = () => {
     open,
     handleUpload,
     src,
-    myFiles,
-    clickable,
+    register,
+    handleSubmit,
+    errors,
   };
 };

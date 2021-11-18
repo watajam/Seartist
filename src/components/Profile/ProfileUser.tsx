@@ -13,6 +13,7 @@ import ProfileUserSkeletonLoadingItem from "../SkeletonLoading/ProfileUserSkelet
 
 type Props = {
   user: {
+    image: string;
     name: string;
     userId: string;
     genre: string;
@@ -48,7 +49,20 @@ const ProfileUser: VFC<Props> = (props) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Image src="/camera.svg" width={96} height={96} />
+        {props.user?.image ? (
+          <img
+            src={props.user?.image}
+            alt="プロフィール画像"
+            className="object-cover h-24 w-24  rounded-full   "
+          />
+        ) : (
+          <img
+            src="/profile.png"
+            alt="プロフィール画像"
+            className="object-cover h-24 w-24  rounded-full   "
+          />
+        )}
+
         <Link href="#">
           <a className="flex flex-col items-center font-bold">
             <span>{props.postsLength}</span>
