@@ -1,35 +1,35 @@
-import React, { memo, useCallback, useEffect, useState, VFC } from "react";
-import { HiUserCircle } from "react-icons/hi";
-import { FiHeart } from "react-icons/fi";
-import { useRouter } from "next/dist/client/router";
-import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
-import { deleteDoc, doc, onSnapshot } from "@firebase/firestore";
-import { auth, db } from "../../../lib/firebase";
-import { FormData } from "../../../types/FormData";
-import PostDetailSkeletonLoadingItem from "../SkeletonLoading/PostDetailSkeletonLoadingItem";
+import React, { memo, useCallback, useEffect, useState, VFC } from 'react';
+import { HiUserCircle } from 'react-icons/hi';
+import { FiHeart } from 'react-icons/fi';
+import { useRouter } from 'next/dist/client/router';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import { deleteDoc, doc, onSnapshot } from '@firebase/firestore';
+import { auth, db } from '../../../lib/firebase';
+import { FormData } from '../../../types/FormData';
+import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
 
 const PostDetail: VFC = () => {
   const [post, setPost] =
     useState<
       Pick<
         FormData,
-        | "writing"
-        | "image"
-        | "eventName"
-        | "genre"
-        | "location"
-        | "eventDate"
-        | "eventLocation"
-        | "openTime"
-        | "closeTime"
-        | "minAmount"
-        | "maxAmount"
-        | "tickets"
-        | "coupon"
-        | "email"
+        | 'writing'
+        | 'image'
+        | 'eventName'
+        | 'genre'
+        | 'location'
+        | 'eventDate'
+        | 'eventLocation'
+        | 'openTime'
+        | 'closeTime'
+        | 'minAmount'
+        | 'maxAmount'
+        | 'tickets'
+        | 'coupon'
+        | 'email'
       >
     >();
-  const [user, setUser] = useState<Pick<FormData, "image" | "name">>(null);
+  const [user, setUser] = useState<Pick<FormData, 'image' | 'name'>>(null);
   const { userEmail } = useRecoilSetEmail();
   const [postsLoading, setPostsLoading] = useState(true);
   const [userloading, setUserLoading] = useState(true);
@@ -37,13 +37,7 @@ const PostDetail: VFC = () => {
 
   useEffect(() => {
     if (userEmail !== null) {
-      const postRef = doc(
-        db,
-        "users",
-        userEmail.email,
-        "posts",
-        `${router.query.id}`
-      );
+      const postRef = doc(db, 'users', userEmail.email, 'posts', `${router.query.id}`);
 
       const unsubscribe = onSnapshot(postRef, (snapshot) => {
         setPost({
@@ -71,7 +65,7 @@ const PostDetail: VFC = () => {
   // ユーザー情報取得
   useEffect(() => {
     if (post?.email !== undefined) {
-      const postsRef = doc(db, "users", `${post.email}`);
+      const postsRef = doc(db, 'users', `${post.email}`);
       const unsubscribe = onSnapshot(postsRef, (snapshot) => {
         setUser({
           image: snapshot.data()?.image,
@@ -84,11 +78,9 @@ const PostDetail: VFC = () => {
   }, [post]);
 
   const deletePost = useCallback(async () => {
-    if (confirm("削除しますか？")) {
-      await deleteDoc(
-        doc(db, "users", auth.currentUser.email, "posts", `${router.query.id}`)
-      );
-      router.push("/posts");
+    if (confirm('削除しますか？')) {
+      await deleteDoc(doc(db, 'users', auth.currentUser.email, 'posts', `${router.query.id}`));
+      router.push('/posts');
     }
   }, []);
 
@@ -110,7 +102,7 @@ const PostDetail: VFC = () => {
   return (
     <div>
       <div className=" flex  rounded-t-2xl items-center font-bold text-base ">
-        {user?.image !== "" ? (
+        {user?.image !== '' ? (
           <img src={user?.image} className="w-8 h-8 rounded-full" />
         ) : (
           <HiUserCircle className="w-8 h-8" />
@@ -123,7 +115,7 @@ const PostDetail: VFC = () => {
       </div>
 
       <p className="text-base font-bold mt-4">{post?.writing}</p>
-      {post?.image !== "" ? (
+      {post?.image !== '' ? (
         <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
           <img src={post?.image} className="text-center object-contain " />
         </div>
@@ -133,9 +125,7 @@ const PostDetail: VFC = () => {
         <tbody className="mt-2">
           <tr className="bg-gray-100">
             <th className="border px-4 py-2 text-left ">イベント名</th>
-            <td className="border px-4 py-2 text-left break-words max-w-sm">
-              {post?.eventName}
-            </td>
+            <td className="border px-4 py-2 text-left break-words max-w-sm">{post?.eventName}</td>
           </tr>
           <tr>
             <th className="border px-4 py-2 text-left">ジャンル</th>
@@ -151,9 +141,7 @@ const PostDetail: VFC = () => {
           </tr>
           <tr className="bg-gray-100">
             <th className="border px-4 py-2 text-left">開催場所</th>
-            <td className="border px-4 py-2 text-left break-words max-w-sm">
-              {post?.eventLocation}
-            </td>
+            <td className="border px-4 py-2 text-left break-words max-w-sm">{post?.eventLocation}</td>
           </tr>
           <tr>
             <th className="border px-4 py-2 text-left">開催時間</th>
@@ -171,9 +159,7 @@ const PostDetail: VFC = () => {
           </tr>
           <tr className="bg-gray-100">
             <th className="border px-4 py-2 text-left">クーポンコード</th>
-            <td className="border px-4 py-2 text-left break-words max-w-sm">
-              {post?.coupon}
-            </td>
+            <td className="border px-4 py-2 text-left break-words max-w-sm">{post?.coupon}</td>
           </tr>
         </tbody>
       </table>

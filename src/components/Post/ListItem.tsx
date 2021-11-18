@@ -1,7 +1,7 @@
-import React, { memo, VFC } from "react";
-import { HiUserCircle } from "react-icons/hi";
-import { AiOutlineHeart } from "react-icons/ai";
-import Link from "next/link";
+import React, { memo, VFC } from 'react';
+import { HiUserCircle } from 'react-icons/hi';
+import { AiOutlineHeart } from 'react-icons/ai';
+import Link from 'next/link';
 
 type Props = {
   post: {
@@ -28,7 +28,7 @@ const ListItem: VFC<Props> = (props) => {
       <Link href={`/profile/${props.user.userId}`}>
         <a>
           <header className="bg-gray-400 text-white flex  p-4 rounded-t-2xl items-center font-bold text-base ">
-            {props.user.image !== "" ? (
+            {props.user.image !== '' ? (
               <img src={props.user.image} className="w-8 h-8 rounded-full" />
             ) : (
               <HiUserCircle className="w-8 h-8" />
@@ -48,36 +48,25 @@ const ListItem: VFC<Props> = (props) => {
             </p>
 
             {/* テスト中 */}
-            {props.post.image !== "" ? (
+            {props.post.image !== '' ? (
               <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
-                <img
-                  src={props.post.image}
-                  className="text-center object-contain "
-                />
+                <img src={props.post.image} className="text-center object-contain " />
               </div>
             ) : null}
 
             <table className="table-fixed text-center text-base w-full mt-6 ">
               <tbody className="mt-2">
                 <tr className="bg-gray-100">
-                  <th className="border px-4 py-2 text-left w-2/5">
-                    イベント名
-                  </th>
-                  <td className="border px-4 py-2 text-left break-words max-w-sm ">
-                    {props.post.eventName}
-                  </td>
+                  <th className="border px-4 py-2 text-left w-2/5">イベント名</th>
+                  <td className="border px-4 py-2 text-left break-words max-w-sm ">{props.post.eventName}</td>
                 </tr>
                 <tr>
                   <th className="border px-4 py-2 text-left">ジャンル</th>
-                  <td className="border px-4 py-2 text-left">
-                    {props.post.genre}
-                  </td>
+                  <td className="border px-4 py-2 text-left">{props.post.genre}</td>
                 </tr>
                 <tr className="bg-gray-100">
                   <th className="border px-4 py-2 text-left">開催場所</th>
-                  <td className="border px-4 py-2 text-left break-words max-w-sm ">
-                    {props.post.eventLocation}
-                  </td>
+                  <td className="border px-4 py-2 text-left break-words max-w-sm ">{props.post.eventLocation}</td>
                 </tr>
                 <tr>
                   <th className="border px-4 py-2 text-left">開催時間</th>

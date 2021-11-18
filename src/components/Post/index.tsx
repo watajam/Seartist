@@ -1,35 +1,20 @@
-import {
-  collection,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-} from "@firebase/firestore";
-import { useRouter } from "next/router";
-import React, { memo, useEffect, useState, VFC } from "react";
-import { db } from "../../../lib/firebase";
-import { FormData } from "../../../types/FormData";
-import { useRecoilSetEmail } from "../../hooks/useRecoilSetEmail";
-import SkeletonLoading from "../SkeletonLoading";
-import ListItem from "./ListItem";
+import { collection, doc, onSnapshot, orderBy, query } from '@firebase/firestore';
+import { useRouter } from 'next/router';
+import React, { memo, useEffect, useState, VFC } from 'react';
+import { db } from '../../../lib/firebase';
+import { FormData } from '../../../types/FormData';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import SkeletonLoading from '../SkeletonLoading';
+import ListItem from './ListItem';
 
 const Post: VFC = () => {
   const [posts, setPosts] = useState<
     Pick<
       FormData,
-      | "id"
-      | "image"
-      | "writing"
-      | "eventName"
-      | "genre"
-      | "eventLocation"
-      | "eventDate"
-      | "openTime"
-      | "closeTime"
+      'id' | 'image' | 'writing' | 'eventName' | 'genre' | 'eventLocation' | 'eventDate' | 'openTime' | 'closeTime'
     >[]
   >([]);
-  const [user, setUser] =
-    useState<Pick<FormData, "userId" | "name" | "image">>(null);
+  const [user, setUser] = useState<Pick<FormData, 'userId' | 'name' | 'image'>>(null);
   const [postLoading, setPostLoading] = useState(true);
   const [userloading, setUserLoading] = useState(true);
   const { userEmail } = useRecoilSetEmail();
@@ -38,10 +23,10 @@ const Post: VFC = () => {
   //データがない場合にselectionページに遷移
   useEffect(() => {
     if (userEmail !== null) {
-      const postsRef = doc(db, "users", userEmail.email);
+      const postsRef = doc(db, 'users', userEmail.email);
       const unsubscribe = onSnapshot(postsRef, (snapshot) => {
         if (snapshot.data().email !== userEmail.email) {
-          router.push("/selection");
+          router.push('/selection');
         }
       });
       return () => unsubscribe();
@@ -51,7 +36,7 @@ const Post: VFC = () => {
   // ユーザー情報取得
   useEffect(() => {
     if (userEmail !== null) {
-      const postsRef = doc(db, "users", userEmail.email);
+      const postsRef = doc(db, 'users', userEmail.email);
       const unsubscribe = onSnapshot(postsRef, (snapshot) => {
         setUser({
           userId: snapshot.data().userId,
@@ -67,10 +52,7 @@ const Post: VFC = () => {
   //ログインしているユーザーのデータを取得
   useEffect(() => {
     if (userEmail !== null) {
-      const q = query(
-        collection(db, "users", userEmail.email, "posts"),
-        orderBy("timestamp", "desc")
-      );
+      const q = query(collection(db, 'users', userEmail.email, 'posts'), orderBy('timestamp', 'desc'));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         setPosts(
           snapshot.docs.map((doc) => ({

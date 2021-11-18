@@ -1,9 +1,9 @@
-import { onAuthStateChanged } from "@firebase/auth";
-import { doc, getDoc } from "@firebase/firestore";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, VFC } from "react";
-import { auth, db } from "../../lib/firebase";
+import { onAuthStateChanged } from '@firebase/auth';
+import { doc, getDoc } from '@firebase/firestore';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, VFC } from 'react';
+import { auth, db } from '../../lib/firebase';
 
 const Home: VFC = () => {
   const router = useRouter();
@@ -12,13 +12,13 @@ const Home: VFC = () => {
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const postsRef = doc(db, "users", user.email);
+        const postsRef = doc(db, 'users', user.email);
         const userCheck = async () => {
           const docSnap = await getDoc(postsRef);
           if (docSnap.data().email === user.email) {
-            router.push("/posts");
+            router.push('/posts');
           } else {
-            router.push("/selection");
+            router.push('/selection');
           }
         };
         userCheck();

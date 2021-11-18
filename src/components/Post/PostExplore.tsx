@@ -1,21 +1,19 @@
-import React, { memo, VFC } from "react";
-import { AiFillCaretDown } from "react-icons/ai";
-import { useReactHookForm } from "../../hooks/useReactHookForm";
+import React, { memo, VFC } from 'react';
+import { AiFillCaretDown } from 'react-icons/ai';
+import { useReactHookForm } from '../../hooks/useReactHookForm';
 
-import FormProfileTitle from "../Form/FormProfileTitle";
-import PostDetailExplore from "./PostDetailExplore";
+import FormProfileTitle from '../Form/FormProfileTitle';
+import PostDetailExplore from './PostDetailExplore';
 
 const PostExplore: VFC = () => {
-  const { register, handleSubmit, onSubmit } = useReactHookForm("/posts");
+  const { register, handleSubmit, onSubmit } = useReactHookForm('/posts');
 
   return (
     <>
       <FormProfileTitle title="検索" />
       <PostDetailExplore />
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
-        <h2 className=" text-base text-gray-400 mt-10 underline">
-          条件を指定して検索
-        </h2>
+        <h2 className=" text-base text-gray-400 mt-10 underline">条件を指定して検索</h2>
         <div className="shadow-md rounded-2xl p-4 mt-2">
           {/* 都道府県 */}
           <label htmlFor="location" className="block  text-base text-gray-400 ">
@@ -24,7 +22,7 @@ const PostExplore: VFC = () => {
 
           <div className="relative  mt-2">
             <select
-              {...register("location")}
+              {...register('location')}
               id="location"
               className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none "
             >
@@ -83,15 +81,12 @@ const PostExplore: VFC = () => {
           </div>
 
           {/* ジャンル */}
-          <label
-            htmlFor="genre"
-            className="block mt-4 text-base text-gray-400 "
-          >
+          <label htmlFor="genre" className="block mt-4 text-base text-gray-400 ">
             ジャンル
           </label>
           <div className="relative  mt-2">
             <select
-              {...register("genre")}
+              {...register('genre')}
               id="genre"
               className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
             >
@@ -102,9 +97,7 @@ const PostExplore: VFC = () => {
               <option defaultValue="K-POP">K-POP</option>
               <option defaultValue="HIP-HOP">HIP-HOP</option>
               <option defaultValue="R&B">R&B</option>
-              <option defaultValue="ダンス/エレクトロニック">
-                ダンス/エレクトロニック
-              </option>
+              <option defaultValue="ダンス/エレクトロニック">ダンス/エレクトロニック</option>
               <option defaultValue="アニメ">アニメ</option>
               <option defaultValue="邦楽ロック">邦楽ロック</option>
               <option defaultValue="洋楽ロック">洋楽ロック</option>
@@ -116,9 +109,7 @@ const PostExplore: VFC = () => {
               <option defaultValue="ファンク">ファンク</option>
               <option defaultValue="ラテン">ラテン</option>
               <option defaultValue="ニューエイジ">ニューエイジ</option>
-              <option defaultValue="インスゥルメンタル">
-                インスゥルメンタル
-              </option>
+              <option defaultValue="インスゥルメンタル">インスゥルメンタル</option>
               <option defaultValue="演歌">演歌</option>
               <option defaultValue="民族音楽">民族音楽</option>
 
@@ -130,9 +121,7 @@ const PostExplore: VFC = () => {
               <option defaultValue="展示即売会">展示即売会</option>
               <option defaultValue="セレモニー・式典">セレモニー・式典</option>
               <option defaultValue="団体・企業の大会">団体・企業の大会</option>
-              <option defaultValue="プロモーションイベント">
-                プロモーションイベント
-              </option>
+              <option defaultValue="プロモーションイベント">プロモーションイベント</option>
               <option defaultValue="学園祭">学園祭</option>
               <option defaultValue="発表会">発表会</option>
               <option defaultValue="その他">その他</option>
@@ -142,15 +131,12 @@ const PostExplore: VFC = () => {
             </div>
           </div>
           {/* 開催日 */}
-          <label
-            htmlFor="開催日"
-            className="block mt-4 text-base text-gray-400"
-          >
+          <label htmlFor="開催日" className="block mt-4 text-base text-gray-400">
             開催日
           </label>
 
           <input
-            {...register("eventDate")}
+            {...register('eventDate')}
             type="date"
             id="開催日"
             className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"

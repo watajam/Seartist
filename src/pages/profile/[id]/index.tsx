@@ -1,6 +1,6 @@
-import React, { VFC } from "react";
-import ProfileLayout from "../../../components/Layout/ProfileLayout";
-import Profile from "../../../components/Profile";
+import React, { VFC } from 'react';
+import ProfileLayout from '../../../components/Layout/ProfileLayout';
+import Profile from '../../../components/Profile';
 
 const ProfilePage: VFC = () => {
   return (

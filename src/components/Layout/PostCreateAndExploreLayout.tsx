@@ -1,6 +1,6 @@
-import React, { memo, ReactNode, VFC } from "react";
-import BottomNavigation from "../BottomNavigation";
-import PostCreateAndExploreHeader from "../Header/PostCreateAndExploreHeader";
+import React, { memo, ReactNode, VFC } from 'react';
+import BottomNavigation from '../BottomNavigation';
+import PostCreateAndExploreHeader from '../Header/PostCreateAndExploreHeader';
 
 type Props = {
   children: ReactNode;

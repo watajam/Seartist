@@ -1,5 +1,5 @@
-import React, { memo, ReactNode, VFC } from "react";
-import Header from "../Header";
+import React, { memo, ReactNode, VFC } from 'react';
+import Header from '../Header';
 
 type Props = {
   children: ReactNode;

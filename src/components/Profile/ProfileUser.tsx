@@ -1,15 +1,15 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import React, { memo, VFC } from "react";
-import Image from "next/image";
-import { BsInstagram } from "react-icons/bs";
-import { FiTwitter } from "react-icons/fi";
-import { IoHomeOutline } from "react-icons/io5";
-import { FiPaperclip } from "react-icons/fi";
-import { AiFillStar } from "react-icons/ai";
-import { FaBirthdayCake } from "react-icons/fa";
-import { IoLocationSharp } from "react-icons/io5";
-import ProfileUserSkeletonLoadingItem from "../SkeletonLoading/ProfileUserSkeletonLoadingItem";
+import React, { memo, VFC } from 'react';
+import Image from 'next/image';
+import { BsInstagram } from 'react-icons/bs';
+import { FiTwitter } from 'react-icons/fi';
+import { IoHomeOutline } from 'react-icons/io5';
+import { FiPaperclip } from 'react-icons/fi';
+import { AiFillStar } from 'react-icons/ai';
+import { FaBirthdayCake } from 'react-icons/fa';
+import { IoLocationSharp } from 'react-icons/io5';
+import ProfileUserSkeletonLoadingItem from '../SkeletonLoading/ProfileUserSkeletonLoadingItem';
 
 type Props = {
   user: {
@@ -50,17 +50,9 @@ const ProfileUser: VFC<Props> = (props) => {
     <>
       <div className="flex items-center justify-between">
         {props.user?.image ? (
-          <img
-            src={props.user?.image}
-            alt="プロフィール画像"
-            className="object-cover h-24 w-24  rounded-full   "
-          />
+          <img src={props.user?.image} alt="プロフィール画像" className="object-cover h-24 w-24  rounded-full   " />
         ) : (
-          <img
-            src="/profile.png"
-            alt="プロフィール画像"
-            className="object-cover h-24 w-24  rounded-full   "
-          />
+          <img src="/profile.png" alt="プロフィール画像" className="object-cover h-24 w-24  rounded-full   " />
         )}
 
         <Link href="#">
@@ -82,12 +74,8 @@ const ProfileUser: VFC<Props> = (props) => {
           </a>
         </Link>
       </div>
-      {props.user?.name ? (
-        <h1 className="text-2xl font-bold mt-2">{props.user?.name}</h1>
-      ) : null}
-      {props.user?.userId ? (
-        <span className="text-gray-400">{`@ ${props.user?.userId}`}</span>
-      ) : null}
+      {props.user?.name ? <h1 className="text-2xl font-bold mt-2">{props.user?.name}</h1> : null}
+      {props.user?.userId ? <span className="text-gray-400">{`@ ${props.user?.userId}`}</span> : null}
 
       <div className="flex items-center flex-wrap text-gray-400">
         {props.user?.genre ? (
@@ -99,7 +87,7 @@ const ProfileUser: VFC<Props> = (props) => {
         {props.user?.location ? (
           <>
             <IoLocationSharp className="mr-1" />
-            <span className="mr-4">{props.user?.location}</span>{" "}
+            <span className="mr-4">{props.user?.location}</span>{' '}
           </>
         ) : null}
 
@@ -110,9 +98,7 @@ const ProfileUser: VFC<Props> = (props) => {
           </>
         ) : null}
       </div>
-      {props.user?.writing ? (
-        <p className="mt-4 text-bold">{props.user?.writing}</p>
-      ) : null}
+      {props.user?.writing ? <p className="mt-4 text-bold">{props.user?.writing}</p> : null}
 
       <nav className="mt-6">
         <ul className="flex w-full">
@@ -179,9 +165,7 @@ const ProfileUser: VFC<Props> = (props) => {
       </nav>
       {props.userEmail?.email === props.user?.email ? (
         <Link href="/profile/editprofile">
-          <a className="bg-orange-400 text-white text-center mt-6 p-1 block">
-            プロフィール編集
-          </a>
+          <a className="bg-orange-400 text-white text-center mt-6 p-1 block">プロフィール編集</a>
         </Link>
       ) : null}
     </>

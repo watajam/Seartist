@@ -1,14 +1,13 @@
-import React, { memo, ReactNode, VFC } from "react";
-import { useCreatorAndListenerReactHookForm } from "../../../hooks/useCreatorAndListenerReactHookForm";
-import FormProfileTitle from "../FormProfileTitle";
+import React, { memo, ReactNode, VFC } from 'react';
+import { useCreatorAndListenerReactHookForm } from '../../../hooks/useCreatorAndListenerReactHookForm';
+import FormProfileTitle from '../FormProfileTitle';
 
 type Props = {
   children: ReactNode;
 };
 
 const CreatorProfileFormList: VFC<Props> = (props) => {
-  const { register, handleSubmit, errors, onSubmit } =
-    useCreatorAndListenerReactHookForm("/creator/urlform");
+  const { register, handleSubmit, errors, onSubmit } = useCreatorAndListenerReactHookForm('/creator/urlform');
 
   return (
     <>
@@ -23,21 +22,18 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           type="text"
           id="name"
           placeholder="氏名 or アーティスト名を入力してください"
-          {...register("name", {
-            required: "必須項目です。",
+          {...register('name', {
+            required: '必須項目です。',
             maxLength: {
               value: 30,
-              message: "氏名 or アーティスト名は30字以下で入力してください",
+              message: '氏名 or アーティスト名は30字以下で入力してください',
             },
           })}
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
         {/* ユーザーID */}
-        <label
-          htmlFor="ユーザーID"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label htmlFor="ユーザーID" className="block mt-8 text-base text-gray-400 ">
           ユーザーID
           <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
@@ -45,33 +41,31 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           type="text"
           id="ユーザーID"
           placeholder="例 : seartist_jp"
-          {...register("userId", {
-            required: "必須項目です。",
+          {...register('userId', {
+            required: '必須項目です。',
             pattern: {
               value: /[0-9a-zA-Z_]{1,15}/,
-              message: "正しい形式で入力してください",
+              message: '正しい形式で入力してください',
             },
             minLength: {
               value: 4,
-              message: "ユーザーIDは4文字以上15字以下で入力してください",
+              message: 'ユーザーIDは4文字以上15字以下で入力してください',
             },
             maxLength: {
               value: 15,
-              message: "ユーザーIDは4文字以上15字以下で入力してください",
+              message: 'ユーザーIDは4文字以上15字以下で入力してください',
             },
           })}
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         />
-        {errors.userId && (
-          <p className="text-red-600">{errors.userId?.message}</p>
-        )}
+        {errors.userId && <p className="text-red-600">{errors.userId?.message}</p>}
         {/* ジャンル */}
         <label htmlFor="genre" className="block mt-8 text-base text-gray-400 ">
           ジャンル
           <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
         </label>
         <select
-          {...register("genre", {
+          {...register('genre', {
             required: true,
           })}
           id="genre"
@@ -83,9 +77,7 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           <option defaultValue="K-POP">K-POP</option>
           <option defaultValue="HIP-HOP">HIP-HOP</option>
           <option defaultValue="R&B">R&B</option>
-          <option defaultValue="ダンス/エレクトロニック">
-            ダンス/エレクトロニック
-          </option>
+          <option defaultValue="ダンス/エレクトロニック">ダンス/エレクトロニック</option>
           <option defaultValue="アニメ">アニメ</option>
           <option defaultValue="邦楽ロック">邦楽ロック</option>
           <option defaultValue="洋楽ロック">洋楽ロック</option>
@@ -109,25 +101,18 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           <option defaultValue="展示即売会">展示即売会</option>
           <option defaultValue="セレモニー・式典">セレモニー・式典</option>
           <option defaultValue="団体・企業の大会">団体・企業の大会</option>
-          <option defaultValue="プロモーションイベント">
-            プロモーションイベント
-          </option>
+          <option defaultValue="プロモーションイベント">プロモーションイベント</option>
           <option defaultValue="学園祭">学園祭</option>
           <option defaultValue="発表会">発表会</option>
           <option defaultValue="その他">その他</option>
         </select>
-        {errors.genre && (
-          <p className="text-red-600">{errors.genre?.message}</p>
-        )}
+        {errors.genre && <p className="text-red-600">{errors.genre?.message}</p>}
         {/* 所在地 */}
-        <label
-          htmlFor="location"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label htmlFor="location" className="block mt-8 text-base text-gray-400 ">
           所在地
         </label>
         <select
-          {...register("location")}
+          {...register('location')}
           id="location"
           className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         >
@@ -181,21 +166,16 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           <option defaultValue="沖縄県">沖縄県</option>
         </select>
         {/* 生年月日 */}
-        <label
-          htmlFor="birthday"
-          className="block mt-8 text-base text-gray-400 "
-        >
+        <label htmlFor="birthday" className="block mt-8 text-base text-gray-400 ">
           生年月日
         </label>
         <input
-          {...register("birthday")}
+          {...register('birthday')}
           type="date"
           id="birthday"
           className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
         ></input>
-        {errors.birthday && (
-          <p className="text-red-600">{errors.birthday?.message}</p>
-        )}
+        {errors.birthday && <p className="text-red-600">{errors.birthday?.message}</p>}
         <div className="mt-14">{props.children}</div>
       </form>
     </>
