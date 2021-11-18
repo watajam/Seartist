@@ -2,22 +2,26 @@ import React, { memo, VFC } from "react";
 import { AiOutlineCamera } from "react-icons/ai";
 import { AiFillCaretDown } from "react-icons/ai";
 import FormButton from "../Form/FormButton";
-import { useReactDropzon } from "../../hooks/useReactDropzon";
 import FormProfileTitle from "../Form/FormProfileTitle";
-import { usePostCreateReactHookForm } from "../../hooks/usePostCreateReactHookForm";
+import { usePostCreatUpload } from "../../hooks/usePostCreatUpload";
 
 const PostCreate: VFC = () => {
-  const { register, handleSubmit, errors, onSubmit, setValue } =
-    usePostCreateReactHookForm("/posts");
-  const { getRootProps, getInputProps, open, img } = useReactDropzon();
-
-  setValue("image", img);
+  const {
+    getRootProps,
+    getInputProps,
+    open,
+    handleUpload,
+    src,
+    register,
+    handleSubmit,
+    errors,
+  } = usePostCreatUpload();
 
   return (
     <>
       <FormProfileTitle title="投稿作成" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
+      <form onSubmit={handleSubmit(handleUpload)} className="mt-8">
         {/* 投稿写真 */}
         <div
           {...getRootProps()}
@@ -27,7 +31,7 @@ const PostCreate: VFC = () => {
             <AiOutlineCamera className="w-9 h-9" />
           </span>
           <input {...getInputProps()} />
-          <img src={img} className="object-contain h-80 m-auto  relative" />
+          <img src={src} className="object-contain h-80 m-auto  relative" />
         </div>
         <button
           onClick={open}

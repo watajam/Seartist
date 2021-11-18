@@ -48,14 +48,14 @@ const ListItem: VFC<Props> = (props) => {
             </p>
 
             {/* テスト中 */}
-            {/* {props.post.image !== "" ? (
-              <div className="flex justify-center items-center mt-6">
+            {props.post.image !== "" ? (
+              <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
                 <img
                   src={props.post.image}
-                  className="text-center  h-48  rounded-2xl object-contain "
+                  className="text-center object-contain "
                 />
               </div>
-            ) : null} */}
+            ) : null}
 
             <table className="table-fixed text-center text-base w-full mt-6 ">
               <tbody className="mt-2">
