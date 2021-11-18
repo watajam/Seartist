@@ -30,7 +30,7 @@ const BottomNavigation: VFC = () => {
       });
       return () => unsubscribe();
     }
-  }, [userEmail]);
+  }, [userEmail, user]);
 
   return (
     <aside className="w-full fixed  bottom-0 z-10 bg-orange-400  md:static md:w-1/4   md:max-w-xs md:bg-orange-300 h-auto">
