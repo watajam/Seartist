@@ -1,11 +1,12 @@
 import { onAuthStateChanged } from '@firebase/auth';
 import { doc, getDoc } from '@firebase/firestore';
+import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, VFC } from 'react';
+import { useEffect} from 'react';
 import { auth, db } from '../../lib/firebase';
 
-const Home: VFC = () => {
+const Home: NextPage = () => {
   const router = useRouter();
 
   // 自動ログイン

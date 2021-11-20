@@ -1,9 +1,9 @@
 import CreatorProfileFormList from '../../components/Form/FormList/CreatorProfileFormList';
 import FormButton from '../../components/Form/FormButton';
 import HeaderLayout from '../../components/Layout/HeaderLayout';
-import { VFC } from 'react';
+import { NextPage } from 'next';
 
-const Creator: VFC = () => {
+const Creator: NextPage = () => {
   return (
     <HeaderLayout>
       <CreatorProfileFormList>

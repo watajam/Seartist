@@ -1,9 +1,9 @@
-import { VFC } from 'react';
+import { NextPage } from 'next';
 import FormButton from '../../components/Form/FormButton';
 import SelfLntroductionFormList from '../../components/Form/FormList/SelfLntroductionFormList';
 import HeaderLayout from '../../components/Layout/HeaderLayout';
 
-const SelfLntroductionForm: VFC = () => {
+const SelfLntroductionForm: NextPage = () => {
   return (
     <HeaderLayout>
       <SelfLntroductionFormList>

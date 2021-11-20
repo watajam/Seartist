@@ -1,8 +1,8 @@
-import React, { VFC } from 'react';
+import { NextPage } from 'next';
 import PostCreateAndExploreLayout from '../../components/Layout/PostCreateAndExploreLayout';
 import PostCreate from '../../components/Post/PostCreate';
 
-export const Create: VFC = () => {
+export const Create: NextPage = () => {
   return (
     <PostCreateAndExploreLayout>
       <PostCreate />
