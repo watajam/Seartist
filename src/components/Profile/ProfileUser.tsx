@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import React, { memo, VFC } from 'react';
-import Image from 'next/image';
 import { BsInstagram } from 'react-icons/bs';
 import { FiTwitter } from 'react-icons/fi';
 import { IoHomeOutline } from 'react-icons/io5';
@@ -9,7 +8,7 @@ import { FiPaperclip } from 'react-icons/fi';
 import { AiFillStar } from 'react-icons/ai';
 import { FaBirthdayCake } from 'react-icons/fa';
 import { IoLocationSharp } from 'react-icons/io5';
-import ProfileUserSkeletonLoadingItem from '../SkeletonLoading/ProfileUserSkeletonLoadingItem';
+import { auth } from '../../../lib/firebase';
 
 type Props = {
   user: {
@@ -27,24 +26,10 @@ type Props = {
     email: string;
   };
   postsLength: number;
-
-  userEmail: {
-    email: string;
-  };
-  userLoading: boolean;
-  postsLoading: boolean;
 };
 
 const ProfileUser: VFC<Props> = (props) => {
-  if (props.userLoading) {
-    return <ProfileUserSkeletonLoadingItem />;
-  }
-  if (props.postsLoading) {
-    return <ProfileUserSkeletonLoadingItem />;
-  }
-  if (props.user === null) {
-    return <p>エラー</p>;
-  }
+
 
   return (
     <>
@@ -163,11 +148,13 @@ const ProfileUser: VFC<Props> = (props) => {
           ) : null}
         </ul>
       </nav>
-      {props.userEmail?.email === props.user?.email ? (
+      {auth.currentUser?.email === undefined ? null : auth.currentUser?.email === props.user?.email ? (
         <Link href="/profile/editprofile">
           <a className="bg-orange-400 text-white text-center mt-6 p-1 block">プロフィール編集</a>
         </Link>
-      ) : null}
+      ) : (
+        <p>フォローする</p>
+      )}
     </>
   );
 };

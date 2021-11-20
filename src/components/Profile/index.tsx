@@ -8,7 +8,25 @@ import ProfileUser from './ProfileUser';
 import PostProfile from '../Post/PostProfile';
 import ProfileTab from './ProfileTab';
 
-const Profile: VFC = () => {
+type Props = {
+  user: {
+    image: string;
+    name: string;
+    userId: string;
+    genre: string;
+    location: string;
+    birthday: string;
+    writing: string;
+    twitterUrl: string;
+    instagramUrl: string;
+    homepageUrl: string;
+    otherUrl: string;
+    email: string;
+  };
+  postsLength: number;
+};
+
+const Profile: VFC<Props> = (props) => {
   const [user, setUser] =
     useState<
       Pick<
@@ -118,17 +136,14 @@ const Profile: VFC = () => {
     <>
       <div className="px-5">
         <ProfileUser
-          user={user}
-          postsLength={posts.length}
-          userEmail={userEmail}
-          userLoading={userLoading}
-          postsLoading={postsLoading}
+          user={props.user}
+          postsLength={props.postsLength}
         />
       </div>
 
       {/* タブ */}
       <div className="mt-6 flex">
-        <ProfileTab user={user} userLoading={userLoading} handleChengePage={handleChengePage} chengePage={chengePage} />
+        <ProfileTab user={props.user} handleChengePage={handleChengePage} chengePage={chengePage} />
       </div>
 
       <div className="px-5 mt-4 grid gap-6  md:max-w-xl lg:max-w-2xl">

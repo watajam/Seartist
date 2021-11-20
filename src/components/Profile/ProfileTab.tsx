@@ -1,8 +1,6 @@
 import React, { memo, VFC } from 'react';
-
 import { AiOutlineEye } from 'react-icons/ai';
 import { AiOutlineHeart } from 'react-icons/ai';
-import ProfileTabSkeletonLoading from '../SkeletonLoading/ProfileTabSkeletonLoading';
 
 type Props = {
   user: {
@@ -10,20 +8,11 @@ type Props = {
   };
   chengePage: boolean;
   handleChengePage: () => void;
-  userLoading: boolean;
 };
 const ProfileTab: VFC<Props> = (props) => {
-  if (props.userLoading) {
-    return <ProfileTabSkeletonLoading />;
-  }
-
-  if (props.user === null) {
-    return <p>エラー</p>;
-  }
   return (
     <>
       {/* タブ */}
-
       {props.user?.genre ? (
         <>
           <button
