@@ -1,6 +1,5 @@
 import { collection, getDocs, orderBy, query, where } from '@firebase/firestore';
 import { GetServerSideProps, NextPage } from 'next';
-import React from 'react';
 import { db } from '../../../../lib/firebase';
 import { FormData } from '../../../../types/FormData';
 import ProfileLayout from '../../../components/Layout/ProfileLayout';
