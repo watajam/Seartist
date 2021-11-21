@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, VFC } from 'react';
+import React, { memo, useCallback, VFC } from 'react';
 import Link from 'next/link';
 import { doc, setDoc } from '@firebase/firestore';
 import { db } from '../../../lib/firebase';
@@ -10,11 +10,17 @@ const Selection: VFC = () => {
   const handleSetUserEmail = useCallback(() => {
     if (userEmail !== null) {
       setDoc(doc(db, 'users', userEmail.email), {
+        image: '',
         name: '',
         userId: '',
         genre: '',
         location: '',
         birthday: '',
+        writing: '',
+        twitterUrl: '',
+        instagramUrl: '',
+        homepageUrl: '',
+        otherUrl: '',
       });
     }
   }, [userEmail]);
