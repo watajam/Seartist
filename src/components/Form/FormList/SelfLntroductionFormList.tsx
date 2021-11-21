@@ -1,33 +1,18 @@
-import React, { memo, ReactNode, useEffect, VFC } from 'react';
+import React, { memo, ReactNode, VFC } from 'react';
 import FormProfileTitle from '../FormProfileTitle';
-import { useRecoilSetEmail } from '../../../hooks/useRecoilSetEmail';
-import { useRouter } from 'next/router';
-import { doc, onSnapshot } from '@firebase/firestore';
-import { db } from '../../../../lib/firebase';
+
 import { useSelfLntroductionUpload } from '../../../hooks/useSelfLntroductionUpload';
+import { useQueryUserEmailCheck } from '../../../../FireBase/Query/useQueryUserEmailCheck';
 
 type Props = {
   children: ReactNode;
 };
 
 const SelfLntroductionFormList: VFC<Props> = (props) => {
-  const { userEmail } = useRecoilSetEmail();
-  const router = useRouter();
   const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } =
     useSelfLntroductionUpload();
 
-  //データがない場合にselectionページに遷移
-  useEffect(() => {
-    if (userEmail !== null) {
-      const postsRef = doc(db, 'users', userEmail.email);
-      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        if (snapshot.data().email !== userEmail.email) {
-          router.push('/selection');
-        }
-      });
-      return () => unsubscribe();
-    }
-  }, [userEmail]);
+  useQueryUserEmailCheck();
 
   return (
     <>

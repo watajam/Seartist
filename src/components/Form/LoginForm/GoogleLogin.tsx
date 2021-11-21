@@ -1,31 +1,10 @@
 import React, { memo, VFC } from 'react';
-import { signInWithPopup } from '@firebase/auth';
-import { useRouter } from 'next/dist/client/router';
 
 import { FcGoogle } from 'react-icons/fc';
-import { auth, db, provider } from '../../../../lib/firebase';
-import { collection, getDocs, query, where } from '@firebase/firestore';
+import { useAuthGoogleLogin } from '../../../../FireBase/Authentication/useAuthGoogleLogin';
 
-//Googleログイン
 const GoogleLogin: VFC = () => {
-  const router = useRouter();
-
-  //Googleログイン
-  const googleLogin = async () => {
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        const q = query(collection(db, 'users'), where('email', '==', result.user.email));
-        const user = await getDocs(q);
-        if (user.docs.length) {
-          router.push(`/posts`);
-        } else {
-          router.push(`/selection`);
-        }
-      })
-      .catch(() => {
-        alert('ログインできません。');
-      });
-  };
+  const { googleLogin } = useAuthGoogleLogin();
 
   return (
     <button

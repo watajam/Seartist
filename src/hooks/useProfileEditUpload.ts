@@ -113,17 +113,32 @@ export const useProfileEditUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            const q = query(
-              collection(db, 'users'),
-              where('userId', '==', data.userId),
-              where('email', '==', auth.currentUser?.email)
-            );
 
+            const q = query(collection(db, 'users'), where('userId', '==', data.userId));
             const currentUser = await getDocs(q);
-            if (currentUser.docs.length !== 1) {
-              setError('userId', {
-                type: 'validate',
-                message: 'このユーザーIDは既に使用されています',
+            if (currentUser.docs.length === 1) {
+              currentUser.docs.forEach(async (doc1) => {
+                if (doc1.data().email !== auth.currentUser?.email) {
+                  setError('userId', {
+                    type: 'validate',
+                    message: 'このユーザーIDは既に使用されています',
+                  });
+                } else {
+                  await updateDoc(doc(db, 'users', auth.currentUser.email), {
+                    image: url,
+                    name: data.name,
+                    userId: data.userId,
+                    genre: data.genre ? data.genre : '',
+                    location: data.location,
+                    birthday: data.birthday,
+                    writing: data.writing,
+                    twitterUrl: data.twitterUrl,
+                    instagramUrl: data.instagramUrl,
+                    homepageUrl: data.homepageUrl,
+                    otherUrl: data.otherUrl,
+                  });
+                  router.back();
+                }
               });
             } else {
               await updateDoc(doc(db, 'users', auth.currentUser.email), {
@@ -139,7 +154,7 @@ export const useProfileEditUpload = () => {
                 homepageUrl: data.homepageUrl,
                 otherUrl: data.otherUrl,
               });
-              router.back();
+              router.push(`/profile/${data.userId}`);
             }
           } catch (error) {
             switch (error.code) {
@@ -161,17 +176,30 @@ export const useProfileEditUpload = () => {
       );
     } catch (error) {
       if (src === '/profile.png') {
-        const q = query(
-          collection(db, 'users'),
-          where('userId', '==', data.userId),
-          where('email', '==', auth.currentUser?.email)
-        );
-
+        const q = query(collection(db, 'users'), where('userId', '==', data.userId));
         const currentUser = await getDocs(q);
-        if (currentUser.docs.length !== 1) {
-          setError('userId', {
-            type: 'validate',
-            message: 'このユーザーIDは既に使用されています',
+        if (currentUser.docs.length === 1) {
+          currentUser.docs.forEach(async (doc1) => {
+            if (doc1.data().email !== auth.currentUser?.email) {
+              setError('userId', {
+                type: 'validate',
+                message: 'このユーザーIDは既に使用されています',
+              });
+            } else {
+              await updateDoc(doc(db, 'users', auth.currentUser.email), {
+                name: data.name,
+                userId: data.userId,
+                genre: data.genre ? data.genre : '',
+                location: data.location,
+                birthday: data.birthday,
+                writing: data.writing,
+                twitterUrl: data.twitterUrl,
+                instagramUrl: data.instagramUrl,
+                homepageUrl: data.homepageUrl,
+                otherUrl: data.otherUrl,
+              });
+              router.back();
+            }
           });
         } else {
           await updateDoc(doc(db, 'users', auth.currentUser.email), {
@@ -186,7 +214,7 @@ export const useProfileEditUpload = () => {
             homepageUrl: data.homepageUrl,
             otherUrl: data.otherUrl,
           });
-          router.back();
+          router.push(`/profile/${data.userId}`);
         }
       } else {
         console.log('エラーキャッチ', error);

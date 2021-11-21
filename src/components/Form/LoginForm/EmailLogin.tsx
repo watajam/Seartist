@@ -1,15 +1,9 @@
 import React, { memo, VFC } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@firebase/auth';
-import { auth, db } from '../../../../lib/firebase';
-import { useRouter } from 'next/dist/client/router';
-import { collection, getDocs, query, where } from '@firebase/firestore';
-
-type LoginFormData = {
-  email: string;
-  password: string;
-};
+import { useAuthLogin } from '../../../../FireBase/Authentication/useAuthLogin';
+import { useAuthSignup } from '../../../../FireBase/Authentication/useAuthSignup';
+import { AuthFormData } from '../../../../types/AuthFormData';
 
 type Props = {
   isLogin: boolean;
@@ -17,42 +11,16 @@ type Props = {
 };
 
 const EmailLogin: VFC<Props> = (props) => {
-  const router = useRouter();
+  const { login } = useAuthLogin();
+  const { signup } = useAuthSignup();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>({
+  } = useForm<AuthFormData>({
     mode: 'onChange',
   });
-
-  //ログイン機能
-  const login = async (data: LoginFormData) => {
-    try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
-      const q = query(collection(db, 'users'), where('email', '==', data.email));
-      const user = await getDocs(q);
-      if (user.docs.length) {
-        router.push(`/posts`);
-      } else {
-        router.push(`/selection`);
-      }
-    } catch (error) {
-      alert('アカウントが見つかりません');
-    }
-  };
-
-  //新規アカウント作成
-  const signup = async (data: LoginFormData) => {
-    try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
-      router.push(`/selection`);
-      alert('プロフィールを登録しましょう');
-    } catch (error) {
-      alert('アカウントを作成できません');
-    }
-  };
 
   return (
     <>

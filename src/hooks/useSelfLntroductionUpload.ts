@@ -106,6 +106,9 @@ export const useSelfLntroductionUpload = () => {
       );
     } catch (error) {
       if (src === '/profile.png') {
+        await updateDoc(doc(db, 'users', auth.currentUser.email), {
+          writing: data.writing,
+        });
         router.push('/posts');
       } else {
         console.log('エラーキャッチ', error);
