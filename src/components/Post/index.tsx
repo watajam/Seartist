@@ -1,83 +1,19 @@
-import { collection, doc, onSnapshot, orderBy, query } from '@firebase/firestore';
-import { useRouter } from 'next/router';
-import React, { memo, useEffect, useState, VFC } from 'react';
-import { db } from '../../../lib/firebase';
-import { FormData } from '../../../types/FormData';
-import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import React, { memo, VFC } from 'react';
+import { useQuerPostsSetLoading } from '../../../FireBase/Query/useQuerPostsSetLoading';
+import { useQueryUserEmailCheck } from '../../../FireBase/Query/useQueryUserEmailCheck';
+import { useQueryUserInformationSetLoading } from '../../../FireBase/Query/useQueryUserInformationSetLoading';
 import SkeletonLoading from '../SkeletonLoading';
 import ListItem from './ListItem';
 
 const Post: VFC = () => {
-  const [posts, setPosts] = useState<
-    Pick<
-      FormData,
-      'id' | 'image' | 'writing' | 'eventName' | 'genre' | 'eventLocation' | 'eventDate' | 'openTime' | 'closeTime'
-    >[]
-  >([]);
-  const [user, setUser] = useState<Pick<FormData, 'userId' | 'name' | 'image'>>(null);
-  const [postLoading, setPostLoading] = useState(true);
-  const [userloading, setUserLoading] = useState(true);
-  const { userEmail } = useRecoilSetEmail();
-  const router = useRouter();
-
-  //データがない場合にselectionページに遷移
-  useEffect(() => {
-    if (userEmail !== null) {
-      const postsRef = doc(db, 'users', userEmail.email);
-      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        if (snapshot.data().email !== userEmail.email) {
-          router.push('/selection');
-        }
-      });
-      return () => unsubscribe();
-    }
-  }, [userEmail]);
-
-  // ユーザー情報取得
-  useEffect(() => {
-    if (userEmail !== null) {
-      const postsRef = doc(db, 'users', userEmail.email);
-      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        setUser({
-          userId: snapshot.data().userId,
-          name: snapshot.data().name,
-          image: snapshot.data().image,
-        });
-        setUserLoading(false);
-      });
-      return () => unsubscribe();
-    }
-  }, [userEmail]);
-
-  //ログインしているユーザーのデータを取得
-  useEffect(() => {
-    if (userEmail !== null) {
-      const q = query(collection(db, 'users', userEmail.email, 'posts'), orderBy('timestamp', 'desc'));
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        setPosts(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            image: doc.data().image,
-            writing: doc.data().writing,
-            eventName: doc.data().eventName,
-            genre: doc.data().genre,
-            eventLocation: doc.data().eventLocation,
-            eventDate: doc.data().eventDate,
-            openTime: doc.data().openTime,
-            closeTime: doc.data().closeTime,
-          }))
-        );
-        setPostLoading(false);
-      });
-
-      return () => unsubscribe();
-    }
-  }, [userEmail]);
+  const { user, userLoading } = useQueryUserInformationSetLoading();
+  const { posts, postLoading } = useQuerPostsSetLoading();
+  useQueryUserEmailCheck();
 
   if (postLoading) {
     return <SkeletonLoading />;
   }
-  if (userloading) {
+  if (userLoading) {
     return <SkeletonLoading />;
   }
 

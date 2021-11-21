@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, VFC } from 'react';
+import React, { memo, VFC } from 'react';
 import Link from 'next/link';
 import { HiHome } from 'react-icons/hi';
 import { HiOutlineHome } from 'react-icons/hi';
@@ -7,30 +7,12 @@ import { BiSearch } from 'react-icons/bi';
 import { BiUserCircle } from 'react-icons/bi';
 import { HiUserCircle } from 'react-icons/hi';
 import { RiQuillPenLine } from 'react-icons/ri';
-import { useRouter } from 'next/dist/client/router';
-import { FormData } from '../../../types/FormData';
-import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
-import { doc, onSnapshot } from '@firebase/firestore';
-import { db } from '../../../lib/firebase';
+import { useQueryUserInformation } from '../../../FireBase/Query/useQueryUserInformation';
+import { useRouter } from 'next/router';
 
 const BottomNavigation: VFC = () => {
-  const [user, setUser] = useState<Pick<FormData, 'userId' | 'genre'>>(null);
-  const { userEmail } = useRecoilSetEmail();
+  const { user } = useQueryUserInformation();
   const router = useRouter();
-
-  // ユーザー情報取得
-  useEffect(() => {
-    if (userEmail !== null) {
-      const postsRef = doc(db, 'users', userEmail.email);
-      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        setUser({
-          userId: snapshot.data().userId,
-          genre: snapshot.data().genre,
-        });
-      });
-      return () => unsubscribe();
-    }
-  }, [userEmail, user]);
 
   return (
     <aside className="w-full fixed  bottom-0 z-10 bg-orange-400  md:static md:w-1/4   md:max-w-xs md:bg-orange-300 h-auto">
