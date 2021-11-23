@@ -15,7 +15,8 @@ export const useQueryUserInformation = () => {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
         if (docSnap.data()) {
-          setUser({ userId: docSnap.data().userId, genre: docSnap.data().genre });
+          const userData = docSnap.data() as Pick<FormData, 'userId' | 'genre'>;
+          setUser({ ...userData });
         } else {
           console.log('No such document!');
         }
