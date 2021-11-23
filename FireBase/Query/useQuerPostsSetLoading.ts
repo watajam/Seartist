@@ -20,14 +20,14 @@ export const useQuerPostsSetLoading = () => {
           setPosts(
             querySnap.docs.map((doc) => ({
               id: doc.id,
-              image: doc.data().image,
-              writing: doc.data().writing,
-              eventName: doc.data().eventName,
-              genre: doc.data().genre,
-              eventLocation: doc.data().eventLocation,
-              eventDate: doc.data().eventDate,
-              openTime: doc.data().openTime,
-              closeTime: doc.data().closeTime,
+              image: doc.data()?.image,
+              writing: doc.data()?.writing,
+              eventName: doc.data()?.eventName,
+              genre: doc.data()?.genre,
+              eventLocation: doc.data()?.eventLocation,
+              eventDate: doc.data()?.eventDate,
+              openTime: doc.data()?.openTime,
+              closeTime: doc.data()?.closeTime,
             }))
           );
         } else {
