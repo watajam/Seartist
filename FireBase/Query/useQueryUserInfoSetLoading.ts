@@ -15,7 +15,6 @@ export const useQueryUserInfoSetLoading = () => {
       if (user) {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
-        const userData = docSnap.data() as Pick<UserData, 'userId' | 'name' | 'image'>;
         if (docSnap.data()) {
           const userData = docSnap.data() as Pick<UserData, 'userId' | 'name' | 'image'>;
           setUser({
