@@ -1,101 +1,32 @@
-import React, { memo, useCallback, useEffect, useState, VFC } from 'react';
+import React, { memo, useCallback, VFC } from 'react';
 import { HiUserCircle } from 'react-icons/hi';
 import { FiHeart } from 'react-icons/fi';
 import { useRouter } from 'next/dist/client/router';
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
-import { deleteDoc, doc, onSnapshot } from '@firebase/firestore';
+import { deleteDoc, doc } from '@firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
-import { FormData } from '../../../types/FormData';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
+import { useQueryUserDetailInfoSetLoading } from '../../../FireBase/Query/useQueryUserDetailInfoSetLoading';
+import { useQuerPostsDetailSetLoading } from '../../../FireBase/Query/useQuerPostsDetailSetLoading';
 
 const PostDetail: VFC = () => {
-  const [post, setPost] =
-    useState<
-      Pick<
-        FormData,
-        | 'writing'
-        | 'image'
-        | 'eventName'
-        | 'genre'
-        | 'location'
-        | 'eventDate'
-        | 'eventLocation'
-        | 'openTime'
-        | 'closeTime'
-        | 'minAmount'
-        | 'maxAmount'
-        | 'tickets'
-        | 'coupon'
-        | 'email'
-      >
-    >();
-  const [user, setUser] = useState<Pick<FormData, 'image' | 'name'>>(null);
   const { userEmail } = useRecoilSetEmail();
-  const [postsLoading, setPostsLoading] = useState(true);
-  const [userloading, setUserLoading] = useState(true);
+  const { user, userLoading } = useQueryUserDetailInfoSetLoading();
+  const { post, postLoading } = useQuerPostsDetailSetLoading(user);
   const router = useRouter();
-
-  useEffect(() => {
-    if (userEmail !== null) {
-      const postRef = doc(db, 'users', userEmail.email, 'posts', `${router.query.id}`);
-
-      const unsubscribe = onSnapshot(postRef, (snapshot) => {
-        setPost({
-          writing: snapshot.data()?.writing,
-          image: snapshot.data()?.image,
-          eventName: snapshot.data()?.eventName,
-          genre: snapshot.data()?.genre,
-          location: snapshot.data()?.location,
-          eventDate: snapshot.data()?.eventDate,
-          eventLocation: snapshot.data()?.eventLocation,
-          openTime: snapshot.data()?.openTime,
-          closeTime: snapshot.data()?.closeTime,
-          minAmount: snapshot.data()?.minAmount,
-          maxAmount: snapshot.data()?.maxAmount,
-          tickets: snapshot.data()?.tickets,
-          coupon: snapshot.data()?.coupon,
-          email: snapshot.data()?.email,
-        });
-        setPostsLoading(false);
-      });
-      return () => unsubscribe();
-    }
-  }, [userEmail]);
-
-  // ユーザー情報取得
-  useEffect(() => {
-    if (post?.email !== undefined) {
-      const postsRef = doc(db, 'users', `${post.email}`);
-      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        setUser({
-          image: snapshot.data()?.image,
-          name: snapshot.data()?.name,
-        });
-        setUserLoading(false);
-      });
-      return () => unsubscribe();
-    }
-  }, [post]);
 
   const deletePost = useCallback(async () => {
     if (confirm('削除しますか？')) {
       await deleteDoc(doc(db, 'users', auth.currentUser.email, 'posts', `${router.query.id}`));
-      router.push('/posts');
+      router.back();
     }
   }, []);
 
-  if (postsLoading) {
-    return <PostDetailSkeletonLoadingItem />;
-  }
-  if (userloading) {
+  if (postLoading || userLoading) {
     return <PostDetailSkeletonLoadingItem />;
   }
 
-  if (user === null) {
-    return <p>エラー</p>;
-  }
-
-  if (post === undefined) {
+  if (user === undefined || post === undefined) {
     return <p>エラー</p>;
   }
 
@@ -113,14 +44,12 @@ const PostDetail: VFC = () => {
           <span>200</span>
         </div>
       </div>
-
       <p className="text-base font-bold mt-4">{post?.writing}</p>
       {post?.image !== '' ? (
         <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
           <img src={post?.image} className="text-center object-contain " />
         </div>
       ) : null}
-
       <table className="table-fixed text-center text-base w-full mt-6">
         <tbody className="mt-2">
           <tr className="bg-gray-100">

@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, onSnapshot, serverTimestamp } from '@firebase/firestore';
+import { addDoc, collection, doc, getDoc, serverTimestamp } from '@firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
@@ -46,22 +46,20 @@ export const usePostCreatUpload = () => {
   const [user, setUser] = useState<Pick<FormData, 'genre'>>(null);
   const { userEmail } = useRecoilSetEmail();
 
-  // ユーザー情報取得
   useEffect(() => {
-    if (userEmail !== null) {
-      const postsRef = doc(db, 'users', userEmail.email);
-      const unsubscribe = onSnapshot(postsRef, (snapshot) => {
-        setUser({
-          genre: snapshot.data().genre,
-        });
-      });
-      return () => unsubscribe();
-    }
-    if (user?.genre === '' || user?.genre === undefined) {
-      alert('投稿できるのはクリエイターアカウントのみです');
-      router.push('/posts');
-    }
-  }, [userEmail]);
+    auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = doc(db, 'users', userAuth.email);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.data()?.genre === '') {
+          alert('投稿できるのはクリエイターアカウントのみです');
+          router.push('/posts');
+        }
+      } else {
+        router.push('/login');
+      }
+    });
+  }, []);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;

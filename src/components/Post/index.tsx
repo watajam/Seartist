@@ -1,31 +1,25 @@
 import React, { memo, VFC } from 'react';
 import { useQuerPostsSetLoading } from '../../../FireBase/Query/useQuerPostsSetLoading';
+import { useQueryUserInfoSetLoading } from '../../../FireBase/Query/useQueryUserInfoSetLoading';
 import { useQueryUserEmailCheck } from '../../../FireBase/Query/useQueryUserEmailCheck';
-import { useQueryUserInformationSetLoading } from '../../../FireBase/Query/useQueryUserInformationSetLoading';
+
 import SkeletonLoading from '../SkeletonLoading';
 import ListItem from './ListItem';
 
 const Post: VFC = () => {
-  const { user, userLoading } = useQueryUserInformationSetLoading();
+  const { user, userLoading } = useQueryUserInfoSetLoading();
   const { posts, postLoading } = useQuerPostsSetLoading();
   useQueryUserEmailCheck();
 
-  if (postLoading) {
-    return <SkeletonLoading />;
-  }
-  if (userLoading) {
+  if (postLoading || userLoading) {
     return <SkeletonLoading />;
   }
 
-  if (user === null) {
+  if (user === undefined || posts === undefined) {
     return <p>エラー</p>;
   }
 
-  if (posts === []) {
-    return <p>エラー</p>;
-  }
-
-  if (posts && posts.length === 0) {
+  if (posts && posts.length === 0 && user) {
     return <p>まだ投稿がありません</p>;
   }
 

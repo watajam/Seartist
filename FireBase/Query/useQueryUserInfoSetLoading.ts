@@ -2,11 +2,11 @@ import { doc, getDoc } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../lib/firebase';
-import { FormData } from '../../types/FormData';
+import { UserData } from '../../types/UserData';
 
 //ユーザー情報を取得する
-export const useQueryUserInformationSetLoading = () => {
-  const [user, setUser] = useState<Pick<FormData, 'userId' | 'name' | 'image'>>(null);
+export const useQueryUserInfoSetLoading = () => {
+  const [user, setUser] = useState<Pick<UserData, 'userId' | 'name' | 'image'>>(null);
   const [userLoading, setUserLoading] = useState(true);
   const router = useRouter();
 
@@ -16,7 +16,10 @@ export const useQueryUserInformationSetLoading = () => {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
         if (docSnap.data()) {
-          setUser({ userId: docSnap.data().userId, name: docSnap.data().name, image: docSnap.data().image });
+          const userData = docSnap.data() as Pick<UserData, 'userId' | 'name' | 'image'>;
+          setUser({
+          ...userData,
+          });
           setUserLoading(false);
         } else {
           console.log('No such document!');

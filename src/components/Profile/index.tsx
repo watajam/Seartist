@@ -135,10 +135,7 @@ const Profile: VFC<Props> = (props) => {
   return (
     <>
       <div className="px-5">
-        <ProfileUser
-          user={props.user}
-          postsLength={props.postsLength}
-        />
+        <ProfileUser user={props.user} postsLength={props.postsLength} />
       </div>
 
       {/* タブ */}
