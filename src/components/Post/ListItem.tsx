@@ -2,24 +2,12 @@ import React, { memo, VFC } from 'react';
 import { HiUserCircle } from 'react-icons/hi';
 import { AiOutlineHeart } from 'react-icons/ai';
 import Link from 'next/link';
+import { PostData } from '../../../types/PostData';
+import { UserData } from '../../../types/UserData';
 
 type Props = {
-  post: {
-    id: string;
-    image: string;
-    writing: string;
-    eventName: string;
-    genre: string;
-    eventLocation: string;
-    eventDate: string;
-    openTime: string;
-    closeTime: string;
-  };
-  user: {
-    userId: string;
-    name: string;
-    image: string;
-  };
+  post: PostData;
+  user: Pick<UserData, 'userId' | 'name' | 'image'>;
 };
 
 const ListItem: VFC<Props> = (props) => {
@@ -40,14 +28,13 @@ const ListItem: VFC<Props> = (props) => {
           </header>
         </a>
       </Link>
-      <Link href={`/posts/${props.post.id}`}>
+      <Link href={`/posts/${props.user.userId}/${props.post.id}`}>
         <a>
           <div className="p-4">
             <p className="text-base text-bold font-bold break-words max-w-sm  sm:max-w-md md:max-w-lg">
               {props.post.writing}
             </p>
 
-            {/* テスト中 */}
             {props.post.image !== '' ? (
               <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
                 <img src={props.post.image} className="text-center object-contain " />
