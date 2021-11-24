@@ -7,11 +7,11 @@ import { BiSearch } from 'react-icons/bi';
 import { BiUserCircle } from 'react-icons/bi';
 import { HiUserCircle } from 'react-icons/hi';
 import { RiQuillPenLine } from 'react-icons/ri';
-import { useQueryUserInformation } from '../../../FireBase/Query/useQueryUserInformation';
+import { useQueryUserInfo } from '../../../FireBase/Query/useQueryUserInfo';
 import { useRouter } from 'next/router';
 
 const PostBottomNavigation: VFC = () => {
-  const { user } = useQueryUserInformation();
+  const { user } = useQueryUserInfo();
   const router = useRouter();
 
   return (
