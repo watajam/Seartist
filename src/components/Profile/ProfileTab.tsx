@@ -1,14 +1,14 @@
 import React, { memo, VFC } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { UserData } from '../../../types/UserData';
 
 type Props = {
-  user: {
-    genre: string;
-  };
+  user: Pick<UserData, 'genre'>;
   chengePage: boolean;
   handleChengePage: () => void;
 };
+
 const ProfileTab: VFC<Props> = (props) => {
   return (
     <>
