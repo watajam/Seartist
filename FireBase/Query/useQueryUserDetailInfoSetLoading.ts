@@ -14,23 +14,20 @@ export const useQueryUserDetailInfoSetLoading = () => {
     const userRef = collection(db, 'users');
 
     const unSub = auth.onAuthStateChanged(async (user) => {
-      if (router.query.id !== undefined) {
-        const q = query(userRef, where('userId', '==', `${router.query.id[0]}`));
-        const querySnap = await getDocs(q);
-        if (querySnap.docs) {
-          const userData = querySnap.docs[0].data() as Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
-          setUser({
-            userId: userData.userId,
-            name: userData.name,
-            image: userData.image,
-            email: userData.email,
-          });
-          setUserLoading(false);
-        } else {
-          console.log('No such document!');
-        }
-      }
       if (user) {
+        if (router.query.id !== undefined) {
+          const q = query(userRef, where('userId', '==', `${router.query.id[0]}`));
+          const querySnap = await getDocs(q);
+          if (querySnap.docs) {
+            const userData = querySnap.docs[0]?.data() as Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
+            setUser({
+              ...userData,
+            });
+            setUserLoading(false);
+          } else {
+            console.log('No such document!');
+          }
+        }
       } else {
         router.push('/login');
       }

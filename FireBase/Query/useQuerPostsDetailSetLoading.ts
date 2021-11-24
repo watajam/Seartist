@@ -11,13 +11,13 @@ export const useQuerPostsDetailSetLoading = (user) => {
   const router = useRouter();
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (userAuth) => {
+    const unSub = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         if (user?.email !== undefined && router.query.id !== undefined) {
           const docRef = doc(db, 'users', `${user?.email}`, 'posts', `${router.query.id[1]}`);
           const docSnap = await getDoc(docRef);
           if (docSnap.data()) {
-            const postData = docSnap.data() as PostDetailData;
+            const postData = docSnap?.data() as PostDetailData;
             setPost({
               ...postData,
             });
@@ -29,6 +29,8 @@ export const useQuerPostsDetailSetLoading = (user) => {
       } else {
         router.push('/login');
       }
+      return () => unSub();
+
     });
   }, [user, router]);
 

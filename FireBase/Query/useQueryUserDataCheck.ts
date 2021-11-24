@@ -8,7 +8,7 @@ export const useQueryUserDataCheck = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const  unSub = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
@@ -19,6 +19,6 @@ export const useQueryUserDataCheck = () => {
         router.push('/login');
       }
     });
-    return () => unsubscribe();
+    return () =>  unSub();
   }, []);
 };
