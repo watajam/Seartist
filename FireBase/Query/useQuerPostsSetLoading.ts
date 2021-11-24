@@ -6,12 +6,12 @@ import { PostData } from '../../types/PostData';
 
 //ログインしているユーザーの投稿を取得する
 export const useQuerPostsSetLoading = () => {
-  const [posts, setPosts] = useState<PostData[]>([]);
-  const [postLoading, setPostLoading] = useState(true);
+  const [posts, setPosts] = useState<Omit<PostData, 'email'>[]>([]);
+  const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const unSub = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const q = query(collection(db, 'users', user.email, 'posts'), orderBy('timestamp', 'desc'));
         const querySnap = await getDocs(q);
@@ -20,26 +20,26 @@ export const useQuerPostsSetLoading = () => {
           setPosts(
             querySnap.docs.map((doc) => ({
               id: doc.id,
-              image: doc.data().image,
-              writing: doc.data().writing,
-              eventName: doc.data().eventName,
-              genre: doc.data().genre,
-              eventLocation: doc.data().eventLocation,
-              eventDate: doc.data().eventDate,
-              openTime: doc.data().openTime,
-              closeTime: doc.data().closeTime,
+              image: doc?.data().image,
+              writing: doc?.data().writing,
+              eventName: doc?.data().eventName,
+              genre: doc?.data().genre,
+              eventLocation: doc?.data().eventLocation,
+              eventDate: doc?.data().eventDate,
+              openTime: doc?.data().openTime,
+              closeTime: doc?.data().closeTime,
             }))
           );
+          setPostsLoading(false);
         } else {
           console.log('No such document!');
         }
-        setPostLoading(false);
       } else {
         router.push('/login');
       }
     });
 
-    return () => unsubscribe();
+    return () => unSub();
   }, []);
-  return { posts, postLoading };
+  return { posts, postsLoading };
 };

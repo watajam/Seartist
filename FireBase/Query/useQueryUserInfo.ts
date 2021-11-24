@@ -5,17 +5,17 @@ import { auth, db } from '../../lib/firebase';
 import { FormData } from '../../types/FormData';
 
 //ユーザー情報を取得する
-export const useQueryUserInformation = () => {
+export const useQueryUserInfo = () => {
   const [user, setUser] = useState<Pick<FormData, 'userId' | 'genre'>>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+    const  unSub = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
         if (docSnap.data()) {
-          const userData = docSnap.data() as Pick<FormData, 'userId' | 'genre'>;
+          const userData = docSnap?.data() as Pick<FormData, 'userId' | 'genre'>;
           setUser({ ...userData });
         } else {
           console.log('No such document!');
@@ -25,7 +25,7 @@ export const useQueryUserInformation = () => {
       }
     });
 
-    return () => unsubscribe();
+    return () =>  unSub();
   }, []);
 
   return { user };

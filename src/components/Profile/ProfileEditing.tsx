@@ -1,47 +1,15 @@
-import React, { memo, useEffect, useState, VFC } from 'react';
+import React, { memo, VFC } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { Disclosure } from '@headlessui/react';
 import FormButton from '../Form/FormButton';
-import { doc, onSnapshot } from '@firebase/firestore';
-import { db } from '../../../lib/firebase';
-import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
-import { FormData } from '../../../types/FormData';
 import { useProfileEditUpload } from '../../hooks/useProfileEditUpload';
+import { useQueryUserEditInfo } from '../../../FireBase/Query/useQueryUserEditInfo';
 
 const ProfileEditing: VFC = () => {
-  const [user, setUser] = useState<Pick<FormData, 'image' | 'userId' | 'genre'>>(null);
-
   const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, setValue, errors } =
     useProfileEditUpload();
 
-  const { userEmail } = useRecoilSetEmail();
-
-  // ユーザー情報取得
-  useEffect(() => {
-    if (userEmail !== null) {
-      const q = doc(db, 'users', userEmail.email);
-      const unsubscribe = onSnapshot(q, (snapshot) => {
-        setUser({
-          image: snapshot.data().image,
-          userId: snapshot.data().userId,
-          genre: snapshot.data().genre,
-        });
-        setValue('image', snapshot.data().image);
-        setValue('name', snapshot.data().name);
-        setValue('userId', snapshot.data().userId);
-        setValue('birthday', snapshot.data().birthday);
-        setValue('genre', snapshot.data().genre);
-        setValue('location', snapshot.data().location);
-        setValue('writing', snapshot.data().writing);
-        setValue('twitterUrl', snapshot.data().twitterUrl);
-        setValue('instagramUrl', snapshot.data().instagramUrl);
-        setValue('homepageUrl', snapshot.data().homepageUrl);
-        setValue('otherUrl', snapshot.data().otherUrl);
-      });
-
-      return () => unsubscribe();
-    }
-  }, [userEmail]);
+  const user = useQueryUserEditInfo(setValue);
 
   return (
     <>

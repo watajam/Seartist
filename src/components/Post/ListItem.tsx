@@ -6,7 +6,7 @@ import { PostData } from '../../../types/PostData';
 import { UserData } from '../../../types/UserData';
 
 type Props = {
-  post: PostData;
+  post: Omit<PostData, `email`>;
   user: Pick<UserData, 'userId' | 'name' | 'image'>;
 };
 

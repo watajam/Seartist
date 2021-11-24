@@ -8,10 +8,10 @@ import ListItem from './ListItem';
 
 const Post: VFC = () => {
   const { user, userLoading } = useQueryUserInfoSetLoading();
-  const { posts, postLoading } = useQuerPostsSetLoading();
+  const { posts, postsLoading } = useQuerPostsSetLoading();
   useQueryUserEmailCheck();
 
-  if (postLoading || userLoading) {
+  if (postsLoading || userLoading) {
     return <SkeletonLoading />;
   }
 

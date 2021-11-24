@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 import React, { memo, VFC } from 'react';
 import { BsInstagram } from 'react-icons/bs';
 import { FiTwitter } from 'react-icons/fi';
@@ -8,28 +7,16 @@ import { FiPaperclip } from 'react-icons/fi';
 import { AiFillStar } from 'react-icons/ai';
 import { FaBirthdayCake } from 'react-icons/fa';
 import { IoLocationSharp } from 'react-icons/io5';
-import { auth } from '../../../lib/firebase';
+import { UserData } from '../../../types/UserData';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import ProfileEditSkeletonLoadingItem from '../SkeletonLoading/ProfileEditSkeletonLoadingItem';
 
 type Props = {
-  user: {
-    image: string;
-    name: string;
-    userId: string;
-    genre: string;
-    location: string;
-    birthday: string;
-    writing: string;
-    twitterUrl: string;
-    instagramUrl: string;
-    homepageUrl: string;
-    otherUrl: string;
-    email: string;
-  };
+  user: UserData;
   postsLength: number;
 };
-
 const ProfileUser: VFC<Props> = (props) => {
-
+  const { userEmail } = useRecoilSetEmail();
 
   return (
     <>
@@ -61,7 +48,6 @@ const ProfileUser: VFC<Props> = (props) => {
       </div>
       {props.user?.name ? <h1 className="text-2xl font-bold mt-2">{props.user?.name}</h1> : null}
       {props.user?.userId ? <span className="text-gray-400">{`@ ${props.user?.userId}`}</span> : null}
-
       <div className="flex items-center flex-wrap text-gray-400">
         {props.user?.genre ? (
           <>
@@ -84,7 +70,6 @@ const ProfileUser: VFC<Props> = (props) => {
         ) : null}
       </div>
       {props.user?.writing ? <p className="mt-4 text-bold">{props.user?.writing}</p> : null}
-
       <nav className="mt-6">
         <ul className="flex w-full">
           {props.user?.instagramUrl ? (
@@ -148,12 +133,14 @@ const ProfileUser: VFC<Props> = (props) => {
           ) : null}
         </ul>
       </nav>
-      {auth.currentUser?.email === undefined ? null : auth.currentUser?.email === props.user?.email ? (
+      {userEmail?.email === undefined ? (
+        <ProfileEditSkeletonLoadingItem />
+      ) : userEmail?.email === props.user?.email ? (
         <Link href="/profile/editprofile">
           <a className="bg-orange-400 text-white text-center mt-6 p-1 block">プロフィール編集</a>
         </Link>
       ) : (
-        <p>フォローする</p>
+        <div className="bg-orange-400 text-white text-center mt-6 p-1">フォローする</div>
       )}
     </>
   );

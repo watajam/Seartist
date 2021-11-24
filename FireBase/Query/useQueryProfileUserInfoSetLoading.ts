@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { auth, db } from '../../lib/firebase';
 import { UserData } from '../../types/UserData';
 
-//ユーザー情報を取得する
-export const useQueryUserDetailInfoSetLoading = () => {
-  const [user, setUser] = useState<Pick<UserData, 'userId' | 'name' | 'image' | 'email'>>(null);
+//ユーザープロフィール情報を取得する
+export const useQueryProfileUserInfoSetLoading = () => {
+  const [user, setUser] = useState<UserData>(null);
   const [userLoading, setUserLoading] = useState(true);
   const router = useRouter();
 
@@ -16,22 +16,24 @@ export const useQueryUserDetailInfoSetLoading = () => {
     const unSub = auth.onAuthStateChanged(async (user) => {
       if (user) {
         if (router.query.id !== undefined) {
-          const q = query(userRef, where('userId', '==', `${router.query.id[0]}`));
+          const q = query(userRef, where('userId', '==', `${router.query.id}`));
           const querySnap = await getDocs(q);
           if (querySnap.docs) {
-            const userData = querySnap.docs[0]?.data() as Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
+            const userData = querySnap.docs[0]?.data() as UserData;
+
             setUser({
               ...userData,
             });
             setUserLoading(false);
           } else {
-            console.log('No such document!');
+            alert('存在しないページです');
           }
         }
       } else {
         router.push('/login');
       }
     });
+
     return () => unSub();
   }, [router]);
 
