@@ -17,7 +17,8 @@ const PostDetail: VFC = () => {
 
   const deletePost = useCallback(async () => {
     if (confirm('削除しますか？')) {
-      await deleteDoc(doc(db, 'users', auth.currentUser.email, 'posts', `${router.query.id}`));
+      await deleteDoc(doc(db, 'users', auth.currentUser.email, 'posts', `${router.query.id[1]}`));
+
       router.back();
     }
   }, []);

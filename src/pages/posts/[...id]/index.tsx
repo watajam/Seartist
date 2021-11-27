@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import PostDetailLayout from '../../../components/Layout/PostDetailLayout';
 import PostDetail from '../../../components/Post/PostDetail';
 
-const PostsId: NextPage = () => {
+const PostsIds: NextPage = () => {
   return (
     <PostDetailLayout>
       <PostDetail />
@@ -10,4 +10,4 @@ const PostsId: NextPage = () => {
   );
 };
 
-export default PostsId;
+export default PostsIds;
