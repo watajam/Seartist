@@ -13,31 +13,31 @@ type Props = {
 const ListItem: VFC<Props> = (props) => {
   return (
     <div className="rounded-2xl shadow">
-      <Link href={`/profile/${props.user.userId}`}>
+      <Link href={`/profile/${props.user?.userId}`}>
         <a>
           <header className="bg-gray-400 text-white flex  p-4 rounded-t-2xl items-center font-bold text-base ">
-            {props.user.image !== '' ? (
-              <img src={props.user.image} className="w-8 h-8 rounded-full" />
+            {props.user?.image !== '' ? (
+              <img src={props.user?.image} className="w-8 h-8 rounded-full" />
             ) : (
               <HiUserCircle className="w-8 h-8" />
             )}
-            <h1 className="ml-2">{props.user.name}</h1>
-            <time dateTime={props.post.eventDate} className="ml-auto text-lg">
-              {props.post.eventDate}
+            <h1 className="ml-2">{props.user?.name}</h1>
+            <time dateTime={props.post?.eventDate} className="ml-auto text-lg">
+              {props.post?.eventDate}
             </time>
           </header>
         </a>
       </Link>
-      <Link href={`/posts/${props.user.userId}/${props.post.id}`}>
+      <Link href={`/posts/${props.user?.userId}/${props.post?.id}`}>
         <a>
           <div className="p-4">
             <p className="text-base text-bold font-bold break-words max-w-sm  sm:max-w-md md:max-w-lg">
-              {props.post.writing}
+              {props.post?.writing}
             </p>
 
-            {props.post.image !== '' ? (
+            {props.post?.image !== '' ? (
               <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
-                <img src={props.post.image} className="text-center object-contain " />
+                <img src={props.post?.image} className="text-center object-contain " />
               </div>
             ) : null}
 
@@ -45,19 +45,19 @@ const ListItem: VFC<Props> = (props) => {
               <tbody className="mt-2">
                 <tr className="bg-gray-100">
                   <th className="border px-4 py-2 text-left w-2/5">イベント名</th>
-                  <td className="border px-4 py-2 text-left break-words max-w-sm ">{props.post.eventName}</td>
+                  <td className="border px-4 py-2 text-left break-words max-w-sm ">{props.post?.eventName}</td>
                 </tr>
                 <tr>
                   <th className="border px-4 py-2 text-left">ジャンル</th>
-                  <td className="border px-4 py-2 text-left">{props.post.genre}</td>
+                  <td className="border px-4 py-2 text-left">{props.post?.genre}</td>
                 </tr>
                 <tr className="bg-gray-100">
                   <th className="border px-4 py-2 text-left">開催場所</th>
-                  <td className="border px-4 py-2 text-left break-words max-w-sm ">{props.post.eventLocation}</td>
+                  <td className="border px-4 py-2 text-left break-words max-w-sm ">{props.post?.eventLocation}</td>
                 </tr>
                 <tr>
                   <th className="border px-4 py-2 text-left">開催時間</th>
-                  <td className="border px-4 py-2 text-left">{`${props.post.openTime}～${props.post.closeTime}`}</td>
+                  <td className="border px-4 py-2 text-left">{`${props.post?.openTime}～${props.post?.closeTime}`}</td>
                 </tr>
               </tbody>
             </table>

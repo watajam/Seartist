@@ -1,17 +1,25 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, useEffect, useState, VFC } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
-import { useReactHookForm } from '../../hooks/useReactHookForm';
-
+import { useExploreConditionReactHookForm } from '../../hooks/useExploreConditionReactHookForm';
 import FormProfileTitle from '../Form/FormProfileTitle';
-import PostDetailExplore from './PostDetailExplore';
+import ExploreDetail from './ExploreDetail';
 
-const PostExplore: VFC = () => {
-  const { register, handleSubmit, onSubmit } = useReactHookForm('/posts');
+const ExploreForm: VFC = () => {
+  const { register, handleSubmit, onSubmit, dirtyFields } = useExploreConditionReactHookForm();
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (!dirtyFields.location && !dirtyFields.genre && !dirtyFields.eventDate) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [dirtyFields.eventDate, dirtyFields.genre, dirtyFields.location]);
 
   return (
     <>
       <FormProfileTitle title="検索" />
-      <PostDetailExplore />
+      <ExploreDetail />
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
         <h2 className=" text-base text-gray-400 mt-10 underline">条件を指定して検索</h2>
         <div className="shadow-md rounded-2xl p-4 mt-2">
@@ -19,14 +27,13 @@ const PostExplore: VFC = () => {
           <label htmlFor="location" className="block  text-base text-gray-400 ">
             都道府県
           </label>
-
           <div className="relative  mt-2">
             <select
               {...register('location')}
               id="location"
               className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none "
             >
-              <option defaultValue="" hidden></option>
+              <option defaultValue=""></option>
               <option defaultValue="北海道">北海道</option>
               <option defaultValue="青森県">青森県</option>
               <option defaultValue="岩手県">岩手県</option>
@@ -79,7 +86,6 @@ const PostExplore: VFC = () => {
               <AiFillCaretDown />
             </div>
           </div>
-
           {/* ジャンル */}
           <label htmlFor="genre" className="block mt-4 text-base text-gray-400 ">
             ジャンル
@@ -90,7 +96,7 @@ const PostExplore: VFC = () => {
               id="genre"
               className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
             >
-              <option defaultValue="" hidden></option>
+              <option defaultValue=""></option>
               <option defaultValue="アーティスト">アーティスト</option>
               <option defaultValue="イベント主催者">イベント主催者</option>
               <option defaultValue="J-POP">J-POP</option>
@@ -112,7 +118,6 @@ const PostExplore: VFC = () => {
               <option defaultValue="インスゥルメンタル">インスゥルメンタル</option>
               <option defaultValue="演歌">演歌</option>
               <option defaultValue="民族音楽">民族音楽</option>
-
               <option defaultValue="展示会">展示会</option>
               <option defaultValue="スポーツイベント">スポーツイベント</option>
               <option defaultValue="講演会">講演会</option>
@@ -134,14 +139,18 @@ const PostExplore: VFC = () => {
           <label htmlFor="開催日" className="block mt-4 text-base text-gray-400">
             開催日
           </label>
-
           <input
             {...register('eventDate')}
             type="date"
             id="開催日"
             className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
           ></input>
-          <button className="w-full py-3 mt-10 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400">
+          <button
+            disabled={disabled}
+            className={`w-full py-3 mt-10 text-2xl font-bold text-white  border rounded-xl ${
+              disabled ? 'bg-gray-300 ' : 'bg-orange-300 hover:bg-orange-400'
+            } `}
+          >
             検索
           </button>
         </div>
@@ -150,4 +159,4 @@ const PostExplore: VFC = () => {
   );
 };
 
-export default memo(PostExplore);
+export default memo(ExploreForm);
