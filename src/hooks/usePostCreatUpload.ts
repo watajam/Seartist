@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDoc, serverTimestamp } from '@firebase/firestore';
+import { collection, doc, getDoc, serverTimestamp, setDoc } from '@firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
@@ -43,7 +43,6 @@ export const usePostCreatUpload = () => {
   });
   const router = useRouter();
 
-  const [user, setUser] = useState<Pick<FormData, 'genre'>>(null);
   const { userEmail } = useRecoilSetEmail();
 
   useEffect(() => {
@@ -134,8 +133,8 @@ export const usePostCreatUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            const postsRef = collection(db, 'users', auth.currentUser.email, 'posts');
-            await addDoc(postsRef, {
+            const postsRef = doc(collection(db, 'users', auth.currentUser.email, `posts`));
+            await setDoc(doc(db, 'users', auth.currentUser.email, `posts`, postsRef.id), {
               image: url,
               writing: data.writing,
               eventName: data.eventName,
@@ -151,6 +150,7 @@ export const usePostCreatUpload = () => {
               tickets: data.tickets,
               timestamp: serverTimestamp(),
               email: userEmail?.email,
+              id: postsRef.id,
             });
 
             router.push('/posts');
@@ -174,8 +174,8 @@ export const usePostCreatUpload = () => {
       );
     } catch (error) {
       if (src === '') {
-        const postsRef = collection(db, 'users', auth.currentUser.email, 'posts');
-        await addDoc(postsRef, {
+        const postsRef = doc(collection(db, 'users', auth.currentUser.email, `posts`));
+        await setDoc(doc(db, 'users', auth.currentUser.email, `posts`, postsRef.id), {
           image: '',
           writing: data.writing,
           eventName: data.eventName,
@@ -191,6 +191,7 @@ export const usePostCreatUpload = () => {
           tickets: data.tickets,
           timestamp: serverTimestamp(),
           email: userEmail?.email,
+          id: postsRef.id,
         });
         router.push('/posts');
       } else {
