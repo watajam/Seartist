@@ -100,7 +100,9 @@ export const usePostCreatUpload = () => {
   ) => {
     try {
       if (!myFiles) return;
-      const storageRef = ref(storage, `/images/${myFiles[0].name}`);
+      const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));
+      const randomValue2 = window.crypto.getRandomValues(new Uint32Array(1));
+      const storageRef = ref(storage, `/images/${randomValue1}/${randomValue2}/${myFiles[0].name}`);
       const uploadTask = uploadBytesResumable(storageRef, myFiles[0]);
 
       uploadTask.on(
