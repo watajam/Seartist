@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import PostCreateAndExploreLayout from '../../components/Layout/PostCreateAndExploreLayout';
-import PostExplore from '../../components/Post/PostExplore';
+import ExploreForm from '../../components/Explore';
 
 const Explore: NextPage = () => {
   return (
     <PostCreateAndExploreLayout>
-      <PostExplore />
+      <ExploreForm />
     </PostCreateAndExploreLayout>
   );
 };
