@@ -11,8 +11,8 @@ import { useQuerPostsDetailSetLoading } from '../../../FireBase/Query/useQuerPos
 
 const PostDetail: VFC = () => {
   const { userEmail } = useRecoilSetEmail();
-  const { user, userLoading } = useQueryUserDetailInfoSetLoading();
-  const { post, postLoading } = useQuerPostsDetailSetLoading(user);
+  const { post, postLoading } = useQuerPostsDetailSetLoading();
+  const { user, userLoading } = useQueryUserDetailInfoSetLoading(post);
   const router = useRouter();
 
   const deletePost = useCallback(async () => {
