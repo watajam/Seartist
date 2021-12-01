@@ -28,7 +28,7 @@ const ListItem: VFC<Props> = (props) => {
           </header>
         </a>
       </Link>
-      <Link href={`/posts/${props.user?.userId}/${props.post?.id}`}>
+      <Link href={`/posts/${props.post?.id}`}>
         <a>
           <div className="p-4">
             <p className="text-base text-bold font-bold break-words max-w-sm  sm:max-w-md md:max-w-lg">

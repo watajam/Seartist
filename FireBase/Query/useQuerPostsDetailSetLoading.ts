@@ -1,11 +1,11 @@
-import { doc, getDoc } from '@firebase/firestore';
+import { collectionGroup, getDocs, query, where } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../lib/firebase';
 import { PostDetailData } from '../../types/PostDetailData';
 
 //ユーザーの投稿詳細を取得する
-export const useQuerPostsDetailSetLoading = (user) => {
+export const useQuerPostsDetailSetLoading = () => {
   const [post, setPost] = useState<PostDetailData>(null);
   const [postLoading, setPostLoading] = useState(true);
   const router = useRouter();
@@ -13,13 +13,28 @@ export const useQuerPostsDetailSetLoading = (user) => {
   useEffect(() => {
     const unSub = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        if (user?.email !== undefined && router.query.id !== undefined) {
-          const docRef = doc(db, 'users', `${user?.email}`, 'posts', `${router.query.id[1]}`);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.data()) {
-            const postData = docSnap?.data() as PostDetailData;
+        if (router.query.id !== undefined) {
+          const postRef = collectionGroup(db, 'posts');
+          const q = query(postRef, where('id', '==', router.query.id));
+          const querySnap = await getDocs(q);
+          if (querySnap.docs) {
+            const postData = querySnap?.docs[0].data();
             setPost({
-              ...postData,
+              genre: postData?.genre,
+              location: postData?.location,
+              eventName: postData?.eventName,
+              eventLocation: postData?.eventLocation,
+              eventDate: postData?.eventDate,
+              openTime: postData?.openTime,
+              closeTime: postData?.closeTime,
+              id: postData?.id,
+              image: postData?.image,
+              writing: postData?.writing,
+              minAmount: postData?.minAmount,
+              maxAmount: postData?.maxAmount,
+              tickets: postData?.tickets,
+              coupon: postData?.coupon,
+              email: postData?.email,
             });
             setPostLoading(false);
           } else {
@@ -30,9 +45,8 @@ export const useQuerPostsDetailSetLoading = (user) => {
         router.push('/login');
       }
       return () => unSub();
-
     });
-  }, [user, router]);
+  }, [router]);
 
   return { post, postLoading };
 };
