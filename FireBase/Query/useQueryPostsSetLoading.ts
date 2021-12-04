@@ -5,7 +5,7 @@ import { auth, db } from '../../lib/firebase';
 import { PostData } from '../../types/PostData';
 
 //ログインしているユーザーの投稿を取得する
-export const useQuerPostsSetLoading = () => {
+export const useQueryPostsSetLoading = () => {
   const [posts, setPosts] = useState<Omit<PostData, 'email'>[]>([]);
   const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();

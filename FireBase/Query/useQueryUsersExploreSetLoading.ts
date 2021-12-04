@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../../lib/firebase';
 import { UserData } from '../../types/UserData';
 
-export const useQuerExploreConditionUsersSetLoading = (posts) => {
+export const useQueryUsersExploreSetLoading = (posts) => {
   const [users, setUsers] = useState<Pick<UserData, 'userId' | 'name' | 'image'>[]>([]);
 
   useEffect(() => {

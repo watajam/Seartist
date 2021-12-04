@@ -6,7 +6,7 @@ import { PostData } from '../../types/PostData';
 
 
 //ユーザープロフィールの投稿を取得する
-export const useQuerProfilePostSetLoading = (user) => {
+export const useQueryProfilePostSetLoading = (user) => {
   const [posts, setPosts] = useState<Omit<PostData, 'email'>[]>([]);
   const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();
