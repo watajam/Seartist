@@ -1,13 +1,13 @@
 import React, { memo, VFC } from 'react';
+import { useQueryPostsExploreSetLoading } from '../../../FireBase/Query/useQueryPostsExploreSetLoading';
+import { useQueryUsersExploreSetLoading } from '../../../FireBase/Query/useQueryUsersExploreSetLoading';
 
-import { useQuerExploreConditionPostsSetLoading } from '../../../FireBase/Query/useQuerExploreConditionPostsSetLoading';
 import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
-import { useQuerExploreConditionUsersSetLoading } from '../../../FireBase/Query/useQuerExploreConditionUsersSetLoading';
 
-const ExploreConditionPosts: VFC = () => {
-  const { posts, postsLoading } = useQuerExploreConditionPostsSetLoading();
-  const { users } = useQuerExploreConditionUsersSetLoading(posts);
+const PostsExplore: VFC = () => {
+  const { posts, postsLoading } = useQueryPostsExploreSetLoading();
+  const { users } = useQueryUsersExploreSetLoading(posts);
 
   if (postsLoading) {
     return <SkeletonLoading />;
@@ -26,4 +26,4 @@ const ExploreConditionPosts: VFC = () => {
   );
 };
 
-export default memo(ExploreConditionPosts);
+export default memo(PostsExplore);
