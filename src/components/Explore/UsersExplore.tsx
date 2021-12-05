@@ -34,11 +34,11 @@ const HitComponent = ({ hit, onClick }: HitComponentProps) => {
             <span className="text-orange-200 mr-1">@</span>
             <Highlight attribute={`userId`} hit={hit} className="mr-2" />
             <span className="text-orange-200">
-              <IoLocationSharp className="mr-1" />
+              <AiFillStar className="mr-1" />
             </span>
             <Highlight attribute={`genre`} hit={hit} className="mr-2" />
             <span className="text-orange-200">
-              <AiFillStar className="mr-1" />
+              <IoLocationSharp className="mr-1" />
             </span>
             <Highlight attribute={`location`} hit={hit} />
           </div>
