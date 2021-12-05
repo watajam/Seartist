@@ -7,11 +7,11 @@ import { deleteDoc, doc } from '@firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
 import { useQueryUserDetailInfoSetLoading } from '../../../FireBase/Query/useQueryUserDetailInfoSetLoading';
-import { useQuerPostsDetailSetLoading } from '../../../FireBase/Query/useQuerPostsDetailSetLoading';
+import { useQueryPostsDetailSetLoading } from '../../../FireBase/Query/useQueryPostsDetailSetLoading';
 
 const PostDetail: VFC = () => {
   const { userEmail } = useRecoilSetEmail();
-  const { post, postLoading } = useQuerPostsDetailSetLoading();
+  const { post, postLoading } = useQueryPostsDetailSetLoading();
   const { user, userLoading } = useQueryUserDetailInfoSetLoading(post);
   const router = useRouter();
 
