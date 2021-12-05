@@ -2,7 +2,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useForm } from 'react-hook-form';
 import { FormData } from '../../types/FormData';
 
-export const useExploreConditionReactHookForm = () => {
+export const usePostsExploreReactHookForm = () => {
   const router = useRouter();
 
   const {
@@ -16,7 +16,7 @@ export const useExploreConditionReactHookForm = () => {
 
   const onSubmit = (data: FormData) => {
     router.push({
-      pathname: '/explore/explorecondition',
+      pathname: '/explore/posts',
       query: {
         genre: data.genre,
         location: data.location,

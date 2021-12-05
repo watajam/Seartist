@@ -1,0 +1,73 @@
+.ais-SearchBox-form {
+  background-color: transparent;
+}
+
+.ais-SearchBox-input {
+  border-color: rgba(255, 118, 0, var(--tw-border-opacity));
+  -webkit-appearance: none;
+  box-shadow: none;
+}
+
+.ais-SearchBox-input:focus {
+  border-color: rgba(255, 118, 0, var(--tw-border-opacity));
+}
+
+.ais-SearchBox-input::-webkit-input-placeholder {
+  color: #b2b2b2;
+}
+
+.ais-Hits-item {
+  background-color: #fafafa;
+}
+
+.ais-Hits-item:hover {
+  background-color: #d9ebeb;
+}
+
+/* .ais-Hits-list {
+  padding: 5px 0;
+}
+
+
+.ais-Hits-item {
+  background-color: #fafafa;
+
+  border-radius: 5px;
+  box-shadow: none;
+  display: block;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.ais-Hits-item:hover {
+  background-color: #d9ebeb;
+} */
+
+/* .ais-Hits-item:first-of-type,
+.ais-InfiniteHits-item:first-of-type {
+  border-radius: 5px;
+} */
+
+.ais-Highlight {
+  font-weight: 600;
+}
+
+.ais-Highlight-highlighted {
+  background-color: transparent;
+  color: #06bbbc;
+}
+
+.ais-Pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.ais-PoweredBy {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ais-PoweredBy-text {
+  font-size: small;
+  margin-right: 5px;
+}

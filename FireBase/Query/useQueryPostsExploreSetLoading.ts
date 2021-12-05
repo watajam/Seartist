@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../../lib/firebase';
 import { PostData } from '../../types/PostData';
 
-export const useQuerExploreConditionPostsSetLoading = () => {
+export const useQueryPostsExploreSetLoading = () => {
   const [posts, setposts] = useState<PostData[]>(null);
   const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();

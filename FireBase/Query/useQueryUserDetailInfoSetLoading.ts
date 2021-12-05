@@ -13,7 +13,6 @@ export const useQueryUserDetailInfoSetLoading = (post) => {
   useEffect(() => {
     const userRef = collection(db, 'users');
 
-    console.log(post?.email);
     const unSub = auth.onAuthStateChanged(async (user) => {
       if (user) {
         if (post?.email !== undefined && router.query.id !== undefined) {
@@ -30,9 +29,7 @@ export const useQueryUserDetailInfoSetLoading = (post) => {
           }
         }
       } else {
-        console.log(2);
-
-        // router.push('/login');
+        router.push('/login');
       }
     });
     return () => unSub();

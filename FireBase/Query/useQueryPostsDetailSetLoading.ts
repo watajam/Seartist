@@ -5,7 +5,7 @@ import { auth, db } from '../../lib/firebase';
 import { PostDetailData } from '../../types/PostDetailData';
 
 //ユーザーの投稿詳細を取得する
-export const useQuerPostsDetailSetLoading = () => {
+export const useQueryPostsDetailSetLoading = () => {
   const [post, setPost] = useState<PostDetailData>(null);
   const [postLoading, setPostLoading] = useState(true);
   const router = useRouter();
