@@ -2,7 +2,7 @@ import React, { memo, ReactNode, VFC } from 'react';
 import FormProfileTitle from '../FormProfileTitle';
 
 import { useSelfLntroductionUpload } from '../../../hooks/useSelfLntroductionUpload';
-import { useQueryUserEmailCheck } from '../../../../FireBase/query/User/useQueryUserEmailCheck';
+import { useQueryUserEmailCheck } from '../../../../FireBase/Query/User/useQueryUserEmailCheck';
 
 type Props = {
   children: ReactNode;

@@ -3,9 +3,9 @@ import { UserData } from '../../../types/UserData';
 import ProfileUser from './ProfileUser';
 import ProfilePost from './ProfilePost';
 import ProfileTab from './ProfileTab';
-import { useQueryUserEmailCheck } from '../../../FireBase/query/User/useQueryUserEmailCheck';
-import { useQueryProfilePosts } from '../../../FireBase/query/Profile/useQueryProfilePosts';
-import { useQueryProfileUserInfo } from '../../../FireBase/query/Profile/useQueryProfileUserInfo';
+import { useQueryUserEmailCheck } from '../../../FireBase/Query/User/useQueryUserEmailCheck';
+import { useQueryProfilePosts } from '../../../FireBase/Query/Profile/useQueryProfilePosts';
+import { useQueryProfileUserInfo } from '../../../FireBase/Query/Profile/useQueryProfileUserInfo';
 
 type Props = {
   user: UserData;

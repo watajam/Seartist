@@ -1,10 +1,10 @@
 import React, { memo, VFC } from 'react';
-import { useQueryUserInfo } from '../../../FireBase/query/User/useQueryUserInfo';
-import { useQueryUserEmailCheck } from '../../../FireBase/query/User/useQueryUserEmailCheck';
+import { useQueryUserInfo } from '../../../FireBase/Query/User/useQueryUserInfo';
+import { useQueryUserEmailCheck } from '../../../FireBase/Query/User/useQueryUserEmailCheck';
 
 import SkeletonLoading from '../SkeletonLoading';
 import ListItem from './ListItem';
-import { useQueryUserPosts } from '../../../FireBase/query/Posts/useQueryUserPosts';
+import { useQueryUserPosts } from '../../../FireBase/Query/Posts/useQueryUserPosts';
 
 const Post: VFC = () => {
   const { user, userLoading } = useQueryUserInfo();

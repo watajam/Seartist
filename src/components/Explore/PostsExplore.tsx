@@ -1,6 +1,6 @@
 import React, { memo, VFC } from 'react';
-import { useQueryPostsExplore } from '../../../FireBase/query/Posts/useQueryPostsExplore';
-import { useQueryUsersExplore } from '../../../FireBase/query/Users/useQueryUsersExplore';
+import { useQueryPostsExplore } from '../../../FireBase/Query/Posts/useQueryPostsExplore';
+import { useQueryUsersExplore } from '../../../FireBase/Query/Users/useQueryUsersExplore';
 import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
 

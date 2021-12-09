@@ -6,8 +6,8 @@ import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 import { deleteDoc, doc } from '@firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
-import { useQueryUserDetailInfo } from '../../../FireBase/query/User/useQueryUserDetailInfo';
-import { useQueryPostsDetail } from '../../../FireBase/query/Posts/useQueryPostsDetail';
+import { useQueryUserDetailInfo } from '../../../FireBase/Query/User/useQueryUserDetailInfo';
+import { useQueryPostsDetail } from '../../../FireBase/Query/Posts/useQueryPostsDetail';
 
 const PostDetail: VFC = () => {
   const { userEmail } = useRecoilSetEmail();

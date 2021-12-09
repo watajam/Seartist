@@ -8,10 +8,10 @@ import { BiUserCircle } from 'react-icons/bi';
 import { HiUserCircle } from 'react-icons/hi';
 import { RiQuillPenLine } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-// import { useQueryUserGenreCheckPassUserId } from '../../../FireBase/query/User/useQueryUserGenreCheckPassUserId';
+import { useQueryUserGenreCheckPassUserId } from '../../../FireBase/Query/User/useQueryUserGenreCheckPassUserId';
 
 const PostBottomNavigation: VFC = () => {
-  // const { user } = useQueryUserGenreCheckPassUserId();
+  const { user } = useQueryUserGenreCheckPassUserId();
   const router = useRouter();
 
   return (
@@ -39,7 +39,7 @@ const PostBottomNavigation: VFC = () => {
           </a>
         </Link>
 
-        {/* <Link href={`/profile/${user?.userId}`}>
+        <Link href={`/profile/${user?.userId}`}>
           <a className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-2 md:pl-8">
             {router.pathname === '/profile/[id]' ? (
               <HiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
@@ -48,8 +48,8 @@ const PostBottomNavigation: VFC = () => {
             )}
             <span className="block text-sm text-white">プロフィール</span>
           </a>
-        </Link> */}
-        {/* {user?.genre ? (
+        </Link>
+        {user?.genre ? (
           <>
             <Link href="/posts/create">
               <a className="w-full text-center pt-2 pb-3 hidden  md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8">
@@ -62,9 +62,9 @@ const PostBottomNavigation: VFC = () => {
               </a>
             </Link>
           </>
-        ) : null} */}
+        ) : null}
       </nav>
-      {/* {user?.genre ? (
+      {user?.genre ? (
         <>
           <Link href="/posts/create">
             <a className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4 md:hidden">
@@ -72,7 +72,7 @@ const PostBottomNavigation: VFC = () => {
             </a>
           </Link>
         </>
-      ) : null} */}
+      ) : null}
     </aside>
   );
 };
