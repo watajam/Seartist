@@ -1,11 +1,11 @@
 import { collection, getDocs, orderBy, query } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { auth, db } from '../../lib/firebase';
-import { PostData } from '../../types/PostData';
+import { auth, db } from '../../../lib/firebase';
+import { PostData } from '../../../types/PostData';
 
 //ログインしているユーザーの投稿を取得する
-export const useQueryPostsSetLoading = () => {
+export const useQueryUserPosts = () => {
   const [posts, setPosts] = useState<Omit<PostData, 'email'>[]>([]);
   const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();

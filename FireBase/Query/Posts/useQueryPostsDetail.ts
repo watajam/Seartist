@@ -1,11 +1,11 @@
 import { collectionGroup, getDocs, query, where } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { auth, db } from '../../lib/firebase';
-import { PostDetailData } from '../../types/PostDetailData';
+import { auth, db } from '../../../lib/firebase';
+import { PostDetailData } from '../../../types/PostDetailData';
 
 //ユーザーの投稿詳細を取得する
-export const useQueryPostsDetailSetLoading = () => {
+export const useQueryPostsDetail = () => {
   const [post, setPost] = useState<PostDetailData>(null);
   const [postLoading, setPostLoading] = useState(true);
   const router = useRouter();
