@@ -1,5 +1,5 @@
 import React, { memo, VFC } from 'react';
-import { useQueryUserInfoSetLoading } from '../../../FireBase/query/User/useQueryUserInfo';
+import { useQueryUserInfo } from '../../../FireBase/query/User/useQueryUserInfo';
 import { useQueryUserEmailCheck } from '../../../FireBase/query/User/useQueryUserEmailCheck';
 
 import SkeletonLoading from '../SkeletonLoading';
@@ -7,7 +7,7 @@ import ListItem from './ListItem';
 import { useQueryUserPosts } from '../../../FireBase/query/Posts/useQueryUserPosts';
 
 const Post: VFC = () => {
-  const { user, userLoading } = useQueryUserInfoSetLoading();
+  const { user, userLoading } = useQueryUserInfo();
   const { posts, postsLoading } = useQueryUserPosts();
   useQueryUserEmailCheck();
 
