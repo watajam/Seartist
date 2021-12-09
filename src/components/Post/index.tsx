@@ -1,15 +1,14 @@
 import React, { memo, VFC } from 'react';
-
-import { useQueryUserInfoSetLoading } from '../../../FireBase/Query/useQueryUserInfoSetLoading';
-import { useQueryUserEmailCheck } from '../../../FireBase/Query/useQueryUserEmailCheck';
+import { useQueryUserInfo } from '../../../FireBase/Query/User/useQueryUserInfo';
+import { useQueryUserEmailCheck } from '../../../FireBase/Query/User/useQueryUserEmailCheck';
 
 import SkeletonLoading from '../SkeletonLoading';
 import ListItem from './ListItem';
-import { useQueryPostsSetLoading } from '../../../FireBase/Query/useQueryPostsSetLoading';
+import { useQueryUserPosts } from '../../../FireBase/Query/Posts/useQueryUserPosts';
 
 const Post: VFC = () => {
-  const { user, userLoading } = useQueryUserInfoSetLoading();
-  const { posts, postsLoading } = useQueryPostsSetLoading();
+  const { user, userLoading } = useQueryUserInfo();
+  const { posts, postsLoading } = useQueryUserPosts();
   useQueryUserEmailCheck();
 
   if (postsLoading || userLoading) {

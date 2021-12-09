@@ -1,5 +1,5 @@
 import React, { memo, ReactNode, VFC } from 'react';
-import { useQueryUserDataCheck } from '../../../../FireBase/Query/useQueryUserDataCheck';
+import { useQueryUserDataCheck } from '../../../../FireBase/Query/User/useQueryUserDataCheck';
 import { useCreatorAndListenerReactHookForm } from '../../../hooks/useCreatorAndListenerReactHookForm';
 import FormProfileTitle from '../FormProfileTitle';
 

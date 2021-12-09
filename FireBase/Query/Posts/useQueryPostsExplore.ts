@@ -1,10 +1,11 @@
 import { collectionGroup, getDocs, query, QueryConstraint, where } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { db } from '../../lib/firebase';
-import { PostData } from '../../types/PostData';
+import { db } from '../../../lib/firebase';
+import { PostData } from '../../../types/PostData';
 
-export const useQueryPostsExploreSetLoading = () => {
+//投稿を検索
+export const useQueryPostsExplore = () => {
   const [posts, setposts] = useState<PostData[]>(null);
   const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();
@@ -12,8 +13,8 @@ export const useQueryPostsExploreSetLoading = () => {
   useEffect(() => {
     if (
       router.query?.location === undefined &&
-      router.query?.evaluation === undefined &&
-      router.query?.type === undefined
+      router.query?.genre === undefined &&
+      router.query?.eventDate === undefined
     ) {
       return;
     }

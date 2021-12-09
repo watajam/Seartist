@@ -1,13 +1,12 @@
 import { doc, getDoc } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { auth, db } from '../../lib/firebase';
-import { UserData } from '../../types/UserData';
+import { auth, db } from '../../../lib/firebase';
+import { UserData } from '../../../types/UserData';
 
-//ユーザー情報を取得する
-export const useQueryUserInfoSetLoading = () => {
-  const [user, setUser] = useState<Pick<UserData, 'userId' | 'name' | 'image'>>(null);
-  const [userLoading, setUserLoading] = useState(true);
+//ログインしているユーザーにジャンルが存在するか確認する
+export const useQueryUserGenreCheckPassUserId = () => {
+  const [user, setUser] = useState<Pick<UserData, 'userId' | 'genre'>>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -16,11 +15,8 @@ export const useQueryUserInfoSetLoading = () => {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
         if (docSnap.data()) {
-          const userData = docSnap?.data() as Pick<UserData, 'userId' | 'name' | 'image'>;
-          setUser({
-          ...userData,
-          });
-          setUserLoading(false);
+          const userData = docSnap?.data() as Pick<UserData, 'userId' | 'genre'>;
+          setUser({ ...userData });
         } else {
           console.log('No such document!');
         }
@@ -28,8 +24,9 @@ export const useQueryUserInfoSetLoading = () => {
         router.push('/login');
       }
     });
+
     return () => unSub();
   }, []);
 
-  return { user, userLoading };
+  return { user };
 };

@@ -1,9 +1,10 @@
 import { collection, getDocs, query, where } from '@firebase/firestore';
 import { useEffect, useState } from 'react';
-import { db } from '../../lib/firebase';
-import { UserData } from '../../types/UserData';
+import { db } from '../../../lib/firebase';
+import { UserData } from '../../../types/UserData';
 
-export const useQueryUsersExploreSetLoading = (posts) => {
+//検索された投稿から取得したメールアドレスで一致したユーザー情報を取得する
+export const useQueryUsersExplore = (posts) => {
   const [users, setUsers] = useState<Pick<UserData, 'userId' | 'name' | 'image'>[]>([]);
 
   useEffect(() => {

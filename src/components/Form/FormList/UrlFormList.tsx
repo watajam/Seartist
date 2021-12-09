@@ -1,5 +1,5 @@
 import React, { memo, ReactNode, VFC } from 'react';
-import { useQueryUserEmailCheck } from '../../../../FireBase/Query/useQueryUserEmailCheck';
+import { useQueryUserEmailCheck } from '../../../../FireBase/Query/User/useQueryUserEmailCheck';
 
 import { useUrlReactHookForm } from '../../../hooks/useUrlReactHookForm';
 import FormProfileTitle from '../FormProfileTitle';
