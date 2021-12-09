@@ -1,10 +1,10 @@
 import { doc, getDoc } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { auth, db } from '../../lib/firebase';
-import { UserData } from '../../types/UserData';
+import { auth, db } from '../../../lib/firebase';
+import { UserData } from '../../../types/UserData';
 
-// ユーザー編集情報取得
+//編集画面でユーザー情報取得してFormの初期値に設定する
 export const useQueryUserEditInfo = (setValue) => {
   const [user, setUser] = useState<Pick<UserData, 'image' | 'userId' | 'genre'>>(null);
   const router = useRouter();

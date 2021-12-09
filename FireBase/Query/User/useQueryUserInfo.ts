@@ -1,11 +1,11 @@
 import { doc, getDoc } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { auth, db } from '../../lib/firebase';
-import { UserData } from '../../types/UserData';
+import { auth, db } from '../../../lib/firebase';
+import { UserData } from '../../../types/UserData';
 
 //ユーザー情報を取得する
-export const useQueryUserInfoSetLoading = () => {
+export const useQueryUserInfo = () => {
   const [user, setUser] = useState<Pick<UserData, 'userId' | 'name' | 'image'>>(null);
   const [userLoading, setUserLoading] = useState(true);
   const router = useRouter();
