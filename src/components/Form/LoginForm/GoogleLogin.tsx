@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react';
 
 import { FcGoogle } from 'react-icons/fc';
-import { useAuthGoogleLogin } from '../../../../FireBase/authentication/useAuthGoogleLogin';
+import { useAuthGoogleLogin } from '../../../../FireBase/Authentication/useAuthGoogleLogin';
 
 const GoogleLogin: VFC = () => {
   const { googleLogin } = useAuthGoogleLogin();
