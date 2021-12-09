@@ -8,10 +8,10 @@ import { BiUserCircle } from 'react-icons/bi';
 import { HiUserCircle } from 'react-icons/hi';
 import { RiQuillPenLine } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-import { useQueryUserGenreCheck } from '../../../FireBase/query/User/useQueryUserGenreCheck';
+import { useQueryUserGenreCheckPassUserId } from '../../../FireBase/query/User/useQueryUserGenreCheckPassUserId';
 
 const PostBottomNavigation: VFC = () => {
-  const { user } = useQueryUserGenreCheck();
+  const { user } = useQueryUserGenreCheckPassUserId();
   const router = useRouter();
 
   return (

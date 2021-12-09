@@ -5,7 +5,7 @@ import { auth, db } from '../../../lib/firebase';
 import { UserData } from '../../../types/UserData';
 
 //ログインしているユーザーにジャンルが存在するか確認する
-export const useQueryUserGenreCheck = () => {
+export const useQueryUserGenreCheckPassUserId = () => {
   const [user, setUser] = useState<Pick<UserData, 'userId' | 'genre'>>(null);
   const router = useRouter();
 
