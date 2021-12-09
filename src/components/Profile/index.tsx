@@ -3,9 +3,9 @@ import { UserData } from '../../../types/UserData';
 import ProfileUser from './ProfileUser';
 import ProfilePost from './ProfilePost';
 import ProfileTab from './ProfileTab';
-import { useQueryUserEmailCheck } from '../../../FireBase/Query/useQueryUserEmailCheck';
-import { useQueryProfileUserInfoSetLoading } from '../../../FireBase/Query/useQueryProfileUserInfoSetLoading';
-import { useQueryProfilePostSetLoading } from '../../../FireBase/Query/useQueryProfilePostSetLoading';
+import { useQueryUserEmailCheck } from '../../../FireBase/query/User/useQueryUserEmailCheck';
+import { useQueryProfilePosts } from '../../../FireBase/query/Profile/useQueryProfilePosts';
+import { useQueryProfileUserInfo } from '../../../FireBase/query/Profile/useQueryProfileUserInfo';
 
 type Props = {
   user: UserData;
@@ -13,8 +13,8 @@ type Props = {
 };
 
 const Profile: VFC<Props> = (props) => {
-  const { user, userLoading } = useQueryProfileUserInfoSetLoading();
-  const { posts, postsLoading } = useQueryProfilePostSetLoading(user);
+  const { user, userLoading } = useQueryProfileUserInfo();
+  const { posts, postsLoading } = useQueryProfilePosts(user);
   useQueryUserEmailCheck();
   const [chengePage, setChengePage] = useState(true);
 

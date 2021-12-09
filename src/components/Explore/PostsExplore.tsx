@@ -1,13 +1,12 @@
 import React, { memo, VFC } from 'react';
-import { useQueryPostsExploreSetLoading } from '../../../FireBase/Query/useQueryPostsExploreSetLoading';
-import { useQueryUsersExploreSetLoading } from '../../../FireBase/Query/useQueryUsersExploreSetLoading';
-
+import { useQueryPostsExplore } from '../../../FireBase/query/Posts/useQueryPostsExplore';
+import { useQueryUsersExplore } from '../../../FireBase/query/Users/useQueryUsersExplore';
 import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const PostsExplore: VFC = () => {
-  const { posts, postsLoading } = useQueryPostsExploreSetLoading();
-  const { users } = useQueryUsersExploreSetLoading(posts);
+  const { posts, postsLoading } = useQueryPostsExplore();
+  const { users } = useQueryUsersExplore(posts);
 
   if (postsLoading) {
     return <SkeletonLoading />;

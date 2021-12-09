@@ -3,7 +3,7 @@ import { AiFillCaretDown } from 'react-icons/ai';
 import { Disclosure } from '@headlessui/react';
 import FormButton from '../Form/FormButton';
 import { useProfileEditUpload } from '../../hooks/useProfileEditUpload';
-import { useQueryUserEditInfo } from '../../../FireBase/Query/useQueryUserEditInfo';
+import { useQueryUserEditInfo } from '../../../FireBase/query/User/useQueryUserEditInfo';
 
 const ProfileEditing: VFC = () => {
   const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, setValue, errors } =

@@ -1,6 +1,6 @@
 import React, { memo, VFC } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { useAuthLogout } from '../../../FireBase/Authentication/useAuthLogout';
+import { useAuthLogout } from '../../../FireBase/authentication/useAuthLogout';
 import { useBackPage } from '../../hooks/useBackPage';
 import { IoMdArrowBack } from 'react-icons/io';
 

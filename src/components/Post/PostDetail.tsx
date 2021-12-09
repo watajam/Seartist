@@ -6,13 +6,13 @@ import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 import { deleteDoc, doc } from '@firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
-import { useQueryUserDetailInfoSetLoading } from '../../../FireBase/Query/useQueryUserDetailInfoSetLoading';
-import { useQueryPostsDetailSetLoading } from '../../../FireBase/Query/useQueryPostsDetailSetLoading';
+import { useQueryUserDetailInfo } from '../../../FireBase/query/User/useQueryUserDetailInfo';
+import { useQueryPostsDetail } from '../../../FireBase/query/Posts/useQueryPostsDetail';
 
 const PostDetail: VFC = () => {
   const { userEmail } = useRecoilSetEmail();
-  const { post, postLoading } = useQueryPostsDetailSetLoading();
-  const { user, userLoading } = useQueryUserDetailInfoSetLoading(post);
+  const { post, postLoading } = useQueryPostsDetail();
+  const { user, userLoading } = useQueryUserDetailInfo(post);
   const router = useRouter();
 
   const deletePost = useCallback(async () => {

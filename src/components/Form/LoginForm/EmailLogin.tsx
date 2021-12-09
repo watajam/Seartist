@@ -1,8 +1,8 @@
 import React, { memo, VFC } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { useAuthLogin } from '../../../../FireBase/Authentication/useAuthLogin';
-import { useAuthSignup } from '../../../../FireBase/Authentication/useAuthSignup';
+import { useAuthLogin } from '../../../../FireBase/authentication/useAuthLogin';
+import { useAuthSignup } from '../../../../FireBase/authentication/useAuthSignup';
 import { AuthFormData } from '../../../../types/AuthFormData';
 
 type Props = {
