@@ -1,11 +1,10 @@
-import { doc, updateDoc } from '@firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
-import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
-import { auth, db, storage } from '../../lib/firebase';
-import { FormData } from '../../types/FormData';
+import { useUpdateUsereSelfLntroductionInfo } from '../../FireBase/Mutation/Update/useUpdateUsereSelfLntroductionInfo';
+import { storage } from '../../lib/firebase';
+import { UserData } from '../../types/UserData';
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
@@ -14,16 +13,16 @@ export type firebaseOnLoadProp = {
 };
 
 export const useSelfLntroductionUpload = () => {
+  const { updateUserImageAndWritingInfo, updateUserWritingInfo } = useUpdateUsereSelfLntroductionInfo();
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [src, setSrc] = useState('/profile.png');
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Pick<FormData, 'writing'>>({
+  } = useForm<Pick<UserData, 'image' | 'writing'>>({
     mode: 'onChange',
   });
-  const router = useRouter();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -45,7 +44,7 @@ export const useSelfLntroductionUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (data: Pick<FormData, 'writing'>) => {
+  const handleUpload = async (data: Pick<UserData, 'image' | 'writing'>) => {
     try {
       if (!myFiles) return;
       const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));
@@ -83,11 +82,7 @@ export const useSelfLntroductionUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            await updateDoc(doc(db, 'users', auth.currentUser.email), {
-              image: url,
-              writing: data.writing,
-            });
-            router.push('/posts');
+            updateUserImageAndWritingInfo(url, data);
           } catch (error) {
             switch (error.code) {
               case 'storage/object-not-found':
@@ -108,10 +103,7 @@ export const useSelfLntroductionUpload = () => {
       );
     } catch (error) {
       if (src === '/profile.png') {
-        await updateDoc(doc(db, 'users', auth.currentUser.email), {
-          writing: data.writing,
-        });
-        router.push('/posts');
+        updateUserWritingInfo(data);
       } else {
         console.log('エラーキャッチ', error);
       }

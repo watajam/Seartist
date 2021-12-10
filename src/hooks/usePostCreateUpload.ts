@@ -1,12 +1,11 @@
-import { collection, doc, getDoc, serverTimestamp, setDoc } from '@firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
-import { auth, db, storage } from '../../lib/firebase';
-import { FormData } from '../../types/FormData';
-import { useRecoilSetEmail } from './useRecoilSetEmail';
+import { useUpdatePostCreate } from '../../FireBase/Mutation/Update/useUpdatePostCreate';
+import { useQueryCreatorCheck } from '../../FireBase/Query/User/useQueryCreatorCheck';
+import { storage } from '../../lib/firebase';
+import { PostDetailData } from '../../types/PostDetailData';
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
@@ -14,51 +13,18 @@ export type firebaseOnLoadProp = {
   state: 'error' | 'paused' | 'running' | 'success';
 };
 
-export const usePostCreatUpload = () => {
+export const usePostCreateUpload = () => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [src, setSrc] = useState('');
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<
-    Pick<
-      FormData,
-      | 'image'
-      | 'writing'
-      | 'eventName'
-      | 'genre'
-      | 'location'
-      | 'eventLocation'
-      | 'eventDate'
-      | 'openTime'
-      | 'closeTime'
-      | 'minAmount'
-      | 'maxAmount'
-      | 'coupon'
-      | 'tickets'
-    >
-  >({
+  } = useForm<Omit<PostDetailData, 'email' | 'id'>>({
     mode: 'onChange',
   });
-  const router = useRouter();
-
-  const { userEmail } = useRecoilSetEmail();
-
-  useEffect(() => {
-    auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = doc(db, 'users', userAuth.email);
-        const docSnap = await getDoc(userRef);
-        if (docSnap.data()?.genre === '') {
-          alert('投稿できるのはクリエイターアカウントのみです');
-          router.push('/posts');
-        }
-      } else {
-        router.push('/login');
-      }
-    });
-  }, []);
+  const { updatePostImageCreate, updatePostCreate } = useUpdatePostCreate();
+  useQueryCreatorCheck();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -80,24 +46,7 @@ export const usePostCreatUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (
-    data: Pick<
-      FormData,
-      | 'image'
-      | 'writing'
-      | 'eventName'
-      | 'genre'
-      | 'location'
-      | 'eventLocation'
-      | 'eventDate'
-      | 'openTime'
-      | 'closeTime'
-      | 'minAmount'
-      | 'maxAmount'
-      | 'coupon'
-      | 'tickets'
-    >
-  ) => {
+  const handleUpload = async (data: Omit<PostDetailData, 'email' | 'id'>) => {
     try {
       if (!myFiles) return;
       const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));
@@ -135,27 +84,7 @@ export const usePostCreatUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            const postsRef = doc(collection(db, 'users', auth.currentUser.email, `posts`));
-            await setDoc(doc(db, 'users', auth.currentUser.email, `posts`, postsRef.id), {
-              image: url,
-              writing: data.writing,
-              eventName: data.eventName,
-              genre: data.genre,
-              location: data.location,
-              eventLocation: data.eventLocation,
-              eventDate: data.eventDate,
-              openTime: data.openTime,
-              closeTime: data.closeTime,
-              minAmount: data.minAmount,
-              maxAmount: data.maxAmount,
-              coupon: data.coupon,
-              tickets: data.tickets,
-              timestamp: serverTimestamp(),
-              email: userEmail?.email,
-              id: postsRef.id,
-            });
-
-            router.push('/posts');
+            updatePostImageCreate(url, data);
           } catch (error) {
             switch (error.code) {
               case 'storage/object-not-found':
@@ -176,26 +105,7 @@ export const usePostCreatUpload = () => {
       );
     } catch (error) {
       if (src === '') {
-        const postsRef = doc(collection(db, 'users', auth.currentUser.email, `posts`));
-        await setDoc(doc(db, 'users', auth.currentUser.email, `posts`, postsRef.id), {
-          image: '',
-          writing: data.writing,
-          eventName: data.eventName,
-          genre: data.genre,
-          location: data.location,
-          eventLocation: data.eventLocation,
-          eventDate: data.eventDate,
-          openTime: data.openTime,
-          closeTime: data.closeTime,
-          minAmount: data.minAmount,
-          maxAmount: data.maxAmount,
-          coupon: data.coupon,
-          tickets: data.tickets,
-          timestamp: serverTimestamp(),
-          email: userEmail?.email,
-          id: postsRef.id,
-        });
-        router.push('/posts');
+        updatePostCreate(data);
       } else {
         console.log('エラーキャッチ', error);
       }

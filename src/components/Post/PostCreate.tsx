@@ -3,10 +3,10 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import { AiFillCaretDown } from 'react-icons/ai';
 import FormButton from '../Form/FormButton';
 import FormProfileTitle from '../Form/FormProfileTitle';
-import { usePostCreatUpload } from '../../hooks/usePostCreatUpload';
+import { usePostCreateUpload } from '../../hooks/usePostCreateUpload';
 
 const PostCreate: VFC = () => {
-  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } = usePostCreatUpload();
+  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } = usePostCreateUpload();
 
   return (
     <>
