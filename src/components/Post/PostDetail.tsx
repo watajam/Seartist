@@ -1,27 +1,17 @@
-import React, { memo, useCallback, VFC } from 'react';
+import React, { memo, VFC } from 'react';
 import { HiUserCircle } from 'react-icons/hi';
 import { FiHeart } from 'react-icons/fi';
-import { useRouter } from 'next/dist/client/router';
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
-import { deleteDoc, doc } from '@firebase/firestore';
-import { auth, db } from '../../../lib/firebase';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
 import { useQueryUserDetailInfo } from '../../../FireBase/Query/User/useQueryUserDetailInfo';
 import { useQueryPostsDetail } from '../../../FireBase/Query/Posts/useQueryPostsDetail';
+import { useDeletePost } from '../../../FireBase/Mutation/Delete/useDeletePost';
 
 const PostDetail: VFC = () => {
   const { userEmail } = useRecoilSetEmail();
   const { post, postLoading } = useQueryPostsDetail();
   const { user, userLoading } = useQueryUserDetailInfo(post);
-  const router = useRouter();
-
-  const deletePost = useCallback(async () => {
-    if (confirm('削除しますか？')) {
-      await deleteDoc(doc(db, 'users', auth.currentUser.email, 'posts', `${router.query.id}`));
-
-      router.back();
-    }
-  }, []);
+  const { deletePost } = useDeletePost();
 
   if (postLoading || userLoading) {
     return <PostDetailSkeletonLoadingItem />;

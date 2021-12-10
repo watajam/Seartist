@@ -1,11 +1,10 @@
-import { collection, doc, getDocs, query, updateDoc, where } from '@firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
-import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
-import { auth, db, storage } from '../../lib/firebase';
-import { FormData } from '../../types/FormData';
+import { useUpdateProfileEdit } from '../../FireBase/Mutation/Update/useUpdateProfileEdit';
+import { storage } from '../../lib/firebase';
+import { UserData } from '../../types/UserData';
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
@@ -22,25 +21,10 @@ export const useProfileEditUpload = () => {
     formState: { errors },
     setValue,
     setError,
-  } = useForm<
-    Pick<
-      FormData,
-      | 'image'
-      | 'name'
-      | 'userId'
-      | 'birthday'
-      | 'genre'
-      | 'location'
-      | 'writing'
-      | 'twitterUrl'
-      | 'instagramUrl'
-      | 'homepageUrl'
-      | 'otherUrl'
-    >
-  >({
+  } = useForm<Omit<UserData, 'image'>>({
     mode: 'onChange',
   });
-  const router = useRouter();
+  const { updateProfileImageEdit, updateProfileEdit } = useUpdateProfileEdit();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -62,22 +46,7 @@ export const useProfileEditUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (
-    data: Pick<
-      FormData,
-      | 'image'
-      | 'name'
-      | 'userId'
-      | 'birthday'
-      | 'genre'
-      | 'location'
-      | 'writing'
-      | 'twitterUrl'
-      | 'instagramUrl'
-      | 'homepageUrl'
-      | 'otherUrl'
-    >
-  ) => {
+  const handleUpload = async (data: Omit<UserData, 'image'>) => {
     try {
       if (!myFiles) return;
       const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));
@@ -115,49 +84,7 @@ export const useProfileEditUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-
-            const q = query(collection(db, 'users'), where('userId', '==', data.userId));
-            const currentUser = await getDocs(q);
-            if (currentUser.docs.length === 1) {
-              currentUser.docs.forEach(async (doc1) => {
-                if (doc1.data().email !== auth.currentUser?.email) {
-                  setError('userId', {
-                    type: 'validate',
-                    message: 'このユーザーIDは既に使用されています',
-                  });
-                } else {
-                  await updateDoc(doc(db, 'users', auth.currentUser.email), {
-                    image: url,
-                    name: data.name,
-                    userId: data.userId,
-                    genre: data.genre ? data.genre : '',
-                    location: data.location,
-                    birthday: data.birthday,
-                    writing: data.writing,
-                    twitterUrl: data.twitterUrl,
-                    instagramUrl: data.instagramUrl,
-                    homepageUrl: data.homepageUrl,
-                    otherUrl: data.otherUrl,
-                  });
-                  router.back();
-                }
-              });
-            } else {
-              await updateDoc(doc(db, 'users', auth.currentUser.email), {
-                image: url,
-                name: data.name,
-                userId: data.userId,
-                genre: data.genre ? data.genre : '',
-                location: data.location,
-                birthday: data.birthday,
-                writing: data.writing,
-                twitterUrl: data.twitterUrl,
-                instagramUrl: data.instagramUrl,
-                homepageUrl: data.homepageUrl,
-                otherUrl: data.otherUrl,
-              });
-              router.push(`/profile/${data.userId}`);
-            }
+            updateProfileImageEdit(url, data, setError);
           } catch (error) {
             switch (error.code) {
               case 'storage/object-not-found':
@@ -178,46 +105,7 @@ export const useProfileEditUpload = () => {
       );
     } catch (error) {
       if (src === '/profile.png') {
-        const q = query(collection(db, 'users'), where('userId', '==', data.userId));
-        const currentUser = await getDocs(q);
-        if (currentUser.docs.length === 1) {
-          currentUser.docs.forEach(async (doc1) => {
-            if (doc1.data().email !== auth.currentUser?.email) {
-              setError('userId', {
-                type: 'validate',
-                message: 'このユーザーIDは既に使用されています',
-              });
-            } else {
-              await updateDoc(doc(db, 'users', auth.currentUser.email), {
-                name: data.name,
-                userId: data.userId,
-                genre: data.genre ? data.genre : '',
-                location: data.location,
-                birthday: data.birthday,
-                writing: data.writing,
-                twitterUrl: data.twitterUrl,
-                instagramUrl: data.instagramUrl,
-                homepageUrl: data.homepageUrl,
-                otherUrl: data.otherUrl,
-              });
-              router.back();
-            }
-          });
-        } else {
-          await updateDoc(doc(db, 'users', auth.currentUser.email), {
-            name: data.name,
-            userId: data.userId,
-            genre: data.genre ? data.genre : '',
-            location: data.location,
-            birthday: data.birthday,
-            writing: data.writing,
-            twitterUrl: data.twitterUrl,
-            instagramUrl: data.instagramUrl,
-            homepageUrl: data.homepageUrl,
-            otherUrl: data.otherUrl,
-          });
-          router.push(`/profile/${data.userId}`);
-        }
+        updateProfileEdit(data, setError);
       } else {
         console.log('エラーキャッチ', error);
       }
