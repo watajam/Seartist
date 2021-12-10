@@ -1,6 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import { useForm } from 'react-hook-form';
-import { FormData } from '../../types/FormData';
+import { PostDetailData } from '../../types/PostDetailData';
 
 export const usePostsExploreReactHookForm = () => {
   const router = useRouter();
@@ -8,13 +8,12 @@ export const usePostsExploreReactHookForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { dirtyFields, },
-
-  } = useForm<Pick<FormData, 'location' | 'genre' | 'eventDate'>>({
-    defaultValues: {'location': '', 'genre': '', 'eventDate': ''},
+    formState: { dirtyFields },
+  } = useForm<Pick<PostDetailData, 'location' | 'genre' | 'eventDate'>>({
+    defaultValues: { location: '', genre: '', eventDate: '' },
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: Pick<PostDetailData, 'location' | 'genre' | 'eventDate'>) => {
     router.push({
       pathname: '/explore/posts',
       query: {
