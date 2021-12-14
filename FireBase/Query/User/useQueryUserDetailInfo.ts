@@ -6,7 +6,7 @@ import { UserData } from '../../../types/UserData';
 
 //ユーザー詳細情報を取得する
 export const useQueryUserDetailInfo = (post) => {
-  const [user, setUser] = useState<Pick<UserData, 'userId' | 'name' | 'image' | 'email'>>(null);
+  const [user, setUser] = useState<Pick<UserData, 'name' | 'image'>>(null);
   const [userLoading, setUserLoading] = useState(true);
   const router = useRouter();
 
@@ -19,7 +19,7 @@ export const useQueryUserDetailInfo = (post) => {
           const q = query(userRef, where('email', '==', `${post?.email}`));
           const querySnap = await getDocs(q);
           if (querySnap.docs) {
-            const userData = querySnap.docs[0]?.data() as Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
+            const userData = querySnap.docs[0]?.data() as Pick<UserData, 'name' | 'image'>;
             setUser({
               ...userData,
             });

@@ -6,6 +6,7 @@ export type PostDetailData = {
   eventDate: string;
   openTime: string;
   closeTime: string;
+  likeCount: number;
   id?: string;
   image?: string;
   writing?: string;
