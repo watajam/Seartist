@@ -5,7 +5,7 @@ import { UserData } from '../../../types/UserData';
 
 //検索された投稿から取得したメールアドレスで一致したユーザー情報を取得する
 export const useQueryUsersExplore = (posts) => {
-  const [users, setUsers] = useState<Pick<UserData, 'userId' | 'name' | 'image'>[]>([]);
+  const [users, setUsers] = useState<Pick<UserData, 'userId' | 'name' | 'image' | 'email'>[]>([]);
 
   useEffect(() => {
     if (posts === null) {
@@ -24,7 +24,7 @@ export const useQueryUsersExplore = (posts) => {
       } else {
         querySnap.forEach((user) => {
           setUsers((prev) => {
-            return [...prev, { userId: user.data().userId, name: user.data().name, image: user.data().image }];
+            return [...prev, { userId: user.data().userId, name: user.data().name, image: user.data().image, email: user.data().email }];
           });
         });
       }
