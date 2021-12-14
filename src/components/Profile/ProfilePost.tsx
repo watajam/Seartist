@@ -6,13 +6,12 @@ import SkeletonLoading from '../SkeletonLoading';
 
 type Props = {
   posts: Omit<PostData, `email`>[];
-  user: Pick<UserData, 'userId' | 'name' | 'image'>;
+  user: Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
   postsLoading: boolean;
   userLoading: boolean;
 };
 
 const ProfilePost: VFC<Props> = (props) => {
-  
   if (props.postsLoading || props.userLoading) {
     return <SkeletonLoading />;
   }
