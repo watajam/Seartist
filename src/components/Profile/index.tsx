@@ -9,6 +9,7 @@ import { useQueryProfileUserInfo } from '../../../FireBase/Query/Profile/useQuer
 
 type Props = {
   user: UserData;
+  postsLength: number;
 };
 
 const Profile: VFC<Props> = (props) => {
@@ -27,7 +28,7 @@ const Profile: VFC<Props> = (props) => {
     <>
       {/* プロフィール */}
       <div className="px-5">
-        <ProfileUser user={props.user} />
+        <ProfileUser user={props.user} postsLength={props.postsLength} />
       </div>
 
       {/* タブ */}
