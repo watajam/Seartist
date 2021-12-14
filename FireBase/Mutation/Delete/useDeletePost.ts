@@ -1,10 +1,4 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  increment,
-  writeBatch,
-} from 'firebase/firestore';
+import { collection, doc, getDocs, increment, writeBatch } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { auth, db } from '../../../lib/firebase';
@@ -17,6 +11,7 @@ export const useDeletePost = () => {
 
       //投稿にいいねしているユーザーを削除
       const batch = writeBatch(db);
+      const userRef = doc(db, 'users', auth.currentUser?.email);
       const usersRef = collection(db, 'users', auth.currentUser?.email, 'posts', `${router.query.id}`, 'likedUsers');
       const aa = await getDocs(usersRef);
       aa.docs.map(async (document) => {
@@ -33,6 +28,8 @@ export const useDeletePost = () => {
       });
       //投稿を削除
       batch.delete(doc(db, 'users', auth.currentUser?.email, 'posts', `${router.query.id}`));
+      //投稿数の削除
+      batch.update(userRef, { postsCount: increment(-1) });
       await batch.commit();
 
       router.back();

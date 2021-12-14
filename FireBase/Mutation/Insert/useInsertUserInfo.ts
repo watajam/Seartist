@@ -17,6 +17,7 @@ export const useInsertUserInfo = () => {
       homepageUrl: '',
       otherUrl: '',
       likePostCount: 0,
+      postsCount: 0,
     });
   }, [auth.currentUser]);
   return { handleSetUserInfo };

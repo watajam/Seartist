@@ -4,7 +4,7 @@ import { UserData } from '../../../types/UserData';
 
 //ログインしている人の情報を取得する
 export const useQueryUserProfile = () => {
-  const userInfo: UserData[] = [];
+  const userInfo: Omit<UserData, 'likePostCount' | 'postsCount'>[] = [];
   const posts: Omit<PostData, 'emial'>[] = [];
 
   const queryUserProfileInfo = async (id) => {
