@@ -1,9 +1,9 @@
 import { collection, getDocs, query, where } from '@firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
 import { UserData } from '../../../types/UserData';
-
 
 //ユーザープロフィール情報を取得する
 export const useQueryProfileUserInfo = () => {
@@ -14,7 +14,7 @@ export const useQueryProfileUserInfo = () => {
   useEffect(() => {
     const userRef = collection(db, 'users');
 
-    const unSub = auth.onAuthStateChanged(async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         if (router.query.id !== undefined) {
           const q = query(userRef, where('userId', '==', `${router.query.id}`));
@@ -34,8 +34,6 @@ export const useQueryProfileUserInfo = () => {
         router.push('/login');
       }
     });
-
-    return () => unSub();
   }, [router]);
 
   return { user, userLoading };
