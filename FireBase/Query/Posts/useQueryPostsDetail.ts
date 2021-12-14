@@ -1,4 +1,5 @@
-import { collectionGroup, getDocs, query, where } from '@firebase/firestore';
+import { collectionGroup, query, where, onSnapshot } from '@firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
@@ -11,40 +12,28 @@ export const useQueryPostsDetail = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unSub = auth.onAuthStateChanged(async (userAuth) => {
+    onAuthStateChanged(auth, async (userAuth) => {
       if (userAuth) {
         if (router.query.id !== undefined) {
           const postRef = collectionGroup(db, 'posts');
           const q = query(postRef, where('id', '==', router.query.id));
-          const querySnap = await getDocs(q);
-          if (querySnap.docs) {
-            const postData = querySnap?.docs[0].data();
-            setPost({
-              genre: postData?.genre,
-              location: postData?.location,
-              eventName: postData?.eventName,
-              eventLocation: postData?.eventLocation,
-              eventDate: postData?.eventDate,
-              openTime: postData?.openTime,
-              closeTime: postData?.closeTime,
-              id: postData?.id,
-              image: postData?.image,
-              writing: postData?.writing,
-              minAmount: postData?.minAmount,
-              maxAmount: postData?.maxAmount,
-              tickets: postData?.tickets,
-              coupon: postData?.coupon,
-              email: postData?.email,
-            });
-            setPostLoading(false);
-          } else {
-            console.log('投稿が見つかりませんでした');
-          }
+          const unSub = onSnapshot(q, (querySnap) => {
+            if (querySnap.empty) {
+              setPostLoading(false);
+              return;
+            } else {
+              const postData = querySnap.docs[0].data() as PostDetailData;
+              setPost({
+                ...postData,
+              });
+              setPostLoading(false);
+            }
+          });
+          return () => unSub();
         }
       } else {
         router.push('/login');
       }
-      return () => unSub();
     });
   }, [router]);
 

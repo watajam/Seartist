@@ -16,6 +16,7 @@ export const useInsertUserInfo = () => {
       instagramUrl: '',
       homepageUrl: '',
       otherUrl: '',
+      likePostCount: 0,
     });
   }, [auth.currentUser]);
   return { handleSetUserInfo };

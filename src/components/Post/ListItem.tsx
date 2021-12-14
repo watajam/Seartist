@@ -1,16 +1,27 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, useState, VFC } from 'react';
 import { HiUserCircle } from 'react-icons/hi';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart } from 'react-icons/ai';
 import Link from 'next/link';
 import { PostData } from '../../../types/PostData';
 import { UserData } from '../../../types/UserData';
+import SkeletonLoading from '../SkeletonLoading';
+import { useUpdateAddandDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddandDeletLikes';
+import { useQueryLikePostsCheck } from '../../../FireBase/Query/Posts/useQueryLikePostsCheck';
 
 type Props = {
   post: Omit<PostData, `email`>;
-  user: Pick<UserData, 'userId' | 'name' | 'image'>;
+  user: Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
 };
 
 const ListItem: VFC<Props> = (props) => {
+  const { updateAddandDeletLikes } = useUpdateAddandDeletLikes();
+  const [like, setLike] = useState(null);
+  useQueryLikePostsCheck(like, setLike, props.post.id);
+
+  if (like === null) {
+    return <SkeletonLoading />;
+  }
+
   return (
     <div className="rounded-2xl shadow">
       <Link href={`/profile/${props.user?.userId}`}>
@@ -61,16 +72,19 @@ const ListItem: VFC<Props> = (props) => {
                 </tr>
               </tbody>
             </table>
-
-            <div className="flex justify-end  items-center mt-6">
-              <span className="text-base">
-                <AiOutlineHeart className=" inline-block mr-2 align-top" />
-                200
-              </span>
-            </div>
           </div>
         </a>
       </Link>
+
+      <div className="flex justify-end  items-center mt-6 mr-4 mb-2">
+        <span
+          className={`text-base ${like === 1 ? 'text-red-600' : null}`}
+          onClick={() => updateAddandDeletLikes(setLike, props.user, props.post)}
+        >
+          <AiFillHeart className={`inline-block mr-2 align-top  `} />
+          {props.post?.likeCount}
+        </span>
+      </div>
     </div>
   );
 };

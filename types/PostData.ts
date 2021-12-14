@@ -9,4 +9,5 @@ export type PostData = {
   image: string;
   writing: string;
   email: string;
+  likeCount: number;
 };

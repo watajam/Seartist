@@ -7,6 +7,7 @@ export const useUpdatePostCreate = () => {
 
   const updatePostImageCreate = async (url, data) => {
     const postsRef = doc(collection(db, 'users', auth.currentUser?.email, `posts`));
+    const userRef = doc(db, 'users', auth.currentUser?.email);
     await setDoc(doc(db, 'users', auth.currentUser?.email, `posts`, postsRef.id), {
       image: url,
       writing: data.writing,
@@ -24,12 +25,15 @@ export const useUpdatePostCreate = () => {
       timestamp: serverTimestamp(),
       email: auth.currentUser?.email,
       id: postsRef.id,
+      author: userRef.path,
+      likeCount: 0,
     });
 
     router.push('/posts');
   };
   const updatePostCreate = async (data) => {
     const postsRef = doc(collection(db, 'users', auth.currentUser?.email, `posts`));
+    const userRef = doc(db, 'users', auth.currentUser?.email);
     await setDoc(doc(db, 'users', auth.currentUser?.email, `posts`, postsRef.id), {
       image: '',
       writing: data.writing,
@@ -47,6 +51,8 @@ export const useUpdatePostCreate = () => {
       timestamp: serverTimestamp(),
       email: auth.currentUser?.email,
       id: postsRef.id,
+      author: userRef.path,
+      likeCount: 0,
     });
     router.push('/posts');
   };

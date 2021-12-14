@@ -1,4 +1,4 @@
-import { collectionGroup, getDocs, query, QueryConstraint, where } from '@firebase/firestore';
+import { collectionGroup, query, QueryConstraint, where, onSnapshot } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { db } from '../../../lib/firebase';
@@ -6,7 +6,7 @@ import { PostData } from '../../../types/PostData';
 
 //投稿を検索
 export const useQueryPostsExplore = () => {
-  const [posts, setposts] = useState<PostData[]>(null);
+  const [posts, setposts] = useState<Omit<PostData, 'email'>[]>(null);
   const [postsLoading, setPostsLoading] = useState(true);
   const router = useRouter();
 
@@ -35,29 +35,30 @@ export const useQueryPostsExplore = () => {
 
       const q = query(postsRef, ...queryConstraints);
 
-      const querySnap = await getDocs(q);
-
-      if (querySnap.empty) {
-        setPostsLoading(false);
-        return;
-      } else {
-        setposts(
-          querySnap.docs.map((doc) => ({
-            id: doc.id,
-            genre: doc.data().genre,
-            eventName: doc.data().eventName,
-            eventLocation: doc.data().eventLocation,
-            eventDate: doc.data().eventDate,
-            openTime: doc.data().openTime,
-            closeTime: doc.data().closeTime,
-            image: doc.data().image,
-            writing: doc.data().writing,
-            email: doc.data().email,
-          }))
-        );
-
-        setPostsLoading(false);
-      }
+      const unSub = onSnapshot(q, (querySnap) => {
+        if (querySnap.empty) {
+          setPostsLoading(false);
+          return;
+        } else {
+          setposts(
+            querySnap.docs.map((doc) => ({
+              id: doc.id,
+              genre: doc.data().genre,
+              eventName: doc.data().eventName,
+              eventLocation: doc.data().eventLocation,
+              eventDate: doc.data().eventDate,
+              openTime: doc.data().openTime,
+              closeTime: doc.data().closeTime,
+              image: doc.data().image,
+              writing: doc.data().writing,
+              email: doc.data().email,
+              likeCount: doc.data().likeCount,
+            }))
+          );
+          setPostsLoading(false);
+        }
+      });
+      return () => unSub();
     };
 
     exploreCondition();

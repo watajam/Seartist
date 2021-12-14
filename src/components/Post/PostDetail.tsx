@@ -1,19 +1,24 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, useState, VFC } from 'react';
 import { HiUserCircle } from 'react-icons/hi';
-import { FiHeart } from 'react-icons/fi';
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
 import { useQueryUserDetailInfo } from '../../../FireBase/Query/User/useQueryUserDetailInfo';
 import { useQueryPostsDetail } from '../../../FireBase/Query/Posts/useQueryPostsDetail';
 import { useDeletePost } from '../../../FireBase/Mutation/Delete/useDeletePost';
+import { AiFillHeart } from 'react-icons/ai';
+import { useUpdateAddandDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddandDeletLikes';
+import { useQueryLikePostDetailCheck } from '../../../FireBase/Query/Posts/useQueryLikePostDetailCheck';
 
 const PostDetail: VFC = () => {
   const { userEmail } = useRecoilSetEmail();
   const { post, postLoading } = useQueryPostsDetail();
   const { user, userLoading } = useQueryUserDetailInfo(post);
   const { deletePost } = useDeletePost();
+  const { updateAddandDeletLikes } = useUpdateAddandDeletLikes();
+  const [like, setLike] = useState(null);
+  useQueryLikePostDetailCheck(like, setLike, post?.id);
 
-  if (postLoading || userLoading) {
+  if (postLoading || userLoading || like === null) {
     return <PostDetailSkeletonLoadingItem />;
   }
 
@@ -31,8 +36,13 @@ const PostDetail: VFC = () => {
         )}
         <h1 className="ml-2">{user?.name}</h1>
         <div className="ml-auto ">
-          <FiHeart className="inline" />
-          <span>200</span>
+          <span
+            className={`text-base ${like === 1 ? 'text-red-600' : null}`}
+            onClick={() => updateAddandDeletLikes(setLike, user, post)}
+          >
+            <AiFillHeart className={`inline-block mr-2 align-top  `} />
+            {post?.likeCount}
+          </span>
         </div>
       </div>
       <p className="text-base font-bold mt-4">{post?.writing}</p>
