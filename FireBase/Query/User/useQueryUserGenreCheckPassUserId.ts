@@ -1,4 +1,5 @@
 import { doc, getDoc } from '@firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
@@ -10,7 +11,7 @@ export const useQueryUserGenreCheckPassUserId = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unSub = auth.onAuthStateChanged(async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
@@ -24,8 +25,6 @@ export const useQueryUserGenreCheckPassUserId = () => {
         router.push('/login');
       }
     });
-
-    return () => unSub();
   }, []);
 
   return { user };

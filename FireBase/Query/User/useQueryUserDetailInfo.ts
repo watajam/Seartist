@@ -1,4 +1,5 @@
 import { collection, getDocs, query, where } from '@firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
@@ -13,7 +14,7 @@ export const useQueryUserDetailInfo = (post) => {
   useEffect(() => {
     const userRef = collection(db, 'users');
 
-    const unSub = auth.onAuthStateChanged(async (user) => {
+    onAuthStateChanged(auth,async (user) => {
       if (user) {
         if (post?.email !== undefined && router.query.id !== undefined) {
           const q = query(userRef, where('email', '==', `${post?.email}`));
@@ -32,7 +33,6 @@ export const useQueryUserDetailInfo = (post) => {
         router.push('/login');
       }
     });
-    return () => unSub();
   }, [router, post]);
 
   return { user, userLoading };

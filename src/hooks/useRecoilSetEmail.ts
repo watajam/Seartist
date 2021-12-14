@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/dist/client/router';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
@@ -9,7 +10,7 @@ export const useRecoilSetEmail = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged(async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUserEmail({ email: user.email });
       } else {
@@ -17,7 +18,6 @@ export const useRecoilSetEmail = () => {
         router.push('/login');
       }
     });
-    return () => unsub();
   }, []);
   return { userEmail };
 };
