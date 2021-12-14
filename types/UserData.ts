@@ -11,4 +11,6 @@ export type UserData = {
   homepageUrl: string;
   otherUrl: string;
   email: string;
+  likePostCount: number;
+  postsCount: number;
 };
