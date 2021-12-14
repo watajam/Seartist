@@ -1,4 +1,5 @@
-import { collection, getDocs, orderBy, query } from '@firebase/firestore';
+import { collection, orderBy, query, onSnapshot } from '@firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
@@ -11,35 +12,37 @@ export const useQueryUserPosts = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const unSub = auth.onAuthStateChanged(async (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         const q = query(collection(db, 'users', user.email, 'posts'), orderBy('timestamp', 'desc'));
-        const querySnap = await getDocs(q);
+        const unSub = onSnapshot(q, (querySnap) => {
+          if (querySnap.empty) {
+            setPostsLoading(false);
+            return;
+          } else {
+            setPosts(
+              querySnap.docs.map((doc) => ({
+                id: doc.id,
+                image: doc?.data().image,
+                writing: doc?.data().writing,
+                eventName: doc?.data().eventName,
+                genre: doc?.data().genre,
+                eventLocation: doc?.data().eventLocation,
+                eventDate: doc?.data().eventDate,
+                openTime: doc?.data().openTime,
+                closeTime: doc?.data().closeTime,
+                likeCount: doc?.data().likeCount,
+              }))
+            );
+            setPostsLoading(false);
+          }
+        });
 
-        if (querySnap.docs) {
-          setPosts(
-            querySnap.docs.map((doc) => ({
-              id: doc.id,
-              image: doc?.data().image,
-              writing: doc?.data().writing,
-              eventName: doc?.data().eventName,
-              genre: doc?.data().genre,
-              eventLocation: doc?.data().eventLocation,
-              eventDate: doc?.data().eventDate,
-              openTime: doc?.data().openTime,
-              closeTime: doc?.data().closeTime,
-            }))
-          );
-          setPostsLoading(false);
-        } else {
-          console.log('No such document!');
-        }
+        return () => unSub();
       } else {
         router.push('/login');
       }
     });
-
-    return () => unSub();
   }, []);
   return { posts, postsLoading };
 };
