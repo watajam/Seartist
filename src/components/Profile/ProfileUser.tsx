@@ -13,7 +13,6 @@ import ProfileEditSkeletonLoadingItem from '../SkeletonLoading/ProfileEditSkelet
 
 type Props = {
   user: UserData;
-  postsLength: number;
 };
 const ProfileUser: VFC<Props> = (props) => {
   const { userEmail } = useRecoilSetEmail();
@@ -29,7 +28,7 @@ const ProfileUser: VFC<Props> = (props) => {
 
         <Link href="#">
           <a className="flex flex-col items-center font-bold">
-            <span>{props.postsLength}</span>
+            <span>{props.user?.postsCount}</span>
             <span>投稿</span>
           </a>
         </Link>
