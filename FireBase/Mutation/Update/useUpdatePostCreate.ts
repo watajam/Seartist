@@ -1,4 +1,4 @@
-import { collection, doc, increment, serverTimestamp, setDoc, writeBatch } from 'firebase/firestore';
+import { arrayUnion, collection, doc, increment, serverTimestamp, writeBatch } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { auth, db } from '../../../lib/firebase';
 
@@ -33,6 +33,7 @@ export const useUpdatePostCreate = () => {
       likeCount: 0,
     });
     batch.update(userRef, { postsCount: increment(1) });
+    batch.update(userRef, { likePostsIds: arrayUnion(postRef.id) });
     await batch.commit();
 
     router.push('/posts');
@@ -65,6 +66,7 @@ export const useUpdatePostCreate = () => {
       likeCount: 0,
     });
     batch.update(userRef, { postsCount: increment(1) });
+    batch.update(userRef, { likePostsIds: arrayUnion(postRef.id) });
     await batch.commit();
 
     router.push('/posts');

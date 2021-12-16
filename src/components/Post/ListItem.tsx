@@ -16,7 +16,7 @@ type Props = {
 const ListItem: VFC<Props> = (props) => {
   const { updateAddandDeletLikes } = useUpdateAddandDeletLikes();
   const [like, setLike] = useState(null);
-  useQueryLikePostsCheck(like, setLike, props.post.id);
+  useQueryLikePostsCheck(like, setLike, props.post?.id);
 
   if (like === null) {
     return <SkeletonLoading />;

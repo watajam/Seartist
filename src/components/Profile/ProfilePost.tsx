@@ -1,33 +1,29 @@
-import React, { memo, VFC } from 'react';
-import { PostData } from '../../../types/PostData';
-import { UserData } from '../../../types/UserData';
+import React, { memo} from 'react';
+import { useQueryProfilePosts } from '../../../FireBase/Query/Profile/useQueryProfilePosts';
+import { useQueryProfileUserInfo } from '../../../FireBase/Query/Profile/useQueryProfileUserInfo';
 import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
-type Props = {
-  posts: Omit<PostData, `email`>[];
-  user: Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
-  postsLoading: boolean;
-  userLoading: boolean;
-};
+const ProfilePost = () => {
+  const { user, userLoading } = useQueryProfileUserInfo();
+  const { posts, postsLoading } = useQueryProfilePosts(user);
 
-const ProfilePost: VFC<Props> = (props) => {
-  if (props.postsLoading || props.userLoading) {
+  if (postsLoading || userLoading) {
     return <SkeletonLoading />;
   }
 
-  if (props.user === undefined || props.posts === undefined) {
+  if (user === undefined || posts === undefined) {
     return <p>エラー</p>;
   }
 
-  if (props.posts && props.posts.length === 0 && props.user) {
+  if (posts && posts.length === 0 && user) {
     return <p>まだ投稿がありません</p>;
   }
   return (
     <>
       <div className="grid gap-6 ">
-        {props.posts.map((post) => {
-          return <ListItem key={post.id} post={post} user={props.user} />;
+        {posts.map((post) => {
+          return <ListItem key={post.id} post={post} user={user} />;
         })}
       </div>
     </>
