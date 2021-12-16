@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, increment, writeBatch } from 'firebase/firestore';
+import { arrayRemove, collection, doc, getDocs, increment, writeBatch } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { auth, db } from '../../../lib/firebase';
@@ -26,6 +26,8 @@ export const useDeletePost = () => {
           doc(db, 'users', auth.currentUser?.email, 'posts', `${router.query.id}`, 'likedUsers', document.id)
         );
       });
+      //ユーザーに保持している投稿IDの削除
+      batch.update(userRef, { likePostsIds: arrayRemove(router.query.id) });
       //投稿を削除
       batch.delete(doc(db, 'users', auth.currentUser?.email, 'posts', `${router.query.id}`));
       //投稿数の削除
