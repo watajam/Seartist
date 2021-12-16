@@ -6,9 +6,9 @@ import SkeletonLoading from '../SkeletonLoading';
 const ProfileLikePost = () => {
   const { posts, users, loading } = useQueryProfileLikesPostsUsers();
 
-  if (loading) {
-    return <SkeletonLoading />;
-  }
+    if (loading || posts?.length === 0) {
+      return <SkeletonLoading />;
+    }
 
   if (users === undefined || posts === undefined) {
     return <p>エラー</p>;
