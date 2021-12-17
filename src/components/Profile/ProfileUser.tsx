@@ -32,13 +32,13 @@ const ProfileUser: VFC<Props> = (props) => {
             <span>投稿</span>
           </a>
         </Link>
-        <Link href="#">
+        <Link href={`/profile/${props.user?.userId}/followers`}>
           <a className="flex flex-col items-center font-bold">
             <span>500</span>
             <span>フォロワー</span>
           </a>
         </Link>
-        <Link href="#">
+        <Link href={`/profile/${props.user?.userId}/following`}>
           <a className="flex flex-col items-center font-bold">
             <span>500</span>
             <span>フォロー中</span>
