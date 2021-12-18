@@ -85,6 +85,28 @@ const ProfileUser: VFC<Props> = (props) => {
     }
   }, []);
 
+  const handleUnfollowUs = useCallback(async (email) => {
+    const batch = writeBatch(db);
+    //自分の情報
+    const authUserRef = doc(db, 'users', auth.currentUser?.email);
+    const authFollowingRef = doc(authUserRef, 'following', email);
+
+    const authFollowersDocRef = doc(authUserRef, 'followers', email);
+
+    //フォローした人の情報
+    const otherUsers = doc(db, 'users', email);
+    const otherFollowersRef = doc(otherUsers, 'followers', auth.currentUser?.email);
+
+    //自分のフォローコレクションからユーザーを解除
+    batch.delete(authFollowingRef);
+    //フォローを外した人のフォロワーコレクションから自分の情報を削除
+    batch.delete(otherFollowersRef);
+    batch.update(authUserRef, { followUsersCount: increment(-1) });
+    batch.update(otherUsers, { followerUsersCount: increment(-1) });
+    batch.update(authFollowersDocRef, { following: false });
+    await batch.commit();
+  }, []);
+
   //自分のフォローコレクションに表示されているプロフィールユーザーの情報が既にあるか確認
   useEffect(() => {
     const userFollowingCheck = async () => {
@@ -110,7 +132,6 @@ const ProfileUser: VFC<Props> = (props) => {
     };
     userFollowingCheck();
   }, [router.query?.id]);
-
 
   return (
     <>
@@ -244,7 +265,7 @@ const ProfileUser: VFC<Props> = (props) => {
         </button>
       ) : (
         <button
-          // onClick={() => handleFollowUs(props.user?.email)}
+          onClick={() => handleUnfollowUs(props.user?.email)}
           className="bg-gray-400 text-white text-center mt-6 p-1 w-full"
         >
           フォロー中
