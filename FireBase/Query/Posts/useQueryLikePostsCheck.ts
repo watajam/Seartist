@@ -12,5 +12,5 @@ export const useQueryLikePostsCheck = (like, setLike, id) => {
       setLike(likePostsquery.docs.length);
     };
     likePostsCheck();
-  }, [like]);
+  }, []);
 };
