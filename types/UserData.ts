@@ -13,4 +13,6 @@ export type UserData = {
   email: string;
   likePostCount: number;
   postsCount: number;
+  followUsersCount: number;
+  followerUsersCount: number;
 };

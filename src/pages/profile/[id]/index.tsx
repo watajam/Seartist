@@ -34,6 +34,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
           email: data?.email,
           likePostCount: data?.likePostCount ? data?.likePostCount : 0,
           postsCount: data?.postsCount ? data?.postsCount : 0,
+          followUsersCount: data?.followUsersCount ? data?.followUsersCount : 0,
+          followerUsersCount: data?.followerUsersCount ? data?.followerUsersCount : 0,
         });
       });
     } catch (e) {
