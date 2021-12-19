@@ -133,6 +133,24 @@ const ProfileUser: VFC<Props> = (props) => {
     userFollowingCheck();
   }, [router.query?.id]);
 
+  const [followAndFollower, setFollowAndFollower] = useState(null);
+  useEffect(() => {
+    if (props.user?.userId !== undefined) {
+      const a = query(collection(db, 'users'), where('userId', '==', props.user?.userId));
+      const unSub = onSnapshot(a, (querySnap) => {
+        if (querySnap.docs.length === 0) {
+          console.log(999);
+        } else {
+          setFollowAndFollower({
+            follow: querySnap.docs[0].data().followUsersCount,
+            follower: querySnap.docs[0].data().followerUsersCount,
+          });
+        }
+      });
+      return () => unSub();
+    }
+  }, [props.user?.userId]);
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -150,13 +168,15 @@ const ProfileUser: VFC<Props> = (props) => {
         </Link>
         <Link href={`/profile/${props.user?.userId}/followers`}>
           <a className="flex flex-col items-center font-bold">
-            <span>500</span>
+            <span>
+              {followAndFollower?.follower === undefined ? props.user?.followerUsersCount : followAndFollower?.follower}
+            </span>
             <span>フォロワー</span>
           </a>
         </Link>
         <Link href={`/profile/${props.user?.userId}/following`}>
           <a className="flex flex-col items-center font-bold">
-            <span>500</span>
+            {followAndFollower?.follow === undefined ? props.user?.followUsersCount : followAndFollower?.follow}
             <span>フォロー中</span>
           </a>
         </Link>
