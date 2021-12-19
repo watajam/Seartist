@@ -34,7 +34,7 @@ const Profile: VFC<Props> = (props) => {
 
       {/* プロフィール投稿といいねした投稿 */}
       <div className="px-5 mt-4 grid gap-6  md:max-w-xl lg:max-w-2xl">
-        {props.user.genre === '' ? <ProfileLikePost /> : chengePage === true ? <ProfilePost /> : <ProfileLikePost />}
+        {props.user?.genre === '' ? <ProfileLikePost /> : chengePage === true ? <ProfilePost /> : <ProfileLikePost />}
       </div>
     </>
   );
