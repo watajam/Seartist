@@ -1,13 +1,11 @@
-//フォロー中
 import { NextPage } from 'next';
-import FollowAndFollowers from '../../../components/FollowAndFollowers';
+import Follows from '../../../components/FollowsOrFollowers/follows';
 import FollowAndFollowersLayout from '../../../components/Layout/FollowAndFollowersLayout';
 
 const following: NextPage = () => {
-
   return (
     <FollowAndFollowersLayout>
-      <FollowAndFollowers />
+      <Follows />
     </FollowAndFollowersLayout>
   );
 };

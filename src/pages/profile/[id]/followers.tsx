@@ -1,12 +1,11 @@
-//フォロワー
 import { NextPage } from 'next';
-import ListItem from '../../../components/FollowAndFollowers/ListItem';
+import Followers from '../../../components/FollowsOrFollowers/Followers';
 import FollowAndFollowersLayout from '../../../components/Layout/FollowAndFollowersLayout';
 
 const followers: NextPage = () => {
   return (
     <FollowAndFollowersLayout>
-      <ListItem />
+      <Followers />
     </FollowAndFollowersLayout>
   );
 };
