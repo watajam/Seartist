@@ -42,25 +42,29 @@ const Followers: VFC = () => {
         //フォロワーユーザーの情報を取得
 
         const unSub = onSnapshot(followersRef, (snap) => {
-          snap.forEach(async (docFollowers) => {
+          if (snap.empty) {
             setFollowers([]);
-            const userRef = collection(db, 'users');
-            const queryUserInfo = query(userRef, where('email', '==', `${docFollowers.data()?.email}`));
-            const querySnapUserInfo = await getDocs(queryUserInfo);
-            if (querySnapUserInfo.empty) {
-              return;
-            } else {
-              querySnapUserInfo.docs.map((doc) => {
-                setFollowers((prev) => [
-                  ...prev,
-                  {
-                    ...doc.data(),
-                    followingFlag: docFollowers.data().following,
-                  },
-                ]);
-              });
-            }
-          });
+          } else {
+            snap.forEach(async (docFollowers) => {
+              setFollowers([]);
+              const userRef = collection(db, 'users');
+              const queryUserInfo = query(userRef, where('email', '==', `${docFollowers.data()?.email}`));
+              const querySnapUserInfo = await getDocs(queryUserInfo);
+              if (querySnapUserInfo.empty) {
+                return;
+              } else {
+                querySnapUserInfo.docs.map((doc) => {
+                  setFollowers((prev) => [
+                    ...prev,
+                    {
+                      ...doc.data(),
+                      followingFlag: docFollowers.data().following,
+                    },
+                  ]);
+                });
+              }
+            });
+          }
         });
 
         return () => unSub();
