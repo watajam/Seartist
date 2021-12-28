@@ -40,7 +40,7 @@ export const useQueryProfileLikesPostsUsers = () => {
 
             setPosts((prev) => [...prev, postsRef.data() as PostData]);
 
-            const queryPosts = query(collection(db, 'users'), where(`likePostsIds`, 'array-contains', doc.data().id));
+            const queryPosts = query(collection(db, 'users'), where(`postsIds`, 'array-contains', doc.data().id));
             const userRef = await getDocs(queryPosts);
             setUsers((prevUsers) => [...prevUsers, userRef.docs[0].data() as UserData]);
           });
