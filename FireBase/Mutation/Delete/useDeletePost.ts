@@ -7,10 +7,24 @@ export const useDeletePost = () => {
   const router = useRouter();
   const deletePost = useCallback(async () => {
     if (confirm('削除しますか？')) {
-      //投稿を削除
+      const authFollowersRef = collection(db, 'users', auth.currentUser?.email, 'followers');
+      const userFollowersDocs = await getDocs(authFollowersRef);
+
+      const batch = writeBatch(db);
+
+      //フォローワーのユーザーの同じ投稿を削除
+      userFollowersDocs.docs.map((document) => {
+        const otherPostsByFollowersRef = doc(
+          db,
+          'users',
+          document.data()?.email,
+          'postsByFollowers',
+          `${router.query.id}`
+        );
+        batch.delete(otherPostsByFollowersRef);
+      });
 
       //投稿にいいねしているユーザーを削除
-      const batch = writeBatch(db);
       const userRef = doc(db, 'users', auth.currentUser?.email);
       const usersRef = collection(db, 'users', auth.currentUser?.email, 'posts', `${router.query.id}`, 'likedUsers');
       const usersInfoRef = await getDocs(usersRef);
@@ -27,7 +41,7 @@ export const useDeletePost = () => {
         );
       });
       //ユーザーに保持している投稿IDの削除
-      batch.update(userRef, { likePostsIds: arrayRemove(router.query.id) });
+      batch.update(userRef, { postsIds: arrayRemove(router.query.id) });
       //投稿を削除
       batch.delete(doc(db, 'users', auth.currentUser?.email, 'posts', `${router.query.id}`));
       //投稿数の削除

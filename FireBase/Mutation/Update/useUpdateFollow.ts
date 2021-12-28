@@ -14,6 +14,7 @@ export const useUpdateFollow = () => {
     //フォローした人の情報
     const otherUsers = doc(db, 'users', email);
     const otherFollowersRef = doc(otherUsers, 'followers', auth.currentUser?.email);
+    const otherPostsRef = collection(otherUsers, 'posts');
 
     //自分のフォロワーにフォローした人が存在するか確認
     const q = query(authFollowersColRef, where('email', '==', email));
@@ -31,6 +32,16 @@ export const useUpdateFollow = () => {
         createTime: serverTimestamp(),
         following: true,
       });
+
+      //フォローした人の投稿を自分の情報に追加
+      const querySnapshot = await getDocs(otherPostsRef);
+      querySnapshot.docs.forEach((document) => {
+        const authPostsByFollowersRef = doc(authUserRef, 'postsByFollowers', document.id);
+        batch.set(authPostsByFollowersRef, {
+          ...document.data(),
+        });
+      });
+
       batch.update(authFollowersDocRef, { following: true });
       batch.update(authUserRef, { followUsersCount: increment(1) });
       batch.update(otherUsers, { followerUsersCount: increment(1) });
@@ -48,6 +59,14 @@ export const useUpdateFollow = () => {
         email: auth.currentUser?.email,
         createTime: serverTimestamp(),
         following: false,
+      });
+      //フォローした人の投稿を自分の情報に追加
+      const querySnapshot = await getDocs(otherPostsRef);
+      querySnapshot.docs.forEach((document) => {
+        const authPostsByFollowersRef = doc(authUserRef, 'postsByFollowers', document.id);
+        batch.set(authPostsByFollowersRef, {
+          ...document.data(),
+        });
       });
       batch.update(authUserRef, { followUsersCount: increment(1) });
       batch.update(otherUsers, { followerUsersCount: increment(1) });
