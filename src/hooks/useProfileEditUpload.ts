@@ -21,7 +21,7 @@ export const useProfileEditUpload = () => {
     formState: { errors },
     setValue,
     setError,
-  } = useForm<Omit<UserData, 'image'>>({
+  } = useForm<Omit<UserData, 'profilePhoto'>>({
     mode: 'onChange',
   });
   const { updateProfileImageEdit, updateProfileEdit } = useUpdateProfileEdit();
@@ -46,7 +46,7 @@ export const useProfileEditUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (data: Omit<UserData, 'image'>) => {
+  const handleUpload = async (data: Omit<UserData, 'profilePhoto'>) => {
     try {
       if (!myFiles) return;
       const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));

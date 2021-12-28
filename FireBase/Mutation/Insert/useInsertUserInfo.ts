@@ -5,7 +5,7 @@ import { auth, db } from '../../../lib/firebase';
 export const useInsertUserInfo = () => {
   const handleSetUserInfo = useCallback(() => {
     setDoc(doc(db, 'users', auth.currentUser?.email), {
-      image: '',
+      profilePhoto: '',
       name: '',
       userId: '',
       genre: '',

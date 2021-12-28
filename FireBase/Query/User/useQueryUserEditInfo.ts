@@ -7,7 +7,7 @@ import { UserData } from '../../../types/UserData';
 
 //編集画面でユーザー情報取得してFormの初期値に設定する
 export const useQueryUserEditInfo = (setValue) => {
-  const [user, setUser] = useState<Pick<UserData, 'image' | 'userId' | 'genre'>>(null);
+  const [user, setUser] = useState<Pick<UserData, 'profilePhoto' | 'userId' | 'genre'>>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const useQueryUserEditInfo = (setValue) => {
           const userData = docSnap?.data() as UserData;
 
           setUser({ ...userData });
-          setValue('image', userData.image);
+          setValue('profilePhoto', userData.profilePhoto);
           setValue('name', userData.name);
           setValue('userId', userData.userId);
           setValue('birthday', userData.birthday);
