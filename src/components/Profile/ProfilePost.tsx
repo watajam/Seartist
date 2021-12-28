@@ -1,7 +1,7 @@
 import React, { memo} from 'react';
 import { useQueryProfilePosts } from '../../../FireBase/Query/Profile/useQueryProfilePosts';
 import { useQueryProfileUserInfo } from '../../../FireBase/Query/Profile/useQueryProfileUserInfo';
-import ListItem from '../Post/ListItem';
+import PostListItem from '../Post/PostListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const ProfilePost = () => {
@@ -23,7 +23,7 @@ const ProfilePost = () => {
     <>
       <div className="grid gap-6 ">
         {posts.map((post) => {
-          return <ListItem key={post.id} post={post} user={user} />;
+          return <PostListItem key={post.id} post={post} user={user} />;
         })}
       </div>
     </>
