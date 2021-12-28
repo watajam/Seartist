@@ -20,7 +20,7 @@ export const useSelfLntroductionUpload = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Pick<UserData, 'image' | 'writing'>>({
+  } = useForm<Pick<UserData, 'profilePhoto' | 'writing'>>({
     mode: 'onChange',
   });
 
@@ -44,7 +44,7 @@ export const useSelfLntroductionUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (data: Pick<UserData, 'image' | 'writing'>) => {
+  const handleUpload = async (data: Pick<UserData, 'profilePhoto' | 'writing'>) => {
     try {
       if (!myFiles) return;
       const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));

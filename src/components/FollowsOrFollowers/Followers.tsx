@@ -24,6 +24,7 @@ const Followers: VFC = () => {
   // }
 
   const [followers, setFollowers] = useState([]);
+  const [authEmail, setAuthEmail] = useState("");
 
   const router = useRouter();
 
@@ -39,6 +40,7 @@ const Followers: VFC = () => {
           collection(db, 'users', querySnapUserEmail.docs[0].data()?.email, 'followers'),
           orderBy('createTime', 'desc')
         );
+        setAuthEmail(querySnapUserEmail.docs[0].data()?.email);
         //フォロワーユーザーの情報を取得
 
         const unSub = onSnapshot(followersRef, (snap) => {
@@ -76,7 +78,7 @@ const Followers: VFC = () => {
   return (
     <div className=" md:max-w-xl lg:max-w-2xl">
       {followers.map((user) => {
-        return <ListItem key={user.email} user={user} />;
+        return <ListItem key={user.email} user={user} email={authEmail} />;
       })}
     </div>
   );

@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       userSnap.forEach((doc) => {
         const data = doc.data();
         userInfo.push({
-          image: data.image ? data.image : '',
+          profilePhoto: data.profilePhoto ? data.profilePhoto : '',
           name: data?.name,
           userId: data?.userId,
           genre: data?.genre ? data?.genre : '',

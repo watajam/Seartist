@@ -14,16 +14,14 @@ import { auth, db } from '../../../lib/firebase';
 import {
   collection,
   doc,
-  getDocs,
-  increment,
   onSnapshot,
   query,
-  serverTimestamp,
   where,
-  writeBatch,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { onAuthStateChanged } from 'firebase/auth';
+import { useUpdateFollow } from '../../../FireBase/Mutation/Update/useUpdateFollow';
+import { useUpdateUnfollow } from '../../../FireBase/Mutation/Update/useUpdateUnfollow';
 
 type Props = {
   user: UserData;
@@ -32,80 +30,8 @@ const ProfileUser: VFC<Props> = (props) => {
   const { userEmail } = useRecoilSetEmail();
   const [userFollowingInfo, setUserFollowingInfo] = useState('');
   const router = useRouter();
-
-  const handleFollowUs = useCallback(async (email) => {
-    const batch = writeBatch(db);
-    //自分の情報
-    const authUserRef = doc(db, 'users', auth.currentUser?.email);
-    const authFollowingRef = doc(authUserRef, 'following', email);
-    const authFollowersColRef = collection(authUserRef, 'followers');
-    const authFollowersDocRef = doc(authUserRef, 'followers', email);
-
-    //フォローした人の情報
-    const otherUsers = doc(db, 'users', email);
-    const otherFollowersRef = doc(otherUsers, 'followers', auth.currentUser?.email);
-
-    //自分のフォロワーにフォローした人が存在するか確認
-    const q = query(authFollowersColRef, where('email', '==', email));
-    const likePostsquery = await getDocs(q);
-
-    if (likePostsquery.docs.length === 1) {
-      //フォローした人が自分のフォロワーにいた場合
-      batch.set(authFollowingRef, {
-        email,
-        createTime: serverTimestamp(),
-        following: true,
-      });
-      batch.set(otherFollowersRef, {
-        email: auth.currentUser?.email,
-        createTime: serverTimestamp(),
-        following: true,
-      });
-      batch.update(authFollowersDocRef, { following: true });
-      batch.update(authUserRef, { followUsersCount: increment(1) });
-      batch.update(otherUsers, { followerUsersCount: increment(1) });
-      await batch.commit();
-    } else {
-      //自分のフォローコレクションにフォローした人の情報を格納
-      batch.set(authFollowingRef, {
-        email,
-        createTime: serverTimestamp(),
-        following: true,
-      });
-
-      //フォローした人のフォロワーコレクションに自分の情報を格納
-      batch.set(otherFollowersRef, {
-        email: auth.currentUser?.email,
-        createTime: serverTimestamp(),
-        following: false,
-      });
-      batch.update(authUserRef, { followUsersCount: increment(1) });
-      batch.update(otherUsers, { followerUsersCount: increment(1) });
-      await batch.commit();
-    }
-  }, []);
-
-  const handleUnfollowUs = useCallback(async (email) => {
-    const batch = writeBatch(db);
-    //自分の情報
-    const authUserRef = doc(db, 'users', auth.currentUser?.email);
-    const authFollowingRef = doc(authUserRef, 'following', email);
-
-    const authFollowersDocRef = doc(authUserRef, 'followers', email);
-
-    //フォローした人の情報
-    const otherUsers = doc(db, 'users', email);
-    const otherFollowersRef = doc(otherUsers, 'followers', auth.currentUser?.email);
-
-    //自分のフォローコレクションからユーザーを解除
-    batch.delete(authFollowingRef);
-    //フォローを外した人のフォロワーコレクションから自分の情報を削除
-    batch.delete(otherFollowersRef);
-    batch.update(authUserRef, { followUsersCount: increment(-1) });
-    batch.update(otherUsers, { followerUsersCount: increment(-1) });
-    batch.update(authFollowersDocRef, { following: false });
-    await batch.commit();
-  }, []);
+  const { updateFollow } = useUpdateFollow();
+  const { updateUnfollow } = useUpdateUnfollow();
 
   //自分のフォローコレクションに表示されているプロフィールユーザーの情報が既にあるか確認
   useEffect(() => {
@@ -154,8 +80,12 @@ const ProfileUser: VFC<Props> = (props) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        {props.user?.image ? (
-          <img src={props.user?.image} alt="プロフィール画像" className="object-cover h-24 w-24  rounded-full   " />
+        {props.user?.profilePhoto ? (
+          <img
+            src={props.user?.profilePhoto}
+            alt="プロフィール画像"
+            className="object-cover h-24 w-24  rounded-full   "
+          />
         ) : (
           <img src="/profile.png" alt="プロフィール画像" className="object-cover h-24 w-24  rounded-full   " />
         )}
@@ -278,14 +208,14 @@ const ProfileUser: VFC<Props> = (props) => {
         <ProfileEditSkeletonLoadingItem />
       ) : userFollowingInfo === 'フォローする' ? (
         <button
-          onClick={() => handleFollowUs(props.user?.email)}
+          onClick={() => updateFollow(props.user?.email)}
           className="bg-orange-400 text-white text-center mt-6 p-1 w-full"
         >
           フォローする
         </button>
       ) : (
         <button
-          onClick={() => handleUnfollowUs(props.user?.email)}
+          onClick={() => updateUnfollow(props.user?.email)}
           className="bg-gray-400 text-white text-center mt-6 p-1 w-full"
         >
           フォロー中

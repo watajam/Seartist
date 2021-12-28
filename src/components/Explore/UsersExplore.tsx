@@ -10,7 +10,7 @@ type HitDoc = {
   userId: string;
   genre: string;
   location: string;
-  image: string;
+  profilePhoto: string;
 };
 
 type Props = {

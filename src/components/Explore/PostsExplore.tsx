@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react';
 import { useQueryPostsExplore } from '../../../FireBase/Query/Posts/useQueryPostsExplore';
 import { useQueryUsersExplore } from '../../../FireBase/Query/Users/useQueryUsersExplore';
-import ListItem from '../Post/ListItem';
+import PostListItem from '../Post/PostListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const PostsExplore: VFC = () => {
@@ -19,7 +19,7 @@ const PostsExplore: VFC = () => {
   return (
     <div className="grid gap-6  md:max-w-xl lg:max-w-2xl">
       {posts?.map((post, index) => (
-        <ListItem key={post.id} post={post} user={users[index]} />
+        <PostListItem key={post.id} post={post} user={users[index]} />
       ))}
     </div>
   );

@@ -17,7 +17,7 @@ export const useUpdateProfileEdit = () => {
           });
         } else {
           await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-            image: url,
+            profilePhoto: url,
             name: data.name,
             userId: data.userId,
             genre: data.genre ? data.genre : '',
@@ -34,7 +34,7 @@ export const useUpdateProfileEdit = () => {
       });
     } else {
       await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-        image: url,
+        profilePhoto: url,
         name: data.name,
         userId: data.userId,
         genre: data.genre ? data.genre : '',

@@ -4,7 +4,7 @@ export type UserData = {
   genre: string;
   location: string;
   birthday: string;
-  image: string;
+  profilePhoto: string;
   writing: string;
   twitterUrl: string;
   instagramUrl: string;

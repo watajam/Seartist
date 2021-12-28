@@ -29,8 +29,8 @@ const PostDetail: VFC = () => {
   return (
     <div>
       <div className=" flex  rounded-t-2xl items-center font-bold text-base ">
-        {user?.image !== '' ? (
-          <img src={user?.image} className="w-8 h-8 rounded-full" />
+        {user?.profilePhoto !== '' ? (
+          <img src={user?.profilePhoto} className="w-8 h-8 rounded-full" />
         ) : (
           <HiUserCircle className="w-8 h-8" />
         )}

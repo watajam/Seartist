@@ -10,13 +10,13 @@ import { useQueryLikePostsCheck } from '../../../FireBase/Query/Posts/useQueryLi
 
 type Props = {
   post: Omit<PostData, `email`>;
-  user: Pick<UserData, 'userId' | 'name' | 'image' | 'email'>;
+  user: Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 };
 
-const ListItem: VFC<Props> = (props) => {
+const PostListItem: VFC<Props> = (props) => {
   const { updateAddandDeletLikes } = useUpdateAddandDeletLikes();
   const [like, setLike] = useState(null);
-  useQueryLikePostsCheck(like, setLike, props.post?.id);
+  useQueryLikePostsCheck(setLike, props.post?.id);
 
   if (like === null) {
     return <SkeletonLoading />;
@@ -27,8 +27,8 @@ const ListItem: VFC<Props> = (props) => {
       <Link href={`/profile/${props.user?.userId}`}>
         <a>
           <header className="bg-gray-400 text-white flex  p-4 rounded-t-2xl items-center font-bold text-base ">
-            {props.user?.image !== '' ? (
-              <img src={props.user?.image} className="w-8 h-8 rounded-full" />
+            {props.user?.profilePhoto !== '' ? (
+              <img src={props.user?.profilePhoto} className="w-8 h-8 rounded-full" />
             ) : (
               <HiUserCircle className="w-8 h-8" />
             )}
@@ -89,4 +89,4 @@ const ListItem: VFC<Props> = (props) => {
   );
 };
 
-export default memo(ListItem);
+export default memo(PostListItem);

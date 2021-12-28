@@ -7,14 +7,14 @@ export const useUpdateUsereSelfLntroductionInfo = () => {
 
   const updateUserImageAndWritingInfo = async (url, data) => {
     await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-      image: url,
+      profilePhoto: url,
       writing: data.writing,
     });
     router.push('/posts');
   };
   const updateUserWritingInfo = async (data) => {
     await updateDoc(doc(db, 'users', auth.currentUser.email), {
-      image: '',
+      profilePhoto: '',
       writing: data.writing,
     });
     router.push('/posts');

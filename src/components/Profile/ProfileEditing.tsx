@@ -21,7 +21,7 @@ const ProfileEditing: VFC = () => {
             <input {...getInputProps()} />
 
             <img
-              src={user?.image === '' || user?.image === undefined ? src : src === '/profile.png' ? user?.image : src}
+              src={user?.profilePhoto === '' || user?.profilePhoto === undefined ? src : src === '/profile.png' ? user?.profilePhoto : src}
               className="object-cover h-24 w-24  rounded-full  m-auto  "
             />
           </div>
