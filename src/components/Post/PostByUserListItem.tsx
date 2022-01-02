@@ -1,23 +1,23 @@
-import React, { memo, useState, VFC } from 'react';
+import React, { memo, VFC } from 'react';
 import { HiUserCircle } from 'react-icons/hi';
 import { AiFillHeart } from 'react-icons/ai';
 import Link from 'next/link';
 import { PostData } from '../../../types/PostData';
 import { UserData } from '../../../types/UserData';
 import SkeletonLoading from '../SkeletonLoading';
-import { useUpdateAddandDeletLikes1 } from '../../../FireBase/Mutation/Update/useUpdateAddandDeletLikes1';
-import { useQueryLikePostsCheck} from '../../../FireBase/Query/Posts/useQueryLikePostsCheck';
+import { useUpdateAddandDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddandDeletLikes';
+import { useQueryLikePostsCheck } from '../../../FireBase/Query/Posts/useQueryLikePostsCheck';
 
 type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
+
 type Props = {
   postsByUsers: postsByUsers;
 };
 
 const PostByUserListItem: VFC<Props> = (props) => {
-  const { updateAddandDeletLikes } = useUpdateAddandDeletLikes1();
-  const [likeFlag, setLikeFlag] = useState(null);
-  const [like, setLike] = useState(null);
-  useQueryLikePostsCheck(setLike, props.postsByUsers?.id);
+  const { updateAddandDeletLikes, likeFlag } = useUpdateAddandDeletLikes();
+
+  const like = useQueryLikePostsCheck(props.postsByUsers?.id);
 
   if (like === null) {
     return <SkeletonLoading />;
@@ -84,7 +84,7 @@ const PostByUserListItem: VFC<Props> = (props) => {
           className={`text-base ${
             likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === 1 ? 'text-red-600' : null
           }`}
-          onClick={() => updateAddandDeletLikes(setLikeFlag, props.postsByUsers)}
+          onClick={() => updateAddandDeletLikes(props.postsByUsers)}
         >
           <AiFillHeart className={`inline-block mr-2 align-top  `} />
 
