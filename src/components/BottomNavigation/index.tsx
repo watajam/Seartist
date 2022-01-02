@@ -14,11 +14,20 @@ const BottomNavigation: VFC = () => {
   const { user } = useQueryUserGenreCheckPassUserId();
   const router = useRouter();
 
+  const handlePreventDefault = (e: React.MouseEvent<HTMLAnchorElement>, url) => {
+    if (router.pathname === url) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <aside className="w-full fixed  bottom-0 z-10 bg-orange-400  md:static md:w-1/4   md:max-w-xs md:bg-orange-300 h-auto">
       <nav className="flex justify-around md:fixed  md:flex-col md:w-1/4   md:max-w-xs  md:justify-center ">
         <Link href="/posts">
-          <a className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8">
+          <a
+            onClick={(e) => handlePreventDefault(e, '/posts')}
+            className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8"
+          >
             {router.pathname === '/posts' ? (
               <HiHome className="w-7 h-7  text-white inline-block  mb-1" />
             ) : (
@@ -29,7 +38,10 @@ const BottomNavigation: VFC = () => {
         </Link>
 
         <Link href="/explore">
-          <a className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-4 md:pl-8">
+          <a
+            onClick={(e) => handlePreventDefault(e, '/explore')}
+            className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-4 md:pl-8"
+          >
             {router.pathname === '/explore' ? (
               <BiSearchAlt className="w-7 h-7 text-white inline-block  mb-1" />
             ) : (
@@ -40,7 +52,10 @@ const BottomNavigation: VFC = () => {
         </Link>
 
         <Link href={`/profile/${user?.userId}`}>
-          <a className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-2 md:pl-8">
+          <a
+            onClick={(e) => handlePreventDefault(e, '/profile/[id]')}
+            className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-2 md:pl-8"
+          >
             {router.pathname === '/profile/[id]' ? (
               <HiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
             ) : (
@@ -52,7 +67,10 @@ const BottomNavigation: VFC = () => {
 
         {user?.genre ? (
           <Link href="/posts/create">
-            <a className="w-full text-center pt-2 pb-3 hidden  md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8">
+            <a
+              onClick={(e) => handlePreventDefault(e, '/posts/create')}
+              className="w-full text-center pt-2 pb-3 hidden  md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8"
+            >
               {router.pathname === '/posts/create' ? (
                 <RiQuillPenLine className="w-7 h-7 text-white inline-block  mb-1" />
               ) : (
