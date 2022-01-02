@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
 
 //ログインしているユーザーのメールアドレスが存在するかどうかを確認する
-export const useQueryLikePostsCheck = (setLike, id) => {
+export const useQueryLikePostsCheck = (id) => {
+  const [like, setLike] = useState(null);
+
   //いいねされた投稿だった場合、ハートを赤くする
   useEffect(() => {
     const likePostsCheck = async () => {
@@ -17,4 +19,6 @@ export const useQueryLikePostsCheck = (setLike, id) => {
     };
     likePostsCheck();
   }, []);
+
+  return like;
 };

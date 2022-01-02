@@ -1,26 +1,28 @@
 import React, { memo, VFC } from 'react';
-import { useQueryPostsExplore } from '../../../FireBase/Query/Posts/useQueryPostsExplore';
-import { useQueryUsersExplore } from '../../../FireBase/Query/Users/useQueryUsersExplore';
-import PostListItem from '../Post/PostListItem';
+import { useQueryPostsByUsersExplore } from '../../../FireBase/Query/Posts/useQueryPostsByUsersExplore';
+import PostByUserListItem from '../Post/PostByUserListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const PostsExplore: VFC = () => {
-  const { posts, postsLoading } = useQueryPostsExplore();
-  const { users } = useQueryUsersExplore(posts);
+  const { postsByUsers, postsByUsersLoading } = useQueryPostsByUsersExplore();
 
-  if (postsLoading) {
+  if (postsByUsers?.length === 0 || postsByUsersLoading) {
     return <SkeletonLoading />;
   }
 
-  if (posts === null) {
-    return <p>投稿が見つかりませんでした。</p>;
+  if (postsByUsers === undefined) {
+    return <p>エラー</p>;
+  }
+
+  if (postsByUsers === null) {
+    return <p>投稿が見つかりませんでした</p>;
   }
 
   return (
     <div className="grid gap-6  md:max-w-xl lg:max-w-2xl">
-      {posts?.map((post, index) => (
-        <PostListItem key={post.id} post={post} user={users[index]} />
-      ))}
+      {postsByUsers.map((postsByUser) => {
+        return <PostByUserListItem key={postsByUser.id} postsByUsers={postsByUser} />;
+      })}
     </div>
   );
 };

@@ -1,29 +1,27 @@
-import React, { memo} from 'react';
-import { useQueryProfilePosts } from '../../../FireBase/Query/Profile/useQueryProfilePosts';
-import { useQueryProfileUserInfo } from '../../../FireBase/Query/Profile/useQueryProfileUserInfo';
-import PostListItem from '../Post/PostListItem';
+import React, { memo } from 'react';
+import { useQueryProfilePostsByUser } from '../../../FireBase/Query/Profile/useQueryProfilePostsByUser';
+import PostByUserListItem from '../Post/PostByUserListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const ProfilePost = () => {
-  const { user, userLoading } = useQueryProfileUserInfo();
-  const { posts, postsLoading } = useQueryProfilePosts(user);
+  const { postsByUser, postsByUserLoading } = useQueryProfilePostsByUser();
 
-  if (postsLoading || userLoading) {
+  if (postsByUser?.length === 0 || postsByUserLoading) {
     return <SkeletonLoading />;
   }
 
-  if (user === undefined || posts === undefined) {
+  if (postsByUser === undefined) {
     return <p>エラー</p>;
   }
 
-  if (posts && posts.length === 0 && user) {
-    return <p>まだ投稿がありません</p>;
+  if (postsByUser === null) {
+    return <p>投稿がありません</p>;
   }
   return (
     <>
       <div className="grid gap-6 ">
-        {posts.map((post) => {
-          return <PostListItem key={post.id} post={post} user={user} />;
+        {postsByUser?.map((postsByUser) => {
+          return <PostByUserListItem key={postsByUser.id} postsByUsers={postsByUser} />;
         })}
       </div>
     </>

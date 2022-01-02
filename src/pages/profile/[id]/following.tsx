@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import FollowAndFollowersLayout from '../../../components/Layout/FollowAndFollowersLayout';
-// import Follows  from '../../../components/FollowsOrFollowers/Follows';
 import Follows from '../../../components/FollowsOrFollowers/Follows';
 
 const following: NextPage = () => {
