@@ -21,14 +21,10 @@ const Post: VFC = () => {
     return <p>フォローしているユーザーの投稿がありません</p>;
   }
 
-  if (postsByUsers?.length === 0) {
-    return <p>投稿がありません</p>;
-  }
-
   return (
     <div className="grid gap-6  md:max-w-xl lg:max-w-2xl">
-      {postsByUsers.map((post) => {
-        return <PostByUserListItem key={post.id} postsByUsers={post} />;
+      {postsByUsers.map((postsByUser) => {
+        return <PostByUserListItem key={postsByUser.id} postsByUsers={postsByUser} />;
       })}
     </div>
   );

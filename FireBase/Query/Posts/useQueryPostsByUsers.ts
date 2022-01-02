@@ -16,7 +16,7 @@ export const useQueryPostsByUsers = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        const aa = async () => {
+        const usePostsByUsers = async () => {
           //フォローしているユーザーの投稿を取得
           const q = query(collection(db, 'users', user.email, 'postsByFollowers'), orderBy('timestamp', 'desc'));
           const postsByFollowerDocs = await getDocs(q);
@@ -38,18 +38,9 @@ export const useQueryPostsByUsers = () => {
                   return [
                     ...prevPostsByUsers,
                     {
-                      id: docPosts.data().id,
-                      genre: docPosts.data().genre,
-                      eventName: docPosts.data().eventName,
-                      eventLocation: docPosts.data().eventLocation,
-                      eventDate: docPosts.data().eventDate,
-                      openTime: docPosts.data().openTime,
-                      closeTime: docPosts.data().closeTime,
-                      image: docPosts.data().image,
-                      writing: docPosts.data().writing,
-                      likeCount: docPosts.data().likeCount,
-                      userId: userDocs.docs[0].data().userId,
+                      ...(docPosts.data() as PostData),
                       name: userDocs.docs[0].data().name,
+                      userId: userDocs.docs[0].data().userId,
                       profilePhoto: userDocs.docs[0].data().profilePhoto,
                       email: userDocs.docs[0].data().email,
                     },
@@ -60,7 +51,7 @@ export const useQueryPostsByUsers = () => {
             });
           }
         };
-        aa();
+        usePostsByUsers();
       } else {
         router.push('/login');
       }
