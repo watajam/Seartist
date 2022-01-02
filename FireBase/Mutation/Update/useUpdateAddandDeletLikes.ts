@@ -1,16 +1,25 @@
 import { collection, doc, getDocs, increment, query, serverTimestamp, where, writeBatch } from 'firebase/firestore';
+import { useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
 export const useUpdateAddandDeletLikes = () => {
-  const updateAddandDeletLikes = async (setLike, user, post) => {
+  const [likeFlag, setLikeFlag] = useState(null);
+
+  const updateAddandDeletLikes = async (postsByUsers) => {
     const batch = writeBatch(db);
-    const postRef = doc(db, 'users', user?.email, 'posts', post?.id);
+    const postRef = doc(db, 'users', postsByUsers?.email, 'posts', postsByUsers?.id);
     const likedUsersRef = doc(postRef, 'likedUsers', auth.currentUser?.email);
 
     const UserRef = doc(db, 'users', auth.currentUser?.email);
-    const likedPostsRef = doc(UserRef, 'likedPosts', post?.id);
+    const likedPostsRef = doc(UserRef, 'likedPosts', postsByUsers?.id);
 
-    const q = query(collection(db, 'users', auth.currentUser?.email, 'likedPosts'), where('id', '==', post?.id));
+    const otherFollowersRef = collection(db, 'users', postsByUsers?.email, 'followers');
+    const userFollowersDocs = await getDocs(otherFollowersRef);
+
+    const q = query(
+      collection(db, 'users', auth.currentUser?.email, 'likedPosts'),
+      where('id', '==', postsByUsers?.id)
+    );
     const likePostsquery = await getDocs(q);
 
     //既にいいねされているか判定
@@ -21,24 +30,34 @@ export const useUpdateAddandDeletLikes = () => {
       });
 
       batch.set(likedPostsRef, {
-        id: post?.id,
+        id: postsByUsers?.id,
         postRef: postRef,
         createTime: serverTimestamp(),
       });
       batch.update(postRef, { likeCount: increment(1) });
       batch.update(UserRef, { likePostCount: increment(1) });
+
+      //フォローワーのユーザーにもlikeCountを追加
+      userFollowersDocs.docs.map((document) => {
+        const otherPostsByFollowersRef = doc(db, 'users', document.data()?.email, 'postsByFollowers', postsByUsers?.id);
+        batch.update(otherPostsByFollowersRef, { likeCount: increment(1) });
+      });
       await batch.commit();
-      setLike(1);
+      setLikeFlag(1);
     } else {
       batch.delete(likedUsersRef);
       batch.delete(likedPostsRef);
       batch.update(postRef, { likeCount: increment(-1) });
       batch.update(UserRef, { likePostCount: increment(-1) });
-
+      //フォローワーのユーザーにもlikeCountを追加
+      userFollowersDocs.docs.map((document) => {
+        const otherPostsByFollowersRef = doc(db, 'users', document.data()?.email, 'postsByFollowers', postsByUsers?.id);
+        batch.update(otherPostsByFollowersRef, { likeCount: increment(-1) });
+      });
       await batch.commit();
-      setLike(0);
+      setLikeFlag(0);
     }
   };
 
-  return { updateAddandDeletLikes };
+  return { likeFlag, updateAddandDeletLikes };
 };
