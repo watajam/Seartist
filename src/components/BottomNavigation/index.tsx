@@ -15,7 +15,11 @@ const BottomNavigation: VFC = () => {
   const router = useRouter();
 
   const handlePreventDefault = (e: React.MouseEvent<HTMLAnchorElement>, url) => {
-    if (router.pathname === url) {
+    if (user?.userId === undefined) {
+      e.preventDefault();
+    } else if (router.pathname === url) {
+      e.preventDefault();
+    } else if (router.query.id === url) {
       e.preventDefault();
     }
   };
@@ -53,7 +57,7 @@ const BottomNavigation: VFC = () => {
 
         <Link href={`/profile/${user?.userId}`}>
           <a
-            onClick={(e) => handlePreventDefault(e, '/profile/[id]')}
+            onClick={(e) => handlePreventDefault(e, user?.userId)}
             className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-2 md:pl-8"
           >
             {router.pathname === '/profile/[id]' ? (
