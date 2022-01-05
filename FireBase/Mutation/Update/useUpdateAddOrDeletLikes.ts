@@ -2,7 +2,7 @@ import { collection, doc, getDocs, increment, query, serverTimestamp, where, wri
 import { useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
-export const useUpdateAddandDeletLikes = () => {
+export const useUpdateAddOrDeletLikes = () => {
   const [likeFlag, setLikeFlag] = useState(null);
 
   const updateAddandDeletLikes = async (postsByUsers) => {
@@ -43,7 +43,7 @@ export const useUpdateAddandDeletLikes = () => {
         batch.update(otherPostsByFollowersRef, { likeCount: increment(1) });
       });
       await batch.commit();
-      setLikeFlag(1);
+      setLikeFlag(true);
     } else {
       batch.delete(likedUsersRef);
       batch.delete(likedPostsRef);
@@ -55,7 +55,7 @@ export const useUpdateAddandDeletLikes = () => {
         batch.update(otherPostsByFollowersRef, { likeCount: increment(-1) });
       });
       await batch.commit();
-      setLikeFlag(0);
+      setLikeFlag(false);
     }
   };
 

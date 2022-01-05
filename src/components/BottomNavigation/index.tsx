@@ -1,4 +1,4 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, useEffect, VFC } from 'react';
 import Link from 'next/link';
 import { HiHome } from 'react-icons/hi';
 import { HiOutlineHome } from 'react-icons/hi';
@@ -15,11 +15,9 @@ const BottomNavigation: VFC = () => {
   const router = useRouter();
 
   const handlePreventDefault = (e: React.MouseEvent<HTMLAnchorElement>, url) => {
-    if (user?.userId === undefined) {
-      e.preventDefault();
-    } else if (router.pathname === url) {
-      e.preventDefault();
-    } else if (router.query.id === url) {
+    if (router.pathname !== url) {
+      return;
+    } else if (user?.userId === undefined || router.pathname === url || router.query.id === url) {
       e.preventDefault();
     }
   };
