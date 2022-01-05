@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { PostData } from '../../../types/PostData';
 import { UserData } from '../../../types/UserData';
 import SkeletonLoading from '../SkeletonLoading';
-import { useUpdateAddandDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddandDeletLikes';
 import { useQueryLikePostsCheck } from '../../../FireBase/Query/Posts/useQueryLikePostsCheck';
+import { useUpdateAddOrDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddOrDeletLikes';
 
 type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
@@ -14,8 +14,8 @@ type Props = {
   postsByUsers: postsByUsers;
 };
 
-const PostByUserListItem: VFC<Props> = (props) => {
-  const { updateAddandDeletLikes, likeFlag } = useUpdateAddandDeletLikes();
+const ListItem: VFC<Props> = (props) => {
+  const { updateAddandDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
 
   const like = useQueryLikePostsCheck(props.postsByUsers?.id);
 
@@ -82,15 +82,15 @@ const PostByUserListItem: VFC<Props> = (props) => {
       <div className="flex justify-end  items-center mt-6 mr-4 mb-2">
         <span
           className={`text-base ${
-            likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === 1 ? 'text-red-600' : null
+            likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
           }`}
           onClick={() => updateAddandDeletLikes(props.postsByUsers)}
         >
           <AiFillHeart className={`inline-block mr-2 align-top  `} />
 
-          {like === 0 && likeFlag === 1
+          {like === 0 && likeFlag === true
             ? props.postsByUsers?.likeCount + 1
-            : like === 1 && likeFlag === 0
+            : like === 1 && likeFlag === false
             ? props.postsByUsers?.likeCount - 1
             : props.postsByUsers?.likeCount}
         </span>
@@ -99,4 +99,4 @@ const PostByUserListItem: VFC<Props> = (props) => {
   );
 };
 
-export default memo(PostByUserListItem);
+export default memo(ListItem);

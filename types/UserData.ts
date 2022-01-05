@@ -15,4 +15,5 @@ export type UserData = {
   postsCount: number;
   followUsersCount: number;
   followerUsersCount: number;
+  followingFlag: boolean;
 };

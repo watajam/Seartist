@@ -2,8 +2,9 @@ import { collection, doc, getDocs, increment, query, where, writeBatch } from 'f
 import { useCallback } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
-export const useUpdateUnfollow = () => {
+export const useUpdateUnfollow = (setFlag?) => {
   const updateUnfollow = useCallback(async (email) => {
+    setFlag(false);
     const batch = writeBatch(db);
     //自分の情報
     const authUserRef = doc(db, 'users', auth.currentUser?.email);

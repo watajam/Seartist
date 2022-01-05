@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useQueryProfilePostsByUser } from '../../../FireBase/Query/Profile/useQueryProfilePostsByUser';
-import PostByUserListItem from '../Post/PostByUserListItem';
+import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const ProfilePost = () => {
@@ -21,7 +21,7 @@ const ProfilePost = () => {
     <>
       <div className="grid gap-6 ">
         {postsByUser?.map((postsByUser) => {
-          return <PostByUserListItem key={postsByUser.id} postsByUsers={postsByUser} />;
+          return <ListItem key={postsByUser.id} postsByUsers={postsByUser} />;
         })}
       </div>
     </>

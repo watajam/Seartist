@@ -1,4 +1,4 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, useState, VFC } from 'react';
 import { HiUserCircle } from 'react-icons/hi';
 import Link from 'next/link';
 import { UserData } from '../../../types/UserData';
@@ -7,13 +7,14 @@ import { useUpdateUnfollow } from '../../../FireBase/Mutation/Update/useUpdateUn
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 
 type Props = {
-  user: Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'> & { followingFlag: boolean };
+  user: Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email' | 'followingFlag'> & { followingFlag: boolean };
   email: string;
 };
 
 const ListItem: VFC<Props> = (props) => {
-  const { updateFollow } = useUpdateFollow();
-  const { updateUnfollow } = useUpdateUnfollow();
+  const [followOrUnFollowFlag, setFollowOrUnFollowFlag] = useState(null);
+  const { updateFollow } = useUpdateFollow(setFollowOrUnFollowFlag);
+  const { updateUnfollow } = useUpdateUnfollow(setFollowOrUnFollowFlag);
   const { userEmail } = useRecoilSetEmail();
 
   return (
@@ -35,15 +36,31 @@ const ListItem: VFC<Props> = (props) => {
       {props.email === userEmail?.email ? (
         <button
           onClick={
-            props.user?.followingFlag === true
-              ? () => updateUnfollow(props.user?.email)
-              : () => updateFollow(props.user?.email)
+            props.user.followingFlag && followOrUnFollowFlag === null
+              ? () => updateUnfollow(props.user.email)
+              : !props.user.followingFlag && followOrUnFollowFlag === null
+              ? () => updateFollow(props.user.email)
+              : followOrUnFollowFlag
+              ? () => updateUnfollow(props.user.email)
+              : () => updateFollow(props.user.email)
           }
           className={`text-white text-base font-bold mr-2  p-2 rounded-full ${
-            props.user?.followingFlag === true ? 'bg-gray-400' : 'bg-orange-300'
+            props.user?.followingFlag && followOrUnFollowFlag === null
+              ? 'bg-gray-400'
+              : !props.user.followingFlag && followOrUnFollowFlag === null
+              ? 'bg-orange-300'
+              : followOrUnFollowFlag
+              ? 'bg-gray-400'
+              : 'bg-orange-300'
           }`}
         >
-          {props.user?.followingFlag === true ? 'フォロー中' : 'フォローする'}
+          {props.user?.followingFlag && followOrUnFollowFlag === null
+            ? 'フォロー中'
+            : !props.user?.followingFlag && followOrUnFollowFlag === null
+            ? 'フォローする'
+            : followOrUnFollowFlag
+            ? 'フォロー中'
+            : 'フォローする'}
         </button>
       ) : null}
     </div>

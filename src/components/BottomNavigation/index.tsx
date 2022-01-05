@@ -15,11 +15,9 @@ const BottomNavigation: VFC = () => {
   const router = useRouter();
 
   const handlePreventDefault = (e: React.MouseEvent<HTMLAnchorElement>, url) => {
-    if (user?.userId === undefined) {
-      e.preventDefault();
-    } else if (router.pathname === url) {
-      e.preventDefault();
-    } else if (router.query.id === url) {
+    if (router.pathname !== url) {
+      return;
+    } else if (user?.userId === undefined || router.pathname === url || router.query.id === url) {
       e.preventDefault();
     }
   };

@@ -10,7 +10,7 @@ type Props = {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
-  const userInfo: UserData[] = [];
+  const userInfo: Omit<UserData, 'followingFlag'>[] = [];
 
   try {
     const userRef = db.collection('users');

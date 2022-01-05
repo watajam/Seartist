@@ -1,6 +1,6 @@
 import React, { memo, VFC } from 'react';
 import { useQueryPostsByUsersExplore } from '../../../FireBase/Query/Posts/useQueryPostsByUsersExplore';
-import PostByUserListItem from '../Post/PostByUserListItem';
+import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const PostsExplore: VFC = () => {
@@ -21,7 +21,7 @@ const PostsExplore: VFC = () => {
   return (
     <div className="grid gap-6  md:max-w-xl lg:max-w-2xl">
       {postsByUsers.map((postsByUser) => {
-        return <PostByUserListItem key={postsByUser.id} postsByUsers={postsByUser} />;
+        return <ListItem key={postsByUser.id} postsByUsers={postsByUser} />;
       })}
     </div>
   );
