@@ -1,4 +1,4 @@
-import React, { memo, useEffect, VFC } from 'react';
+import React, { memo, VFC } from 'react';
 import Link from 'next/link';
 import { HiHome } from 'react-icons/hi';
 import { HiOutlineHome } from 'react-icons/hi';
