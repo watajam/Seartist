@@ -5,16 +5,14 @@ import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeleton
 import { useDeletePost } from '../../../FireBase/Mutation/Delete/useDeletePost';
 import { AiFillHeart } from 'react-icons/ai';
 import { useQueryLikePostDetailCheck } from '../../../FireBase/Query/Posts/useQueryLikePostDetailCheck';
-import { useUpdateAddandDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddandDeletLikes';
 import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQueryPostByUserDetail';
+import { useUpdateAddOrDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddOrDeletLikes';
 
 const PostDetail: VFC = () => {
   const { userEmail } = useRecoilSetEmail();
-
   const { deletePost } = useDeletePost();
-
   const { postByUser, postByUserLoading } = useQueryPostByUserDetail();
-  const { updateAddandDeletLikes, likeFlag } = useUpdateAddandDeletLikes();
+  const { updateAddandDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
 
   const like = useQueryLikePostDetailCheck(postByUser?.id);
 
@@ -42,14 +40,14 @@ const PostDetail: VFC = () => {
         <div className="ml-auto ">
           <span
             className={`text-base ${
-              likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === 1 ? 'text-red-600' : null
+              likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
             }`}
             onClick={() => updateAddandDeletLikes(postByUser)}
           >
             <AiFillHeart className={`inline-block mr-2 align-top  `} />
-            {like === 0 && likeFlag === 1
+            {like === 0 && likeFlag === true
               ? postByUser?.likeCount + 1
-              : like === 1 && likeFlag === 0
+              : like === 1 && likeFlag === false
               ? postByUser?.likeCount - 1
               : postByUser?.likeCount}
           </span>
