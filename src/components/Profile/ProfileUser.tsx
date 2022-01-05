@@ -14,15 +14,17 @@ import { useUpdateFollow } from '../../../FireBase/Mutation/Update/useUpdateFoll
 import { useUpdateUnfollow } from '../../../FireBase/Mutation/Update/useUpdateUnfollow';
 import { useQueryFollowingCheck } from '../../../FireBase/Query/FollowsAndFollowers/useQueryFollowingCheck';
 import { useRouter } from 'next/router';
+import { useQueryRealTmeCount } from '../../../FireBase/Query/FollowsAndFollowers/useQueryRealTmeCount';
 
 type Props = {
   user: UserData;
 };
 const ProfileUser: VFC<Props> = (props) => {
-  const { userEmail } = useRecoilSetEmail();
   const { updateFollow } = useUpdateFollow();
   const { updateUnfollow } = useUpdateUnfollow();
   const userFollowingInfo = useQueryFollowingCheck(props.user?.email);
+  const { userEmail } = useRecoilSetEmail();
+  const followAndFollower = useQueryRealTmeCount(props.user?.email);
   const router = useRouter();
 
   return (
@@ -38,32 +40,34 @@ const ProfileUser: VFC<Props> = (props) => {
           <img src="/profile.png" alt="プロフィール画像" className="object-cover h-24 w-24  rounded-full   " />
         )}
 
-        {props.user?.postsCount && (
-          <Link href="#">
-            <a className="flex flex-col items-center font-bold">
-              <span>{props.user?.postsCount}</span>
-              <span>投稿</span>
-            </a>
-          </Link>
-        )}
-
-        {props.user?.followerUsersCount && (
-          <Link href={`/profile/${props.user?.userId}/followers`}>
-            <a className="flex flex-col items-center font-bold">
-              <span>{props.user?.followerUsersCount}</span>
-              <span>フォロワー</span>
-            </a>
-          </Link>
-        )}
-
-        {props.user?.followUsersCount && (
-          <Link href={`/profile/${props.user?.userId}/following`}>
-            <a className="flex flex-col items-center font-bold">
-              {props.user?.followUsersCount}
-              <span>フォロー中</span>
-            </a>
-          </Link>
-        )}
+        <Link href="#">
+          <a className="flex flex-col items-center font-bold">
+            <span>{props.user?.postsCount === undefined ? 0 : props.user?.postsCount}</span>
+            <span>投稿</span>
+          </a>
+        </Link>
+        <Link href={`/profile/${props.user?.userId}/followers`}>
+          <a className="flex flex-col items-center font-bold">
+            <span>
+              {props.user?.followerUsersCount === undefined
+                ? 0
+                : followAndFollower?.followerUsersCount === undefined
+                ? props.user?.followerUsersCount
+                : followAndFollower?.followerUsersCount}
+            </span>
+            <span>フォロワー</span>
+          </a>
+        </Link>
+        <Link href={`/profile/${props.user?.userId}/following`}>
+          <a className="flex flex-col items-center font-bold">
+            {props.user?.followerUsersCount === undefined
+              ? 0
+              : followAndFollower?.followUsersCount === undefined
+              ? props.user?.followUsersCount
+              : followAndFollower?.followUsersCount}
+            <span>フォロー中</span>
+          </a>
+        </Link>
       </div>
       {props.user?.name ? <h1 className="text-2xl font-bold mt-2">{props.user?.name}</h1> : null}
       <span className="text-gray-400">{`@ ${router?.query?.id}`}</span>

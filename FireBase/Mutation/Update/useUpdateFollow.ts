@@ -4,7 +4,7 @@ import { auth, db } from '../../../lib/firebase';
 
 export const useUpdateFollow = (setFlag?) => {
   const updateFollow = useCallback(async (email) => {
-    setFlag(true);
+    setFlag && setFlag(true);
     const batch = writeBatch(db);
     //自分の情報
     const authUserRef = doc(db, 'users', auth.currentUser?.email);
