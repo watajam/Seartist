@@ -1,6 +1,6 @@
 import React, { VFC } from 'react';
 
-const FollowAndFollowersSkeletonLoadingItem: VFC = () => {
+const FollowAndFollowerSkeletonLoadingItem: VFC = () => {
   return (
     <div className="animate-pulse border-b-2 flex items-center justify-between h-12">
       <div className="flex items-center">
@@ -17,4 +17,4 @@ const FollowAndFollowersSkeletonLoadingItem: VFC = () => {
   );
 };
 
-export default FollowAndFollowersSkeletonLoadingItem;
+export default FollowAndFollowerSkeletonLoadingItem;
