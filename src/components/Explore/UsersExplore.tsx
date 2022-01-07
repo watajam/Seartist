@@ -63,7 +63,7 @@ export const UserExplore = connectSearchBox(({ refine, currentRefinement }) => {
 
   if (!isShow) return null;
   return (
-    <div className="rounded-2xl shadow pt-1 pb-5 px-5">
+    <div className="rounded-b-2xl shadow pt-1 pb-5 px-5">
       <p className="mt-5 text-base font-semibold tracking-wider text-gray-500 mb-2">ユーザー一覧</p>
       <Hits hitComponent={hitComponent} />
       <Pagination />

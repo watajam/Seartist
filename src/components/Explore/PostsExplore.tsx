@@ -1,27 +1,23 @@
 import React, { memo, VFC } from 'react';
 import { useQueryPostsByUsersExplore } from '../../../FireBase/Query/Posts/useQueryPostsByUsersExplore';
-import ListItem from '../Post/ListItem';
+import PostListItem from '../Post/PostListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const PostsExplore: VFC = () => {
-  const { postsByUsers, postsByUsersLoading } = useQueryPostsByUsersExplore();
+  const { postsByUsers, postsByUsersLoading, error } = useQueryPostsByUsersExplore();
 
-  if (postsByUsers?.length === 0 || postsByUsersLoading) {
+  if (postsByUsersLoading) {
     return <SkeletonLoading />;
   }
 
-  if (postsByUsers === undefined) {
-    return <p>エラー</p>;
-  }
-
-  if (postsByUsers === null) {
-    return <p>投稿が見つかりませんでした</p>;
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
     <div className="grid gap-6  md:max-w-xl lg:max-w-2xl">
       {postsByUsers.map((postsByUser) => {
-        return <ListItem key={postsByUser.id} postsByUsers={postsByUser} />;
+        return <PostListItem key={postsByUser.id} postsByUsers={postsByUser} />;
       })}
     </div>
   );
