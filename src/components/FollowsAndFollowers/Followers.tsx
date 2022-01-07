@@ -4,18 +4,14 @@ import FollowsAndFollowersSkeletonLoading from '../SkeletonLoading/FollowsAndFol
 import { useQueryFollowers } from '../../../FireBase/Query/FollowsAndFollowers/useQueryFollowers';
 
 const Followers: VFC = () => {
-  const { followers, followersLoading, authEmail } = useQueryFollowers();
+  const { followers, followersLoading, error, authEmail } = useQueryFollowers();
 
-  if (followers?.length === 0 || followersLoading) {
+  if (followersLoading) {
     return <FollowsAndFollowersSkeletonLoading />;
   }
 
-  if (followers === undefined) {
-    return <p>エラー</p>;
-  }
-
-  if (followers === null) {
-    return <p>フォロワーがいません</p>;
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (

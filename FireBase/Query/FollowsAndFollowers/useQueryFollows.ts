@@ -9,6 +9,7 @@ export const useQueryFollows = () => {
     Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email' | 'followingFlag'>[]
   >([]);
   const [followsLoading, setFollowsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const router = useRouter();
   const [authEmail, setAuthEmail] = useState('');
 
@@ -19,6 +20,7 @@ export const useQueryFollows = () => {
       const userInfoDocs = await getDocs(queryUserInfo);
       if (userInfoDocs.empty) {
         setFollowsLoading(false);
+        setError('ユーザーが存在しません');
         return;
       } else {
         const followsRef = query(
@@ -29,8 +31,8 @@ export const useQueryFollows = () => {
         //フォロワーユーザーの情報を取得
         const followsDocs = await getDocs(followsRef);
         if (followsDocs.empty) {
-          setFollows(null);
           setFollowsLoading(false);
+          setError('フォローしているユーザーがいません');
           return;
         } else {
           followsDocs.docs.map(async (follower) => {
@@ -38,8 +40,8 @@ export const useQueryFollows = () => {
             const queryUserInfo = query(userRef, where('email', '==', `${follower.data()?.email}`));
             const querySnapUserInfo = await getDocs(queryUserInfo);
             if (querySnapUserInfo.empty) {
-              setFollows(null);
               setFollowsLoading(false);
+              setError('ユーザーが存在しません');
               return;
             } else {
               setFollows((prev) => {
@@ -55,6 +57,7 @@ export const useQueryFollows = () => {
                 ];
               });
               setFollowsLoading(false);
+              setError(null);
             }
           });
         }
@@ -63,5 +66,5 @@ export const useQueryFollows = () => {
     follow();
   }, [router.query.id]);
 
-  return { follows, followsLoading, authEmail };
+  return { follows, followsLoading, error, authEmail };
 };

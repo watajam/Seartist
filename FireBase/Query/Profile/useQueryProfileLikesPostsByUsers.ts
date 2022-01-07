@@ -9,9 +9,9 @@ type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' |
 
 //ユーザープロフィール情報を取得する
 export const useQueryProfileLikesPostsByUsers = () => {
-  const [postsByUser, setPostsByUser] = useState<postsByUsers[]>([]);
+  const [postsByUsers, setPostsByUsers] = useState<postsByUsers[]>([]);
   const [postsByUsersLoading, setPostsByUsersLoading] = useState(true);
-
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   //プロフィールに表示されているユーザーがイイネした投稿を取得
@@ -28,11 +28,11 @@ export const useQueryProfileLikesPostsByUsers = () => {
         const likedPostsDocs = await getDocs(queryLikePosts);
         if (likedPostsDocs.empty) {
           setPostsByUsersLoading(false);
-          setPostsByUser(null);
+          setError('いいねした投稿がありません');
           return;
         } else {
+          setPostsByUsers([]);
           likedPostsDocs.docs.map(async (docLikedPosts) => {
-            setPostsByUser([]);
             const queryPosts = query(
               collection(db, 'users'),
               where(`postsIds`, 'array-contains', docLikedPosts.data().id)
@@ -42,9 +42,9 @@ export const useQueryProfileLikesPostsByUsers = () => {
 
             if (usersDocs.empty && postsDoc.data.length === 0) {
               setPostsByUsersLoading(false);
-              setPostsByUser(null);
+              setError('いいねした投稿がみつかりませんでした');
             } else {
-              setPostsByUser((prevPostsByUsers) => {
+              setPostsByUsers((prevPostsByUsers) => {
                 return [
                   ...prevPostsByUsers,
                   {
@@ -56,14 +56,15 @@ export const useQueryProfileLikesPostsByUsers = () => {
                   },
                 ];
               });
+              setPostsByUsersLoading(false);
+              setError(null);
             }
           });
-          setPostsByUsersLoading(false);
         }
       }
     };
     userLikedPosts();
-  }, [router]);
+  }, [router.query.id]);
 
-  return { postsByUser, postsByUsersLoading };
+  return { postsByUsers, postsByUsersLoading, error };
 };

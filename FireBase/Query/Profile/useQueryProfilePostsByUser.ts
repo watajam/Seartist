@@ -11,6 +11,7 @@ type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' |
 export const useQueryProfilePostsByUser = () => {
   const [postsByUser, setPostsByUser] = useState<postsByUsers[]>([]);
   const [postsByUserLoading, setPostsByUserLoading] = useState(true);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const useQueryProfilePostsByUser = () => {
 
           if (userDocs.empty) {
             setPostsByUserLoading(false);
-            setPostsByUser(null);
+            setError('ユーザーが存在しません');
           } else {
             const userData = userDocs.docs[0]?.data() as UserData;
 
@@ -32,7 +33,7 @@ export const useQueryProfilePostsByUser = () => {
             const postsDoc = await getDocs(q);
             if (postsDoc.empty) {
               setPostsByUserLoading(false);
-              setPostsByUser(null);
+              setError('投稿がありません');
             } else {
               setPostsByUser(
                 postsDoc.docs.map((docPosts) => {
@@ -46,6 +47,7 @@ export const useQueryProfilePostsByUser = () => {
                 })
               );
               setPostsByUserLoading(false);
+              setError(null);
             }
           }
         };
@@ -54,7 +56,7 @@ export const useQueryProfilePostsByUser = () => {
         router.push('/login');
       }
     });
-  }, [router]);
+  }, [router.query.id]);
 
-  return { postsByUser, postsByUserLoading };
+  return { postsByUser, postsByUserLoading, error };
 };

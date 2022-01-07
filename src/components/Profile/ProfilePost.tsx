@@ -4,17 +4,17 @@ import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const ProfilePost = () => {
-  const { postsByUser, postsByUserLoading } = useQueryProfilePostsByUser();
+  const { postsByUser, postsByUserLoading, error } = useQueryProfilePostsByUser();
 
-  if (postsByUser?.length === 0 || postsByUserLoading) {
+  if (postsByUserLoading) {
     return <SkeletonLoading />;
   }
 
-  if (postsByUser === undefined) {
-    return <p>エラー</p>;
+  if (error) {
+    return <p>{error}</p>;
   }
 
-  if (postsByUser === null) {
+  if (postsByUser?.length === 0) {
     return <p>投稿がありません</p>;
   }
   return (
