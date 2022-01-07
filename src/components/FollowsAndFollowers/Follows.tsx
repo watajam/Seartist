@@ -4,18 +4,14 @@ import FollowsAndFollowersSkeletonLoading from '../SkeletonLoading/FollowsAndFol
 import ListItem from './ListItem';
 
 const Follows: VFC = () => {
-  const { follows, followsLoading, authEmail } = useQueryFollows();
+  const { follows, followsLoading, error, authEmail } = useQueryFollows();
 
-  if (follows?.length === 0 || followsLoading) {
+  if (followsLoading) {
     return <FollowsAndFollowersSkeletonLoading />;
   }
 
-  if (follows === undefined) {
-    return <p>エラー</p>;
-  }
-
-  if (follows === null) {
-    return <p>フォローしているユーザーいません</p>;
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (

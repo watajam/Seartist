@@ -4,25 +4,21 @@ import ListItem from '../Post/ListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
 const ProfileLikePost = () => {
-  const { postsByUser, postsByUsersLoading } = useQueryProfileLikesPostsByUsers();
+  const { postsByUsers, postsByUsersLoading, error } = useQueryProfileLikesPostsByUsers();
 
-  if (postsByUser?.length === 0 || postsByUsersLoading) {
+  if (postsByUsersLoading) {
     return <SkeletonLoading />;
   }
 
-  if (postsByUser === undefined) {
-    return <p>エラー</p>;
-  }
-
-  if (postsByUser === null) {
-    return <p>いいねしている投稿がありません</p>;
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
     <>
       <div className="grid gap-6 ">
-        {postsByUser?.map((postsByUser) => {
-          return <ListItem key={postsByUser.id} postsByUsers={postsByUser} />;
+        {postsByUsers?.map((postByUser) => {
+          return <ListItem key={postByUser.id} postsByUsers={postByUser} />;
         })}
       </div>
     </>
