@@ -1,7 +1,7 @@
 import React, { memo, VFC } from 'react';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
 import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQueryPostByUserDetail';
-import PostDetailItem from './PostDetailItem';
+import PostDetailListItem from './PostDetailListItem';
 
 const PostDetail: VFC = () => {
   const { postByUser, postByUserLoading, error } = useQueryPostByUserDetail();
@@ -15,7 +15,7 @@ const PostDetail: VFC = () => {
   }
 
   return (
-    <PostDetailItem  postByUser={postByUser} />
+    <PostDetailListItem  postByUser={postByUser} />
   
   );
 };

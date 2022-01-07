@@ -15,7 +15,7 @@ type Props = {
   postByUser: postsByUsers;
 };
 
-const PostDetailItem: VFC<Props> = (props) => {
+const PostDetailListItem: VFC<Props> = (props) => {
   const { updateAddandDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
   const { like, likePostDetailLoading } = useQueryLikePostDetailCheck(props.postByUser?.id);
   const { deletePost } = useDeletePost();
@@ -110,4 +110,4 @@ const PostDetailItem: VFC<Props> = (props) => {
   );
 };
 
-export default memo(PostDetailItem);
+export default memo(PostDetailListItem);
