@@ -11,6 +11,7 @@ type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' |
 export const useQueryPostsByUsers = () => {
   const [postsByUsers, setPostsByUsers] = useState<postsByUsers[]>([]);
   const [postsByUsersLoading, setPostsByUsersLoading] = useState(true);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export const useQueryPostsByUsers = () => {
           const postsByFollowerDocs = await getDocs(q);
           if (postsByFollowerDocs.empty) {
             setPostsByUsersLoading(false);
-            setPostsByUsers(null);
+            setError('フォローしているユーザーの投稿がありません');
           } else {
             postsByFollowerDocs.docs.map(async (docPosts) => {
               const queryPosts = query(
@@ -32,7 +33,7 @@ export const useQueryPostsByUsers = () => {
               const userDocs = await getDocs(queryPosts);
               if (userDocs.empty) {
                 setPostsByUsersLoading(false);
-                setPostsByUsers(null);
+                setError('フォローしているユーザーの投稿がみつかりません');
               } else {
                 setPostsByUsers((prevPostsByUsers) => {
                   return [
@@ -47,6 +48,7 @@ export const useQueryPostsByUsers = () => {
                   ];
                 });
                 setPostsByUsersLoading(false);
+                setError(null);
               }
             });
           }
@@ -57,5 +59,5 @@ export const useQueryPostsByUsers = () => {
       }
     });
   }, []);
-  return { postsByUsers, postsByUsersLoading };
+  return { postsByUsers, postsByUsersLoading, error };
 };

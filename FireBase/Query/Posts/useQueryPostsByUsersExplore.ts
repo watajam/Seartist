@@ -11,6 +11,7 @@ type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' |
 export const useQueryPostsByUsersExplore = () => {
   const [postsByUsers, setPostsByUsers] = useState<postsByUsers[]>([]);
   const [postsByUsersLoading, setPostsByUsersLoading] = useState(true);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export const useQueryPostsByUsersExplore = () => {
       const postsDocs = await getDocs(q);
       if (postsDocs.empty) {
         setPostsByUsersLoading(false);
-        setPostsByUsers(null);
+        setError('投稿が見つかりませんでした');
         return;
       } else {
         postsDocs.docs.map(async (docPosts) => {
@@ -48,7 +49,7 @@ export const useQueryPostsByUsersExplore = () => {
           const userDocs = await getDocs(queryPosts);
           if (userDocs.empty) {
             setPostsByUsersLoading(false);
-            setPostsByUsers(null);
+            setError('投稿が見つかりませんでした');
             return;
           } else {
             setPostsByUsers((prevPostsByUsers) => {
@@ -64,6 +65,7 @@ export const useQueryPostsByUsersExplore = () => {
               ];
             });
             setPostsByUsersLoading(false);
+            setError(null);
           }
         });
       }
@@ -72,5 +74,5 @@ export const useQueryPostsByUsersExplore = () => {
     exploreCondition();
   }, [router.query]);
 
-  return { postsByUsers, postsByUsersLoading };
+  return { postsByUsers, postsByUsersLoading, error };
 };

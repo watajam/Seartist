@@ -6,12 +6,13 @@ import { auth, db } from '../../../lib/firebase';
 import { PostDetailData } from '../../../types/PostDetailData';
 import { UserData } from '../../../types/UserData';
 
-type postsByUsers = PostDetailData & Pick<UserData, 'name' | 'profilePhoto'>;
+type postsByUsers = PostDetailData & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
 
 //ユーザーの投稿詳細を取得する
 export const useQueryPostByUserDetail = () => {
   const [postByUser, setPostByUser] = useState<postsByUsers>(null);
   const [postByUserLoading, setPostByUserLoading] = useState(true);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -23,7 +24,7 @@ export const useQueryPostByUserDetail = () => {
           const postDocs = await getDocs(q);
           if (postDocs.empty) {
             setPostByUserLoading(false);
-            setPostByUser(null);
+            setError('投稿がみつかりません');
           } else {
             const postData = postDocs.docs[0].data() as PostDetailData;
 
@@ -31,15 +32,17 @@ export const useQueryPostByUserDetail = () => {
             const userDoc = await getDocs(q);
             if (userDoc.empty) {
               setPostByUserLoading(false);
-              setPostByUser(null);
+              setError('ユーザーが存在しません');
             } else {
-              const userData = userDoc.docs[0].data() as Pick<UserData, 'name' | 'profilePhoto'>;
+              const userData = userDoc.docs[0].data() as Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
               setPostByUser({
                 ...postData,
                 name: userData.name,
                 profilePhoto: userData.profilePhoto,
+                email: userData.email,
               });
               setPostByUserLoading(false);
+              setError(null);
             }
           }
         }
@@ -49,5 +52,5 @@ export const useQueryPostByUserDetail = () => {
     });
   }, [router]);
 
-  return { postByUser, postByUserLoading };
+  return { postByUser, postByUserLoading, error };
 };

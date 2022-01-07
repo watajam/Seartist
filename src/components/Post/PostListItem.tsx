@@ -14,12 +14,11 @@ type Props = {
   postsByUsers: postsByUsers;
 };
 
-const ListItem: VFC<Props> = (props) => {
+const PostListItem: VFC<Props> = (props) => {
   const { updateAddandDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
+  const { like, likePostDetailLoading } = useQueryLikePostsCheck(props.postsByUsers?.id);
 
-  const like = useQueryLikePostsCheck(props.postsByUsers?.id);
-
-  if (like === null) {
+  if (likePostDetailLoading) {
     return <SkeletonLoading />;
   }
 
@@ -99,4 +98,4 @@ const ListItem: VFC<Props> = (props) => {
   );
 };
 
-export default memo(ListItem);
+export default memo(PostListItem);

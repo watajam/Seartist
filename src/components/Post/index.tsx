@@ -1,30 +1,25 @@
 import React, { memo, VFC } from 'react';
 import { useQueryUserEmailCheck } from '../../../FireBase/Query/User/useQueryUserEmailCheck';
-
 import SkeletonLoading from '../SkeletonLoading';
-import ListItem from './ListItem';
 import { useQueryPostsByUsers } from '../../../FireBase/Query/Posts/useQueryPostsByUsers';
+import PostListItem from './PostListItem';
 
 const Post: VFC = () => {
-  const { postsByUsers, postsByUsersLoading } = useQueryPostsByUsers();
+  const { postsByUsers, postsByUsersLoading, error } = useQueryPostsByUsers();
   useQueryUserEmailCheck();
 
-  if (postsByUsers?.length === 0 || postsByUsersLoading) {
+  if (postsByUsersLoading) {
     return <SkeletonLoading />;
   }
 
-  if (postsByUsers === undefined) {
-    return <p>エラー</p>;
-  }
-
-  if (postsByUsers === null) {
-    return <p>フォローしているユーザーの投稿がありません</p>;
+  if (error) {
+    return <p>{error}</p>;
   }
 
   return (
     <div className="grid gap-6  md:max-w-xl lg:max-w-2xl">
-      {postsByUsers.map((postsByUser) => {
-        return <ListItem key={postsByUser.id} postsByUsers={postsByUser} />;
+      {postsByUsers.map((postByUser) => {
+        return <PostListItem key={postByUser.id} postsByUsers={postByUser} />;
       })}
     </div>
   );
