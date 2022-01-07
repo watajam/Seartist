@@ -11,11 +11,13 @@ export const useQueryUserEditInfo = (setValue) => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth,async (userAuth) => {
+    onAuthStateChanged(auth, async (userAuth) => {
       if (userAuth) {
         const userRef = doc(db, 'users', userAuth.email);
         const docSnap = await getDoc(userRef);
-        if (docSnap.data()) {
+        if (!docSnap.data()) {
+          alert('ユーザー情報が取得できませんでした。');
+        } else {
           const userData = docSnap?.data() as UserData;
 
           setUser({ ...userData });
@@ -30,8 +32,6 @@ export const useQueryUserEditInfo = (setValue) => {
           setValue('instagramUrl', userData.instagramUrl);
           setValue('homepageUrl', userData.homepageUrl);
           setValue('otherUrl', userData.otherUrl);
-        } else {
-          console.log('No such document!');
         }
       } else {
         router.push('/login');
