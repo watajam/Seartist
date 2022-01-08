@@ -47,7 +47,7 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
           {...register('userId', {
             required: '必須項目です。',
             pattern: {
-              value: /[0-9a-zA-Z_]{1,15}/,
+              value: /^[a-zA-Z0-9_\-.]{3,15}$/,
               message: '正しい形式で入力してください',
             },
             minLength: {
