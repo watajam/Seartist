@@ -21,7 +21,13 @@ const ProfileEditing: VFC = () => {
             <input {...getInputProps()} />
 
             <img
-              src={user?.profilePhoto === '' || user?.profilePhoto === undefined ? src : src === '/profile.png' ? user?.profilePhoto : src}
+              src={
+                user?.profilePhoto === '' || user?.profilePhoto === undefined
+                  ? src
+                  : src === '/profile.png'
+                  ? user?.profilePhoto
+                  : src
+              }
               className="object-cover h-24 w-24  rounded-full  m-auto  "
             />
           </div>
@@ -59,7 +65,7 @@ const ProfileEditing: VFC = () => {
             {...register('userId', {
               required: '必須項目です。',
               pattern: {
-                value: /[0-9a-zA-Z_]{1,15}/,
+                value: /^[a-zA-Z0-9_\-.]{3,15}$/,
                 message: '正しい形式で入力してください',
               },
               minLength: {
