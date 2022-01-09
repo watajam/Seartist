@@ -8,6 +8,7 @@ type Props = {
   userInfo: UserData[];
 };
 
+//ユーザの情報を取得する
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
   const userInfo: Omit<UserData, 'followingFlag'>[] = [];
@@ -52,6 +53,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
+//プロフィールページ
 const ProfilePage: NextPage<Props> = (props) => {
   const { userInfo } = props;
 

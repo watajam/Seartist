@@ -3,6 +3,7 @@ import FormButton from '../../components/Form/FormButton';
 import HeaderLayout from '../../components/Layout/HeaderLayout';
 import { NextPage } from 'next';
 
+//プロフィール登録ページ
 const Creator: NextPage = () => {
   return (
     <HeaderLayout>
