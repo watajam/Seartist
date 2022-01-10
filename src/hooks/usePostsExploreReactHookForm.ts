@@ -2,6 +2,7 @@ import { useRouter } from 'next/dist/client/router';
 import { useForm } from 'react-hook-form';
 import { PostDetailData } from '../../types/PostDetailData';
 
+//投稿を検索するformをReact Hook Formで作成
 export const usePostsExploreReactHookForm = () => {
   const router = useRouter();
 

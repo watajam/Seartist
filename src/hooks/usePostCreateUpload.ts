@@ -13,6 +13,7 @@ export type firebaseOnLoadProp = {
   state: 'error' | 'paused' | 'running' | 'success';
 };
 
+//ログインしているユーザーの情報を登録するformをReact Hook Formで作成し写真はDropzoneで作成
 export const usePostCreateUpload = () => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [src, setSrc] = useState('');

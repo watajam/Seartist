@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useUpdateUserUrlInfo } from '../../FireBase/Mutation/Update/useUpdateUserUrlInfo';
 import { UserData } from '../../types/UserData';
 
+//各URLを登録するformをReact Hook Formで作成
 export const useUrlReactHookForm = (url: string) => {
   const { updateUserUrlInfo } = useUpdateUserUrlInfo();
 

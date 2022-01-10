@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { auth } from '../../lib/firebase';
 import { userEmailState } from '../../store/userEmailState';
 
+//ログインしている人のメールアドレスをグローバルステートに持たせる
 export const useRecoilSetEmail = () => {
   const [userEmail, setUserEmail] = useRecoilState(userEmailState);
   const router = useRouter();

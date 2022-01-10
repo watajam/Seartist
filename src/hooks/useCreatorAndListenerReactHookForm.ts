@@ -4,6 +4,7 @@ import { auth } from '../../lib/firebase';
 import { useUpdateUserInfo } from '../../FireBase/Mutation/Update/useUpdateUserInfo';
 import { UserData } from '../../types/UserData';
 
+//各ユーザー情報を登録するformをReact Hook Formで作成
 export const useCreatorAndListenerReactHookForm = (url: string) => {
   const { updateUserInfo } = useUpdateUserInfo();
 
