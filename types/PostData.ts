@@ -1,3 +1,4 @@
+//投稿データの型
 export type PostData = {
   genre: string;
   eventName: string;
