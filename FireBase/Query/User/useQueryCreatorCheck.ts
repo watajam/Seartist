@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
-//リスナーが投稿ページに遷移した際に、投稿できないようにする
+//リスナーアカウントが投稿作成ページに遷移した際に投稿できないようにする
 export const useQueryCreatorCheck = () => {
   const router = useRouter();
 

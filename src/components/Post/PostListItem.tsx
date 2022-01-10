@@ -15,7 +15,7 @@ type Props = {
 };
 
 const PostListItem: VFC<Props> = (props) => {
-  const { updateAddandDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
+  const { updateAddOrDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
   const { like, likePostDetailLoading } = useQueryLikePostsCheck(props.postsByUsers?.id);
 
   if (likePostDetailLoading) {
@@ -83,7 +83,7 @@ const PostListItem: VFC<Props> = (props) => {
           className={`text-base ${
             likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
           }`}
-          onClick={() => updateAddandDeletLikes(props.postsByUsers)}
+          onClick={() => updateAddOrDeletLikes(props.postsByUsers)}
         >
           <AiFillHeart className={`inline-block mr-2 align-top  `} />
 

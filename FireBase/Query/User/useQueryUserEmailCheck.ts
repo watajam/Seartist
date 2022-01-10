@@ -4,12 +4,12 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
-//ログインしているユーザーのメールアドレスが存在するかどうかを確認する
+//ログインしているユーザーの情報にメールアドレスの項目が存在するか確認
 export const useQueryUserEmailCheck = () => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth,async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);

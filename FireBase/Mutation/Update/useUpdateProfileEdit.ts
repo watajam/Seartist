@@ -2,15 +2,21 @@ import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/fire
 import { useRouter } from 'next/router';
 import { auth, db } from '../../../lib/firebase';
 
+//プロフィール編集機能
 export const useUpdateProfileEdit = () => {
   const router = useRouter();
 
+  //投稿する再に写真が追加している場合の処理
   const updateProfileImageEdit = async (url, data, setError) => {
+  //ログインしているユーザーの情報を取得
     const q = query(collection(db, 'users'), where('userId', '==', data.userId));
-    const currentUser = await getDocs(q);
-    if (currentUser.docs.length === 1) {
-      currentUser.docs.forEach(async (doc1) => {
-        if (doc1.data().email !== auth.currentUser?.email) {
+    const userInfoDocs = await getDocs(q);
+
+    //ユーザーidを変更した再に重複がないか判定
+    if (userInfoDocs.docs.length === 1) {
+      userInfoDocs.docs.forEach(async (userInfoDoc) => {
+        //ユーザーidを変更した再に重複があり、ログインしているユーザーのメールアドレスと違う場合はエラーを返す
+        if (userInfoDoc.data().email !== auth.currentUser?.email) {
           setError('userId', {
             type: 'validate',
             message: 'このユーザーIDは既に使用されています',
@@ -50,12 +56,14 @@ export const useUpdateProfileEdit = () => {
     }
   };
 
+  //プロフィール写真が追加されなかった場合の処理
   const updateProfileEdit = async (data, setError) => {
     const q = query(collection(db, 'users'), where('userId', '==', data.userId));
-    const currentUser = await getDocs(q);
-    if (currentUser.docs.length === 1) {
-      currentUser.docs.forEach(async (doc1) => {
-        if (doc1.data().email !== auth.currentUser?.email) {
+    const userInfoDocs = await getDocs(q);
+
+    if (userInfoDocs.docs.length === 1) {
+      userInfoDocs.docs.forEach(async (userInfoDoc) => {
+        if (userInfoDoc.data().email !== auth.currentUser?.email) {
           setError('userId', {
             type: 'validate',
             message: 'このユーザーIDは既に使用されています',

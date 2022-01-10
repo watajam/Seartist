@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
 import { UserData } from '../../../types/UserData';
 
-//ログインしているユーザーにジャンルが存在するか確認する
+//ログインしているユーザーの情報にジャンルの項目が存在するか確認
 export const useQueryUserGenreCheckPassUserId = () => {
   const [user, setUser] = useState<Pick<UserData, 'userId' | 'genre'>>(null);
   const router = useRouter();
@@ -17,7 +17,7 @@ export const useQueryUserGenreCheckPassUserId = () => {
         const docSnap = await getDoc(userRef);
         if (!docSnap.data()) {
           alert('ユーザー情報が取得できませんでした。');
-        } else {          
+        } else {
           const userData = docSnap?.data() as Pick<UserData, 'userId' | 'genre'>;
           setUser({ ...userData });
         }

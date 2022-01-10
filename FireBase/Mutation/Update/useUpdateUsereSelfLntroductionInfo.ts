@@ -2,6 +2,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { auth, db } from '../../../lib/firebase';
 
+//ユーザー情報にプロフィール写真と紹介文を登録
 export const useUpdateUsereSelfLntroductionInfo = () => {
   const router = useRouter();
 

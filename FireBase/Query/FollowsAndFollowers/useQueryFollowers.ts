@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../../../lib/firebase';
 import { UserData } from '../../../types/UserData';
 
+//フォロワー欄にフォロワーユーザーのリストを表示する
 export const useQueryFollowers = () => {
   const [followers, setFollowers] = useState<
     Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email' | 'followingFlag'>[]

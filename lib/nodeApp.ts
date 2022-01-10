@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin';
 
+//サーバーサイドで使用するFirebaseの設定
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert({

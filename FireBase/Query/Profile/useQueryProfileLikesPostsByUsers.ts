@@ -7,14 +7,13 @@ import { PostData } from '../../../types/PostData';
 
 type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
-//ユーザープロフィール情報を取得する
+//proflieページにログインしているユーザーがいいねした投稿データを表示
 export const useQueryProfileLikesPostsByUsers = () => {
   const [postsByUsers, setPostsByUsers] = useState<postsByUsers[]>([]);
   const [postsByUsersLoading, setPostsByUsersLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  //プロフィールに表示されているユーザーがイイネした投稿を取得
   useEffect(() => {
     const userLikedPosts = async () => {
       if (router.query.id !== undefined) {

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
-//ログインしているユーザーのデータが存在するかどうかを確認する
+//ログインしているユーザーの情報が存在するか確認
 export const useQueryUserDataCheck = () => {
   const router = useRouter();
 

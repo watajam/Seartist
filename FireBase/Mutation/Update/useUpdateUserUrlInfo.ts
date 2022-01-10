@@ -2,6 +2,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { auth, db } from '../../../lib/firebase';
 
+//ユーザー情報に各URLを登録
 export const useUpdateUserUrlInfo = () => {
   const router = useRouter();
 

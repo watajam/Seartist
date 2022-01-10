@@ -1,3 +1,4 @@
+//投稿詳細の型
 export type PostDetailData = {
   genre: string;
   location: string;
@@ -7,12 +8,12 @@ export type PostDetailData = {
   openTime: string;
   closeTime: string;
   likeCount: number;
-  id?: string;
-  image?: string;
-  writing?: string;
-  minAmount?: string;
-  maxAmount?: string;
-  tickets?: string;
-  coupon?: string;
-  email?: string;
+  id: string;
+  image: string;
+  writing: string;
+  minAmount: string;
+  maxAmount: string;
+  tickets: string;
+  coupon: string;
+  email: string;
 };

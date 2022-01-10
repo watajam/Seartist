@@ -8,7 +8,7 @@ import { UserData } from '../../../types/UserData';
 
 type postsByUsers = PostDetailData & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
 
-//ユーザーの投稿詳細を取得する
+//プロフィールページにログインしているユーザーの投稿データを表示
 export const useQueryPostByUserDetail = () => {
   const [postByUser, setPostByUser] = useState<postsByUsers>(null);
   const [postByUserLoading, setPostByUserLoading] = useState(true);

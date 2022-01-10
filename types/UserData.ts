@@ -1,3 +1,4 @@
+//ユーザー情報の型
 export type UserData = {
   name: string;
   userId: string;

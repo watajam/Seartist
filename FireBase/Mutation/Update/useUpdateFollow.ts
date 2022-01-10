@@ -2,11 +2,15 @@ import { collection, doc, getDocs, increment, query, serverTimestamp, where, wri
 import { useCallback } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
+//フォロー機能
 export const useUpdateFollow = (setFlag?) => {
   const updateFollow = useCallback(async (email) => {
+    //フォローした場合フラグをtrueにする
     setFlag && setFlag(true);
+
     const batch = writeBatch(db);
-    //自分の情報
+
+    //ログインしているユーザーの情報
     const authUserRef = doc(db, 'users', auth.currentUser?.email);
     const authFollowingRef = doc(authUserRef, 'following', email);
     const authFollowersColRef = collection(authUserRef, 'followers');
@@ -17,17 +21,18 @@ export const useUpdateFollow = (setFlag?) => {
     const otherFollowersRef = doc(otherUsers, 'followers', auth.currentUser?.email);
     const otherPostsRef = collection(otherUsers, 'posts');
 
-    //自分のフォロワーにフォローした人が存在するか確認
-    const q = query(authFollowersColRef, where('email', '==', email));
-    const likePostsquery = await getDocs(q);
-
-    if (likePostsquery.docs.length === 1) {
-      //フォローした人が自分のフォロワーにいた場合
+    //ログインしているユーザーのフォロワーにフォローした人が存在する有無によって処理を変える
+    const likePostsquery = query(authFollowersColRef, where('email', '==', email));
+    const likePostsDocs = await getDocs(likePostsquery);
+    if (likePostsDocs.docs.length === 1) {
+      //ログインしているユーザーのフォローフィールドにフォローした人の情報を追加
       batch.set(authFollowingRef, {
         email,
         createTime: serverTimestamp(),
         following: true,
       });
+
+      //フォローした人のフォロワーフィールドの情報を更新
       batch.set(otherFollowersRef, {
         email: auth.currentUser?.email,
         createTime: serverTimestamp(),
@@ -43,25 +48,32 @@ export const useUpdateFollow = (setFlag?) => {
         });
       });
 
+      //ログインしている人のフォロワーフィールドにフォローした人の情報を更新
       batch.update(authFollowersDocRef, { following: true });
+
+      //ログインしている人のフォロー数を増やす
       batch.update(authUserRef, { followUsersCount: increment(1) });
+
+      //フォローした人のフォロワー数を増やす
       batch.update(otherUsers, { followerUsersCount: increment(1) });
+
       await batch.commit();
     } else {
-      //自分のフォローコレクションにフォローした人の情報を格納
+      //ログインしているユーザのフォローフィールドにフォローした人の情報を追加
       batch.set(authFollowingRef, {
         email,
         createTime: serverTimestamp(),
         following: true,
       });
 
-      //フォローした人のフォロワーコレクションに自分の情報を格納
+      //フォローした人のフォロワーフィールドにログインしているユーザの情報を追加
       batch.set(otherFollowersRef, {
         email: auth.currentUser?.email,
         createTime: serverTimestamp(),
         following: false,
       });
-      //フォローした人の投稿を自分の情報に追加
+
+      //ログインしているユーザーにフォローした人の投稿を自分の情報に追加
       const querySnapshot = await getDocs(otherPostsRef);
       querySnapshot.docs.forEach((document) => {
         const authPostsByFollowersRef = doc(authUserRef, 'postsByFollowers', document.id);
@@ -69,8 +81,13 @@ export const useUpdateFollow = (setFlag?) => {
           ...document.data(),
         });
       });
+
+      //ログインしているユーザーのフォロー数を増やす
       batch.update(authUserRef, { followUsersCount: increment(1) });
+
+      //フォローした人のフォロワー数を増やす
       batch.update(otherUsers, { followerUsersCount: increment(1) });
+
       await batch.commit();
     }
   }, []);
