@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
 
-//ログインしているユーザーのメールアドレスが存在するかどうかを確認する
+//常にいいねしている投稿かどうかを確認
 export const useQueryLikePostsCheck = (id) => {  
   const [like, setLike] = useState(null);
   const [likePostDetailLoading, setLikePostDetailLoading] = useState(true);
 
-  //いいねされた投稿だった場合、ハートを赤くする
+ //常にいいねされた投稿だった場合、ハートを赤くするためにsetLikeに値を入れる
   useEffect(() => {
     const likePostsCheck = async () => {
       const q = query(collection(db, 'users', auth.currentUser?.email, 'likedPosts'), where('id', '==', id));

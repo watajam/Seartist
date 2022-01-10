@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 
+//ログインしているユーザーがフォローしているユーザーかどうか確認
 export const useQueryFollowingCheck = (email) => {
   const router = useRouter();
   const [userFollowingInfo, setUserFollowingInfo] = useState('');
-  //自分のフォローコレクションに表示されているプロフィールユーザーの情報が既にあるか確認
+
   useEffect(() => {
     if (email === undefined) {
       setUserFollowingInfo(undefined);

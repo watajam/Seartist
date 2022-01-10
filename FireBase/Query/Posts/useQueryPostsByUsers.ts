@@ -8,6 +8,7 @@ import { UserData } from '../../../types/UserData';
 
 type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
+//postsページにログインしているユーザーの投稿データを表示
 export const useQueryPostsByUsers = () => {
   const [postsByUsers, setPostsByUsers] = useState<postsByUsers[]>([]);
   const [postsByUsersLoading, setPostsByUsersLoading] = useState(true);
