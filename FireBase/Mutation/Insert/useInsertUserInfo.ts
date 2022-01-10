@@ -2,6 +2,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { useCallback } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
+//初期データを追加機能
 export const useInsertUserInfo = () => {
   const handleSetUserInfo = useCallback(() => {
     setDoc(doc(db, 'users', auth.currentUser?.email), {
