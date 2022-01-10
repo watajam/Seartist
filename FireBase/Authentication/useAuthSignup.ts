@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { auth } from '../../lib/firebase';
 import { AuthFormData } from '../../types/AuthFormData';
 
+//新規登録
 export const useAuthSignup = () => {
   const router = useRouter();
 

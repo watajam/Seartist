@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { auth, db, provider } from '../../lib/firebase';
 
+//googleログイン
 export const useAuthGoogleLogin = () => {
   const router = useRouter();
 

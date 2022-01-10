@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { auth, db } from '../../lib/firebase';
 import { AuthFormData } from '../../types/AuthFormData';
 
+//ログイン
 export const useAuthLogin = () => {
   const router = useRouter();
 

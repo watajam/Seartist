@@ -3,6 +3,7 @@ import { collection, getDocs, query, where } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { auth, db } from '../../lib/firebase';
 
+//ゲストログイン
 export const useAuthGuest = () => {
   const router = useRouter();
 
