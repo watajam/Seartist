@@ -4,6 +4,7 @@ import { getAuth } from 'firebase/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { getStorage } from '@firebase/storage';
 
+//クライントサイドで使用するFirebaseの設定
 const firebaseApp = initializeApp({
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_DOMAIN,

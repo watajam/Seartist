@@ -1,6 +1,7 @@
 import { MultipleQueriesQuery } from '@algolia/client-search';
 import algoliasearch from 'algoliasearch/lite';
 
+//Algolia client
 export const indexName = process.env.NEXT_PUBLIC_ALGOLIA_INDEX || '';
 export const algoliaClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID || '',
