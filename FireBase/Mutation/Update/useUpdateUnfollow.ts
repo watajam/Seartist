@@ -2,41 +2,51 @@ import { collection, doc, getDocs, increment, query, where, writeBatch } from 'f
 import { useCallback } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
+//フォロー解除機能
 export const useUpdateUnfollow = (setFlag?) => {
   const updateUnfollow = useCallback(async (email) => {
     if (confirm('フォローを解除しますか？')) {
+      //フォロー解除した場合フラグをfalseにする
       setFlag && setFlag(false);
 
       const batch = writeBatch(db);
-      //自分の情報
+
+      //ログインしているユーザーの情報
       const authUserRef = doc(db, 'users', auth.currentUser?.email);
       const authFollowingRef = doc(authUserRef, 'following', email);
-
-      const queryAuthFollower = query(collection(authUserRef, 'followers'), where('email', '==', email));
-      const likePostsquery = await getDocs(queryAuthFollower);
 
       //フォローした人の情報
       const otherUsers = doc(db, 'users', email);
       const otherFollowersRef = doc(otherUsers, 'followers', auth.currentUser?.email);
       const otherPostsRef = collection(otherUsers, 'posts');
 
-      //自分のフォローコレクションからユーザーを解除
+      //ログインしているユーザーのフォローコレクションからフォローを解除したユーザーの情報を解除
       batch.delete(authFollowingRef);
-      //フォローを外した人のフォロワーコレクションから自分の情報を削除
+
+      //ログインしているユーザーがフォローを解除した人の情報をフォロワーコレクションから削除
       batch.delete(otherFollowersRef);
-      //フォローを外した人の投稿を自分の情報から削除
-      const querySnapshot = await getDocs(otherPostsRef);
-      querySnapshot.docs.forEach((document) => {
+
+      //ログインしているユーザーがフォローを外した人の投稿を自分の情報から削除
+      const otherPostsDocs = await getDocs(otherPostsRef);
+      otherPostsDocs.docs.forEach((document) => {
         const authPostsByFollowersRef = doc(authUserRef, 'postsByFollowers', document.data().id);
         batch.delete(authPostsByFollowersRef);
       });
 
+      //ログインしているユーザーがフォロー数を減らす
       batch.update(authUserRef, { followUsersCount: increment(-1) });
+
+      //フォローを解除した人のフォロワー数を減らす
       batch.update(otherUsers, { followerUsersCount: increment(-1) });
-      if (!likePostsquery.empty) {
+
+      //ログインしているユーザーのフォロワーにフォローした人が存在していた場合、フォロワーフィールドの情報を更新する
+      const queryFollowers = query(collection(authUserRef, 'followers'), where('email', '==', email));
+      const FollowersDocs = await getDocs(queryFollowers);
+      if (!FollowersDocs.empty) {
         const authFollowersDocRef = doc(authUserRef, 'followers', email);
         batch.update(authFollowersDocRef, { following: false });
       }
+
       await batch.commit();
     }
   }, []);

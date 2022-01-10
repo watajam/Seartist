@@ -2,6 +2,7 @@ import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/fire
 import { useRouter } from 'next/router';
 import { auth, db } from '../../../lib/firebase';
 
+//ユーザー情報に氏名とユーザーIDとジャンルと所在地と生年月日をメールアドレス登録
 export const useUpdateUserInfo = () => {
   const router = useRouter();
 
