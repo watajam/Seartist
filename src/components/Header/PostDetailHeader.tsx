@@ -2,6 +2,7 @@ import React, { memo, VFC } from 'react';
 import { IoMdArrowBack } from 'react-icons/io';
 import { useBackPage } from '../../hooks/useBackPage';
 
+//投稿詳細画面の際に使用するヘッダー
 const PostDetailHeader: VFC = () => {
   const { backPage } = useBackPage();
 

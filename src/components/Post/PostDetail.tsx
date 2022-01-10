@@ -3,6 +3,7 @@ import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeleton
 import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQueryPostByUserDetail';
 import PostDetailListItem from './PostDetailListItem';
 
+//投稿詳細画面
 const PostDetail: VFC = () => {
   const { postByUser, postByUserLoading, error } = useQueryPostByUserDetail();
 

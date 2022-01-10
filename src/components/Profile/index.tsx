@@ -10,6 +10,7 @@ type Props = {
   user: UserData;
 };
 
+//プロフィール画面
 const Profile: VFC<Props> = (props) => {
   useQueryUserEmailCheck();
   const [chengePage, setChengePage] = useState(true);

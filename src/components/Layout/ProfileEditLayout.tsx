@@ -6,6 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
+//プロフィール編集画面のレイアウト
 const ProfileEditLayout: VFC<Props> = (props) => {
   return (
     <div className="flex  min-h-screen md:justify-center md:bg-gray-100">

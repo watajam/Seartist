@@ -3,6 +3,7 @@ import { useQueryProfilePostsByUser } from '../../../FireBase/Query/Profile/useQ
 import PostListItem from '../Post/PostListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
+//プロフィールに表示する投稿一覧
 const ProfilePost = () => {
   const { postsByUser, postsByUserLoading, error } = useQueryProfilePostsByUser();
 

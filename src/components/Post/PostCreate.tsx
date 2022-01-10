@@ -5,6 +5,7 @@ import FormButton from '../Form/FormButton';
 import FormProfileTitle from '../Form/FormProfileTitle';
 import { usePostCreateUpload } from '../../hooks/usePostCreateUpload';
 
+//投稿作成画面のフォーム
 const PostCreate: VFC = () => {
   const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } = usePostCreateUpload();
 

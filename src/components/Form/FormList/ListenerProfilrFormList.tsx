@@ -7,6 +7,7 @@ type Props = {
   children: ReactNode;
 };
 
+//リスナー専用のプロフィール登録Form（name/userId/genre/location/birthday）
 const ListenerProfilrFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit } = useCreatorAndListenerReactHookForm(
     '/listener/selflntroductionform'

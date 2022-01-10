@@ -1,6 +1,7 @@
 import React, { VFC } from 'react';
 
-const SkeletonLoadingItem: VFC = () => {
+//プロフィールに表示しているボタンのスケルトンローディング
+const PostSkeletonLoadingItem: VFC = () => {
   return (
     <div className="rounded-2xl shadow-md animate-pulse key={post.id}">
       <div className="bg-gray-400   text-white flex  p-7 rounded-t-2xl items-center font-bold text-base "></div>
@@ -38,4 +39,4 @@ const SkeletonLoadingItem: VFC = () => {
   );
 };
 
-export default SkeletonLoadingItem;
+export default PostSkeletonLoadingItem;

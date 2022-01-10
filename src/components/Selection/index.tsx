@@ -2,6 +2,7 @@ import React, { memo, VFC } from 'react';
 import Link from 'next/link';
 import { useInsertUserInfo } from '../../../FireBase/Mutation/Insert/useInsertUserInfo';
 
+//クリエターアカウント or リスナーアカウントを選択する画面
 const Selection: VFC = () => {
   const { handleSetUserInfo } = useInsertUserInfo();
 

@@ -6,6 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
+//投稿検索画面と検索画面のレイアウト
 const PostCreateAndExploreLayout: VFC<Props> = (props) => {
   return (
     <div className="flex  min-h-screen md:justify-center md:bg-gray-100">

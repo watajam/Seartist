@@ -1,5 +1,6 @@
 import React, { VFC } from 'react';
 
+//フォロー or フォロワーのスケルトンローディング
 const FollowAndFollowerSkeletonLoadingItem: VFC = () => {
   return (
     <div className="animate-pulse border-b-2 flex items-center justify-between h-12">

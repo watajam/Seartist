@@ -4,6 +4,7 @@ import { useAuthLogout } from '../../../FireBase/Authentication/useAuthLogout';
 import { useBackPage } from '../../hooks/useBackPage';
 import { IoMdArrowBack } from 'react-icons/io';
 
+//プロフィール登録画面の際に使用するヘッダー
 const ProfileHeader: VFC = () => {
   const { logout } = useAuthLogout();
 

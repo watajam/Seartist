@@ -4,6 +4,7 @@ type Props = {
   title: string;
 };
 
+//各Formで使用するタイトル
 const FormProfileTitle: VFC<Props> = (props) => {
   return (
     <>

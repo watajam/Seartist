@@ -9,6 +9,7 @@ type Props = {
   handleChengePage: () => void;
 };
 
+//投稿一覧 or いいねした投稿一覧を切り替えるタブ
 const ProfileTab: VFC<Props> = (props) => {
   return (
     <>

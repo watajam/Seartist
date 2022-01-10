@@ -1,5 +1,6 @@
 import React, { VFC } from 'react';
 
+//投稿詳細のスケルトンローディング
 const PostDetailSkeletonLoadingItem: VFC = () => {
   return (
     <div className="animate-pulse">

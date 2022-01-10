@@ -8,6 +8,7 @@ type Props = {
   children: ReactNode;
 };
 
+//プロフィール登録Form（profilePhoto/writing)
 const SelfLntroductionFormList: VFC<Props> = (props) => {
   const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } =
     useSelfLntroductionUpload();

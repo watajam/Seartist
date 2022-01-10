@@ -15,6 +15,7 @@ type Props = {
   postByUser: postsByUsers;
 };
 
+//投稿詳細のリストアイテム
 const PostDetailListItem: VFC<Props> = (props) => {
   const { updateAddOrDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
   const { like, likePostDetailLoading } = useQueryLikePostDetailCheck(props.postByUser?.id);

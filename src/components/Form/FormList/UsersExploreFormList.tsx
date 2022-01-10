@@ -4,6 +4,7 @@ import { InstantSearch } from 'react-instantsearch-dom';
 import { indexName, searchClient } from '../../../../lib/searchClient';
 import { UserExplore } from '../../Explore/UsersExplore';
 
+//ユーザー検索フォーム
 const UsersExploreFormList: VFC = () => {
   return (
     <>

@@ -5,6 +5,7 @@ import FormButton from '../Form/FormButton';
 import { useProfileEditUpload } from '../../hooks/useProfileEditUpload';
 import { useQueryUserEditInfo } from '../../../FireBase/Query/User/useQueryUserEditInfo';
 
+//プロフィール編集画面
 const ProfileEditing: VFC = () => {
   const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, setValue, errors } =
     useProfileEditUpload();

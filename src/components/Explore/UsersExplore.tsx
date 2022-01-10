@@ -21,6 +21,7 @@ type HitComponentProps = Props & {
   onClick: () => void;
 };
 
+//ユーザーを検索した時のヒットリスト
 const HitComponent = ({ hit, onClick }: HitComponentProps) => {
   return (
     <>

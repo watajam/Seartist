@@ -6,6 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
+//フォロー or フォロワー画面のレイアウト
 const FollowAndFollowerst: VFC<Props> = (props) => {
   return (
     <div className="flex  min-h-screen md:justify-center md:bg-gray-100">
