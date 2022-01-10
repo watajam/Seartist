@@ -2,6 +2,7 @@ import React, { memo, useEffect, useState, VFC } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { usePostsExploreReactHookForm } from '../../../hooks/usePostsExploreReactHookForm';
 
+//投稿検索フォーム
 const PostsExploreFormList: VFC = () => {
   const { register, handleSubmit, onSubmit, dirtyFields } = usePostsExploreReactHookForm();
   const [disabled, setDisabled] = useState(true);

@@ -9,7 +9,7 @@ import { FaBirthdayCake } from 'react-icons/fa';
 import { IoLocationSharp } from 'react-icons/io5';
 import { UserData } from '../../../types/UserData';
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
-import ProfileEditSkeletonLoadingItem from '../SkeletonLoading/ProfileEditSkeletonLoadingItem';
+import ProfileMultifunctionButtonLoadingItem from '../SkeletonLoading/ProfileMultifunctionButtonLoadingItem';
 import { useUpdateFollow } from '../../../FireBase/Mutation/Update/useUpdateFollow';
 import { useUpdateUnfollow } from '../../../FireBase/Mutation/Update/useUpdateUnfollow';
 import { useQueryFollowingCheck } from '../../../FireBase/Query/FollowsAndFollowers/useQueryFollowingCheck';
@@ -19,6 +19,8 @@ import { useQueryRealTmeCount } from '../../../FireBase/Query/FollowsAndFollower
 type Props = {
   user: UserData;
 };
+
+//プロフィール画面に表示するユーザー情報
 const ProfileUser: VFC<Props> = (props) => {
   const { updateFollow } = useUpdateFollow();
   const { updateUnfollow } = useUpdateUnfollow();
@@ -158,13 +160,13 @@ const ProfileUser: VFC<Props> = (props) => {
       </nav>
 
       {userEmail?.email === undefined ? (
-        <ProfileEditSkeletonLoadingItem />
+        <ProfileMultifunctionButtonLoadingItem />
       ) : userEmail?.email === props.user?.email ? (
         <Link href="/profile/editprofile">
           <a className="bg-orange-400 text-white text-center mt-6 p-1 block">プロフィール編集</a>
         </Link>
       ) : userFollowingInfo === '' ? (
-        <ProfileEditSkeletonLoadingItem />
+        <ProfileMultifunctionButtonLoadingItem />
       ) : userFollowingInfo === 'フォローする' ? (
         <button
           onClick={() => updateFollow(props.user?.email)}

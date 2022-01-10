@@ -9,6 +9,7 @@ type ResetFormData = {
   email: string;
 };
 
+//パスワードリセットForm
 const ResetPassword: VFC = () => {
   const router = useRouter();
 

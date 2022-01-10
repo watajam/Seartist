@@ -4,6 +4,7 @@ import MailLogin from './EmailLogin';
 import GuestLogin from './GuestLogin';
 import GoogleLogin from './GoogleLogin';
 
+//アカウント作成フォーム
 const LoginForm: VFC = () => {
   const [isLogin, setIsLogin] = useState(true);
 

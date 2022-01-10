@@ -4,6 +4,7 @@ import SkeletonLoading from '../SkeletonLoading';
 import { useQueryPostsByUsers } from '../../../FireBase/Query/Posts/useQueryPostsByUsers';
 import PostListItem from './PostListItem';
 
+//ホーム画面一覧
 const Post: VFC = () => {
   const { postsByUsers, postsByUsersLoading, error } = useQueryPostsByUsers();
   useQueryUserEmailCheck();

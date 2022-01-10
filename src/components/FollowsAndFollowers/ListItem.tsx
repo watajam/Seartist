@@ -11,6 +11,7 @@ type Props = {
   email: string;
 };
 
+//フォロー or フォロワーのリストアイテム
 const ListItem: VFC<Props> = (props) => {
   const [followOrUnFollowFlag, setFollowOrUnFollowFlag] = useState(null);
   const { updateFollow } = useUpdateFollow(setFollowOrUnFollowFlag);

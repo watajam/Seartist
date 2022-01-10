@@ -10,6 +10,7 @@ type Props = {
   handleIsLogin: (e: React.MouseEvent<HTMLParagraphElement>) => void;
 };
 
+//メールアドレスログインForm
 const EmailLogin: VFC<Props> = (props) => {
   const { login } = useAuthLogin();
   const { signup } = useAuthSignup();

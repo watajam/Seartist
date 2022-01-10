@@ -3,6 +3,7 @@ import { useQueryFollows } from '../../../FireBase/Query/FollowsAndFollowers/use
 import FollowsAndFollowersSkeletonLoading from '../SkeletonLoading/FollowsAndFollowersSkeletonLoading';
 import ListItem from './ListItem';
 
+//フォロー一覧のリスト
 const Follows: VFC = () => {
   const { follows, followsLoading, error, authEmail } = useQueryFollows();
 

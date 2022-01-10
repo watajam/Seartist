@@ -10,6 +10,7 @@ import { RiQuillPenLine } from 'react-icons/ri';
 import { useRouter } from 'next/router';
 import { useQueryUserGenreCheckPassUserId } from '../../../FireBase/Query/User/useQueryUserGenreCheckPassUserId';
 
+//投稿ボタンを表示しない場合のボトムナビゲーション
 const BottomNavigation: VFC = () => {
   const { user } = useQueryUserGenreCheckPassUserId();
   const router = useRouter();

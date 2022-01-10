@@ -1,6 +1,7 @@
 import React, { VFC } from 'react';
 import FollowAndFollowerSkeletonLoadingItem from './FollowAndFollowerSkeletonLoadingItem';
 
+//フォロー or フォロワーのスケルトンローディングを表示するコンポーネント
 const FollowsAndFollowersSkeletonLoading: VFC = () => {
   return (
     <div>

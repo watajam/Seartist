@@ -8,6 +8,7 @@ type Props = {
   children: ReactNode;
 };
 
+//プロフィール登録Form（各url)
 const UrlFormList: VFC<Props> = (props) => {
   const { register, handleSubmit, errors, onSubmit } = useUrlReactHookForm('/creator/selflntroductionform');
 

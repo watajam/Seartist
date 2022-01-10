@@ -1,6 +1,7 @@
 import React, { memo, VFC } from 'react';
 import { useAuthGuest } from '../../../../FireBase/Authentication/useAuthGuest';
 
+//ゲストログインForm
 const GuestLogin: VFC = () => {
   const { login } = useAuthGuest();
 

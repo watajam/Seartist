@@ -6,6 +6,7 @@ type Props = {
   children: ReactNode;
 };
 
+//投稿詳細画面のレイアウト
 const PostDetailLayout: VFC<Props> = (props) => {
   return (
     <div className="flex  min-h-screen md:justify-center md:bg-gray-100 ">

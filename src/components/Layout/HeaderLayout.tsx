@@ -5,6 +5,7 @@ type Props = {
   children: ReactNode;
 };
 
+//各画面のレイアウト
 const HeaderLayout: VFC<Props> = (props) => {
   return (
     <>

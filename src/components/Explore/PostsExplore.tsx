@@ -3,6 +3,7 @@ import { useQueryPostsByUsersExplore } from '../../../FireBase/Query/Posts/useQu
 import PostListItem from '../Post/PostListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
+//投稿検索結果のリスト
 const PostsExplore: VFC = () => {
   const { postsByUsers, postsByUsersLoading, error } = useQueryPostsByUsersExplore();
 

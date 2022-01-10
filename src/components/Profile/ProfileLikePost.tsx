@@ -3,6 +3,7 @@ import { useQueryProfileLikesPostsByUsers } from '../../../FireBase/Query/Profil
 import PostListItem from '../Post/PostListItem';
 import SkeletonLoading from '../SkeletonLoading';
 
+//プロフィールに表示するいいねした投稿一覧
 const ProfileLikePost = () => {
   const { postsByUsers, postsByUsersLoading, error } = useQueryProfileLikesPostsByUsers();
 
