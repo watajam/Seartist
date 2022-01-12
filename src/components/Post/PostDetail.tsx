@@ -12,13 +12,10 @@ const PostDetail: VFC = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="text-xl font-bold text-center">{error}</p>;
   }
 
-  return (
-    <PostDetailListItem  postByUser={postByUser} />
-  
-  );
+  return <PostDetailListItem postByUser={postByUser} />;
 };
 
 export default memo(PostDetail);
