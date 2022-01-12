@@ -34,7 +34,6 @@ export const useQueryProfilePostsByUser = () => {
             const postsDoc = await getDocs(q);
             if (postsDoc.empty) {
               setPostsByUserLoading(false);
-              setError('投稿がありません');
             } else {
               setPostsByUser(
                 postsDoc.docs.map((docPosts) => {

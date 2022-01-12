@@ -12,15 +12,16 @@ const ProfilePost = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="text-xl font-bold text-center">{error}</p>;
   }
 
   if (postsByUser?.length === 0) {
-    return <p>投稿がありません</p>;
+    return <p className="text-xl font-bold text-center">投稿がありません</p>;
   }
+
   return (
     <>
-      <div className="grid gap-6 ">
+      <div className="grid gap-6">
         {postsByUser?.map((postsByUser) => {
           return <PostListItem key={postsByUser.id} postsByUsers={postsByUser} />;
         })}

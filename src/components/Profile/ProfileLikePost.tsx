@@ -12,7 +12,11 @@ const ProfileLikePost = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="text-xl font-bold text-center">{error}</p>;
+  }
+
+  if (postsByUsers?.length === 0) {
+    return <p className="text-xl font-bold text-center">いいねした投稿がありません</p>;
   }
 
   return (
