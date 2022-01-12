@@ -16,6 +16,9 @@ export const useQueryFollowers = () => {
   const router = useRouter();
 
   useEffect(() => {
+    if (router.query?.id === undefined) {
+      return;
+    }
     const follower = async () => {
       const userRef = collection(db, 'users');
       const queryUserInfo = query(userRef, where('userId', '==', `${router.query?.id}`));
@@ -34,7 +37,6 @@ export const useQueryFollowers = () => {
         const followersDocs = await getDocs(followersRef);
         if (followersDocs.empty) {
           setFollowersLoading(false);
-          setError('フォロワーがいません');
           return;
         } else {
           followersDocs.docs.map(async (follower) => {
