@@ -12,7 +12,11 @@ const PostsExplore: VFC = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="text-xl font-bold text-center">{error}</p>;
+  }
+
+  if (postsByUsers?.length === 0) {
+    return <p className="text-xl font-bold text-center">投稿がみつかりませんでした</p>;
   }
 
   return (
