@@ -24,7 +24,6 @@ export const useQueryPostsByUsers = () => {
           const postsByFollowerDocs = await getDocs(q);
           if (postsByFollowerDocs.empty) {
             setPostsByUsersLoading(false);
-            setError('フォローしているユーザーの投稿がありません');
           } else {
             postsByFollowerDocs.docs.map(async (docPosts) => {
               const queryPosts = query(

@@ -41,7 +41,6 @@ export const useQueryPostsByUsersExplore = () => {
       const postsDocs = await getDocs(q);
       if (postsDocs.empty) {
         setPostsByUsersLoading(false);
-        setError('投稿が見つかりませんでした');
         return;
       } else {
         postsDocs.docs.map(async (docPosts) => {
@@ -49,7 +48,7 @@ export const useQueryPostsByUsersExplore = () => {
           const userDocs = await getDocs(queryPosts);
           if (userDocs.empty) {
             setPostsByUsersLoading(false);
-            setError('投稿が見つかりませんでした');
+            setError('投稿が存在しません');
             return;
           } else {
             setPostsByUsers((prevPostsByUsers) => {

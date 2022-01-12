@@ -16,6 +16,9 @@ export const useQueryFollows = () => {
 
   useEffect(() => {
     const follow = async () => {
+      if (router.query?.id === undefined) {
+        return;
+      }
       const userRef = collection(db, 'users');
       const queryUserInfo = query(userRef, where('userId', '==', `${router.query?.id}`));
       const userInfoDocs = await getDocs(queryUserInfo);
@@ -33,7 +36,6 @@ export const useQueryFollows = () => {
         const followsDocs = await getDocs(followsRef);
         if (followsDocs.empty) {
           setFollowsLoading(false);
-          setError('フォローしているユーザーがいません');
           return;
         } else {
           followsDocs.docs.map(async (follower) => {

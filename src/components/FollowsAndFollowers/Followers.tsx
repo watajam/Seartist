@@ -12,7 +12,11 @@ const Followers: VFC = () => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="text-xl font-bold text-center mt-3">{error}</p>;
+  }
+
+  if (followers?.length === 0) {
+    return <p className="text-xl font-bold text-center mt-3">フォロワーがいません</p>;
   }
 
   return (

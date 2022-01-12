@@ -27,7 +27,6 @@ export const useQueryProfileLikesPostsByUsers = () => {
         const likedPostsDocs = await getDocs(queryLikePosts);
         if (likedPostsDocs.empty) {
           setPostsByUsersLoading(false);
-          setError('いいねした投稿がありません');
           return;
         } else {
           setPostsByUsers([]);
