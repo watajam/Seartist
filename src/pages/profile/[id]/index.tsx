@@ -3,8 +3,7 @@ import ProfileLayout from '../../../components/Layout/ProfileLayout';
 import Profile from '../../../components/Profile';
 import db from '../../../../lib/nodeApp';
 import { UserData } from '../../../../types/UserData';
-import { useHandleChenge } from '../../../hooks/useHandleChenge';
-import { useState } from 'react';
+import { useModalOpenAndClose } from '../../../hooks/useModalOpenAndClose';
 
 type Props = {
   userInfo: UserData[];
@@ -58,18 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 //プロフィールページ
 const ProfilePage: NextPage<Props> = (props) => {
   const { userInfo } = props;
-  const { chenge, handleChenge } = useHandleChenge();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
+  const { isOpen, openModal, closeModal } = useModalOpenAndClose();
 
   return (
     <ProfileLayout openModal={openModal}>
