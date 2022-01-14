@@ -19,11 +19,11 @@ const ProfileModal: VFC<Props> = (props) => {
 
         <div className="relative bg-white rounded max-w-sm mx-auto w-4/5">
           <Link href="/profile/terms-of-service">
-            <a className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100">利用規約</a>
+            <a className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100 outline-none">利用規約</a>
           </Link>
           <hr />
           <Link href="/profile/privacy-policy">
-            <a className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100">
+            <a className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100 outline-none">
               プライバシーポリシー
             </a>
           </Link>
