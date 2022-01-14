@@ -3,6 +3,7 @@ import ProfileLayout from '../../../components/Layout/ProfileLayout';
 import Profile from '../../../components/Profile';
 import db from '../../../../lib/nodeApp';
 import { UserData } from '../../../../types/UserData';
+import { useHandleChenge } from '../../../hooks/useHandleChenge';
 
 type Props = {
   userInfo: UserData[];
@@ -56,10 +57,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 //プロフィールページ
 const ProfilePage: NextPage<Props> = (props) => {
   const { userInfo } = props;
+  const { chenge, handleChenge } = useHandleChenge();
 
   return (
-    <ProfileLayout>
-      <Profile user={userInfo[0]} />
+    <ProfileLayout handleChengeModal={handleChenge}>
+      <Profile user={userInfo[0]} handleChengeModal={handleChenge} isOpen={chenge} />
     </ProfileLayout>
   );
 };
