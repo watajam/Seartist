@@ -1,10 +1,10 @@
-import React, { memo, VFC } from 'react';
+import React, { memo, useState, VFC } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { useBackPage } from '../../hooks/useBackPage';
 import { IoMdArrowBack } from 'react-icons/io';
 
 type Props = {
-  handleChengeModal: () => void;
+  openModal: () => void;
 };
 
 //プロフィール画面の際に使用するヘッダー
@@ -17,7 +17,7 @@ const ProfileHeader: VFC<Props> = (props) => {
 
       <button
         type="button"
-        onClick={props.handleChengeModal}
+        onClick={props.openModal}
         className="font-medium text-white rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       >
         <AiOutlineSetting />

@@ -10,7 +10,7 @@ import { useHandleChenge } from '../../hooks/useHandleChenge';
 
 type Props = {
   user: UserData;
-  handleChengeModal: () => void;
+  closeModal: () => void;
   isOpen: boolean;
 };
 
@@ -37,7 +37,7 @@ const Profile: VFC<Props> = (props) => {
       </div>
       
       {/* プロフィールモーダル */}
-      <ProfileModal handleChengeModal={props.handleChengeModal} isOpen={props.isOpen} />
+      <ProfileModal closeModal={props.closeModal} isOpen={props.isOpen} />
     </>
   );
 };
