@@ -4,6 +4,7 @@ import Profile from '../../../components/Profile';
 import db from '../../../../lib/nodeApp';
 import { UserData } from '../../../../types/UserData';
 import { useHandleChenge } from '../../../hooks/useHandleChenge';
+import { useState } from 'react';
 
 type Props = {
   userInfo: UserData[];
@@ -59,9 +60,20 @@ const ProfilePage: NextPage<Props> = (props) => {
   const { userInfo } = props;
   const { chenge, handleChenge } = useHandleChenge();
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+
   return (
-    <ProfileLayout handleChengeModal={handleChenge}>
-      <Profile user={userInfo[0]} handleChengeModal={handleChenge} isOpen={chenge} />
+    <ProfileLayout openModal={openModal}>
+      <Profile user={userInfo[0]} closeModal={closeModal} isOpen={isOpen} />
     </ProfileLayout>
   );
 };
