@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <DefaultSeo
         defaultTitle="Seartist"
-        canonical="https://seartist.vercel.app/"
-        description="Seartistは、アーティストや主催者がイベント情報を告知し、沢山の方々にをイベント情報を知ってもらう為のアプリです。"
+        canonical="https://seartist.vercel.app"
+        description="Seartistは、アーティストや主催者がイベント情報を告知し、沢山の方々にイベント情報を知ってもらう為のアプリです。"
         twitter={{
           handle: '@watajamsan',
           site: '@watajamsan',
@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           type: 'website',
           title: 'Seartist',
           description:
-            'Seartistは、アーティストや主催者がイベント情報を告知し、沢山の方々にをイベント情報を知ってもらう為のアプリです。',
+            'Seartistは、アーティストや主催者がイベント情報を告知し、沢山の方々にイベント情報を知ってもらう為のアプリです。',
           site_name: 'Seartist',
-          url: 'https://seartist.vercel.app/',
+          url: 'https://seartist.vercel.app',
           // TODO OGP画像
           images: [
             {
