@@ -3,7 +3,6 @@ export default {
   description:
     'Seartistは、アーティストや主催者がイベント情報を告知し、沢山の方々にイベント情報を知ってもらう為のアプリです。',
   canonical: 'https://seartist.vercel.app',
-  noindex: true,
   openGraph: {
     url: 'https://seartist.vercel.app',
     title: 'Seartist',
