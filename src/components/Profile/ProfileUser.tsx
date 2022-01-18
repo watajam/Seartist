@@ -14,7 +14,7 @@ import { useUpdateFollow } from '../../../FireBase/Mutation/Update/useUpdateFoll
 import { useUpdateUnfollow } from '../../../FireBase/Mutation/Update/useUpdateUnfollow';
 import { useQueryFollowingCheck } from '../../../FireBase/Query/FollowsAndFollowers/useQueryFollowingCheck';
 import { useRouter } from 'next/router';
-import { useQueryRealTmeCount } from '../../../FireBase/Query/FollowsAndFollowers/useQueryRealTmeCount';
+import { useQueryRealTimeCount } from '../../../FireBase/Query/FollowsAndFollowers/useQueryRealTimeCount';
 
 type Props = {
   user: UserData;
@@ -26,7 +26,7 @@ const ProfileUser: VFC<Props> = (props) => {
   const { updateUnfollow } = useUpdateUnfollow();
   const userFollowingInfo = useQueryFollowingCheck(props.user?.email);
   const { userEmail } = useRecoilSetEmail();
-  const followAndFollower = useQueryRealTmeCount(props.user?.email);
+  const followAndFollower = useQueryRealTimeCount(props.user?.email);
   const router = useRouter();
 
   return (
