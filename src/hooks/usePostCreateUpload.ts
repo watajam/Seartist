@@ -24,7 +24,7 @@ export const usePostCreateUpload = () => {
   } = useForm<Omit<PostDetailData, 'email' | 'id'>>({
     mode: 'onChange',
   });
-  const { updatePostImageCreate, updatePostCreate } = useUpdatePostCreate();
+  const { updatePostCreate } = useUpdatePostCreate();
   useQueryCreatorCheck();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -85,7 +85,7 @@ export const usePostCreateUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            updatePostImageCreate(url, data);
+            updatePostCreate(url, data);
           } catch (error) {
             switch (error.code) {
               case 'storage/object-not-found':
@@ -106,7 +106,7 @@ export const usePostCreateUpload = () => {
       );
     } catch (error) {
       if (src === '') {
-        updatePostCreate(data);
+        updatePostCreate('', data);
       } else {
         console.log('エラーキャッチ', error);
       }

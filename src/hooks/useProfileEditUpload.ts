@@ -25,7 +25,7 @@ export const useProfileEditUpload = () => {
   } = useForm<Omit<UserData, 'profilePhoto'>>({
     mode: 'onChange',
   });
-  const { updateProfileImageEdit, updateProfileEdit } = useUpdateProfileEdit();
+  const { updateProfileEdit } = useUpdateProfileEdit();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -85,7 +85,7 @@ export const useProfileEditUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            updateProfileImageEdit(url, data, setError);
+            updateProfileEdit(url, data, setError);
           } catch (error) {
             switch (error.code) {
               case 'storage/object-not-found':
@@ -106,7 +106,7 @@ export const useProfileEditUpload = () => {
       );
     } catch (error) {
       if (src === '/profile.png') {
-        updateProfileEdit(data, setError);
+        updateProfileEdit('', data, setError);
       } else {
         console.log('エラーキャッチ', error);
       }

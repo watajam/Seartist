@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { PostData } from '../../../types/PostData';
 import { UserData } from '../../../types/UserData';
 import SkeletonLoading from '../SkeletonLoading';
-import { useQueryLikePostsCheck } from '../../../FireBase/Query/Posts/useQueryLikePostsCheck';
+import { useQueryLikePostCheck } from '../../../FireBase/Query/Posts/useQueryLikePostCheck';
 import { useUpdateAddOrDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddOrDeletLikes';
 
 type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
@@ -17,8 +17,8 @@ type Props = {
 //投稿のリストアイテム
 const PostListItem: VFC<Props> = (props) => {
   const { updateAddOrDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
-  const { like, likePostDetailLoading } = useQueryLikePostsCheck(props.postsByUsers?.id);
-
+  const { like, likePostDetailLoading } = useQueryLikePostCheck(props.postsByUsers?.id);
+  
   if (likePostDetailLoading) {
     return <SkeletonLoading />;
   }

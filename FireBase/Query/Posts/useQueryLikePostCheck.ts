@@ -3,7 +3,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../../../lib/firebase';
 
 //常にいいねしている投稿かどうかを確認
-export const useQueryLikePostDetailCheck = (id) => {
+export const useQueryLikePostCheck = (id) => {
   const [like, setLike] = useState(null);
   const [likePostDetailLoading, setLikePostDetailLoading] = useState(true);
 

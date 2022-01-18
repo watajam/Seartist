@@ -7,7 +7,7 @@ import { useUpdateAddOrDeletLikes } from '../../../FireBase/Mutation/Update/useU
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 import { useDeletePost } from '../../../FireBase/Mutation/Delete/useDeletePost';
 import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
-import { useQueryLikePostDetailCheck } from '../../../FireBase/Query/Posts/useQueryLikePostDetailCheck';
+import { useQueryLikePostCheck } from '../../../FireBase/Query/Posts/useQueryLikePostCheck';
 
 type postsByUsers = Omit<PostDetailData, 'email'> & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
 
@@ -18,7 +18,7 @@ type Props = {
 //投稿詳細のリストアイテム
 const PostDetailListItem: VFC<Props> = (props) => {
   const { updateAddOrDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
-  const { like, likePostDetailLoading } = useQueryLikePostDetailCheck(props.postByUser?.id);
+  const { like, likePostDetailLoading } = useQueryLikePostCheck(props.postByUser?.id);
   const { deletePost } = useDeletePost();
   const { userEmail } = useRecoilSetEmail();
 

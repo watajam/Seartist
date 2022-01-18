@@ -7,8 +7,8 @@ export const useUpdateProfileEdit = () => {
   const router = useRouter();
 
   //投稿する再に写真が追加している場合の処理
-  const updateProfileImageEdit = async (url, data, setError) => {
-  //ログインしているユーザーの情報を取得
+  const updateProfileEdit = async (url, data, setError) => {
+    //ログインしているユーザーの情報を取得
     const q = query(collection(db, 'users'), where('userId', '==', data.userId));
     const userInfoDocs = await getDocs(q);
 
@@ -23,7 +23,7 @@ export const useUpdateProfileEdit = () => {
           });
         } else {
           await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-            profilePhoto: url,
+            profilePhoto: url ? url : '',
             name: data.name,
             userId: data.userId,
             genre: data.genre ? data.genre : '',
@@ -40,7 +40,7 @@ export const useUpdateProfileEdit = () => {
       });
     } else {
       await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-        profilePhoto: url,
+        profilePhoto: url ? url : '',
         name: data.name,
         userId: data.userId,
         genre: data.genre ? data.genre : '',
@@ -56,49 +56,5 @@ export const useUpdateProfileEdit = () => {
     }
   };
 
-  //プロフィール写真が追加されなかった場合の処理
-  const updateProfileEdit = async (data, setError) => {
-    const q = query(collection(db, 'users'), where('userId', '==', data.userId));
-    const userInfoDocs = await getDocs(q);
-
-    if (userInfoDocs.docs.length === 1) {
-      userInfoDocs.docs.forEach(async (userInfoDoc) => {
-        if (userInfoDoc.data().email !== auth.currentUser?.email) {
-          setError('userId', {
-            type: 'validate',
-            message: 'このユーザーIDは既に使用されています',
-          });
-        } else {
-          await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-            name: data.name,
-            userId: data.userId,
-            genre: data.genre ? data.genre : '',
-            location: data.location,
-            birthday: data.birthday,
-            writing: data.writing,
-            twitterUrl: data.twitterUrl,
-            instagramUrl: data.instagramUrl,
-            homepageUrl: data.homepageUrl,
-            otherUrl: data.otherUrl,
-          });
-          router.back();
-        }
-      });
-    } else {
-      await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-        name: data.name,
-        userId: data.userId,
-        genre: data.genre ? data.genre : '',
-        location: data.location,
-        birthday: data.birthday,
-        writing: data.writing,
-        twitterUrl: data.twitterUrl,
-        instagramUrl: data.instagramUrl,
-        homepageUrl: data.homepageUrl,
-        otherUrl: data.otherUrl,
-      });
-      router.push(`/profile/${data.userId}`);
-    }
-  };
-  return { updateProfileImageEdit, updateProfileEdit };
+  return { updateProfileEdit };
 };

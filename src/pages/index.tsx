@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useAuthAutoLogin } from '../../FireBase/Authentication/uesAuthAutoLogin';
 
 //LPページ
-const Home: NextPage = () => {
+const TopPage: NextPage = () => {
   useAuthAutoLogin();
 
   return (
@@ -17,4 +17,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default TopPage;
