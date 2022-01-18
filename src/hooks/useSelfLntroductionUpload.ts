@@ -14,7 +14,7 @@ export type firebaseOnLoadProp = {
 
 //ログインしているユーザーの情報を登録するformをReact Hook Formで作成し写真はDropzoneで作成
 export const useSelfLntroductionUpload = () => {
-  const { updateUserImageAndWritingInfo, updateUserWritingInfo } = useUpdateUsereSelfLntroductionInfo();
+  const { updateUserImageAndWritingInfo } = useUpdateUsereSelfLntroductionInfo();
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [src, setSrc] = useState('/profile.png');
   const {
@@ -104,7 +104,7 @@ export const useSelfLntroductionUpload = () => {
       );
     } catch (error) {
       if (src === '/profile.png') {
-        updateUserWritingInfo(data);
+        updateUserImageAndWritingInfo('', data);
       } else {
         console.log('エラーキャッチ', error);
       }
