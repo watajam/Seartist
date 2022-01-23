@@ -79,7 +79,7 @@ const privacypolicy: NextPage = () => {
       <div className="mt-2">
         <p>ご不明な点やご質問等がございましたら、下記までお問い合わせください。</p>
         <p>
-          <a href="https://twitter.com/watajam" target="_blank" rel="noopener noreferrer" className="text-blue-400">
+          <a href="https://twitter.com/watajamsan" target="_blank" rel="noopener noreferrer" className="text-blue-400">
             Twitter
           </a>
         </p>
