@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { AiTwotoneHeart } from 'react-icons/ai';
 import { FaSearch, FaUser, FaUserPlus } from 'react-icons/fa';
-import { RiQuillPenLine} from 'react-icons/ri';
+import { RiQuillPenLine } from 'react-icons/ri';
 import Footer from '../components/Footer';
 import TopPageHerader from '../components/Header/TopPageHerader';
 import ButtonItem from '../components/TopPage/ButtonItem';
@@ -48,7 +48,6 @@ const Feature_Lists_Item = [
 
 //LPページ
 const TopPage: NextPage = () => {
-
   return (
     <>
       {/* ヘッダー */}
@@ -63,6 +62,7 @@ const TopPage: NextPage = () => {
       {/* ファーストビュー　*/}
       {Feature_Lists_Item.map((item) => (
         <FeatureListItem
+          key={item.title}
           bgColor={item?.bgColor}
           title={item.title}
           subTitle={item.subTitle}
