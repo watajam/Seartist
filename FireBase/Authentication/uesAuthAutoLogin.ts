@@ -25,5 +25,5 @@ export const useAuthAutoLogin = () => {
     });
 
     return () => unSub();
-  }, []);
+  }, [router]);
 };

@@ -28,7 +28,7 @@ const PostDetailListItem: VFC<Props> = (props) => {
 
   return (
     <div>
-      <div className=" flex  rounded-t-2xl items-center font-bold text-base ">
+      <div className="flex items-center text-base font-bold rounded-t-2xl">
         {props.postByUser?.profilePhoto !== '' ? (
           <img src={props.postByUser?.profilePhoto} className="w-8 h-8 rounded-full" />
         ) : (
@@ -51,58 +51,58 @@ const PostDetailListItem: VFC<Props> = (props) => {
           </span>
         </div>
       </div>
-      <p className="text-base font-bold mt-4">{props.postByUser?.writing}</p>
+      <p className="mt-4 text-base font-bold">{props.postByUser?.writing}</p>
       {props.postByUser?.image !== '' ? (
-        <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
-          <img src={props.postByUser?.image} className="text-center object-contain " />
+        <div className="flex justify-center mt-6 h-80 bg-gray-100 rounded-2xl outline-none">
+          <img src={props.postByUser?.image} className="object-contain text-center" />
         </div>
       ) : null}
-      <table className="table-fixed text-center text-base w-full mt-6">
+      <table className="mt-6 w-full text-base text-center table-fixed">
         <tbody className="mt-2">
           <tr className="bg-gray-100">
-            <th className="border px-4 py-2 text-left ">イベント名</th>
-            <td className="border px-4 py-2 text-left break-words max-w-sm">{props.postByUser?.eventName}</td>
+            <th className="py-2 px-4 text-left border">イベント名</th>
+            <td className="py-2 px-4 max-w-sm text-left break-words border">{props.postByUser?.eventName}</td>
           </tr>
           <tr>
-            <th className="border px-4 py-2 text-left">ジャンル</th>
-            <td className="border px-4 py-2 text-left">{props.postByUser?.genre}</td>
+            <th className="py-2 px-4 text-left border">ジャンル</th>
+            <td className="py-2 px-4 text-left border">{props.postByUser?.genre}</td>
           </tr>
           <tr className="bg-gray-100">
-            <th className="border px-4 py-2 text-left">都道府県</th>
-            <td className="border px-4 py-2 text-left">{props.postByUser?.location}</td>
+            <th className="py-2 px-4 text-left border">都道府県</th>
+            <td className="py-2 px-4 text-left border">{props.postByUser?.location}</td>
           </tr>
           <tr>
-            <th className="border px-4 py-2 text-left">開催日</th>
-            <td className="border px-4 py-2 text-left">{props.postByUser?.eventDate}</td>
+            <th className="py-2 px-4 text-left border">開催日</th>
+            <td className="py-2 px-4 text-left border">{props.postByUser?.eventDate}</td>
           </tr>
           <tr className="bg-gray-100">
-            <th className="border px-4 py-2 text-left">開催場所</th>
-            <td className="border px-4 py-2 text-left break-words max-w-sm">{props.postByUser?.eventLocation}</td>
+            <th className="py-2 px-4 text-left border">開催場所</th>
+            <td className="py-2 px-4 max-w-sm text-left break-words border">{props.postByUser?.eventLocation}</td>
           </tr>
           <tr>
-            <th className="border px-4 py-2 text-left">開催時間</th>
-            <td className="border px-4 py-2 text-left">{`${props.postByUser?.openTime}～${props.postByUser?.closeTime}`}</td>
+            <th className="py-2 px-4 text-left border">開催時間</th>
+            <td className="py-2 px-4 text-left border">{`${props.postByUser?.openTime}～${props.postByUser?.closeTime}`}</td>
           </tr>
           <tr className="bg-gray-100">
-            <th className="border px-4 py-2 text-left">値段</th>
-            <td className="border px-4 py-2 text-left">
+            <th className="py-2 px-4 text-left border">値段</th>
+            <td className="py-2 px-4 text-left border">
               {props.postByUser?.minAmount}～{props.postByUser?.maxAmount}
             </td>
           </tr>
           <tr>
-            <th className="border px-4 py-2 text-left">チケット</th>
-            <td className="border px-4 py-2 text-left">{props.postByUser?.tickets}</td>
+            <th className="py-2 px-4 text-left border">チケット</th>
+            <td className="py-2 px-4 text-left border">{props.postByUser?.tickets}</td>
           </tr>
           <tr className="bg-gray-100">
-            <th className="border px-4 py-2 text-left">クーポンコード</th>
-            <td className="border px-4 py-2 text-left break-words max-w-sm">{props.postByUser?.coupon}</td>
+            <th className="py-2 px-4 text-left border">クーポンコード</th>
+            <td className="py-2 px-4 max-w-sm text-left break-words border">{props.postByUser?.coupon}</td>
           </tr>
         </tbody>
       </table>
       {userEmail?.email === props.postByUser?.email ? (
         <button
           onClick={deletePost}
-          className="text-white font-bold block ml-auto mt-6 p-1 bg-red-500 hover:bg-red-600"
+          className="block p-1 mt-6 ml-auto font-bold text-white bg-red-500 hover:bg-red-600"
         >
           投稿を削除する
         </button>

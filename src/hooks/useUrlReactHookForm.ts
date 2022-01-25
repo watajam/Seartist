@@ -19,7 +19,7 @@ export const useUrlReactHookForm = (url: string) => {
     async (data: Pick<UserData, 'twitterUrl' | 'instagramUrl' | 'homepageUrl' | 'otherUrl'>) => {
       updateUserUrlInfo(data, url);
     },
-    []
+    [updateUserUrlInfo, url]
   );
 
   return { register, handleSubmit, errors, onSubmit };

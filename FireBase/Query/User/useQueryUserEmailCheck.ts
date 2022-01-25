@@ -20,5 +20,5 @@ export const useQueryUserEmailCheck = () => {
         router.push('/login');
       }
     });
-  }, []);
+  }, [router]);
 };

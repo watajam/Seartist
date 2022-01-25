@@ -22,17 +22,17 @@ const PostBottomNavigation: VFC = () => {
   };
 
   return (
-    <aside className="w-full fixed  bottom-0 z-10 bg-orange-400  md:static  md:w-1/4 md:max-w-xs md:bg-orange-300 h-auto">
-      <nav className="flex justify-around md:fixed  md:flex-col  md:w-1/4 md:max-w-xs md:justify-center">
+    <aside className="fixed bottom-0 z-10 w-full h-auto bg-orange-400 md:static md:w-1/4 md:max-w-xs md:bg-orange-300">
+      <nav className="flex justify-around md:fixed md:flex-col md:justify-center md:w-1/4 md:max-w-xs">
         <Link href="/posts">
           <a
             onClick={(e) => handlePreventDefault(e, '/posts')}
-            className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8"
+            className="pt-2 pb-3 w-full text-center md:flex md:items-center md:pl-8 md:mt-4 md:space-x-4"
           >
             {router.pathname === '/posts' ? (
-              <HiHome className="w-7 h-7  text-white inline-block  mb-1" />
+              <HiHome className="inline-block mb-1 w-7 h-7 text-white" />
             ) : (
-              <HiOutlineHome className="w-7 h-7  text-white inline-block  mb-1" />
+              <HiOutlineHome className="inline-block mb-1 w-7 h-7 text-white" />
             )}
             <span className="block text-sm text-white">ホーム</span>
           </a>
@@ -41,12 +41,12 @@ const PostBottomNavigation: VFC = () => {
         <Link href="/explore">
           <a
             onClick={(e) => handlePreventDefault(e, '/explore')}
-            className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-4 md:pl-8"
+            className="pt-2 pb-3 w-full text-center md:flex md:items-center md:pl-8 md:mt-4 md:space-x-4"
           >
             {router.pathname === '/explore' ? (
-              <BiSearchAlt className="w-7 h-7 text-white inline-block  mb-1" />
+              <BiSearchAlt className="inline-block mb-1 w-7 h-7 text-white" />
             ) : (
-              <BiSearch className="w-7 h-7 text-white inline-block  mb-1" />
+              <BiSearch className="inline-block mb-1 w-7 h-7 text-white" />
             )}
             <span className="block text-sm text-white">検索</span>
           </a>
@@ -55,12 +55,12 @@ const PostBottomNavigation: VFC = () => {
         <Link href={`/profile/${user?.userId}`}>
           <a
             onClick={(e) => handlePreventDefault(e, user?.userId)}
-            className="w-full text-center pt-2 pb-3 md:mt-4 md:flex md:items-center  md:space-x-2 md:pl-8"
+            className="pt-2 pb-3 w-full text-center md:flex md:items-center md:pl-8 md:mt-4 md:space-x-2"
           >
             {router.pathname === '/profile/[id]' ? (
-              <HiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
+              <HiUserCircle className="inline-block mb-1 w-7 h-7 text-white" />
             ) : (
-              <BiUserCircle className="w-7 h-7 text-white inline-block  mb-1" />
+              <BiUserCircle className="inline-block mb-1 w-7 h-7 text-white" />
             )}
             <span className="block text-sm text-white">プロフィール</span>
           </a>
@@ -70,12 +70,12 @@ const PostBottomNavigation: VFC = () => {
             <Link href="/posts/create">
               <a
                 onClick={(e) => handlePreventDefault(e, '/posts/create')}
-                className="w-full text-center pt-2 pb-3 hidden  md:mt-4 md:flex md:items-center md:space-x-4 md:pl-8"
+                className="hidden pt-2 pb-3 w-full text-center md:flex md:items-center md:pl-8 md:mt-4 md:space-x-4"
               >
                 {router.pathname === '/posts/create' ? (
-                  <RiQuillPenLine className="w-7 h-7 text-white inline-block  mb-1" />
+                  <RiQuillPenLine className="inline-block mb-1 w-7 h-7 text-white" />
                 ) : (
-                  <RiQuillPenLine className="w-7 h-7 text-white inline-block  mb-1" />
+                  <RiQuillPenLine className="inline-block mb-1 w-7 h-7 text-white" />
                 )}
                 <span className="block text-sm text-white">投稿</span>
               </a>
@@ -88,9 +88,9 @@ const PostBottomNavigation: VFC = () => {
           <Link href="/posts/create">
             <a
               onClick={(e) => handlePreventDefault(e, '/posts/create')}
-              className="fixed bottom-20 bg-orange-400 right-4 rounded-full p-4 md:hidden"
+              className="fixed right-4 bottom-20 p-4 bg-orange-400 rounded-full md:hidden"
             >
-              <RiQuillPenLine className="w-6 h-6  text-white" />
+              <RiQuillPenLine className="w-6 h-6 text-white" />
             </a>
           </Link>
         </>

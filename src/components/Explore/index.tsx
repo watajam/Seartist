@@ -8,7 +8,7 @@ const ExploreForm: VFC = () => {
   return (
     <>
       <FormProfileTitle title="検索" />
-      <h2 className=" text-base text-gray-400 mt-10 underline">ユーザーを検索</h2>
+      <h2 className="mt-10 text-base text-gray-400 underline">ユーザーを検索</h2>
       {/* ユーザー検索フォーム */}
       <UsersExploreFormList />
       {/* 投稿検索フォーム */}

@@ -59,6 +59,6 @@ export const useDeletePost = () => {
       //前のページに戻る
       router.back();
     }
-  }, [auth.currentUser?.email]);
+  }, [router]);
   return { deletePost };
 };

@@ -9,11 +9,11 @@ type Props = {
 //投稿検索画面と検索画面のレイアウト
 const PostCreateAndExploreLayout: VFC<Props> = (props) => {
   return (
-    <div className="flex  min-h-screen md:justify-center md:bg-gray-100">
+    <div className="flex min-h-screen md:justify-center md:bg-gray-100">
       <BottomNavigation />
-      <div className="flex-1 md:max-w-xl lg:max-w-2xl md:bg-white">
+      <div className="flex-1 md:max-w-xl md:bg-white lg:max-w-2xl">
         <PostCreateAndExploreHeader />
-        <main className="px-5  pt-12 pb-20">{props.children}</main>
+        <main className="px-5 pt-12 pb-20">{props.children}</main>
       </div>
     </div>
   );

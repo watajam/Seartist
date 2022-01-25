@@ -9,9 +9,9 @@ type Props = {
 const HeaderLayout: VFC<Props> = (props) => {
   return (
     <>
-      <div className="flex flex-col items-center  min-h-screen sm:bg-gray-100">
+      <div className="flex flex-col items-center min-h-screen sm:bg-gray-100">
         <Header />
-        <main className="px-5 py-12 w-full sm:max-w-xl sm:bg-white md:my-20 md:max-w-2xl md:shadow-lg md:rounded-2xl ">
+        <main className="py-12 px-5 w-full sm:max-w-xl sm:bg-white md:my-20 md:max-w-2xl md:rounded-2xl md:shadow-lg">
           {props.children}
         </main>
       </div>

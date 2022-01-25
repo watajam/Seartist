@@ -31,15 +31,11 @@ const ProfileUser: VFC<Props> = (props) => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-center">
         {props.user?.profilePhoto ? (
-          <img
-            src={props.user?.profilePhoto}
-            alt="プロフィール画像"
-            className="object-cover h-24 w-24  rounded-full   "
-          />
+          <img src={props.user?.profilePhoto} alt="プロフィール画像" className="object-cover w-24 h-24 rounded-full" />
         ) : (
-          <img src="/profile.png" alt="プロフィール画像" className="object-cover h-24 w-24  rounded-full   " />
+          <img src="/profile.png" alt="プロフィール画像" className="object-cover w-24 h-24 rounded-full" />
         )}
 
         <Link href="#">
@@ -71,9 +67,9 @@ const ProfileUser: VFC<Props> = (props) => {
           </a>
         </Link>
       </div>
-      {props.user?.name ? <h1 className="text-2xl font-bold mt-2">{props.user?.name}</h1> : null}
+      {props.user?.name ? <h1 className="mt-2 text-2xl font-bold">{props.user?.name}</h1> : null}
       <span className="text-gray-400">{`@ ${router?.query?.id}`}</span>
-      <div className="flex items-center flex-wrap text-gray-400">
+      <div className="flex flex-wrap items-center text-gray-400">
         {props.user?.genre ? (
           <>
             <AiFillStar className="mr-1" />
@@ -94,7 +90,7 @@ const ProfileUser: VFC<Props> = (props) => {
           </>
         ) : null}
       </div>
-      {props.user?.writing ? <p className="mt-4 text-bold">{props.user?.writing}</p> : null}
+      {props.user?.writing ? <p className="mt-4 font-bold">{props.user?.writing}</p> : null}
       <nav className="mt-6">
         <ul className="flex w-full">
           {props.user?.instagramUrl ? (
@@ -104,9 +100,9 @@ const ProfileUser: VFC<Props> = (props) => {
                   href={props.user?.instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer "
-                  className="p-4 rounded-full bg-gray-400 "
+                  className="p-4 bg-gray-400 rounded-full"
                 >
-                  <BsInstagram className="text-white w-6 h-6" />
+                  <BsInstagram className="w-6 h-6 text-white" />
                 </a>
               </li>
             </>
@@ -119,9 +115,9 @@ const ProfileUser: VFC<Props> = (props) => {
                   href={props.user?.twitterUrl}
                   target="_blank"
                   rel="noopener noreferrer "
-                  className="p-4 rounded-full bg-gray-400 "
+                  className="p-4 bg-gray-400 rounded-full"
                 >
-                  <FiTwitter className="text-white w-6 h-6" />
+                  <FiTwitter className="w-6 h-6 text-white" />
                 </a>
               </li>
             </>
@@ -134,9 +130,9 @@ const ProfileUser: VFC<Props> = (props) => {
                   href={props.user?.homepageUrl}
                   target="_blank"
                   rel="noopener noreferrer "
-                  className="p-4 rounded-full bg-gray-400 "
+                  className="p-4 bg-gray-400 rounded-full"
                 >
-                  <IoHomeOutline className="text-white w-6 h-6" />
+                  <IoHomeOutline className="w-6 h-6 text-white" />
                 </a>
               </li>
             </>
@@ -149,9 +145,9 @@ const ProfileUser: VFC<Props> = (props) => {
                   href={props.user?.otherUrl}
                   target="_blank"
                   rel="noopener noreferrer "
-                  className="p-4 rounded-full bg-gray-400 "
+                  className="p-4 bg-gray-400 rounded-full"
                 >
-                  <FiPaperclip className="text-white w-6 h-6" />
+                  <FiPaperclip className="w-6 h-6 text-white" />
                 </a>
               </li>
             </>
@@ -163,21 +159,21 @@ const ProfileUser: VFC<Props> = (props) => {
         <ProfileMultifunctionButtonLoadingItem />
       ) : userEmail?.email === props.user?.email ? (
         <Link href="/profile/editprofile">
-          <a className="bg-orange-400 text-white text-center mt-6 p-1 block">プロフィール編集</a>
+          <a className="block p-1 mt-6 text-center text-white bg-orange-400">プロフィール編集</a>
         </Link>
       ) : userFollowingInfo === '' ? (
         <ProfileMultifunctionButtonLoadingItem />
       ) : userFollowingInfo === 'フォローする' ? (
         <button
           onClick={() => updateFollow(props.user?.email)}
-          className="bg-orange-400 text-white text-center mt-6 p-1 w-full"
+          className="p-1 mt-6 w-full text-center text-white bg-orange-400"
         >
           フォローする
         </button>
       ) : userFollowingInfo === 'フォロー中' ? (
         <button
           onClick={() => updateUnfollow(props.user?.email)}
-          className="bg-gray-400 text-white text-center mt-6 p-1 w-full"
+          className="p-1 mt-6 w-full text-center text-white bg-gray-400"
         >
           フォロー中
         </button>

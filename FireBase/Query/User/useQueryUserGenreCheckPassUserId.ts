@@ -25,7 +25,7 @@ export const useQueryUserGenreCheckPassUserId = () => {
         router.push('/login');
       }
     });
-  }, []);
+  }, [router]);
 
   return { user };
 };

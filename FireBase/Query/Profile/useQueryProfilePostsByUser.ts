@@ -18,45 +18,42 @@ export const useQueryProfilePostsByUser = () => {
   useEffect(() => {
     const userRef = collection(db, 'users');
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user && router.query.id !== undefined) {
-        const useProfilePostsByUser = async () => {
-          const q = query(userRef, where('userId', '==', router.query.id));
-          const userDocs = await getDocs(q);
+        const q = query(userRef, where('userId', '==', router.query.id));
+        const userDocs = await getDocs(q);
 
-          if (userDocs.empty) {
+        if (userDocs.empty) {
+          setPostsByUserLoading(false);
+          setError('ユーザーが存在しません');
+        } else {
+          const userData = userDocs.docs[0]?.data() as UserData;
+
+          const q = query(collection(db, 'users', `${userData?.email}`, 'posts'), orderBy('timestamp', 'desc'));
+          const postsDoc = await getDocs(q);
+          if (postsDoc.empty) {
             setPostsByUserLoading(false);
-            setError('ユーザーが存在しません');
           } else {
-            const userData = userDocs.docs[0]?.data() as UserData;
-
-            const q = query(collection(db, 'users', `${userData?.email}`, 'posts'), orderBy('timestamp', 'desc'));
-            const postsDoc = await getDocs(q);
-            if (postsDoc.empty) {
-              setPostsByUserLoading(false);
-            } else {
-              setPostsByUser(
-                postsDoc.docs.map((docPosts) => {
-                  return {
-                    ...(docPosts.data() as PostData),
-                    name: userData.name,
-                    userId: userData.userId,
-                    profilePhoto: userData.profilePhoto,
-                    email: userData.email,
-                  };
-                })
-              );
-              setPostsByUserLoading(false);
-              setError(null);
-            }
+            setPostsByUser(
+              postsDoc.docs.map((docPosts) => {
+                return {
+                  ...(docPosts.data() as PostData),
+                  name: userData.name,
+                  userId: userData.userId,
+                  profilePhoto: userData.profilePhoto,
+                  email: userData.email,
+                };
+              })
+            );
+            setPostsByUserLoading(false);
+            setError(null);
           }
-        };
-        useProfilePostsByUser();
+        }
       } else {
         router.push('/login');
       }
     });
-  }, [router.query.id]);
+  }, [router]);
 
   return { postsByUser, postsByUserLoading, error };
 };

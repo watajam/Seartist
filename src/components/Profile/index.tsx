@@ -27,15 +27,15 @@ const Profile: VFC<Props> = (props) => {
       </div>
 
       {/* タブ */}
-      <div className="mt-6 flex">
+      <div className="flex mt-6">
         <ProfileTab user={props.user} handleChengePage={handleChenge} chengePage={chenge} />
       </div>
 
       {/* プロフィール投稿といいねした投稿 */}
-      <div className="px-5 mt-4 grid gap-6  md:max-w-xl lg:max-w-2xl">
+      <div className="grid gap-6 px-5 mt-4 md:max-w-xl lg:max-w-2xl">
         {props.user?.genre === '' ? <ProfileLikePost /> : chenge === true ? <ProfilePost /> : <ProfileLikePost />}
       </div>
-      
+
       {/* プロフィールモーダル */}
       <ProfileModal closeModal={props.closeModal} isOpen={props.isOpen} />
     </>

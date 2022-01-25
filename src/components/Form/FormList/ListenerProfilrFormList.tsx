@@ -22,7 +22,7 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
         {/* 氏名 */}
         <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
           氏名
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
         <input
           type="text"
@@ -35,13 +35,13 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
               message: '氏名は30字以下で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
         {/* ユーザーID */}
         <label htmlFor="ユーザーID" className="block mt-8 text-base text-gray-400 ">
           ユーザーID
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
         <input
           type="text"
@@ -62,7 +62,7 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
               message: 'ユーザーIDは4文字以上15字以下で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.userId && <p className="text-red-600">{errors.userId?.message}</p>}
 
@@ -73,7 +73,7 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
         <select
           {...register('location')}
           id="location"
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         >
           <option defaultValue=""></option>
           <option defaultValue="北海道">北海道</option>
@@ -133,7 +133,7 @@ const ListenerProfilrFormList: VFC<Props> = (props) => {
           {...register('birthday')}
           type="date"
           id="birthday"
-          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         ></input>
 
         <div className="mt-14">{props.children}</div>

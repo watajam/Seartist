@@ -4,7 +4,7 @@ import Link from 'next/link';
 //ヘッダー
 const Header: VFC = () => {
   return (
-    <header className="px-4 py-5 text-4xl font-bold text-white bg-orange-300 w-full ">
+    <header className="py-5 px-4 w-full text-4xl font-bold text-white bg-orange-300">
       <Link href="/">
         <a>Seartist</a>
       </Link>

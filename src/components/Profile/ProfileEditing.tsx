@@ -15,10 +15,10 @@ const ProfileEditing: VFC = () => {
   return (
     <>
       <form onSubmit={handleSubmit(handleUpload)}>
-        <div className="px-5  pt-28 pb-20">
-          <h1 className="text-2xl font-bold text-center text-orange-300 mb-6">プロフィール編集</h1>
+        <div className="px-5 pt-28 pb-20">
+          <h1 className="mb-6 text-2xl font-bold text-center text-orange-300">プロフィール編集</h1>
           {/* 投稿写真 */}
-          <div {...getRootProps()} className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200">
+          <div {...getRootProps()} className="m-auto w-24 h-24 bg-gray-200 rounded-full outline-none">
             <input {...getInputProps()} />
 
             <img
@@ -29,16 +29,16 @@ const ProfileEditing: VFC = () => {
                   ? user?.profilePhoto
                   : src
               }
-              className="object-cover h-24 w-24  rounded-full  m-auto  "
+              className="object-cover m-auto w-24 h-24 rounded-full"
             />
           </div>
-          <button onClick={open} className=" text-base text-gray-400 mt-4 block m-auto" type="button">
+          <button onClick={open} className="block m-auto mt-4 text-base text-gray-400" type="button">
             プロフィール写真を変更
           </button>
           {/* 氏名/アーティスト名 */}
           <label htmlFor="name" className="block mt-8 text-base text-gray-400 ">
             氏名/アーティスト名
-            <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+            <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
           </label>
           <input
             type="text"
@@ -51,13 +51,13 @@ const ProfileEditing: VFC = () => {
                 message: '氏名 or アーティスト名は30字以下で入力してください',
               },
             })}
-            className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+            className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           />
           {errors.name && <p className="text-red-600">{errors.name?.message}</p>}
           {/* ユーザーID */}
           <label htmlFor="ユーザーID" className="block mt-8 text-base text-gray-400 ">
             ユーザーID
-            <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+            <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
           </label>
           <input
             type="text"
@@ -78,7 +78,7 @@ const ProfileEditing: VFC = () => {
                 message: 'ユーザーIDは4文字以上15字以下で入力してください',
               },
             })}
-            className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+            className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           />
           {errors.userId && <p className="text-red-600">{errors.userId?.message}</p>}
           {/* ジャンル */}
@@ -86,13 +86,13 @@ const ProfileEditing: VFC = () => {
             <>
               <label htmlFor="genre" className="block mt-8 text-base text-gray-400 ">
                 ジャンル
-                <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+                <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
               </label>
-              <div className="relative  mt-2">
+              <div className="relative mt-2">
                 <select
                   {...register('genre')}
                   id="genre"
-                  className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+                  className="pl-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
                 >
                   <option defaultValue="アーティスト">アーティスト</option>
                   <option defaultValue="イベント主催者">イベント主催者</option>
@@ -129,7 +129,7 @@ const ProfileEditing: VFC = () => {
                   <option defaultValue="発表会">発表会</option>
                   <option defaultValue="その他">その他</option>
                 </select>
-                <div className="absolute  inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <div className="flex absolute inset-y-0 right-0 items-center px-2 pointer-events-none">
                   <AiFillCaretDown />
                 </div>
               </div>
@@ -140,11 +140,11 @@ const ProfileEditing: VFC = () => {
           <label htmlFor="location" className="block mt-8 text-base text-gray-400 ">
             所在地
           </label>
-          <div className="relative  mt-2">
+          <div className="relative mt-2">
             <select
               {...register('location')}
               id="location"
-              className=" w-full h-10 pl-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+              className="pl-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
             >
               <option defaultValue=""></option>
               <option defaultValue="北海道">北海道</option>
@@ -195,7 +195,7 @@ const ProfileEditing: VFC = () => {
               <option defaultValue="鹿児島県">鹿児島県</option>
               <option defaultValue="沖縄県">沖縄県</option>
             </select>
-            <div className="absolute  inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+            <div className="flex absolute inset-y-0 right-0 items-center px-2 pointer-events-none">
               <AiFillCaretDown />
             </div>
           </div>
@@ -207,7 +207,7 @@ const ProfileEditing: VFC = () => {
             {...register('birthday')}
             type="date"
             id="birthday"
-            className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+            className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           ></input>
           {errors.birthday && <p className="text-red-600">{errors.birthday?.message}</p>}
 
@@ -223,7 +223,7 @@ const ProfileEditing: VFC = () => {
                 message: '紹介文は140文字以下で入力してください',
               },
             })}
-            className=" w-full h-32 pt-2 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+            className="pt-2 pl-2 mt-2 w-full h-32 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           />
           {errors.writing && <p className="text-red-600">{errors.writing?.message}</p>}
           {user?.genre ? (
@@ -232,15 +232,15 @@ const ProfileEditing: VFC = () => {
                 {({ open }) => (
                   <>
                     <Disclosure.Button
-                      className="flex items-center justify-between w-full px-2 py-2 mt-8 text-base
-                       text-white bg-orange-100 rounded-lg h-10  hover:bg-orange-200 focus:outline-none "
+                      className="                       text-white bg-orange-100 rounded-lg h-10  hover:bg-orange-200 focus:outline-none 
+flex items-center justify-between w-full px-2 py-2 mt-8 text-base"
                     >
                       <span>各URLの編集はこちら</span>
                       <AiFillCaretDown className={`${open ? 'transform rotate-180' : ''}  `} />
                     </Disclosure.Button>
                     <Disclosure.Panel className=" pt-4 pb-2 text-sm text-gray-500">
                       {/* Twitter */}
-                      <label htmlFor="twitter" className="block  text-base text-gray-400 ">
+                      <label htmlFor="twitter" className="block text-base text-gray-400">
                         Twitter
                       </label>
                       <input
@@ -253,7 +253,7 @@ const ProfileEditing: VFC = () => {
                             message: '正しい形式で入力してください',
                           },
                         })}
-                        className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+                        className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring cursor-pointer"
                       />
                       {errors.twitterUrl && <p className="text-red-600">{errors.twitterUrl?.message}</p>}
                       {/* Instagram */}
@@ -270,7 +270,7 @@ const ProfileEditing: VFC = () => {
                             message: '正しい形式で入力してください',
                           },
                         })}
-                        className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+                        className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring cursor-pointer"
                       />
                       {errors.instagramUrl && <p className="text-red-600">{errors.instagramUrl?.message}</p>}
                       {/* HomePage */}
@@ -287,7 +287,7 @@ const ProfileEditing: VFC = () => {
                             message: '正しい形式で入力してください',
                           },
                         })}
-                        className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+                        className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring cursor-pointer"
                       />
                       {errors.homepageUrl && <p className="text-red-600">{errors.homepageUrl?.message}</p>}
                       {/* その他 */}
@@ -304,7 +304,7 @@ const ProfileEditing: VFC = () => {
                             message: '正しい形式で入力してください',
                           },
                         })}
-                        className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+                        className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring cursor-pointer"
                       />
                       {errors.otherUrl && <p className="text-red-600">{errors.otherUrl?.message}</p>}
                     </Disclosure.Panel>

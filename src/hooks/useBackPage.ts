@@ -7,7 +7,7 @@ export const useBackPage = () => {
 
   const backPage = useCallback(() => {
     router.back();
-  }, []);
+  }, [router]);
 
   return { backPage };
 };

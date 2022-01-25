@@ -21,7 +21,7 @@ export const useCreatorAndListenerReactHookForm = (url: string) => {
     async (data: Pick<UserData, 'name' | 'userId' | 'genre' | 'location' | 'birthday'>) => {
       updateUserInfo(data, setError, url);
     },
-    [auth.currentUser?.email]
+    [updateUserInfo, setError, url]
   );
 
   return {

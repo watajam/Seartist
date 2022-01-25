@@ -10,9 +10,9 @@ type Props = {
 //プロフィール画面のレイアウト
 const ProfileLayout: VFC<Props> = (props) => {
   return (
-    <div className="flex  min-h-screen md:justify-center md:bg-gray-100">
+    <div className="flex min-h-screen md:justify-center md:bg-gray-100">
       <PostBottomNavigation />
-      <div className="flex-1 md:max-w-xl  lg:max-w-2xl md:bg-white">
+      <div className="flex-1 md:max-w-xl md:bg-white lg:max-w-2xl">
         <ProfileHeader openModal={props.openModal} />
         <main className="py-20 pb-36">{props.children}</main>
       </div>

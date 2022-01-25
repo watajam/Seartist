@@ -13,31 +13,31 @@ const ProfileModal: VFC<Props> = (props) => {
   const { logout } = useAuthLogout();
 
   return (
-    <Dialog open={props.isOpen} onClose={props.closeModal} className="fixed z-10 inset-0 overflow-y-auto ">
-      <div className="flex items-center justify-center min-h-screen ">
+    <Dialog open={props.isOpen} onClose={props.closeModal} className="overflow-y-auto fixed inset-0 z-10">
+      <div className="flex justify-center items-center min-h-screen">
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
 
-        <div className="relative bg-white rounded max-w-sm mx-auto w-4/5">
+        <div className="relative mx-auto w-4/5 max-w-sm bg-white rounded">
           <Link href="/profile/terms-of-service">
-            <a className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100 outline-none">
+            <a className="block p-6 w-full text-center hover:bg-orange-100 active:bg-orange-100 outline-none">
               利用規約
             </a>
           </Link>
           <hr />
           <Link href="/profile/privacy-policy">
-            <a className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100">
+            <a className="block p-6 w-full text-center hover:bg-orange-100 active:bg-orange-100">
               プライバシーポリシー
             </a>
           </Link>
           <hr />
 
-          <button onClick={logout} className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100">
+          <button onClick={logout} className="block p-6 w-full text-center hover:bg-orange-100 active:bg-orange-100">
             ログアウト
           </button>
           <hr />
           <button
             onClick={props.closeModal}
-            className="block w-full text-center p-6 hover:bg-orange-100 active:bg-orange-100"
+            className="block p-6 w-full text-center hover:bg-orange-100 active:bg-orange-100"
           >
             キャンセル
           </button>

@@ -19,6 +19,6 @@ export const useRecoilSetEmail = () => {
         router.push('/login');
       }
     });
-  }, []);
+  }, [router, setUserEmail]);
   return { userEmail };
 };

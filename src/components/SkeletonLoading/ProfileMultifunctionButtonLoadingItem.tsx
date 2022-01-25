@@ -4,7 +4,7 @@ import React, { VFC } from 'react';
 const ProfileMultifunctionButtonLoadingItem: VFC = () => {
   return (
     <div className="animate-pulse">
-      <div className="bg-gray-400  mt-6 p-4 "></div>
+      <div className="p-4 mt-6 bg-gray-400"></div>
     </div>
   );
 };

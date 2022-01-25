@@ -18,17 +18,17 @@ const PostsExploreFormList: VFC = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8">
-        <h2 className=" text-base text-gray-400 mt-10 underline">投稿を検索</h2>
-        <div className="shadow-md rounded-2xl p-4 mt-2">
+        <h2 className="mt-10 text-base text-gray-400 underline">投稿を検索</h2>
+        <div className="p-4 mt-2 rounded-2xl shadow-md">
           {/* 都道府県 */}
-          <label htmlFor="location" className="block  text-base text-gray-400 ">
+          <label htmlFor="location" className="block text-base text-gray-400">
             都道府県
           </label>
-          <div className="relative  mt-2">
+          <div className="relative mt-2">
             <select
               {...register('location')}
               id="location"
-              className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none "
+              className="pl-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
             >
               <option defaultValue=""></option>
               <option defaultValue="北海道">北海道</option>
@@ -79,7 +79,7 @@ const PostsExploreFormList: VFC = () => {
               <option defaultValue="鹿児島県">鹿児島県</option>
               <option defaultValue="沖縄県">沖縄県</option>
             </select>
-            <div className="absolute  inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+            <div className="flex absolute inset-y-0 right-0 items-center px-2 pointer-events-none">
               <AiFillCaretDown />
             </div>
           </div>
@@ -87,11 +87,11 @@ const PostsExploreFormList: VFC = () => {
           <label htmlFor="genre" className="block mt-4 text-base text-gray-400 ">
             ジャンル
           </label>
-          <div className="relative  mt-2">
+          <div className="relative mt-2">
             <select
               {...register('genre')}
               id="genre"
-              className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+              className="pl-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
             >
               <option defaultValue=""></option>
               <option defaultValue="アーティスト">アーティスト</option>
@@ -128,7 +128,7 @@ const PostsExploreFormList: VFC = () => {
               <option defaultValue="発表会">発表会</option>
               <option defaultValue="その他">その他</option>
             </select>
-            <div className="absolute  inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+            <div className="flex absolute inset-y-0 right-0 items-center px-2 pointer-events-none">
               <AiFillCaretDown />
             </div>
           </div>
@@ -140,7 +140,7 @@ const PostsExploreFormList: VFC = () => {
             {...register('eventDate')}
             type="date"
             id="開催日"
-            className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+            className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           ></input>
           <button
             disabled={disabled}

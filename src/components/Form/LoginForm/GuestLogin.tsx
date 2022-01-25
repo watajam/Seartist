@@ -6,7 +6,10 @@ const GuestLogin: VFC = () => {
   const { login } = useAuthGuest();
 
   return (
-    <button onClick={login} className="border block text-center w-full  mt-6  py-3 font-bold  text-2xl text-white rounded-xl bg-gray-400 hover:bg-gray-500">
+    <button
+      onClick={login}
+      className="block py-3 mt-6 w-full text-2xl font-bold text-center text-white bg-gray-400 hover:bg-gray-500 rounded-xl border"
+    >
       ゲストログイン
     </button>
   );

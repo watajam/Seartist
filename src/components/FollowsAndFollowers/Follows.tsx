@@ -12,11 +12,11 @@ const Follows: VFC = () => {
   }
 
   if (error) {
-    return <p className="text-xl font-bold text-center mt-3">{error}</p>;
+    return <p className="mt-3 text-xl font-bold text-center">{error}</p>;
   }
 
   if (follows?.length === 0) {
-    return <p className="text-xl font-bold text-center mt-3">フォローしているユーザーがいません</p>;
+    return <p className="mt-3 text-xl font-bold text-center">フォローしているユーザーがいません</p>;
   }
 
   return (

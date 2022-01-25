@@ -36,7 +36,7 @@ export const useQueryFollowingCheck = (email) => {
       });
     };
     userFollowingCheck();
-  }, [router.query?.id]);
+  }, [router, email]);
 
   return userFollowingInfo;
 };
