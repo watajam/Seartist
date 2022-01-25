@@ -20,11 +20,11 @@ const SelfLntroductionFormList: VFC<Props> = (props) => {
       <FormProfileTitle title="プロフィール登録" />
       <form onSubmit={handleSubmit(handleUpload)} className="mt-8">
         {/* プロフィール画像追加 */}
-        <div {...getRootProps()} className="h-24 w-24  outline-none m-auto  rounded-full bg-gray-200 ">
+        <div {...getRootProps()} className="m-auto w-24 h-24 bg-gray-200 rounded-full outline-none">
           <input {...getInputProps()} />
-          <img src={src} className="object-cover h-24 w-24  rounded-full  m-auto   " />
+          <img src={src} className="object-cover m-auto w-24 h-24 rounded-full" />
         </div>
-        <button onClick={open} className=" text-base text-gray-400 mt-4 block m-auto" type="button">
+        <button onClick={open} className="block m-auto mt-4 text-base text-gray-400" type="button">
           プロフィール写真を追加
         </button>
 
@@ -40,7 +40,7 @@ const SelfLntroductionFormList: VFC<Props> = (props) => {
               message: '自己紹介は160文字以下で入力してください',
             },
           })}
-          className=" w-full h-32 pt-2 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 "
+          className="pt-2 pl-2 mt-2 w-full h-32 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring cursor-pointer"
         />
         {errors.writing && <p className="text-red-600">{errors.writing?.message}</p>}
         <div className="mt-14">{props.children}</div>

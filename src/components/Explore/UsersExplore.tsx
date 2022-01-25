@@ -26,13 +26,13 @@ const HitComponent = ({ hit, onClick }: HitComponentProps) => {
   return (
     <>
       <Link href={`profile/${hit.userId}`}>
-        <a className="text-left   items-center font-bold text-base w-full" onClick={onClick}>
+        <a className="items-center w-full text-base font-bold text-left" onClick={onClick}>
           <div className="flex justify-center">
             <Highlight attribute={`name`} hit={hit} className="text-xl " />
           </div>
 
-          <div className="flex items-center mt-2 justify-center flex-wrap">
-            <span className="text-orange-200 mr-1">@</span>
+          <div className="flex flex-wrap justify-center items-center mt-2">
+            <span className="mr-1 text-orange-200">@</span>
             <Highlight attribute={`userId`} hit={hit} className="mr-2" />
             <span className="text-orange-200">
               <AiFillStar className="mr-1" />
@@ -64,8 +64,8 @@ export const UserExplore = connectSearchBox(({ refine, currentRefinement }) => {
 
   if (!isShow) return null;
   return (
-    <div className="rounded-b-2xl shadow pt-1 pb-5 px-5">
-      <p className="mt-5 text-base font-semibold tracking-wider text-gray-500 mb-2">ユーザー一覧</p>
+    <div className="px-5 pt-1 pb-5 rounded-b-2xl shadow">
+      <p className="mt-5 mb-2 text-base font-semibold tracking-wider text-gray-500">ユーザー一覧</p>
       <Hits hitComponent={hitComponent} />
       <Pagination />
       <PoweredBy />

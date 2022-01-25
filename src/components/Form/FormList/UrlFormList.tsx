@@ -17,7 +17,7 @@ const UrlFormList: VFC<Props> = (props) => {
   return (
     <>
       <FormProfileTitle title="プロフィール登録" />
-      <p className="text-base font-bold text-center text-gray-400 underline mt-6">
+      <p className="mt-6 text-base font-bold text-center text-gray-400 underline">
         URLを入力するとプロフィールに表示されます
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -35,7 +35,7 @@ const UrlFormList: VFC<Props> = (props) => {
               message: '正しい形式で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.twitterUrl && <p className="text-red-600">{errors.twitterUrl?.message}</p>}
         {/* Instagram */}
@@ -52,7 +52,7 @@ const UrlFormList: VFC<Props> = (props) => {
               message: '正しい形式で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.instagramUrl && <p className="text-red-600">{errors.instagramUrl?.message}</p>}
         {/* HomePage */}
@@ -69,7 +69,7 @@ const UrlFormList: VFC<Props> = (props) => {
               message: '正しい形式で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.homepageUrl && <p className="text-red-600">{errors.homepageUrl?.message}</p>}
         {/* その他 */}
@@ -86,7 +86,7 @@ const UrlFormList: VFC<Props> = (props) => {
               message: '正しい形式で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.otherUrl && <p className="text-red-600">{errors.otherUrl?.message}</p>}
         <div className="mt-14">{props.children}</div>

@@ -42,7 +42,7 @@ const EmailLogin: VFC<Props> = (props) => {
               message: '正しい形式で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
 
         {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
@@ -65,24 +65,24 @@ const EmailLogin: VFC<Props> = (props) => {
               message: 'パスワードは6文字数以上16文字以下で入力してください',
             },
           })}
-          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
 
         {errors.password && <p className="text-red-600"> {errors.password?.message} </p>}
         <div className="mt-4 text-right">
           <Link href="/login/changepassword">
-            <a className="inline-block text-base text-orange-200 underline cursor-pointer hover:text-orange-400 ">
+            <a className="inline-block text-base text-orange-200 hover:text-orange-400 underline cursor-pointer">
               {props.isLogin ? 'パスワードを忘れた場合' : null}
             </a>
           </Link>
         </div>
-        <button className="w-full py-3 mt-10 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400 ">
+        <button className="py-3 mt-10 w-full text-2xl font-bold text-white bg-orange-300 hover:bg-orange-400 rounded-xl border">
           {props.isLogin ? 'ログイン' : 'アカウント作成'}
         </button>
       </form>
       <p
         onClick={props.handleIsLogin}
-        className="mt-6 text-base text-center text-orange-200 underline cursor-pointer hover:text-orange-400"
+        className="mt-6 text-base text-center text-orange-200 hover:text-orange-400 underline cursor-pointer"
       >
         {props.isLogin ? 'アカウントをお持ちでない方はこちら' : '既にアカウントをお持ちですか？'}
       </p>

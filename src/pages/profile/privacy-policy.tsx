@@ -6,13 +6,13 @@ const privacypolicy: NextPage = () => {
   return (
     <TermsOfUseAndPrivacyPolicyLayout>
       <h1>当アプリ（Seartist）における個人情報の取扱いについて、以下のとおりにプライバシーポリシーを定めます。</h1>
-      <h1 className="text-2xl font-bold mt-4">利用規約</h1>
+      <h1 className="mt-4 text-2xl font-bold">利用規約</h1>
       <p className="mt-2">
         この利用規約（以下，「本規約」といいます。）は，Seartist（以下，「当社」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
       </p>
 
       {/* 個人情報の利用目的 */}
-      <h1 className="text-2xl font-bold mt-4">個人情報の利用目的</h1>
+      <h1 className="mt-4 text-2xl font-bold">個人情報の利用目的</h1>
       <div className="mt-2">
         <p>当アプリでは、新規登録の際に、名前（ハンドルネーム）、メールアドレス等の個人情報をご登録いただきます。</p>
         <p>
@@ -21,7 +21,7 @@ const privacypolicy: NextPage = () => {
       </div>
 
       {/* 個人情報の第三者への開示 */}
-      <h1 className="text-2xl font-bold mt-4">個人情報の第三者への開示</h1>
+      <h1 className="mt-4 text-2xl font-bold">個人情報の第三者への開示</h1>
       <div className="mt-2">
         <p>当アプリでは、個人情報は適切に管理し、以下に該当する場合を除いて第三者に開示することはありません。</p>
         <p className="pl-4">・本人のご了解がある場合</p>
@@ -29,7 +29,7 @@ const privacypolicy: NextPage = () => {
       </div>
 
       {/* 個人情報の開示、訂正、追加、削除、利用停止 */}
-      <h1 className="text-2xl font-bold mt-4">個人情報の開示、訂正、追加、削除、利用停止</h1>
+      <h1 className="mt-4 text-2xl font-bold">個人情報の開示、訂正、追加、削除、利用停止</h1>
       <div className="mt-2">
         <p>
           ご本人からの個人データの開示、訂正、追加、削除、利用停止のご希望の場合には、ご本人であることを確認させていただいた上、速やかに対応させていただきます。
@@ -37,7 +37,7 @@ const privacypolicy: NextPage = () => {
       </div>
 
       {/* アクセス解析ツールについて */}
-      <h1 className="text-2xl font-bold mt-4">アクセス解析ツールについて</h1>
+      <h1 className="mt-4 text-2xl font-bold">アクセス解析ツールについて</h1>
       <div className="mt-2">
         <p>当アプリでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。</p>
         <p>
@@ -46,7 +46,7 @@ const privacypolicy: NextPage = () => {
       </div>
 
       {/* 個人情報の開示、訂正、追加、削除、利用停止 */}
-      <h1 className="text-2xl font-bold mt-4">個人情報の開示、訂正、追加、削除、利用停止</h1>
+      <h1 className="mt-4 text-2xl font-bold">個人情報の開示、訂正、追加、削除、利用停止</h1>
       <div className="mt-2">
         <p>
           ご本人からの個人データの開示、訂正、追加、削除、利用停止のご希望の場合には、ご本人であることを確認させていただいた上、速やかに対応させていただきます。
@@ -54,7 +54,7 @@ const privacypolicy: NextPage = () => {
       </div>
 
       {/* 免責事項 */}
-      <h1 className="text-2xl font-bold mt-4">免責事項</h1>
+      <h1 className="mt-4 text-2xl font-bold">免責事項</h1>
       <div className="mt-2">
         <p>
           当アプリからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。
@@ -66,7 +66,7 @@ const privacypolicy: NextPage = () => {
       </div>
 
       {/* プライバシーポリシーの変更について */}
-      <h1 className="text-2xl font-bold mt-4">プライバシーポリシーの変更について</h1>
+      <h1 className="mt-4 text-2xl font-bold">プライバシーポリシーの変更について</h1>
       <div className="mt-2">
         <p>
           当アプリは、個人情報に関して適用される日本の法令を遵守するとともに、本ポリシーの内容を適宜見直しその改善に努めます。
@@ -75,7 +75,7 @@ const privacypolicy: NextPage = () => {
       </div>
 
       {/* お問い合わせ */}
-      <h1 className="text-2xl font-bold mt-4">お問い合わせ</h1>
+      <h1 className="mt-4 text-2xl font-bold">お問い合わせ</h1>
       <div className="mt-2">
         <p>ご不明な点やご質問等がございましたら、下記までお問い合わせください。</p>
         <p>

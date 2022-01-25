@@ -18,7 +18,7 @@ type Props = {
 const PostListItem: VFC<Props> = (props) => {
   const { updateAddOrDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
   const { like, likePostDetailLoading } = useQueryLikePostCheck(props.postsByUsers?.id);
-  
+
   if (likePostDetailLoading) {
     return <SkeletonLoading />;
   }
@@ -27,7 +27,7 @@ const PostListItem: VFC<Props> = (props) => {
     <div className="rounded-2xl shadow">
       <Link href={`/profile/${props.postsByUsers?.userId}`}>
         <a>
-          <header className="bg-gray-400 text-white flex  p-4 rounded-t-2xl items-center font-bold text-base ">
+          <header className="flex items-center p-4 text-base font-bold text-white bg-gray-400 rounded-t-2xl">
             {props.postsByUsers?.profilePhoto !== '' ? (
               <img src={props.postsByUsers?.profilePhoto} className="w-8 h-8 rounded-full" />
             ) : (
@@ -43,35 +43,35 @@ const PostListItem: VFC<Props> = (props) => {
       <Link href={`/posts/${props.postsByUsers?.id}`}>
         <a>
           <div className="p-4">
-            <p className="text-base text-bold font-bold break-words max-w-sm  sm:max-w-md md:max-w-lg">
+            <p className="max-w-sm text-base font-bold break-words sm:max-w-md md:max-w-lg">
               {props.postsByUsers?.writing}
             </p>
 
             {props.postsByUsers?.image !== '' ? (
-              <div className="flex justify-center  h-80 mt-6  outline-none  rounded-2xl bg-gray-100 ">
-                <img src={props.postsByUsers?.image} className="text-center object-contain " />
+              <div className="flex justify-center mt-6 h-80 bg-gray-100 rounded-2xl outline-none">
+                <img src={props.postsByUsers?.image} className="object-contain text-center" />
               </div>
             ) : null}
 
-            <table className="table-fixed text-center text-base w-full mt-6 ">
+            <table className="mt-6 w-full text-base text-center table-fixed">
               <tbody className="mt-2">
                 <tr className="bg-gray-100">
-                  <th className="border px-4 py-2 text-left w-2/5">イベント名</th>
-                  <td className="border px-4 py-2 text-left break-words max-w-sm ">{props.postsByUsers?.eventName}</td>
+                  <th className="py-2 px-4 w-2/5 text-left border">イベント名</th>
+                  <td className="py-2 px-4 max-w-sm text-left break-words border">{props.postsByUsers?.eventName}</td>
                 </tr>
                 <tr>
-                  <th className="border px-4 py-2 text-left">ジャンル</th>
-                  <td className="border px-4 py-2 text-left">{props.postsByUsers?.genre}</td>
+                  <th className="py-2 px-4 text-left border">ジャンル</th>
+                  <td className="py-2 px-4 text-left border">{props.postsByUsers?.genre}</td>
                 </tr>
                 <tr className="bg-gray-100">
-                  <th className="border px-4 py-2 text-left">開催場所</th>
-                  <td className="border px-4 py-2 text-left break-words max-w-sm ">
+                  <th className="py-2 px-4 text-left border">開催場所</th>
+                  <td className="py-2 px-4 max-w-sm text-left break-words border">
                     {props.postsByUsers?.eventLocation}
                   </td>
                 </tr>
                 <tr>
-                  <th className="border px-4 py-2 text-left">開催時間</th>
-                  <td className="border px-4 py-2 text-left">{`${props.postsByUsers?.openTime}～${props.postsByUsers?.closeTime}`}</td>
+                  <th className="py-2 px-4 text-left border">開催時間</th>
+                  <td className="py-2 px-4 text-left border">{`${props.postsByUsers?.openTime}～${props.postsByUsers?.closeTime}`}</td>
                 </tr>
               </tbody>
             </table>
@@ -79,7 +79,7 @@ const PostListItem: VFC<Props> = (props) => {
         </a>
       </Link>
 
-      <div className="flex justify-end  items-center mt-6 mr-4 mb-2">
+      <div className="flex justify-end items-center mt-6 mr-4 mb-2">
         <span
           className={`text-base ${
             likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null

@@ -40,8 +40,8 @@ const ProfileTab: VFC<Props> = (props) => {
       {props.user?.genre === '' ? (
         <>
           <button
-            className="w-full flex justify-center border-b-2 pb-2
-            border-orange-400"
+            className="border-orange-400
+w-full flex justify-center border-b-2 pb-2"
           >
             <AiOutlineHeart className="w-6 h-6 text-orange-400" />
           </button>

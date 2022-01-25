@@ -8,11 +8,11 @@ const Selection: VFC = () => {
 
   return (
     <>
-      <h1 className="text-xl font-bold text-center text-gray-400 underline mt-8">該当している方を選択してください</h1>
+      <h1 className="mt-8 text-xl font-bold text-center text-gray-400 underline">該当している方を選択してください</h1>
       <Link href="/listener">
         <a
           onClick={handleSetUserInfo}
-          className="w-full block  py-3 text-center mt-40 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400"
+          className="block py-3 mt-40 w-full text-2xl font-bold text-center text-white bg-orange-300 hover:bg-orange-400 rounded-xl border"
         >
           一般の方はこちら
         </a>
@@ -21,7 +21,7 @@ const Selection: VFC = () => {
       <Link href="/creator">
         <a
           onClick={handleSetUserInfo}
-          className="w-full block  py-3 text-center mt-14 text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400"
+          className="block py-3 mt-14 w-full text-2xl font-bold text-center text-white bg-orange-300 hover:bg-orange-400 rounded-xl border"
         >
           アーティストや
           <br />

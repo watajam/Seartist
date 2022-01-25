@@ -14,12 +14,12 @@ const FeatureListItem: VFC<Props> = (props) => {
   return (
     <section className={`text-gray-600 body-font ${props.bgColor}`}>
       <div className="sm:hidden ">
-        <div className="flex flex-col   items-center pt-24">
-          <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-500 mb-5">
+        <div className="flex flex-col items-center pt-24">
+          <div className="inline-flex justify-center items-center mb-5 w-12 h-12 text-yellow-500 bg-yellow-100 rounded-full">
             {props.children}
           </div>
-          <div className="flex-grow text-center">
-            <h1 className="text-gray-900 text-2xl font-bold title-font ">
+          <div className="grow text-center">
+            <h1 className="text-2xl font-bold text-gray-900">
               {props.title}
               <br /> <span className="text-xl">{props.subTitle}</span>
             </h1>
@@ -27,22 +27,22 @@ const FeatureListItem: VFC<Props> = (props) => {
         </div>
       </div>
 
-      <div className="container px-5 py-24 mx-auto flex flex-wrap justify-center">
-        <div className="mb-10 xl:mb-0 rounded-xl overflow-hidden xl:max-w-xl xl:w-full md:w-1/2 w-5/6">
-          <img alt="feature" className="object-cover object-center h-full w-full" src={props.image} />
+      <div className="container flex flex-wrap justify-center py-24 px-5 mx-auto">
+        <div className="overflow-hidden mb-10 w-5/6 rounded-xl md:w-1/2 xl:mb-0 xl:w-full xl:max-w-xl">
+          <img alt="feature" className="object-cover object-center w-full h-full" src={props.image} />
         </div>
-        <div className="flex flex-col flex-wrap xl:py-6 -mb-10 xl:w-1/2 xl:pl-12 xl:text-left text-center justify-center">
-          <div className="flex flex-col mb-10  items-center">
-            <div className="w-12 h-12  items-center justify-center rounded-full bg-yellow-100 text-yellow-500 mb-5 hidden sm:inline-flex">
+        <div className="flex flex-col flex-wrap justify-center -mb-10 text-center xl:py-6 xl:pl-12 xl:w-1/2 xl:text-left">
+          <div className="flex flex-col items-center mb-10">
+            <div className="hidden justify-center items-center mb-5 w-12 h-12 text-yellow-500 bg-yellow-100 rounded-full sm:inline-flex">
               {props.children}
             </div>
-            <div className="flex-grow text-center">
-              <h1 className="text-gray-900 text-2xl font-bold title-font  mb-3 hidden sm:block">
+            <div className="grow text-center">
+              <h1 className="hidden mb-3 text-2xl font-bold text-gray-900 sm:block">
                 {props.title}
                 <br /> <span className="text-xl">{props.subTitle}</span>
               </h1>
 
-              <p className="leading-relaxed text-base">{props.text}</p>
+              <p className="text-base leading-relaxed">{props.text}</p>
             </div>
           </div>
         </div>

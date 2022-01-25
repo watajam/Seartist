@@ -14,7 +14,7 @@ const FormButton: VFC<Props> = (props) => {
     <div className="flex justify-between ">
       {props.backButtonUrl ? (
         <Link href={props.backButtonUrl}>
-          <a className="w-12/25   text-center inline-block py-3  text-2xl font-bold text-white rounded-xl bg-gray-400 hover:bg-gray-500">
+          <a className="inline-block py-3 w-12/25 text-2xl font-bold text-center text-white bg-gray-400 hover:bg-gray-500 rounded-xl">
             戻る
           </a>
         </Link>
@@ -22,13 +22,13 @@ const FormButton: VFC<Props> = (props) => {
         <button
           onClick={backPage}
           type="button"
-          className="w-12/25   text-center inline-block py-3  text-2xl font-bold text-white rounded-xl bg-gray-400 hover:bg-gray-500"
+          className="inline-block py-3 w-12/25 text-2xl font-bold text-center text-white bg-gray-400 hover:bg-gray-500 rounded-xl"
         >
           戻る
         </button>
       )}
 
-      <button className="w-12/25  py-3  text-2xl font-bold text-white bg-orange-300 border rounded-xl hover:bg-orange-400">
+      <button className="py-3 w-12/25 text-2xl font-bold text-white bg-orange-300 hover:bg-orange-400 rounded-xl border">
         {props.title}
       </button>
     </div>

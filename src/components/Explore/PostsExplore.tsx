@@ -20,7 +20,7 @@ const PostsExplore: VFC = () => {
   }
 
   return (
-    <div className="grid gap-6  md:max-w-xl lg:max-w-2xl">
+    <div className="grid gap-6 md:max-w-xl lg:max-w-2xl">
       {postsByUsers.map((postsByUser) => {
         return <PostListItem key={postsByUser.id} postsByUsers={postsByUser} />;
       })}

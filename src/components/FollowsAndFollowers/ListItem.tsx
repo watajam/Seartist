@@ -19,13 +19,13 @@ const ListItem: VFC<Props> = (props) => {
   const { userEmail } = useRecoilSetEmail();
 
   return (
-    <div className="border-b-2 flex items-center justify-between h-12">
+    <div className="flex justify-between items-center h-12 border-b-2">
       <Link href={`/profile/${props.user?.userId}`}>
         <a className={`flex items-center ${props.email === userEmail?.email ? 'w-4/6' : 'w-full'}  `}>
           {props.user?.profilePhoto !== '' ? (
-            <img src={props.user?.profilePhoto} className="w-8 h-8 rounded-full ml-3 mr-6" />
+            <img src={props.user?.profilePhoto} className="mr-6 ml-3 w-8 h-8 rounded-full" />
           ) : (
-            <HiUserCircle className="w-10 h-10 ml-2 mr-5 " />
+            <HiUserCircle className="mr-5 ml-2 w-10 h-10" />
           )}
           <div className="flex flex-col">
             <h1 className="font-bold">{props.user?.name}</h1>

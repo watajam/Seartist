@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { AiTwotoneHeart } from 'react-icons/ai';
 import { FaSearch, FaUser, FaUserPlus } from 'react-icons/fa';
 import { RiQuillPenLine } from 'react-icons/ri';
+import { useAuthAutoLogin } from '../../FireBase/Authentication/uesAuthAutoLogin';
 import Footer from '../components/Footer';
 import TopPageHerader from '../components/Header/TopPageHerader';
 import ButtonItem from '../components/TopPage/ButtonItem';
@@ -15,39 +16,40 @@ const Feature_Lists_Item = [
     subTitle: '(リスナーは一部機能のみ)',
     text: 'プロフィール登録の際に、各情報を入力する事でSNSアカウントやホームページのURLをプロフィール上に表示できます。',
     image: '/profilePage.png',
-    icon: <FaUser className="w-7 h-7 inline-block  mb-1" />,
+    icon: <FaUser className="inline-block mb-1 w-7 h-7" />,
   },
   {
     bgColor: 'bg-gray-300',
     title: 'フォロー、フォロワー機能',
     text: '気になるアーティストやイベント主催者をフォローする事で、最新のイベントをチェックすることができます。',
     image: '/homePage.png',
-    icon: <FaUserPlus className="w-7 h-7 inline-block  mb-1" />,
+    icon: <FaUserPlus className="inline-block mb-1 w-7 h-7" />,
   },
   {
     title: 'イイネ機能',
     text: 'イイネする事で、プロフィールページに表示されます。気になる投稿をイイねして、アーティストやイベント主催者を応援しましょう',
     image: '/like.png',
-    icon: <AiTwotoneHeart className="w-7 h-7 inline-block  mb-1" />,
+    icon: <AiTwotoneHeart className="inline-block mb-1 w-7 h-7" />,
   },
   {
     bgColor: 'bg-gray-300',
     title: '検索機能',
     text: 'ユーザー名、ユーザーID、出身地、都道府県、ジャンル、開催日から絞って検索可能お気に入りのアーティストやイベントを見つけよう',
     image: '/search.png',
-    icon: <FaSearch className="w-7 h-7 inline-block  mb-1" />,
+    icon: <FaSearch className="inline-block mb-1 w-7 h-7" />,
   },
   {
     title: '投稿機能',
     subTitle: '（クリエターアカウントのみ）',
     text: '各フォームに合わせてイベント内容を記載する事で、イベント情報をリスナーに知ってもらうことができます',
     image: '/post.png',
-    icon: <RiQuillPenLine className="w-7 h-7 inline-block  mb-1" />,
+    icon: <RiQuillPenLine className="inline-block mb-1 w-7 h-7" />,
   },
 ];
 
 //LPページ
 const TopPage: NextPage = () => {
+  useAuthAutoLogin();
   return (
     <>
       {/* ヘッダー */}

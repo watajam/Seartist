@@ -7,7 +7,8 @@ import { usePostCreateUpload } from '../../hooks/usePostCreateUpload';
 
 //投稿作成画面のフォーム
 const PostCreate: VFC = () => {
-  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } = usePostCreateUpload();
+  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } =
+    usePostCreateUpload();
 
   return (
     <>
@@ -15,14 +16,14 @@ const PostCreate: VFC = () => {
 
       <form onSubmit={handleSubmit(handleUpload)} className="mt-8">
         {/* 投稿写真 */}
-        <div {...getRootProps()} className=" h-80  outline-none  rounded-2xl bg-gray-200 relative">
-          <span className=" absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div {...getRootProps()} className="relative h-80 bg-gray-200 rounded-2xl outline-none">
+          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <AiOutlineCamera className="w-9 h-9" />
           </span>
           <input {...getInputProps()} />
-          <img src={src} className="object-contain h-80 m-auto  relative" />
+          <img src={src} className="object-contain relative m-auto h-80" />
         </div>
-        <button onClick={open} className=" text-base text-gray-400 mt-4 block m-auto" type="button">
+        <button onClick={open} className="block m-auto mt-4 text-base text-gray-400" type="button">
           投稿写真を追加
         </button>
         {/* 自己紹介 */}
@@ -37,13 +38,13 @@ const PostCreate: VFC = () => {
               message: '紹介文は140文字以下で入力してください',
             },
           })}
-          className=" w-full h-32 pt-2 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pt-2 pl-2 mt-2 w-full h-32 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.writing && <p className="text-red-600">{errors.writing?.message}</p>}
         {/* イベント名 */}
         <label htmlFor="イベント名" className="block mt-8 text-base text-gray-400 ">
           イベント名
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
         <input
           type="text"
@@ -55,21 +56,21 @@ const PostCreate: VFC = () => {
               message: 'イベント名は30字以下で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.eventName && <p className="text-red-600">{errors.eventName?.message}</p>}
         {/* ジャンル */}
         <label htmlFor="genre" className="block mt-8 text-base text-gray-400 ">
           ジャンル
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
-        <div className="relative  mt-2">
+        <div className="relative mt-2">
           <select
             {...register('genre', {
               required: true,
             })}
             id="genre"
-            className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+            className="pl-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           >
             <option defaultValue="アーティスト">アーティスト</option>
             <option defaultValue="イベント主催者">イベント主催者</option>
@@ -106,7 +107,7 @@ const PostCreate: VFC = () => {
             <option defaultValue="発表会">発表会</option>
             <option defaultValue="その他">その他</option>
           </select>
-          <div className="absolute  inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+          <div className="flex absolute inset-y-0 right-0 items-center px-2 pointer-events-none">
             <AiFillCaretDown />
           </div>
         </div>
@@ -114,14 +115,14 @@ const PostCreate: VFC = () => {
         {/* 都道府県 */}
         <label htmlFor="location" className="block mt-8 text-base text-gray-400 ">
           都道府県
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
 
-        <div className="relative  mt-2">
+        <div className="relative mt-2">
           <select
             {...register('location')}
             id="location"
-            className=" w-full h-10 pl-2  text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none "
+            className="pl-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           >
             <option defaultValue="北海道">北海道</option>
             <option defaultValue="青森県">青森県</option>
@@ -171,7 +172,7 @@ const PostCreate: VFC = () => {
             <option defaultValue="鹿児島県">鹿児島県</option>
             <option defaultValue="沖縄県">沖縄県</option>
           </select>
-          <div className="absolute  inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+          <div className="flex absolute inset-y-0 right-0 items-center px-2 pointer-events-none">
             <AiFillCaretDown />
           </div>
         </div>
@@ -179,7 +180,7 @@ const PostCreate: VFC = () => {
         {/* 開催場所*/}
         <label htmlFor="開催場所" className="block mt-8 text-base text-gray-400 ">
           開催場所
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
         <input
           type="text"
@@ -191,14 +192,14 @@ const PostCreate: VFC = () => {
               message: '開催場所は30字以下で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.eventLocation && <p className="text-red-600">{errors.eventLocation?.message}</p>}
 
         {/* 開催日 */}
         <label htmlFor="開催日" className="block mt-8 text-base text-gray-400">
           開催日
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
 
         <input
@@ -207,13 +208,13 @@ const PostCreate: VFC = () => {
           })}
           type="date"
           id="開催日"
-          className="w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         ></input>
         {errors.eventDate && <p className="text-red-600">{errors.eventDate?.message}</p>}
         {/* 開催時間 */}
         <label htmlFor="開催時間" className="block mt-8 text-base text-gray-400">
           開催時間
-          <span className="ml-2 bg-orange-200 text-white text-sm">必須</span>
+          <span className="ml-2 text-sm text-white bg-orange-200">必須</span>
         </label>
         <div className="flex justify-between">
           <input
@@ -222,7 +223,7 @@ const PostCreate: VFC = () => {
             {...register('openTime', {
               required: 'オープン時間は必須項目です。',
             })}
-            className="h-10  mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 w-2/5 appearance-none"
+            className="mt-2 w-2/5 h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           />
           <span className="self-center mx-2">～</span>
           <input
@@ -231,7 +232,7 @@ const PostCreate: VFC = () => {
             {...register('closeTime', {
               required: 'クローズ時間は必須項目です。',
             })}
-            className="h-10  mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 w-2/5 appearance-none"
+            className="mt-2 w-2/5 h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           />
         </div>
         {errors.openTime && <p className="text-red-600">{errors.openTime?.message}</p>}
@@ -252,7 +253,7 @@ const PostCreate: VFC = () => {
                 message: '最低金額は7字以下で入力してください',
               },
             })}
-            className="  h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 w-2/5 appearance-none"
+            className="pl-2 mt-2 w-2/5 h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           />
 
           <span className="self-center mx-2">～</span>
@@ -266,7 +267,7 @@ const PostCreate: VFC = () => {
                 message: '最大金額は7字以下で入力してください',
               },
             })}
-            className="  h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 w-2/5 appearance-none"
+            className="pl-2 mt-2 w-2/5 h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
           />
         </div>
         {errors.minAmount && <p className="text-red-600 ">{errors.minAmount?.message}</p>}
@@ -284,17 +285,17 @@ const PostCreate: VFC = () => {
               message: 'クーポンコードは20字以下で入力してください',
             },
           })}
-          className=" w-full h-10 pl-2 mt-2 text-base text-black border border-orange-400 cursor-pointer focus:outline-none focus:ring focus:border-blue-300 appearance-none"
+          className="pl-2 mt-2 w-full h-10 text-base text-black border border-orange-400 focus:border-blue-300 focus:outline-none focus:ring appearance-none cursor-pointer"
         />
         {errors.coupon && <p className="text-red-600">{errors.coupon?.message}</p>}
 
         {/* チケット*/}
         <label className="block mt-8 text-base text-gray-400 ">チケット</label>
-        <label className="mt-4 mr-14 inline-block">
+        <label className="inline-block mt-4 mr-14">
           <input {...register('tickets')} type="radio" value="あり" />
           <span className="ml-2">あり</span>
         </label>
-        <label className="mt-4 inline-block">
+        <label className="inline-block mt-4">
           <input {...register('tickets')} type="radio" value="なし" />
           <span className="ml-2">なし</span>
         </label>
