@@ -9,7 +9,7 @@ export const useQueryCreatorCheck = () => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth,async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userRef = doc(db, 'users', user.email);
         const docSnap = await getDoc(userRef);
@@ -21,5 +21,5 @@ export const useQueryCreatorCheck = () => {
         router.push('/login');
       }
     });
-  }, []);
+  }, [router]);
 };

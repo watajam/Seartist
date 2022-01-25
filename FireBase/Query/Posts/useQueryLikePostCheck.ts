@@ -8,8 +8,8 @@ export const useQueryLikePostCheck = (id) => {
   const [likePostDetailLoading, setLikePostDetailLoading] = useState(true);
 
   //常にいいねされた投稿だった場合、ハートを赤くするためにsetLikeに値を入れる
-  if (id !== undefined) {
-    useEffect(() => {
+  useEffect(() => {
+    if (id !== undefined) {
       const likePostsCheck = async () => {
         const q = query(collection(db, 'users', auth.currentUser?.email, 'likedPosts'), where('id', '==', id));
         const likePostsquery = await getDocs(q);
@@ -22,8 +22,8 @@ export const useQueryLikePostCheck = (id) => {
         }
       };
       likePostsCheck();
-    }, [id]);
-  }
+    }
+  }, [id]);
 
   return { like, likePostDetailLoading };
 };

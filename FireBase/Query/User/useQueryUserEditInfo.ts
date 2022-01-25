@@ -37,6 +37,6 @@ export const useQueryUserEditInfo = (setValue) => {
         router.push('/login');
       }
     });
-  }, []);
+  }, [router, setValue]);
   return user;
 };

@@ -20,5 +20,5 @@ export const useQueryUserDataCheck = () => {
         router.push('/login');
       }
     });
-  }, []);
+  }, [router]);
 };

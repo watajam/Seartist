@@ -20,6 +20,6 @@ export const useInsertUserInfo = () => {
       likePostCount: 0,
       postsCount: 0,
     });
-  }, [auth.currentUser]);
+  }, []);
   return { handleSetUserInfo };
 };

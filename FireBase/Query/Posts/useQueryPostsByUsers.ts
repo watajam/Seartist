@@ -16,48 +16,42 @@ export const useQueryPostsByUsers = () => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const usePostsByUsers = async () => {
-          //フォローしているユーザーの投稿を取得
-          const q = query(collection(db, 'users', user.email, 'postsByFollowers'), orderBy('timestamp', 'desc'));
-          const postsByFollowerDocs = await getDocs(q);
-          if (postsByFollowerDocs.empty) {
-            setPostsByUsersLoading(false);
-          } else {
-            postsByFollowerDocs.docs.map(async (docPosts) => {
-              const queryPosts = query(
-                collection(db, 'users'),
-                where(`postsIds`, 'array-contains', docPosts.data().id)
-              );
-              const userDocs = await getDocs(queryPosts);
-              if (userDocs.empty) {
-                setPostsByUsersLoading(false);
-                setError('フォローしているユーザーの投稿がみつかりません');
-              } else {
-                setPostsByUsers((prevPostsByUsers) => {
-                  return [
-                    ...prevPostsByUsers,
-                    {
-                      ...(docPosts.data() as PostData),
-                      name: userDocs.docs[0].data().name,
-                      userId: userDocs.docs[0].data().userId,
-                      profilePhoto: userDocs.docs[0].data().profilePhoto,
-                      email: userDocs.docs[0].data().email,
-                    },
-                  ];
-                });
-                setPostsByUsersLoading(false);
-                setError(null);
-              }
-            });
-          }
-        };
-        usePostsByUsers();
+        //フォローしているユーザーの投稿を取得
+        const q = query(collection(db, 'users', user.email, 'postsByFollowers'), orderBy('timestamp', 'desc'));
+        const postsByFollowerDocs = await getDocs(q);
+        if (postsByFollowerDocs.empty) {
+          setPostsByUsersLoading(false);
+        } else {
+          postsByFollowerDocs.docs.map(async (docPosts) => {
+            const queryPosts = query(collection(db, 'users'), where(`postsIds`, 'array-contains', docPosts.data().id));
+            const userDocs = await getDocs(queryPosts);
+            if (userDocs.empty) {
+              setPostsByUsersLoading(false);
+              setError('フォローしているユーザーの投稿がみつかりません');
+            } else {
+              setPostsByUsers((prevPostsByUsers) => {
+                return [
+                  ...prevPostsByUsers,
+                  {
+                    ...(docPosts.data() as PostData),
+                    name: userDocs.docs[0].data().name,
+                    userId: userDocs.docs[0].data().userId,
+                    profilePhoto: userDocs.docs[0].data().profilePhoto,
+                    email: userDocs.docs[0].data().email,
+                  },
+                ];
+              });
+              setPostsByUsersLoading(false);
+              setError(null);
+            }
+          });
+        }
       } else {
         router.push('/login');
       }
     });
-  }, []);
+  }, [router]);
   return { postsByUsers, postsByUsersLoading, error };
 };
