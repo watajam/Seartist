@@ -6,7 +6,7 @@ import { usePromiseToast } from '../../src/hooks/usePromiseToast';
 import { AuthFormData } from '../../types/AuthFormData';
 
 //新規登録
-export const useAuthSignUp = () => {
+export const useAuthSignup = () => {
   const router = useRouter();
   const { promiseToast, isLoading } = usePromiseToast();
 

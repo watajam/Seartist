@@ -2,8 +2,8 @@ import React, { memo, VFC } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useAuthLogin } from '../../../../FireBase/Authentication/useAuthLogin';
-import { useAuthSignUp } from '../../../../FireBase/Authentication/useAuthSignUp';
 import { AuthFormData } from '../../../../types/AuthFormData';
+import { useAuthSignup } from '../../../../FireBase/Authentication/useAuthSignup';
 
 type Props = {
   isLogin: boolean;
@@ -13,7 +13,7 @@ type Props = {
 //メールアドレスログインForm
 const EmailLogin: VFC<Props> = (props) => {
   const { handleLogin, isLoading: loginLoading } = useAuthLogin();
-  const { handleSignUp, isLoading: signUpLoading } = useAuthSignUp();
+  const { handleSignUp, isLoading: signUpLoading } = useAuthSignup();
 
   const {
     register,
