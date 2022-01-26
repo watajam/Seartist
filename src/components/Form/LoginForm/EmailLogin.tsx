@@ -2,8 +2,8 @@ import React, { memo, VFC } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useAuthLogin } from '../../../../FireBase/Authentication/useAuthLogin';
-import { AuthFormData } from '../../../../types/AuthFormData';
 import { useAuthSignUp } from '../../../../FireBase/Authentication/useAuthSignUp';
+import { AuthFormData } from '../../../../types/AuthFormData';
 
 type Props = {
   isLogin: boolean;
