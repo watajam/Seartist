@@ -3,13 +3,16 @@ import { collection, getDocs, query, where } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { auth, db } from '../../lib/firebase';
 import { AuthFormData } from '../../types/AuthFormData';
+import { usePromiseToast } from '../../src/hooks/usePromiseToast';
+import { useCallback } from 'react';
 
 //ログイン
 export const useAuthLogin = () => {
   const router = useRouter();
+  const { promiseToast, isLoading } = usePromiseToast();
 
-  const login = async (data: AuthFormData) => {
-    try {
+  const login = useCallback(
+    async (data) => {
       await signInWithEmailAndPassword(auth, data.email, data.password);
       const q = query(collection(db, 'users'), where('email', '==', data.email));
       const user = await getDocs(q);
@@ -18,9 +21,12 @@ export const useAuthLogin = () => {
       } else {
         router.push(`/selection`);
       }
-    } catch (error) {
-      alert('アカウントが見つかりません。');
-    }
+    },
+    [router]
+  );
+
+  const handleLogin = async (data: AuthFormData) => {
+    promiseToast(login(data), 'ログインできました。', 'アカウントが見つかりません。');
   };
-  return { login };
+  return { handleLogin, isLoading };
 };
