@@ -5,6 +5,7 @@ import { useBackPage } from '../../hooks/useBackPage';
 type Props = {
   backButtonUrl?: string;
   title: string;
+  disabled?: boolean;
 };
 
 //各Formで使用するボタン
@@ -28,7 +29,10 @@ const FormButton: VFC<Props> = (props) => {
         </button>
       )}
 
-      <button className="py-3 w-12/25 text-2xl font-bold text-white bg-orange-300 hover:bg-orange-400 rounded-xl border">
+      <button
+        disabled={props.disabled}
+        className="py-3 w-12/25 text-2xl font-bold text-white bg-orange-300 hover:bg-orange-400 rounded-xl border"
+      >
         {props.title}
       </button>
     </div>

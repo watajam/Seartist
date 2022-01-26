@@ -27,6 +27,7 @@ export const useQueryProfilePostsByUser = () => {
           setPostsByUserLoading(false);
           setError('ユーザーが存在しません');
         } else {
+          setPostsByUser([]);
           const userData = userDocs.docs[0]?.data() as UserData;
 
           const q = query(collection(db, 'users', `${userData?.email}`, 'posts'), orderBy('timestamp', 'desc'));

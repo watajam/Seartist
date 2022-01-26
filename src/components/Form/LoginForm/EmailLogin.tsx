@@ -2,8 +2,8 @@ import React, { memo, VFC } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useAuthLogin } from '../../../../FireBase/Authentication/useAuthLogin';
-import { useAuthSignup } from '../../../../FireBase/Authentication/useAuthSignup';
 import { AuthFormData } from '../../../../types/AuthFormData';
+import { useAuthSignup } from '../../../../FireBase/Authentication/useAuthSignup';
 
 type Props = {
   isLogin: boolean;
@@ -12,8 +12,8 @@ type Props = {
 
 //メールアドレスログインForm
 const EmailLogin: VFC<Props> = (props) => {
-  const { login } = useAuthLogin();
-  const { signup } = useAuthSignup();
+  const { handleLogin, isLoading: loginLoading } = useAuthLogin();
+  const { handleSignUp, isLoading: signUpLoading } = useAuthSignup();
 
   const {
     register,
@@ -26,7 +26,7 @@ const EmailLogin: VFC<Props> = (props) => {
   return (
     <>
       {/* ログイン＆新規アカウント作成のForm */}
-      <form onSubmit={props.isLogin ? handleSubmit(login) : handleSubmit(signup)}>
+      <form onSubmit={props.isLogin ? handleSubmit(handleLogin) : handleSubmit(handleSignUp)}>
         {/* メールアドレスのフォームとバリデーション */}
         <label htmlFor="email" className="block mt-8 text-base text-gray-400 ">
           メールアドレス
@@ -76,7 +76,10 @@ const EmailLogin: VFC<Props> = (props) => {
             </a>
           </Link>
         </div>
-        <button className="py-3 mt-10 w-full text-2xl font-bold text-white bg-orange-300 hover:bg-orange-400 rounded-xl border">
+        <button
+          disabled={props.isLogin ? loginLoading : signUpLoading}
+          className="py-3 mt-10 w-full text-2xl font-bold text-white bg-orange-300 hover:bg-orange-400 rounded-xl border"
+        >
           {props.isLogin ? 'ログイン' : 'アカウント作成'}
         </button>
       </form>

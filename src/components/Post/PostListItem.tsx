@@ -80,7 +80,7 @@ const PostListItem: VFC<Props> = (props) => {
       </Link>
 
       <div className="flex justify-end items-center mt-6 mr-4 mb-2">
-        <span
+        <button
           className={`text-base ${
             likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
           }`}
@@ -93,7 +93,7 @@ const PostListItem: VFC<Props> = (props) => {
             : like === 1 && likeFlag === false
             ? props.postsByUsers?.likeCount - 1
             : props.postsByUsers?.likeCount}
-        </span>
+        </button>
       </div>
     </div>
   );

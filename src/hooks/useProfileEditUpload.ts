@@ -2,6 +2,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useUpdateProfileEdit } from '../../FireBase/Mutation/Update/useUpdateProfileEdit';
 import { storage } from '../../lib/firebase';
 import { UserData } from '../../types/UserData';
@@ -25,7 +26,7 @@ export const useProfileEditUpload = () => {
   } = useForm<Omit<UserData, 'profilePhoto'>>({
     mode: 'onChange',
   });
-  const { updateProfileEdit } = useUpdateProfileEdit();
+  const { updateProfileEdit, isLoading } = useUpdateProfileEdit();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -33,12 +34,12 @@ export const useProfileEditUpload = () => {
       setMyFiles([...acceptedFiles]);
       handlePreview(acceptedFiles);
     } catch (error) {
-      alert(error);
+      toast.error(error.message);
     }
   }, []);
 
   const onDropRejected = () => {
-    alert('画像のみ受け付けることができます。');
+    toast.error('画像のみ受け付けることができます。');
   };
 
   const { getRootProps, getInputProps, open } = useDropzone({
@@ -86,6 +87,8 @@ export const useProfileEditUpload = () => {
           try {
             const url = await getDownloadURL(storageRef);
             updateProfileEdit(url, data, setError);
+            console.log(1);
+            
           } catch (error) {
             switch (error.code) {
               case 'storage/object-not-found':
@@ -106,6 +109,8 @@ export const useProfileEditUpload = () => {
       );
     } catch (error) {
       if (src === '/profile.png') {
+        console.log(src);
+        
         updateProfileEdit('', data, setError);
       } else {
         console.log('エラーキャッチ', error);
@@ -138,5 +143,6 @@ export const useProfileEditUpload = () => {
     handleSubmit,
     setValue,
     errors,
+    isLoading,
   };
 };

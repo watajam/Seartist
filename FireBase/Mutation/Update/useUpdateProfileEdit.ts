@@ -1,13 +1,16 @@
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
 //プロフィール編集機能
 export const useUpdateProfileEdit = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   //投稿する再に写真が追加している場合の処理
   const updateProfileEdit = async (url, data, setError) => {
+    setIsLoading(true);
     //ログインしているユーザーの情報を取得
     const q = query(collection(db, 'users'), where('userId', '==', data.userId));
     const userInfoDocs = await getDocs(q);
@@ -21,9 +24,23 @@ export const useUpdateProfileEdit = () => {
             type: 'validate',
             message: 'このユーザーIDは既に使用されています',
           });
+        } else if (url) {
+          await updateDoc(doc(db, 'users', auth.currentUser?.email), {
+            profilePhoto: url,
+            name: data.name,
+            userId: data.userId,
+            genre: data.genre ? data.genre : '',
+            location: data.location,
+            birthday: data.birthday,
+            writing: data.writing,
+            twitterUrl: data.twitterUrl,
+            instagramUrl: data.instagramUrl,
+            homepageUrl: data.homepageUrl,
+            otherUrl: data.otherUrl,
+          });
+          router.back();
         } else {
           await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-            profilePhoto: url ? url : '',
             name: data.name,
             userId: data.userId,
             genre: data.genre ? data.genre : '',
@@ -38,9 +55,10 @@ export const useUpdateProfileEdit = () => {
           router.back();
         }
       });
-    } else {
+    } else if(url) {
+
       await updateDoc(doc(db, 'users', auth.currentUser?.email), {
-        profilePhoto: url ? url : '',
+        profilePhoto: url,
         name: data.name,
         userId: data.userId,
         genre: data.genre ? data.genre : '',
@@ -53,8 +71,24 @@ export const useUpdateProfileEdit = () => {
         otherUrl: data.otherUrl,
       });
       router.push(`/profile/${data.userId}`);
+    }else{
+      await updateDoc(doc(db, 'users', auth.currentUser?.email), {
+        name: data.name,
+        userId: data.userId,
+        genre: data.genre ? data.genre : '',
+        location: data.location,
+        birthday: data.birthday,
+        writing: data.writing,
+        twitterUrl: data.twitterUrl,
+        instagramUrl: data.instagramUrl,
+        homepageUrl: data.homepageUrl,
+        otherUrl: data.otherUrl,
+      });
+      router.push(`/profile/${data.userId}`);
+
     }
+    setIsLoading(false);
   };
 
-  return { updateProfileEdit };
+  return { updateProfileEdit, isLoading };
 };

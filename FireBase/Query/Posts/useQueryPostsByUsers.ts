@@ -52,6 +52,7 @@ export const useQueryPostsByUsers = () => {
         router.push('/login');
       }
     });
-  }, [router]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return { postsByUsers, postsByUsersLoading, error };
 };

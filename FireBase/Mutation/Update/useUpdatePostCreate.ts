@@ -9,14 +9,17 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { auth, db } from '../../../lib/firebase';
 
 //投稿作成機能
 export const useUpdatePostCreate = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   //投稿する再に写真が追加している場合の処理
   const updatePostCreate = async (url, data) => {
+    setIsLoading(true);
     //ドキュメントIDを作成
     const postsRef = doc(collection(db, 'users', auth.currentUser?.email, `posts`));
 
@@ -88,8 +91,10 @@ export const useUpdatePostCreate = () => {
 
     await batch.commit();
 
+    setIsLoading(false);
+
     router.push(`/profile/${userDoc.data()?.userId}`);
   };
 
-  return { updatePostCreate };
+  return { updatePostCreate, isLoading };
 };

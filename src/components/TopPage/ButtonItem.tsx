@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 //各ログインボタン
 const ButtonItem: VFC = () => {
-  const { googleLogin } = useAuthGoogleLogin();
-  const { login } = useAuthGuest();
+  const { handleGoogleLogin, isLoading: googleLoading } = useAuthGoogleLogin();
+  const { handleGuestLogin, isLoading: guestLoading } = useAuthGuest();
   return (
     <div className="text-gray-600 bg-orange-200">
       <div className="container flex flex-col flex-wrap items-center p-5 mx-auto md:flex-row">
@@ -19,14 +19,16 @@ const ButtonItem: VFC = () => {
           </Link>
 
           <button
-            onClick={googleLogin}
+            onClick={handleGoogleLogin}
+            disabled={googleLoading}
             className="inline-flex justify-center py-3 mb-8 w-full text-lg text-white bg-gray-400 hover:bg-gray-500 rounded border-0 focus:outline-none md:ml-16 md:w-3/12"
           >
             <FcGoogle />
             <span className="pl-2">Googleでログイン</span>
           </button>
           <button
-            onClick={login}
+            onClick={handleGuestLogin}
+            disabled={guestLoading}
             className="inline-flex justify-center py-3 mb-8 w-full text-lg text-white bg-yellow-500 hover:bg-yellow-600 rounded border-0 focus:outline-none md:ml-16 md:w-3/12"
           >
             ゲストログイン

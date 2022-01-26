@@ -7,7 +7,7 @@ import { usePostCreateUpload } from '../../hooks/usePostCreateUpload';
 
 //投稿作成画面のフォーム
 const PostCreate: VFC = () => {
-  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } =
+  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors, isLoading } =
     usePostCreateUpload();
 
   return (
@@ -301,7 +301,7 @@ const PostCreate: VFC = () => {
         </label>
 
         <div className="mt-8">
-          <FormButton title="投稿" />
+          <FormButton title="投稿" disabled={isLoading} />
         </div>
       </form>
     </>

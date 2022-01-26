@@ -12,11 +12,11 @@ export const useUpdateAddOrDeletLikes = () => {
     //投稿にログインしている人の情報を追加
     const postRef = doc(db, 'users', postsByUsers?.email, 'posts', postsByUsers?.id);
     const likedUsersRef = doc(postRef, 'likedUsers', auth.currentUser?.email);
-    
+
     //投稿しているユーザーのフォロワーを取得
     const otherFollowersRef = collection(db, 'users', postsByUsers?.email, 'followers');
     const userFollowersDocs = await getDocs(otherFollowersRef);
-    
+
     //ログインしている人のいいねした投稿を取得
     const UserRef = doc(db, 'users', auth.currentUser?.email);
     const likedPostsRef = doc(UserRef, 'likedPosts', postsByUsers?.id);
@@ -27,10 +27,9 @@ export const useUpdateAddOrDeletLikes = () => {
       where('id', '==', postsByUsers?.id)
     );
     const likePostsDocs = await getDocs(likePostsquery);
-    
+
     //既にいいねされているか判定
     if (likePostsDocs.docs.length === 0) {
-
       //投稿にいいねしたユーザーを追加
       batch.set(likedUsersRef, {
         id: auth.currentUser?.email,
@@ -43,7 +42,7 @@ export const useUpdateAddOrDeletLikes = () => {
         postRef: postRef,
         createTime: serverTimestamp(),
       });
-      
+
       //いいね数を追加
       batch.update(postRef, { likeCount: increment(1) });
 
@@ -60,7 +59,6 @@ export const useUpdateAddOrDeletLikes = () => {
       //フォローした場合フラグをTrueにする
       setLikeFlag(true);
     } else {
-
       //いいねをした投稿のユーザー情報を削除
       batch.delete(likedUsersRef);
 

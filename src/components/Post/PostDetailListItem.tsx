@@ -36,7 +36,7 @@ const PostDetailListItem: VFC<Props> = (props) => {
         )}
         <h1 className="ml-2">{props.postByUser?.name}</h1>
         <div className="ml-auto ">
-          <span
+          <button
             className={`text-base ${
               likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
             }`}
@@ -48,7 +48,7 @@ const PostDetailListItem: VFC<Props> = (props) => {
               : like === 1 && likeFlag === false
               ? props.postByUser?.likeCount - 1
               : props.postByUser?.likeCount}
-          </span>
+          </button>
         </div>
       </div>
       <p className="mt-4 text-base font-bold">{props.postByUser?.writing}</p>

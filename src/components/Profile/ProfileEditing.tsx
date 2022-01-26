@@ -7,7 +7,7 @@ import { useQueryUserEditInfo } from '../../../FireBase/Query/User/useQueryUserE
 
 //プロフィール編集画面
 const ProfileEditing: VFC = () => {
-  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, setValue, errors } =
+  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, setValue, errors, isLoading } =
     useProfileEditUpload();
 
   const user = useQueryUserEditInfo(setValue);
@@ -314,7 +314,7 @@ flex items-center justify-between w-full px-2 py-2 mt-8 text-base"
             </>
           ) : null}
           <div className="mt-8">
-            <FormButton title="保存" />
+            <FormButton title="保存" disabled={isLoading} />
           </div>
         </div>
       </form>

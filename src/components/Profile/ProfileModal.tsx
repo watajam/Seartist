@@ -10,7 +10,7 @@ type Props = {
 
 //プロフィールモーダル
 const ProfileModal: VFC<Props> = (props) => {
-  const { logout } = useAuthLogout();
+  const { handleLogout, isLoading } = useAuthLogout();
 
   return (
     <Dialog open={props.isOpen} onClose={props.closeModal} className="overflow-y-auto fixed inset-0 z-10">
@@ -31,7 +31,11 @@ const ProfileModal: VFC<Props> = (props) => {
           </Link>
           <hr />
 
-          <button onClick={logout} className="block p-6 w-full text-center hover:bg-orange-100 active:bg-orange-100">
+          <button
+            onClick={handleLogout}
+            disabled={isLoading}
+            className="block p-6 w-full text-center hover:bg-orange-100 active:bg-orange-100"
+          >
             ログアウト
           </button>
           <hr />

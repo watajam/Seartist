@@ -7,8 +7,8 @@ import ButtonItem from './ButtonItem';
 
 //ファーストビュー
 const Hero: VFC = () => {
-  const { googleLogin } = useAuthGoogleLogin();
-  const { login } = useAuthGuest();
+  const { handleGoogleLogin, isLoading: googleLoading } = useAuthGoogleLogin();
+  const { handleGuestLogin, isLoading: guestLoading } = useAuthGuest();
   return (
     <section className="text-gray-600 bg-orange-200">
       <div className="container flex flex-col items-center py-24 px-5 mx-auto md:flex-row">
@@ -31,14 +31,16 @@ const Hero: VFC = () => {
                 </a>
               </Link>
               <button
-                onClick={googleLogin}
+                onClick={handleGoogleLogin}
+                disabled={googleLoading}
                 className="inline-flex justify-center py-2 px-6 text-lg text-white bg-gray-400 hover:bg-gray-500 rounded border-0 focus:outline-none md:mb-6 md:w-full xl:ml-4 xl:w-auto"
               >
                 <FcGoogle />
                 <span className="pl-2">Googleでログイン</span>
               </button>
               <button
-                onClick={login}
+                onClick={handleGuestLogin}
+                disabled={guestLoading}
                 className="inline-flex justify-center py-2 px-6 text-lg text-white bg-yellow-500 hover:bg-yellow-600 rounded border-0 focus:outline-none md:mb-6 md:w-full xl:ml-4 xl:w-auto"
               >
                 ゲストログイン

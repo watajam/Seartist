@@ -5,11 +5,12 @@ import { useAuthGoogleLogin } from '../../../../FireBase/Authentication/useAuthG
 
 //GoogleログインForm
 const GoogleLogin: VFC = () => {
-  const { googleLogin } = useAuthGoogleLogin();
+  const { handleGoogleLogin,isLoading } = useAuthGoogleLogin();
 
   return (
     <button
-      onClick={googleLogin}
+      onClick={handleGoogleLogin}
+      disabled={isLoading}
       className="flex justify-center py-3 pl-2 mt-4 w-full font-bold hover:bg-gray-100 rounded-xl border border-gray-400"
     >
       <FcGoogle className="text-2xl" />
