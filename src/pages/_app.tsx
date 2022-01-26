@@ -4,9 +4,9 @@ import Head from 'next/head';
 import { RecoilRoot } from 'recoil';
 import 'instantsearch.css/themes/satellite-min.css';
 import '../../src/styles/algolia.css';
-import { DefaultSeo, NextSeo } from 'next-seo';
+import { DefaultSeo } from 'next-seo';
 import SEO from '../../next-seo.config';
-
+import { Toaster } from 'react-hot-toast';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -16,9 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <DefaultSeo {...SEO} />
 
-
       <RecoilRoot>
         <Component {...pageProps} />
+        <Toaster />
       </RecoilRoot>
     </>
   );
