@@ -2,6 +2,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useUpdatePostCreate } from '../../FireBase/Mutation/Update/useUpdatePostCreate';
 import { useQueryCreatorCheck } from '../../FireBase/Query/User/useQueryCreatorCheck';
 import { storage } from '../../lib/firebase';
@@ -24,7 +25,7 @@ export const usePostCreateUpload = () => {
   } = useForm<Omit<PostDetailData, 'email' | 'id'>>({
     mode: 'onChange',
   });
-  const { updatePostCreate } = useUpdatePostCreate();
+  const { updatePostCreate, isLoading } = useUpdatePostCreate();
   useQueryCreatorCheck();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -33,12 +34,12 @@ export const usePostCreateUpload = () => {
       setMyFiles([...acceptedFiles]);
       handlePreview(acceptedFiles);
     } catch (error) {
-      alert(error);
+      toast.error(error.message);
     }
   }, []);
 
   const onDropRejected = () => {
-    alert('画像のみ受け付けることができます。');
+    toast.error('画像のみ受け付けることができます。');
   };
 
   const { getRootProps, getInputProps, open } = useDropzone({
@@ -137,5 +138,6 @@ export const usePostCreateUpload = () => {
     register,
     handleSubmit,
     errors,
+    isLoading,
   };
 };

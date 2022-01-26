@@ -1,5 +1,6 @@
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 import { auth, db } from '../../../lib/firebase';
 
 //ユーザー情報に氏名とユーザーIDとジャンルと所在地と生年月日をメールアドレス登録
@@ -27,7 +28,7 @@ export const useUpdateUserInfo = () => {
           router.push(url);
         })
         .catch((error) => {
-          alert(error);
+          toast.error(error.message);
         });
     }
   };

@@ -2,6 +2,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useUpdateUsereSelfLntroductionInfo } from '../../FireBase/Mutation/Update/useUpdateUsereSelfLntroductionInfo';
 import { storage } from '../../lib/firebase';
 import { UserData } from '../../types/UserData';
@@ -31,12 +32,12 @@ export const useSelfLntroductionUpload = () => {
       setMyFiles([...acceptedFiles]);
       handlePreview(acceptedFiles);
     } catch (error) {
-      alert(error);
+      toast.error(error.message);
     }
   }, []);
 
   const onDropRejected = () => {
-    alert('画像のみ受け付けることができます。');
+    toast.error('画像のみ受け付けることができます。');
   };
 
   const { getRootProps, getInputProps, open } = useDropzone({
