@@ -1,9 +1,7 @@
 import React, { memo, VFC } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { sendPasswordResetEmail } from '@firebase/auth';
-import { auth } from '../../../../lib/firebase';
-import { useRouter } from 'next/dist/client/router';
+import { useAuthResetPassword } from '../../../../FireBase/Authentication/useAuthResetPassword';
 
 type ResetFormData = {
   email: string;
@@ -11,7 +9,7 @@ type ResetFormData = {
 
 //パスワードリセットForm
 const ResetPassword: VFC = () => {
-  const router = useRouter();
+  const resetPassword = useAuthResetPassword();
 
   const {
     register,
@@ -20,18 +18,6 @@ const ResetPassword: VFC = () => {
   } = useForm<ResetFormData>({
     mode: 'onChange',
   });
-
-  const resetPassword = async (data: ResetFormData) => {
-    auth.languageCode = 'ja';
-    sendPasswordResetEmail(auth, data.email)
-      .then(() => {
-        alert('パスワードリセットメールを送信しました。');
-        router.push(`/login`);
-      })
-      .catch(() => {
-        alert('メールアドレスが見つかりません。');
-      });
-  };
 
   return (
     <>
