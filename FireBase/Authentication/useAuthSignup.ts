@@ -11,7 +11,7 @@ export const useAuthSignUp = () => {
   const { promiseToast, isLoading } = usePromiseToast();
 
   const signUp = useCallback(
-    async (data: AuthFormData) => {
+    async (data) => {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
       router.push(`/selection`);
     },
