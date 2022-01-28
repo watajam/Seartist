@@ -1,15 +1,26 @@
 import { collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { auth, db } from '../../../lib/firebase';
+import { UserData } from '../../../types/UserData';
 
 //プロフィール編集機能
 export const useUpdateProfileEdit = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    setError,
+  } = useForm<Omit<UserData, 'profilePhoto'>>({
+    mode: 'onChange',
+  });
 
   //投稿する再に写真が追加している場合の処理
-  const updateProfileEdit = async (url, data, setError) => {
+  const updateProfileEdit = async (url, data) => {
     setIsLoading(true);
     //ログインしているユーザーの情報を取得
     const q = query(collection(db, 'users'), where('userId', '==', data.userId));
@@ -55,8 +66,7 @@ export const useUpdateProfileEdit = () => {
           router.back();
         }
       });
-    } else if(url) {
-
+    } else if (url) {
       await updateDoc(doc(db, 'users', auth.currentUser?.email), {
         profilePhoto: url,
         name: data.name,
@@ -71,7 +81,7 @@ export const useUpdateProfileEdit = () => {
         otherUrl: data.otherUrl,
       });
       router.push(`/profile/${data.userId}`);
-    }else{
+    } else {
       await updateDoc(doc(db, 'users', auth.currentUser?.email), {
         name: data.name,
         userId: data.userId,
@@ -85,10 +95,9 @@ export const useUpdateProfileEdit = () => {
         otherUrl: data.otherUrl,
       });
       router.push(`/profile/${data.userId}`);
-
     }
     setIsLoading(false);
   };
 
-  return { updateProfileEdit, isLoading };
+  return { updateProfileEdit, isLoading, register, handleSubmit, errors, setValue };
 };

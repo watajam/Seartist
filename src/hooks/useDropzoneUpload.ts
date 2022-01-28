@@ -1,12 +1,10 @@
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useUpdatePostCreate } from '../../FireBase/Mutation/Update/useUpdatePostCreate';
-import { useQueryCreatorCheck } from '../../FireBase/Query/User/useQueryCreatorCheck';
 import { storage } from '../../lib/firebase';
 import { PostDetailData } from '../../types/PostDetailData';
+import { UserData } from '../../types/UserData';
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
@@ -14,19 +12,10 @@ export type firebaseOnLoadProp = {
   state: 'error' | 'paused' | 'running' | 'success';
 };
 
-//ログインしているユーザーの情報を登録するformをReact Hook Formで作成し写真はDropzoneで作成
-export const usePostCreateUpload = () => {
+//画像ファイルアップロード機能
+export const useDropzoneUpload = (setData) => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [src, setSrc] = useState('');
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Omit<PostDetailData, 'email' | 'id'>>({
-    mode: 'onChange',
-  });
-  const { updatePostCreate, isLoading } = useUpdatePostCreate();
-  useQueryCreatorCheck();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -48,7 +37,12 @@ export const usePostCreateUpload = () => {
     onDropRejected,
   });
 
-  const handleUpload = async (data: Omit<PostDetailData, 'email' | 'id'>) => {
+  const handleUpload = async (
+    data:
+      | Pick<UserData, 'profilePhoto' | 'writing'>
+      | Omit<PostDetailData, 'email' | 'id'>
+      | Omit<UserData, 'profilePhoto'>
+  ) => {
     try {
       if (!myFiles) return;
       const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));
@@ -86,7 +80,7 @@ export const usePostCreateUpload = () => {
         async () => {
           try {
             const url = await getDownloadURL(storageRef);
-            updatePostCreate(url, data);
+            setData(url, data);
           } catch (error) {
             switch (error.code) {
               case 'storage/object-not-found':
@@ -107,7 +101,7 @@ export const usePostCreateUpload = () => {
       );
     } catch (error) {
       if (src === '') {
-        updatePostCreate('', data);
+        setData('', data);
       } else {
         console.log('エラーキャッチ', error);
       }
@@ -135,9 +129,5 @@ export const usePostCreateUpload = () => {
     open,
     handleUpload,
     src,
-    register,
-    handleSubmit,
-    errors,
-    isLoading,
   };
 };
