@@ -28,7 +28,7 @@ const FeatureListItem: VFC<Props> = (props) => {
       </div>
 
       <div className="container flex flex-wrap justify-center py-24 px-5 mx-auto">
-        <div className="overflow-hidden mb-10 w-5/6 rounded-xl md:w-1/2 xl:mb-0 xl:w-full xl:max-w-xl">
+        <div className="overflow-hidden mb-10 w-5/6 rounded-xl md:w-1/2 xl:mb-0 xl:w-full xl:max-w-md">
           <img alt="feature" className="object-cover object-center w-full h-full" src={props.image} />
         </div>
         <div className="flex flex-col flex-wrap justify-center -mb-10 text-center xl:py-6 xl:pl-12 xl:w-1/2 xl:text-left">

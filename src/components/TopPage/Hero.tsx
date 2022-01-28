@@ -12,7 +12,7 @@ const Hero: VFC = () => {
   return (
     <section className="text-gray-600 bg-orange-200">
       <div className="container flex flex-col items-center py-24 px-5 mx-auto md:flex-row">
-        <div className="flex flex-col items-center mb-16 text-center md:items-start md:pr-16 md:mb-0 md:w-1/2 md:text-left lg:grow lg:pr-24">
+        <div className="flex flex-col items-center mb-16 text-center md:items-start md:pr-16 md:mb-0 md:w-1/2 md:text-left lg:grow lg:pr-24 ">
           <p className="mb-1 text-xs leading-relaxed">アーティスト・イベント検索アプリ</p>
           <h1 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
             身近なアーティストやイベントをより知ろう！
@@ -48,7 +48,7 @@ const Hero: VFC = () => {
             </div>
           </div>
         </div>
-        <div className="w-5/6 md:w-1/2 lg:w-full lg:max-w-lg">
+        <div className="lg:max-w-lg">
           <img className="object-cover object-center rounded" alt="hero" src="/profilePage.png" />
         </div>
       </div>
