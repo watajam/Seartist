@@ -11,8 +11,8 @@ export default {
     images: [
       {
         url: 'https://light.dotup.org/uploda/light.dotup.org14180.png_ngKbwCYY3GZDZA6qNGPh/light.dotup.org14180.png',
-        width: 900,
-        height: 800,
+        width: 800,
+        height: 600,
         alt: 'Seartsitのプロフィール画面の画像',
       },
     ],
