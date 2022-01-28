@@ -16,7 +16,7 @@ export const useQueryPostByUserDetail = () => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (userAuth) => {
+    const unSub = onAuthStateChanged(auth, async (userAuth) => {
       if (userAuth) {
         if (router.query.id !== undefined) {
           const postRef = collectionGroup(db, 'posts');
@@ -50,6 +50,7 @@ export const useQueryPostByUserDetail = () => {
         router.push('/login');
       }
     });
+    return () => unSub();
   }, [router]);
 
   return { postByUser, postByUserLoading, error };

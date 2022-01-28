@@ -18,7 +18,7 @@ export const useQueryProfilePostsByUser = () => {
   useEffect(() => {
     const userRef = collection(db, 'users');
 
-    onAuthStateChanged(auth, async (user) => {
+    const unSub = onAuthStateChanged(auth, async (user) => {
       if (user && router.query.id !== undefined) {
         const q = query(userRef, where('userId', '==', router.query.id));
         const userDocs = await getDocs(q);
@@ -54,6 +54,7 @@ export const useQueryProfilePostsByUser = () => {
         router.push('/login');
       }
     });
+    return () => unSub();
   }, [router]);
 
   return { postsByUser, postsByUserLoading, error };

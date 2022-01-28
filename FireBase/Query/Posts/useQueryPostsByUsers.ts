@@ -16,7 +16,7 @@ export const useQueryPostsByUsers = () => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unSub = onAuthStateChanged(auth, async (user) => {
       if (user) {
         //フォローしているユーザーの投稿を取得
         const q = query(collection(db, 'users', user.email, 'postsByFollowers'), orderBy('timestamp', 'desc'));
@@ -52,7 +52,8 @@ export const useQueryPostsByUsers = () => {
         router.push('/login');
       }
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => unSub();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return { postsByUsers, postsByUsersLoading, error };
 };
