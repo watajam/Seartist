@@ -11,7 +11,7 @@ export const useQueryUserEditInfo = (setValue) => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (userAuth) => {
+    const unSub = onAuthStateChanged(auth, async (userAuth) => {
       if (userAuth) {
         const userRef = doc(db, 'users', userAuth.email);
         const docSnap = await getDoc(userRef);
@@ -37,6 +37,7 @@ export const useQueryUserEditInfo = (setValue) => {
         router.push('/login');
       }
     });
+    return () => unSub();
   }, [router, setValue]);
   return user;
 };

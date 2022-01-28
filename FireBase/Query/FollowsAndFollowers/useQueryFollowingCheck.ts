@@ -15,7 +15,7 @@ export const useQueryFollowingCheck = (email) => {
       return;
     }
     const userFollowingCheck = async () => {
-      onAuthStateChanged(auth, (user) => {
+      const unSub = onAuthStateChanged(auth, (user) => {
         if (user) {
           if (user.email !== email) {
             const authUserRef = doc(db, 'users', user.email);
@@ -34,6 +34,7 @@ export const useQueryFollowingCheck = (email) => {
           router.push('/login');
         }
       });
+      return () => unSub();
     };
     userFollowingCheck();
   }, [router, email]);

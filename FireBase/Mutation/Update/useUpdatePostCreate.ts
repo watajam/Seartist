@@ -10,12 +10,21 @@ import {
 } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { auth, db } from '../../../lib/firebase';
+import { PostDetailData } from '../../../types/PostDetailData';
 
 //投稿作成機能
 export const useUpdatePostCreate = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Omit<PostDetailData, 'email' | 'id'>>({
+    mode: 'onChange',
+  });
 
   //投稿する再に写真が追加している場合の処理
   const updatePostCreate = async (url, data) => {
@@ -96,5 +105,5 @@ export const useUpdatePostCreate = () => {
     router.push(`/profile/${userDoc.data()?.userId}`);
   };
 
-  return { updatePostCreate, isLoading };
+  return { updatePostCreate, isLoading, register, handleSubmit, errors };
 };

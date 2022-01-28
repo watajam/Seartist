@@ -14,7 +14,7 @@ export const useAuthAutoLogin = () => {
         const postsRef = doc(db, 'users', user.email);
         const userCheck = async () => {
           const docSnap = await getDoc(postsRef);
-          if (docSnap.data().email === user.email) {
+          if (docSnap.data()?.email === user.email) {
             router.push('/posts');
           } else {
             router.push('/selection');

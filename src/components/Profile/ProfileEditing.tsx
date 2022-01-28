@@ -2,13 +2,14 @@ import React, { memo, VFC } from 'react';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { Disclosure } from '@headlessui/react';
 import FormButton from '../Form/FormButton';
-import { useProfileEditUpload } from '../../hooks/useProfileEditUpload';
 import { useQueryUserEditInfo } from '../../../FireBase/Query/User/useQueryUserEditInfo';
+import { useUpdateProfileEdit } from '../../../FireBase/Mutation/Update/useUpdateProfileEdit';
+import { useDropzoneUpload } from '../../hooks/useDropzoneUpload';
 
 //プロフィール編集画面
 const ProfileEditing: VFC = () => {
-  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, setValue, errors, isLoading } =
-    useProfileEditUpload();
+  const { updateProfileEdit, isLoading, register, handleSubmit, errors, setValue } = useUpdateProfileEdit();
+  const { getRootProps, getInputProps, open, handleUpload, src } = useDropzoneUpload(updateProfileEdit);
 
   const user = useQueryUserEditInfo(setValue);
 
@@ -21,16 +22,11 @@ const ProfileEditing: VFC = () => {
           <div {...getRootProps()} className="m-auto w-24 h-24 bg-gray-200 rounded-full outline-none">
             <input {...getInputProps()} />
 
-            <img
-              src={
-                user?.profilePhoto === '' || user?.profilePhoto === undefined
-                  ? src
-                  : src === '/profile.png'
-                  ? user?.profilePhoto
-                  : src
-              }
-              className="object-cover m-auto w-24 h-24 rounded-full"
-            />
+            {(user?.profilePhoto === undefined && src === '') || (user?.profilePhoto === '' && src === '') ? (
+              <img src={'/profile.png'} className="object-cover m-auto w-24 h-24 rounded-full" />
+            ) : (
+              <img src={src ? src : user.profilePhoto} className="object-cover m-auto w-24 h-24 rounded-full" />
+            )}
           </div>
           <button onClick={open} className="block m-auto mt-4 text-base text-gray-400" type="button">
             プロフィール写真を変更

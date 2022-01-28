@@ -3,12 +3,15 @@ import { AiOutlineCamera } from 'react-icons/ai';
 import { AiFillCaretDown } from 'react-icons/ai';
 import FormButton from '../Form/FormButton';
 import FormProfileTitle from '../Form/FormProfileTitle';
-import { usePostCreateUpload } from '../../hooks/usePostCreateUpload';
+import { useQueryCreatorCheck } from '../../../FireBase/Query/User/useQueryCreatorCheck';
+import { useDropzoneUpload } from '../../hooks/useDropzoneUpload';
+import { useUpdatePostCreate } from '../../../FireBase/Mutation/Update/useUpdatePostCreate';
 
 //投稿作成画面のフォーム
 const PostCreate: VFC = () => {
-  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors, isLoading } =
-    usePostCreateUpload();
+  const { updatePostCreate, isLoading, register, handleSubmit, errors } = useUpdatePostCreate();
+  const { getRootProps, getInputProps, open, handleUpload, src } = useDropzoneUpload(updatePostCreate);
+  useQueryCreatorCheck();
 
   return (
     <>

@@ -1,8 +1,8 @@
 import React, { memo, ReactNode, VFC } from 'react';
 import FormProfileTitle from '../FormProfileTitle';
-
-import { useSelfLntroductionUpload } from '../../../hooks/useSelfLntroductionUpload';
 import { useQueryUserEmailCheck } from '../../../../FireBase/Query/User/useQueryUserEmailCheck';
+import { useDropzoneUpload } from '../../../hooks/useDropzoneUpload';
+import { useUpdateUsereSelfLntroductionInfo } from '../../../../FireBase/Mutation/Update/useUpdateUsereSelfLntroductionInfo';
 
 type Props = {
   children: ReactNode;
@@ -10,8 +10,8 @@ type Props = {
 
 //プロフィール登録Form（profilePhoto/writing)
 const SelfLntroductionFormList: VFC<Props> = (props) => {
-  const { getRootProps, getInputProps, open, handleUpload, src, register, handleSubmit, errors } =
-    useSelfLntroductionUpload();
+  const { updateUserImageAndWritingInfo, register, handleSubmit, errors } = useUpdateUsereSelfLntroductionInfo();
+  const { getRootProps, getInputProps, open, handleUpload, src } = useDropzoneUpload(updateUserImageAndWritingInfo);
 
   useQueryUserEmailCheck();
 
@@ -22,7 +22,7 @@ const SelfLntroductionFormList: VFC<Props> = (props) => {
         {/* プロフィール画像追加 */}
         <div {...getRootProps()} className="m-auto w-24 h-24 bg-gray-200 rounded-full outline-none">
           <input {...getInputProps()} />
-          <img src={src} className="object-cover m-auto w-24 h-24 rounded-full" />
+          <img src={src === '' ? '/profile.png' : src} className="object-cover m-auto w-24 h-24 rounded-full" />
         </div>
         <button onClick={open} className="block m-auto mt-4 text-base text-gray-400" type="button">
           プロフィール写真を追加
