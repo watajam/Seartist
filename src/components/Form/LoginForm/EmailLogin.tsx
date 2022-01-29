@@ -34,7 +34,7 @@ const EmailLogin: VFC<Props> = (props) => {
         <input
           type="email"
           id="email"
-          placeholder="メールアドレスを入力してください"
+          placeholder="test@test.com"
           {...register('email', {
             required: '必須項目です。',
             pattern: {
@@ -53,7 +53,7 @@ const EmailLogin: VFC<Props> = (props) => {
         <input
           type="password"
           id="password"
-          placeholder="パスワードを入力してください"
+          placeholder="test29453"
           {...register('password', {
             required: '必須項目です。',
             minLength: {

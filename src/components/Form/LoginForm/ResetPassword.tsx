@@ -32,7 +32,7 @@ const ResetPassword: VFC = () => {
         <input
           type="email"
           id="email"
-          placeholder="メールアドレスを入力してください"
+          placeholder="test@test.com"
           {...register('email', {
             required: '必須項目です。',
             pattern: {

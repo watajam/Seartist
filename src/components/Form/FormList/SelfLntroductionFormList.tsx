@@ -34,6 +34,7 @@ const SelfLntroductionFormList: VFC<Props> = (props) => {
         </label>
         <textarea
           id="自己紹介"
+          placeholder='2022年1月1から活動を始めました。応援よろしくお願いします!!'
           {...register('writing', {
             maxLength: {
               value: 160,

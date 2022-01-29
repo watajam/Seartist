@@ -28,7 +28,7 @@ const UrlFormList: VFC<Props> = (props) => {
         <input
           type="url"
           id="twitter"
-          placeholder="URLを入力してください"
+          placeholder="https://twitter.com/ユーザー名"
           {...register('twitterUrl', {
             pattern: {
               value: /(https|http):\/\/(twitter.com)\/([A-Za-z0-9_]*)/,
@@ -45,7 +45,7 @@ const UrlFormList: VFC<Props> = (props) => {
         <input
           type="url"
           id="instagram"
-          placeholder="URLを入力してください"
+          placeholder="https://www.instagram.com/ユーザー名"
           {...register('instagramUrl', {
             pattern: {
               value: /(https|http):\/\/(www.instagram.com)\/([A-Za-z0-9_]*)/,
@@ -62,7 +62,7 @@ const UrlFormList: VFC<Props> = (props) => {
         <input
           type="url"
           id="homepage"
-          placeholder="URLを入力してください"
+          placeholder="https://~~~~"
           {...register('homepageUrl', {
             pattern: {
               value: /(https|http):\/\//,
@@ -79,7 +79,7 @@ const UrlFormList: VFC<Props> = (props) => {
         <input
           type="url"
           id="other"
-          placeholder="URLを入力してください"
+          placeholder="https://~~~~"
           {...register('otherUrl', {
             pattern: {
               value: /(https|http):\/\//,

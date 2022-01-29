@@ -16,7 +16,7 @@ const Footer: VFC = () => {
             rel="noopener noreferrer"
             target="_blank"
           >
-            @watajam
+            @watajamsan
           </a>
         </p>
       </div>
