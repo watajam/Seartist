@@ -39,7 +39,7 @@ const ProfileEditing: VFC = () => {
           <input
             type="text"
             id="name"
-            placeholder="氏名 or アーティスト名を入力してください"
+            placeholder="山田 太郎"
             {...register('name', {
               required: '必須項目です。',
               maxLength: {
@@ -58,7 +58,7 @@ const ProfileEditing: VFC = () => {
           <input
             type="text"
             id="ユーザーID"
-            placeholder="例 : seartist_jp"
+            placeholder="seartist_jp"
             {...register('userId', {
               required: '必須項目です。',
               pattern: {
@@ -213,6 +213,7 @@ const ProfileEditing: VFC = () => {
           </label>
           <textarea
             id="紹介文"
+            placeholder="2022年1月1から活動を始めました。応援よろしくお願いします!!"
             {...register('writing', {
               maxLength: {
                 value: 140,
@@ -242,7 +243,7 @@ flex items-center justify-between w-full px-2 py-2 mt-8 text-base"
                       <input
                         type="url"
                         id="twitter"
-                        placeholder="URLを入力してください"
+                        placeholder="https://twitter.com/ユーザー名"
                         {...register('twitterUrl', {
                           pattern: {
                             value: /(https|http):\/\/(twitter.com)\/([A-Za-z0-9_]*)/,
@@ -259,7 +260,7 @@ flex items-center justify-between w-full px-2 py-2 mt-8 text-base"
                       <input
                         type="url"
                         id="instagram"
-                        placeholder="URLを入力してください"
+                        placeholder="https://www.instagram.com/ユーザー名"
                         {...register('instagramUrl', {
                           pattern: {
                             value: /(https|http):\/\/(www.instagram.com)\/([A-Za-z0-9_]*)/,
@@ -276,7 +277,7 @@ flex items-center justify-between w-full px-2 py-2 mt-8 text-base"
                       <input
                         type="url"
                         id="homepage"
-                        placeholder="URLを入力してください"
+                        placeholder="https://~~~~"
                         {...register('homepageUrl', {
                           pattern: {
                             value: /(https|http):\/\//,
@@ -293,7 +294,7 @@ flex items-center justify-between w-full px-2 py-2 mt-8 text-base"
                       <input
                         type="url"
                         id="other"
-                        placeholder="URLを入力してください"
+                        placeholder="https://~~~~"
                         {...register('otherUrl', {
                           pattern: {
                             value: /(https|http):\/\//,

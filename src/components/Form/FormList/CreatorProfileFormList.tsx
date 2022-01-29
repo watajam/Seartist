@@ -25,7 +25,7 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
         <input
           type="text"
           id="name"
-          placeholder="氏名 or アーティスト名を入力してください"
+          placeholder="山田 太郎"
           {...register('name', {
             required: '必須項目です。',
             maxLength: {
@@ -44,7 +44,7 @@ const CreatorProfileFormList: VFC<Props> = (props) => {
         <input
           type="text"
           id="ユーザーID"
-          placeholder="例 : seartist_jp"
+          placeholder="seartist_jp"
           {...register('userId', {
             required: '必須項目です。',
             pattern: {
