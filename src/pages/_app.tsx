@@ -5,8 +5,8 @@ import { RecoilRoot } from 'recoil';
 import 'instantsearch.css/themes/satellite-min.css';
 import '../../src/styles/algolia.css';
 import { DefaultSeo } from 'next-seo';
-import SEO from '../../next-seo.config';
 import { Toaster } from 'react-hot-toast';
+import { SEO } from '../../next-seo.config';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
