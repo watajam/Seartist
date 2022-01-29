@@ -1,4 +1,4 @@
-export default {
+export const SEO = {
   title: 'Seartist',
   description:
     'Seartistは、アーティストや主催者がイベント情報を告知し、沢山の方々にイベント情報を知ってもらう為のアプリです。',
