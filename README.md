@@ -1,5 +1,5 @@
 # Seartist
-https://img.shields.io/github/languages/code-size/watajam/Seartist
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/watajam/Seartist)
 
 ## アプリ概要(Overview)
 #### コンセプト
