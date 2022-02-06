@@ -12,12 +12,16 @@ type Props = {
   user: UserData;
   closeModal: () => void;
   isOpen: boolean;
+  error: string;
 };
 
 //プロフィール画面
 const Profile: VFC<Props> = (props) => {
   const { chenge, handleChenge } = useHandleChenge();
   useQueryUserEmailCheck();
+
+  if(props.error) return <div className="text-xl font-bold text-center">{props.error}</div>;
+  
 
   return (
     <>

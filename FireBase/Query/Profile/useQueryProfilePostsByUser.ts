@@ -25,7 +25,7 @@ export const useQueryProfilePostsByUser = () => {
 
         if (userDocs.empty) {
           setPostsByUserLoading(false);
-          setError('ユーザーが存在しません');
+          setError('ユーザーが見つかりませんでした');
         } else {
           setPostsByUser([]);
           const userData = userDocs.docs[0]?.data() as UserData;

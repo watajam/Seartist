@@ -6,62 +6,62 @@ import { UserData } from '../../../../types/UserData';
 import { useModalOpenAndClose } from '../../../hooks/useModalOpenAndClose';
 
 type Props = {
-  userInfo: UserData[];
+  userInfo: UserData;
+  status: string;
 };
 
 //ユーザの情報を取得する
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
-  const userInfo: Omit<UserData, 'followingFlag'>[] = [];
+  let userInfo: Omit<UserData, 'followingFlag'> = null;
 
   try {
     const userRef = db.collection('users');
     const userSnap = await userRef.where('userId', '==', id).get();
+    if (userSnap.empty) throw new Error('ユーザが存在しません');
 
-    try {
-      userSnap.forEach((doc) => {
-        const data = doc.data();
-        userInfo.push({
-          profilePhoto: data.profilePhoto ? data.profilePhoto : '',
-          name: data?.name,
-          userId: data?.userId,
-          genre: data?.genre ? data?.genre : '',
-          location: data?.location ? data?.location : '',
-          birthday: data?.birthday ? data?.birthday : '',
-          writing: data?.writing ? data?.writing : '',
-          twitterUrl: data?.twitterUrl ? data?.twitterUrl : '',
-          instagramUrl: data?.instagramUrl ? data?.instagramUrl : '',
-          homepageUrl: data?.homepageUrl ? data?.homepageUrl : '',
-          otherUrl: data?.otherUrl ? data?.otherUrl : '',
-          email: data?.email,
-          likePostCount: data?.likePostCount ? data?.likePostCount : 0,
-          postsCount: data?.postsCount ? data?.postsCount : 0,
-          followUsersCount: data?.followUsersCount ? data?.followUsersCount : 0,
-          followerUsersCount: data?.followerUsersCount ? data?.followerUsersCount : 0,
-        });
-      });
-    } catch (e) {
-      console.log('Error getting documents: ', e);
-    }
+    userSnap.forEach((doc) => {
+      const data = doc.data();
+
+      userInfo = {
+        profilePhoto: data.profilePhoto ? data.profilePhoto : '',
+        name: data?.name,
+        userId: data?.userId,
+        genre: data?.genre ? data?.genre : '',
+        location: data?.location ? data?.location : '',
+        birthday: data?.birthday ? data?.birthday : '',
+        writing: data?.writing ? data?.writing : '',
+        twitterUrl: data?.twitterUrl ? data?.twitterUrl : '',
+        instagramUrl: data?.instagramUrl ? data?.instagramUrl : '',
+        homepageUrl: data?.homepageUrl ? data?.homepageUrl : '',
+        otherUrl: data?.otherUrl ? data?.otherUrl : '',
+        email: data?.email,
+        likePostCount: data?.likePostCount ? data?.likePostCount : 0,
+        postsCount: data?.postsCount ? data?.postsCount : 0,
+        followUsersCount: data?.followUsersCount ? data?.followUsersCount : 0,
+        followerUsersCount: data?.followerUsersCount ? data?.followerUsersCount : 0,
+      };
+    });
+    return {
+      props: {
+        userInfo,
+      },
+    };
   } catch (e) {
-    console.log('Error getting documents: ', e);
+    if (e instanceof Error) {
+      return { props: { status: e.message } };
+    }
   }
-
-  return {
-    props: {
-      userInfo,
-    },
-  };
 };
 
 //プロフィールページ
 const ProfilePage: NextPage<Props> = (props) => {
-  const { userInfo } = props;
+  const { userInfo, status } = props;
   const { isOpen, openModal, closeModal } = useModalOpenAndClose();
 
   return (
     <ProfileLayout openModal={openModal}>
-      <Profile user={userInfo[0]} closeModal={closeModal} isOpen={isOpen} />
+      <Profile user={userInfo} error={status} closeModal={closeModal} isOpen={isOpen} />
     </ProfileLayout>
   );
 };
