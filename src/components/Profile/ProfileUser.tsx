@@ -18,6 +18,7 @@ import { useQueryRealTimeCount } from '../../../FireBase/Query/FollowsAndFollowe
 
 type Props = {
   user: UserData;
+  status: string;
 };
 
 //プロフィール画面に表示するユーザー情報
