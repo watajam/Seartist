@@ -4,6 +4,7 @@ import Profile from '../../../components/Profile';
 import db from '../../../../lib/nodeApp';
 import { UserData } from '../../../../types/UserData';
 import { useModalOpenAndClose } from '../../../hooks/useModalOpenAndClose';
+import ProfileModal from '../../../components/Profile/ProfileModal';
 
 type Props = {
   userInfo: UserData;
@@ -60,9 +61,14 @@ const ProfilePage: NextPage<Props> = (props) => {
   const { isOpen, openModal, closeModal } = useModalOpenAndClose();
 
   return (
-    <ProfileLayout openModal={openModal}>
-      <Profile user={userInfo} error={status} closeModal={closeModal} isOpen={isOpen} />
-    </ProfileLayout>
+    <>
+      <ProfileLayout openModal={openModal}>
+        <Profile user={userInfo} error={status} />
+      </ProfileLayout>
+
+      {/* プロフィールモーダル */}
+      <ProfileModal closeModal={closeModal} isOpen={isOpen} />
+    </>
   );
 };
 
