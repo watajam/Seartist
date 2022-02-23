@@ -1,29 +1,18 @@
-import { useEffect, useState } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { auth, db } from '../../../lib/firebase';
+import { doc, DocumentData, getDoc } from 'firebase/firestore';
+import { db } from '../../../lib/firebase';
 
-//常にいいねしている投稿かどうかを確認
-export const useQueryLikePostCheck = (id) => {
-  const [like, setLike] = useState(null);
-  const [likePostDetailLoading, setLikePostDetailLoading] = useState(true);
+ //既にいいねしているか投稿かどうか確認
+export const useQueryLikePostCheck = () => {
+  const queryLikePostCheck = async (email, id) => {
+    let liked: DocumentData;
 
-  //常にいいねされた投稿だった場合、ハートを赤くするためにsetLikeに値を入れる
-  useEffect(() => {
-    if (id !== undefined) {
-      const likePostsCheck = async () => {
-        const q = query(collection(db, 'users', auth.currentUser?.email, 'likedPosts'), where('id', '==', id));
-        const likePostsquery = await getDocs(q);
-        if (likePostsquery.empty) {
-          setLike(likePostsquery.docs.length);
-          setLikePostDetailLoading(false);
-        } else {
-          setLike(likePostsquery.docs.length);
-          setLikePostDetailLoading(false);
-        }
-      };
-      likePostsCheck();
-    }
-  }, [id]);
+    const q = doc(db, 'users', email, 'likedPosts', id);
+    const likePostsquery = await getDoc(q);
 
-  return { like, likePostDetailLoading };
+    liked = likePostsquery.data();
+    
+    return liked;
+  };
+
+  return queryLikePostCheck;
 };

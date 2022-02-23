@@ -4,24 +4,35 @@ import { AiFillHeart } from 'react-icons/ai';
 import Link from 'next/link';
 import { PostData } from '../../../types/PostData';
 import { UserData } from '../../../types/UserData';
-import SkeletonLoading from '../SkeletonLoading';
 import { useQueryLikePostCheck } from '../../../FireBase/Query/Posts/useQueryLikePostCheck';
 import { useUpdateAddOrDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddOrDeletLikes';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import useSWR, { useSWRConfig } from 'swr';
+import { doc, DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
+import { db } from '../../../lib/firebase';
+import { useFetch } from '../../hooks/useFetch';
+import SkeletonLoading from '../SkeletonLoading';
 
-type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
+type PostsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
 type Props = {
-  postsByUsers: postsByUsers;
+  postsByUsers: PostsByUsers;
 };
 
 //投稿のリストアイテム
 const PostListItem: VFC<Props> = (props) => {
   const { updateAddOrDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
-  const { like, likePostDetailLoading } = useQueryLikePostCheck(props.postsByUsers?.id);
+  const queryLikePostCheck = useQueryLikePostCheck();
+  const { mutate } = useSWRConfig();
+  const { userEmail } = useRecoilSetEmail();
 
-  if (likePostDetailLoading) {
-    return <SkeletonLoading />;
-  }
+  //既にいいねしているか投稿かどうか確認
+  const { data: liked } = useFetch(
+    userEmail && props.postsByUsers.id
+      ? `firestore/users/${userEmail.email}/likedPosts/${props.postsByUsers.id}`
+      : null,
+    () => queryLikePostCheck(userEmail.email, props.postsByUsers.id)
+  );
 
   return (
     <div className="rounded-2xl shadow">
@@ -82,15 +93,18 @@ const PostListItem: VFC<Props> = (props) => {
       <div className="flex justify-end items-center mt-6 mr-4 mb-2">
         <button
           className={`text-base ${
-            likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
+            likeFlag === null && liked ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
           }`}
-          onClick={() => updateAddOrDeletLikes(props.postsByUsers)}
+          onClick={async () => {
+            await updateAddOrDeletLikes(props.postsByUsers),
+              mutate(userEmail ? `firestore/users/${userEmail.email}/postsByFollowing` : null);
+          }}
         >
           <AiFillHeart className={`inline-block mr-2 align-top  `} />
 
-          {like === 0 && likeFlag === true
+          {!liked && likeFlag === true
             ? props.postsByUsers?.likeCount + 1
-            : like === 1 && likeFlag === false
+            : liked && likeFlag === false
             ? props.postsByUsers?.likeCount - 1
             : props.postsByUsers?.likeCount}
         </button>
