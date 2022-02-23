@@ -51,12 +51,12 @@ export const useUpdateAddOrDeletLikes = () => {
 
       //投稿している人をフォローしているユーザーにもいいね数を追加
       userFollowersDocs.docs.map((document) => {
-        const otherPostsByFollowersRef = doc(db, 'users', document.data()?.email, 'postsByFollowers', postsByUsers?.id);
-        batch.update(otherPostsByFollowersRef, { likeCount: increment(1) });
+        const otherPostsByFollowingRef = doc(db, 'users', document.data()?.email, 'postsByFollowing', postsByUsers?.id);
+        batch.update(otherPostsByFollowingRef, { likeCount: increment(1) });
       });
       await batch.commit();
 
-      //フォローした場合フラグをTrueにする
+      //いいねした場合フラグをTrueにする
       setLikeFlag(true);
     } else {
       //いいねをした投稿のユーザー情報を削除
@@ -73,12 +73,12 @@ export const useUpdateAddOrDeletLikes = () => {
 
       //投稿している人のフォローワーのユーザーのいいね数を削除
       userFollowersDocs.docs.map((document) => {
-        const otherPostsByFollowersRef = doc(db, 'users', document.data()?.email, 'postsByFollowers', postsByUsers?.id);
-        batch.update(otherPostsByFollowersRef, { likeCount: increment(-1) });
+        const otherPostsByFollowingRef = doc(db, 'users', document.data()?.email, 'postsByFollowing', postsByUsers?.id);
+        batch.update(otherPostsByFollowingRef, { likeCount: increment(-1) });
       });
       await batch.commit();
 
-      //フォローしていない場合フラグをFalseにする
+      //いいねしていない場合フラグをFalseにする
       setLikeFlag(false);
     }
   };

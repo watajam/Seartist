@@ -6,25 +6,29 @@ import { UserData } from '../../../types/UserData';
 import { useUpdateAddOrDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddOrDeletLikes';
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 import { useDeletePost } from '../../../FireBase/Mutation/Delete/useDeletePost';
-import PostDetailSkeletonLoadingItem from '../SkeletonLoading/PostDetailSkeletonLoadingItem';
 import { useQueryLikePostCheck } from '../../../FireBase/Query/Posts/useQueryLikePostCheck';
+import { useRouter } from 'next/router';
+import { useFetch } from '../../hooks/useFetch';
 
-type postsByUsers = Omit<PostDetailData, 'email'> & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
+type PostByUser = Omit<PostDetailData, 'email'> & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
 
 type Props = {
-  postByUser: postsByUsers;
+  postByUser: PostByUser;
 };
 
 //投稿詳細のリストアイテム
 const PostDetailListItem: VFC<Props> = (props) => {
   const { updateAddOrDeletLikes, likeFlag } = useUpdateAddOrDeletLikes();
-  const { like, likePostDetailLoading } = useQueryLikePostCheck(props.postByUser?.id);
+  const queryLikePostCheck = useQueryLikePostCheck();
   const { deletePost } = useDeletePost();
   const { userEmail } = useRecoilSetEmail();
+  const router = useRouter();
 
-  if (likePostDetailLoading) {
-    return <PostDetailSkeletonLoadingItem />;
-  }
+  //既にいいねしているか投稿かどうか確認
+  const { data: liked } = useFetch(
+    userEmail && router.query.id ? `firestore/users/${userEmail.email}/likedPosts/${router.query.id}` : null,
+    () => queryLikePostCheck(userEmail.email, router.query.id)
+  );
 
   return (
     <div>
@@ -38,14 +42,14 @@ const PostDetailListItem: VFC<Props> = (props) => {
         <div className="ml-auto ">
           <button
             className={`text-base ${
-              likeFlag === null && like === 1 ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
+              likeFlag === null && liked ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
             }`}
             onClick={() => updateAddOrDeletLikes(props.postByUser)}
           >
             <AiFillHeart className={`inline-block mr-2 align-top  `} />
-            {like === 0 && likeFlag === true
+            {!liked && likeFlag === true
               ? props.postByUser?.likeCount + 1
-              : like === 1 && likeFlag === false
+              : liked && likeFlag === false
               ? props.postByUser?.likeCount - 1
               : props.postByUser?.likeCount}
           </button>

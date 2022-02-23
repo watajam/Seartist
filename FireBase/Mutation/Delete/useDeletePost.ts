@@ -17,14 +17,14 @@ export const useDeletePost = () => {
 
       //フォロワーが保持している同じ投稿を削除
       userFollowersDocs.docs.map((document) => {
-        const otherPostsByFollowersRef = doc(
+        const otherpostsByFollowingRef = doc(
           db,
           'users',
           document.data()?.email,
-          'postsByFollowers',
+          'postsByFollowing',
           `${router.query.id}`
         );
-        batch.delete(otherPostsByFollowersRef);
+        batch.delete(otherpostsByFollowingRef);
       });
 
       //ログインしているユーザーの削除する投稿を取得

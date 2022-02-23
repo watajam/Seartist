@@ -69,8 +69,8 @@ export const useUpdatePostCreate = () => {
 
     //フォローワーのユーザーに投稿を追加
     userFollowersDocs.docs.map((document) => {
-      const otherPostsByFollowersRef = doc(db, 'users', document.data()?.email, 'postsByFollowers', postsRef.id);
-      batch.set(otherPostsByFollowersRef, {
+      const otherPostsByFollowingsRef = doc(db, 'users', document.data()?.email, 'postsByFollowing', postsRef.id);
+      batch.set(otherPostsByFollowingsRef, {
         image: url ? url : '',
         writing: data.writing,
         eventName: data.eventName,

@@ -43,8 +43,8 @@ export const useUpdateFollow = (setFlag?) => {
         //フォローした人の投稿を自分の情報に追加
         const querySnapshot = await getDocs(otherPostsRef);
         querySnapshot.docs.forEach((document) => {
-          const authPostsByFollowersRef = doc(authUserRef, 'postsByFollowers', document.id);
-          batch.set(authPostsByFollowersRef, {
+          const authPostsByFollowingsRef = doc(authUserRef, 'postsByFollowing', document.id);
+          batch.set(authPostsByFollowingsRef, {
             ...document.data(),
           });
         });
@@ -77,8 +77,8 @@ export const useUpdateFollow = (setFlag?) => {
         //ログインしているユーザーにフォローした人の投稿を自分の情報に追加
         const querySnapshot = await getDocs(otherPostsRef);
         querySnapshot.docs.forEach((document) => {
-          const authPostsByFollowersRef = doc(authUserRef, 'postsByFollowers', document.id);
-          batch.set(authPostsByFollowersRef, {
+          const authPostsByFollowingsRef = doc(authUserRef, 'postsByFollowing', document.id);
+          batch.set(authPostsByFollowingsRef, {
             ...document.data(),
           });
         });
