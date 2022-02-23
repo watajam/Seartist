@@ -30,8 +30,8 @@ export const useUpdateUnfollow = (setFlag?) => {
         //ログインしているユーザーがフォローを外した人の投稿を自分の情報から削除
         const otherPostsDocs = await getDocs(otherPostsRef);
         otherPostsDocs.docs.forEach((document) => {
-          const authPostsByFollowersRef = doc(authUserRef, 'postsByFollowers', document.data().id);
-          batch.delete(authPostsByFollowersRef);
+          const authPostsByFollowingsRef = doc(authUserRef, 'postsByFollowing', document.data().id);
+          batch.delete(authPostsByFollowingsRef);
         });
 
         //ログインしているユーザーがフォロー数を減らす
