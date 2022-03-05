@@ -2,10 +2,10 @@ import useSWR from 'swr';
 import { PostDetailData } from '../../types/PostDetailData';
 import { UserData } from '../../types/UserData';
 
-type PostByUser = PostDetailData & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
+type PostByUser = Omit<PostDetailData, 'email'> & UserData;
 
-export const useFetch = (url: (string | string[])[] | string, func) => {
-  const { data, error } = useSWR<PostByUser>(url, func);
+export const useFetch = (url: (string | string[])[] | string, func, option?) => {
+  const { data, error } = useSWR<PostByUser>(url, func, option);
 
   return {
     data,

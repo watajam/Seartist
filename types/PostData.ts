@@ -11,4 +11,5 @@ export type PostData = {
   writing: string;
   email: string;
   likeCount: number;
+  postRef: any
 };
