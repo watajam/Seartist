@@ -2,9 +2,11 @@ import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
+import { useSWRConfig } from 'swr';
 import { storage } from '../../lib/firebase';
 import { PostDetailData } from '../../types/PostDetailData';
 import { UserData } from '../../types/UserData';
+import { useRecoilSetEmail } from './useRecoilSetEmail';
 
 export type firebaseOnLoadProp = {
   bytesTransferred: number;
@@ -16,6 +18,8 @@ export type firebaseOnLoadProp = {
 export const useDropzoneUpload = (setData) => {
   const [myFiles, setMyFiles] = useState<File[]>([]);
   const [src, setSrc] = useState('');
+  const { userEmail } = useRecoilSetEmail();
+  const { mutate } = useSWRConfig();
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (!acceptedFiles[0]) return;
@@ -38,13 +42,13 @@ export const useDropzoneUpload = (setData) => {
   });
 
   const handleUpload = async (
-    data:
-      | Pick<UserData, 'profilePhoto' | 'writing'>
-      | Omit<PostDetailData, 'email' | 'id'>
-      | Omit<UserData, 'profilePhoto'>
+    data: Pick<UserData, 'profilePhoto' | 'writing'> | Omit<PostDetailData, 'email' | 'id'>
   ) => {
     try {
       if (!myFiles) return;
+      // ローカルのプロフィールデータを更新
+      mutate(userEmail ? [`firestore/users/${userEmail.email}`, userEmail.email] : null, { ...data }, false);
+
       const randomValue1 = window.crypto.getRandomValues(new Uint32Array(1));
       const randomValue2 = window.crypto.getRandomValues(new Uint32Array(1));
       const storageRef = ref(storage, `/images/${randomValue1}/${randomValue2}/${myFiles[0].name}`);

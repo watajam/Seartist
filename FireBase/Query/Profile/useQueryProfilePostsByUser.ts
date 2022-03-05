@@ -1,61 +1,45 @@
 import { collection, orderBy, query, getDocs, where } from '@firebase/firestore';
-import { onAuthStateChanged } from 'firebase/auth';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { auth, db } from '../../../lib/firebase';
+import { NextRouter } from 'next/router';
+import { useCallback } from 'react';
+import { db } from '../../../lib/firebase';
 import { PostData } from '../../../types/PostData';
 import { UserData } from '../../../types/UserData';
 
-type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
+type PostsByUser = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
 //profileページにログインしているユーザーの投稿データを表示
 export const useQueryProfilePostsByUser = () => {
-  const [postsByUser, setPostsByUser] = useState<postsByUsers[]>([]);
-  const [postsByUserLoading, setPostsByUserLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const router = useRouter();
+  const queryUser = useCallback(async (router: NextRouter) => {
+    let user: UserData;
 
-  useEffect(() => {
-    const userRef = collection(db, 'users');
-
-    const unSub = onAuthStateChanged(auth, async (user) => {
-      if (user && router.query.id !== undefined) {
-        const q = query(userRef, where('userId', '==', router.query.id));
-        const userDocs = await getDocs(q);
-
-        if (userDocs.empty) {
-          setPostsByUserLoading(false);
-          setError('ユーザーが見つかりませんでした');
-        } else {
-          setPostsByUser([]);
-          const userData = userDocs.docs[0]?.data() as UserData;
-
-          const q = query(collection(db, 'users', `${userData?.email}`, 'posts'), orderBy('timestamp', 'desc'));
-          const postsDoc = await getDocs(q);
-          if (postsDoc.empty) {
-            setPostsByUserLoading(false);
-          } else {
-            setPostsByUser(
-              postsDoc.docs.map((docPosts) => {
-                return {
-                  ...(docPosts.data() as PostData),
-                  name: userData.name,
-                  userId: userData.userId,
-                  profilePhoto: userData.profilePhoto,
-                  email: userData.email,
-                };
-              })
-            );
-            setPostsByUserLoading(false);
-            setError(null);
-          }
-        }
-      } else {
-        router.push('/login');
-      }
+    const q = query(collection(db, 'users'), where('userId', '==', router.query.id));
+    const userDocs = await getDocs(q);
+    userDocs.docs.map(async (docUser) => {
+      user = docUser.data() as UserData;
     });
-    return () => unSub();
-  }, [router]);
 
-  return { postsByUser, postsByUserLoading, error };
+    return user;
+  }, []);
+
+  const queryProfilePostsByUser = useCallback(async (user) => {
+    let postsByUser: PostsByUser[] = [];
+
+    const q = query(collection(db, 'users', `${user.email}`, 'posts'), orderBy('timestamp', 'desc'));
+    const postsDoc = await getDocs(q);
+
+    const result = await Promise.all(
+      postsDoc.docs.map(async (doc) => {
+        postsByUser.push({
+          ...(doc.data() as PostData),
+          name: user.name,
+          userId: user.userId,
+          profilePhoto: user.profilePhoto,
+          email: user.email,
+        });
+      })
+    );
+    return postsByUser;
+  }, []);
+
+  return { queryUser, queryProfilePostsByUser };
 };
