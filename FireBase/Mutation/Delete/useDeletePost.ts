@@ -9,6 +9,9 @@ export const useDeletePost = () => {
 
   const deletePost = useCallback(async () => {
     if (confirm('削除しますか？')) {
+      //前のページに戻る
+      router.back();
+      
       const batch = writeBatch(db);
 
       //ログインしているユーザーのフォロワーを取得
@@ -55,9 +58,6 @@ export const useDeletePost = () => {
       //投稿数の削除
       batch.update(userRef, { postsCount: increment(-1) });
       await batch.commit();
-
-      //前のページに戻る
-      router.back();
     }
   }, [router]);
   return { deletePost };

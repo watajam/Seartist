@@ -13,7 +13,7 @@ const ProfileEditLayout: VFC<Props> = (props) => {
       <BottomNavigation />
       <div className="flex-1 md:max-w-xl md:bg-white lg:max-w-2xl">
         <PostDetailHeader />
-        <main>{props.children}</main>
+        <main className="px-5 pt-28 pb-20">{props.children}</main>
       </div>
     </div>
   );

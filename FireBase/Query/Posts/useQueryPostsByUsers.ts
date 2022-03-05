@@ -1,4 +1,5 @@
 import { collection, orderBy, query, getDocs, where } from '@firebase/firestore';
+import { useCallback } from 'react';
 import { db } from '../../../lib/firebase';
 import { useRecoilSetEmail } from '../../../src/hooks/useRecoilSetEmail';
 import { PostData } from '../../../types/PostData';
@@ -10,7 +11,7 @@ type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' |
 export const useQueryPostsByUsers = () => {
   const { userEmail } = useRecoilSetEmail();
 
-  const queryPostsByFollowings = async () => {
+  const queryPostsByFollowings = useCallback(async () => {
     let posts: PostData[] = [];
 
     const q = query(collection(db, 'users', `${userEmail.email}`, 'postsByFollowing'), orderBy('timestamp', 'desc'));
@@ -21,9 +22,9 @@ export const useQueryPostsByUsers = () => {
     });
 
     return posts;
-  };
+  }, [userEmail?.email]);
 
-  const queryPostsByUsers = async (posts: PostData[]) => {
+  const queryPostsByUsers = useCallback(async (posts: PostData[]) => {
     let postsByUsers: postsByUsers[] = [];
 
     const result = await Promise.all(
@@ -42,7 +43,7 @@ export const useQueryPostsByUsers = () => {
     );
 
     return postsByUsers;
-  };
+  }, []);
 
   return { queryPostsByFollowings, queryPostsByUsers };
 };

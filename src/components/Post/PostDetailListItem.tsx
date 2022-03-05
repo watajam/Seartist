@@ -9,6 +9,10 @@ import { useDeletePost } from '../../../FireBase/Mutation/Delete/useDeletePost';
 import { useQueryLikePostCheck } from '../../../FireBase/Query/Posts/useQueryLikePostCheck';
 import { useRouter } from 'next/router';
 import { useFetch } from '../../hooks/useFetch';
+import { useSWRConfig } from 'swr';
+import { useQueryProfileLikesPostsByUsers } from '../../../FireBase/Query/Profile/useQueryProfileLikesPostsByUsers';
+import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQueryPostByUserDetail';
+import { useQueryPostsByUsers } from '../../../FireBase/Query/Posts/useQueryPostsByUsers';
 
 type PostByUser = Omit<PostDetailData, 'email'> & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
 
@@ -22,6 +26,11 @@ const PostDetailListItem: VFC<Props> = (props) => {
   const queryLikePostCheck = useQueryLikePostCheck();
   const { deletePost } = useDeletePost();
   const { userEmail } = useRecoilSetEmail();
+  const { mutate } = useSWRConfig();
+  const { queryProfileLikedPostsByUsers } = useQueryProfileLikesPostsByUsers();
+  const { queryDetailPost } = useQueryPostByUserDetail();
+  const { queryPostsByFollowings } = useQueryPostsByUsers();
+
   const router = useRouter();
 
   //既にいいねしているか投稿かどうか確認
@@ -44,7 +53,25 @@ const PostDetailListItem: VFC<Props> = (props) => {
             className={`text-base ${
               likeFlag === null && liked ? 'text-red-600' : likeFlag === true ? 'text-red-600' : null
             }`}
-            onClick={() => updateAddOrDeletLikes(props.postByUser)}
+            onClick={async () => {
+              await updateAddOrDeletLikes(props.postByUser),
+                // 投稿のいいね数を更新
+                mutate(
+                  userEmail ? `firestore/users/${userEmail.email}/postsByFollowing` : null,
+                  queryPostsByFollowings
+                );
+              // 投稿詳細のいいね数を更新
+              mutate(router.query.id ? [`firestore/posts`, router.query.id] : null, () =>
+                queryDetailPost(router.query.id)
+              );
+              // いいね欄の表示を更新
+              mutate(userEmail ? `firestore/users/${userEmail.email}/likedPosts` : null, () =>
+                queryProfileLikedPostsByUsers(userEmail.email)
+              );
+              {
+                console.log({ email: userEmail.email, postId: router.query.id });
+              }
+            }}
           >
             <AiFillHeart className={`inline-block mr-2 align-top  `} />
             {!liked && likeFlag === true
