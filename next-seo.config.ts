@@ -10,7 +10,7 @@ export const SEO = {
       'Seartistは、アーティストや主催者がイベント情報を告知し、沢山の方々にイベント情報を知ってもらう為のアプリです。',
     images: [
       {
-        url: 'https://light.dotup.org/uploda/light.dotup.org14180.png_ngKbwCYY3GZDZA6qNGPh/light.dotup.org14180.png',
+        url: 'https://light.dotup.org/uploda/light.dotup.org19569.png',
         width: 900,
         height: 800,
         alt: 'Seartsitのプロフィール画面の画像',
