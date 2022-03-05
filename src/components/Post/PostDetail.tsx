@@ -11,7 +11,7 @@ const PostDetail: VFC = () => {
   const router = useRouter();
 
   const { data: post, error: postError } = useFetch(router.query.id ? [`firestore/posts`, router.query.id] : null, () =>
-    queryDetailPost(router)
+    queryDetailPost(router.query.id)
   );
 
   const {

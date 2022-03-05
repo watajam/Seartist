@@ -7,11 +7,11 @@ import { UserData } from '../../../types/UserData';
 import { useQueryLikePostCheck } from '../../../FireBase/Query/Posts/useQueryLikePostCheck';
 import { useUpdateAddOrDeletLikes } from '../../../FireBase/Mutation/Update/useUpdateAddOrDeletLikes';
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
-import useSWR, { useSWRConfig } from 'swr';
-import { doc, DocumentData, DocumentSnapshot, getDoc } from 'firebase/firestore';
-import { db } from '../../../lib/firebase';
+import { useSWRConfig } from 'swr';
 import { useFetch } from '../../hooks/useFetch';
-import SkeletonLoading from '../SkeletonLoading';
+import { useQueryProfileLikesPostsByUsers } from '../../../FireBase/Query/Profile/useQueryProfileLikesPostsByUsers';
+import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQueryPostByUserDetail';
+import { useQueryPostsByUsers } from '../../../FireBase/Query/Posts/useQueryPostsByUsers';
 
 type PostsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
@@ -25,6 +25,9 @@ const PostListItem: VFC<Props> = (props) => {
   const queryLikePostCheck = useQueryLikePostCheck();
   const { mutate } = useSWRConfig();
   const { userEmail } = useRecoilSetEmail();
+  const { queryProfileLikedPostsByUsers } = useQueryProfileLikesPostsByUsers();
+  const { queryDetailPost } = useQueryPostByUserDetail();
+  const { queryPostsByFollowings } = useQueryPostsByUsers();
 
   //既にいいねしているか投稿かどうか確認
   const { data: liked } = useFetch(
@@ -97,7 +100,19 @@ const PostListItem: VFC<Props> = (props) => {
           }`}
           onClick={async () => {
             await updateAddOrDeletLikes(props.postsByUsers),
-              mutate(userEmail ? `firestore/users/${userEmail.email}/postsByFollowing` : null);
+              // 投稿のいいね数を更新
+              mutate(userEmail ? `firestore/users/${userEmail.email}/postsByFollowing` : null, queryPostsByFollowings);
+            // 投稿詳細のいいね数を更新
+            mutate(props.postsByUsers.id ? [`firestore/posts`, props.postsByUsers.id] : null, () =>
+              queryDetailPost(props.postsByUsers.id)
+            );
+            // いいね欄の表示を更新
+            mutate(userEmail ? `firestore/users/${userEmail.email}/likedPosts` : null, () =>
+              queryProfileLikedPostsByUsers(userEmail.email)
+            );
+            {
+              console.log({ email: userEmail.email, postId: props.postsByUsers.id });
+            }
           }}
         >
           <AiFillHeart className={`inline-block mr-2 align-top  `} />
