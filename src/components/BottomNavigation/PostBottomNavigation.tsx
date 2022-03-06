@@ -9,11 +9,18 @@ import { HiUserCircle } from 'react-icons/hi';
 import { RiQuillPenLine } from 'react-icons/ri';
 import { useRouter } from 'next/router';
 import { useQueryUserGenreCheckPassUserId } from '../../../FireBase/Query/User/useQueryUserGenreCheckPassUserId';
+import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
+import { useFetchImmutable } from '../../hooks/useFetchImmutable';
 
 //投稿ボタンを表示する場合のボトムナビゲーション
 const PostBottomNavigation: VFC = () => {
-  const { user } = useQueryUserGenreCheckPassUserId();
+  const { queryUserGenreCheckPassUserId } = useQueryUserGenreCheckPassUserId();
   const router = useRouter();
+  const { userEmail } = useRecoilSetEmail();
+  const { data: user } = useFetchImmutable(
+    userEmail ? `firestore/users/${userEmail.email}` : null,
+    queryUserGenreCheckPassUserId
+  );
 
   const handlePreventDefault = (e: React.MouseEvent<HTMLAnchorElement>, url) => {
     if (user?.userId === undefined || router.pathname === url || router.query.id === url) {
