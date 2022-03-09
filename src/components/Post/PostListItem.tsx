@@ -12,6 +12,7 @@ import { useFetch } from '../../hooks/useFetch';
 import { useQueryProfileLikesPostsByUsers } from '../../../FireBase/Query/Profile/useQueryProfileLikesPostsByUsers';
 import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQueryPostByUserDetail';
 import { useQueryPostsByUsers } from '../../../FireBase/Query/Posts/useQueryPostsByUsers';
+import { DocumentData } from 'firebase/firestore';
 
 type PostsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
@@ -30,7 +31,7 @@ const PostListItem: VFC<Props> = (props) => {
   const { queryPostsByFollowings } = useQueryPostsByUsers();
 
   //既にいいねしているか投稿かどうか確認
-  const { data: liked } = useFetch(
+  const { data: liked } = useFetch<DocumentData, (email: string, id: string | string[]) => Promise<DocumentData>>(
     userEmail && props.postsByUsers.id
       ? `firestore/users/${userEmail.email}/likedPosts/${props.postsByUsers.id}`
       : null,
@@ -101,7 +102,10 @@ const PostListItem: VFC<Props> = (props) => {
           onClick={async () => {
             await updateAddOrDeletLikes(props.postsByUsers),
               // 投稿のいいね数を更新
-              mutate(userEmail ? `firestore/users/${userEmail.email}/postsByFollowing` : null, queryPostsByFollowings);
+              mutate(
+                userEmail ? [`firestore/users/${userEmail.email}/postsByFollowing`, userEmail.email] : null,
+                queryPostsByFollowings
+              );
             // 投稿詳細のいいね数を更新
             mutate(props.postsByUsers.id ? [`firestore/posts`, props.postsByUsers.id] : null, () =>
               queryDetailPost(props.postsByUsers.id)
@@ -110,9 +114,6 @@ const PostListItem: VFC<Props> = (props) => {
             mutate(userEmail ? `firestore/users/${userEmail.email}/likedPosts` : null, () =>
               queryProfileLikedPostsByUsers(userEmail.email)
             );
-            {
-              console.log({ email: userEmail.email, postId: props.postsByUsers.id });
-            }
           }}
         >
           <AiFillHeart className={`inline-block mr-2 align-top  `} />

@@ -8,10 +8,10 @@ type PostByUser = Omit<PostDetailData, 'email'> & Pick<UserData, 'name' | 'profi
 
 //postsページにログインしているユーザーの投稿データを表示
 export const useQueryPostByUserDetail = () => {
-  const queryDetailPost = useCallback(async (router: string[] | string) => {
+  const queryDetailPost = useCallback(async (router: string | string[]) => {
     let post: PostDetailData;
-
     const q = query(collectionGroup(db, 'posts'), where('id', '==', router));
+
     const postDocs = await getDocs(q);
 
     post = postDocs.docs[0].data() as PostDetailData;

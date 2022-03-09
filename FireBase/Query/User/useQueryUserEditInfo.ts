@@ -9,7 +9,7 @@ export const useQueryUserEditInfo = () => {
   const { userEmail } = useRecoilSetEmail();
 
   const queryUserEditInfo = useCallback(async () => {
-    let user: Pick<UserData, 'profilePhoto' | 'userId' | 'genre'>;
+    let user: UserData;
     const userRef = doc(db, 'users', userEmail.email);
     const userDocs = await getDoc(userRef);
     user = userDocs?.data() as UserData;

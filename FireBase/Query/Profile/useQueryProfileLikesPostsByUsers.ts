@@ -5,6 +5,8 @@ import { db } from '../../../lib/firebase';
 import { UserData } from '../../../types/UserData';
 import { PostData } from '../../../types/PostData';
 
+type PostsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
+
 //proflieページにログインしているユーザーがいいねした投稿データを表示
 export const useQueryProfileLikesPostsByUsers = () => {
   const queryUser = useCallback(async (router: NextRouter) => {
@@ -19,7 +21,7 @@ export const useQueryProfileLikesPostsByUsers = () => {
     return user;
   }, []);
 
-  const queryProfileLikedPostsByUsers = useCallback(async (email) => {
+  const queryProfileLikedPostsByUsers = useCallback(async (email: string) => {
     let likedPosts: PostData[] = [];
 
     const queryLikePosts = query(collection(db, 'users', `${email}`, 'likedPosts'), orderBy('createTime', 'desc'));
@@ -31,7 +33,7 @@ export const useQueryProfileLikesPostsByUsers = () => {
   }, []);
 
   const queryUsersByLikedPosts = useCallback(async (likedPosts: PostData[]) => {
-    let usersByLikedPosts: UserData[] = [];
+    let usersByLikedPosts: PostsByUsers[] = [];
 
     const result = await Promise.all(
       likedPosts.map(async (likedPost) => {
@@ -40,7 +42,7 @@ export const useQueryProfileLikesPostsByUsers = () => {
         const postsDoc = await getDoc(likedPost.postRef);
 
         usersByLikedPosts.push({
-          ...(postsDoc.data() as UserData),
+          ...(postsDoc.data() as PostData),
           name: usersDocs.docs[0].data().name,
           userId: usersDocs.docs[0].data().userId,
           profilePhoto: usersDocs.docs[0].data().profilePhoto,
