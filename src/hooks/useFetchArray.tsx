@@ -1,16 +1,13 @@
 import useSWR from 'swr';
-import { PostData } from '../../types/PostData';
-import { UserData } from '../../types/UserData';
 
-type PostsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
-
-export const useFetchArray = (url: string | (string | string[])[], func, option?) => {
-  const { data, error } = useSWR<PostsByUsers[]>(url, func, option);
+export const useFetchArray = <T, K, U>(url: string | (string | K)[], func: U) => {
+  const { data, error, mutate } = useSWR<T[], Error>(url, func);
 
   return {
     data,
     error,
     isLoading: !data && !error,
     isEmpty: data && data.length === 0,
+    mutate,
   };
 };

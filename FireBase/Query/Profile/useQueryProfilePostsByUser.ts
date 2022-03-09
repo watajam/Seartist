@@ -21,7 +21,7 @@ export const useQueryProfilePostsByUser = () => {
     return user;
   }, []);
 
-  const queryProfilePostsByUser = useCallback(async (user) => {
+  const queryProfilePostsByUser = useCallback(async (user: UserData) => {
     let postsByUser: PostsByUser[] = [];
 
     const q = query(collection(db, 'users', `${user.email}`, 'posts'), orderBy('timestamp', 'desc'));
@@ -35,7 +35,7 @@ export const useQueryProfilePostsByUser = () => {
           userId: user.userId,
           profilePhoto: user.profilePhoto,
           email: user.email,
-        });
+        } as PostsByUser);
       })
     );
     return postsByUser;

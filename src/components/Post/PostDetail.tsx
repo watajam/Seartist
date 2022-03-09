@@ -4,22 +4,28 @@ import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQuery
 import PostDetailListItem from './PostDetailListItem';
 import { useRouter } from 'next/router';
 import { useFetch } from '../../hooks/useFetch';
+import { PostDetailData } from '../../../types/PostDetailData';
+import { UserData } from '../../../types/UserData';
+
+type PostByUser = Omit<PostDetailData, 'email'> & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
 
 //投稿詳細画面
 const PostDetail: VFC = () => {
   const { queryDetailPost, queryDetailPostByUser } = useQueryPostByUserDetail();
   const router = useRouter();
 
-  const { data: post, error: postError } = useFetch(router.query.id ? [`firestore/posts`, router.query.id] : null, () =>
-    queryDetailPost(router.query.id)
+  const { data: post, error: postError } = useFetch<PostDetailData, (router) => Promise<PostDetailData>>(
+    router.query.id ? [`firestore/posts`, router.query.id] : null,
+    () => queryDetailPost(router.query.id)
   );
 
   const {
     data: postByUser,
     error: postByUserError,
     isLoading: PostByUserLoading,
-  } = useFetch(post && router.query.id ? [`firestore/users`, router.query.id] : null, () =>
-    queryDetailPostByUser(post)
+  } = useFetch<PostByUser, (post: PostDetailData) => Promise<PostByUser>>(
+    post && router.query.id ? [`firestore/users`, router.query.id] : null,
+    () => queryDetailPostByUser(post)
   );
 
   if (!postError && PostByUserLoading) {

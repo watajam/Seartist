@@ -13,6 +13,7 @@ import { useSWRConfig } from 'swr';
 import { useQueryProfileLikesPostsByUsers } from '../../../FireBase/Query/Profile/useQueryProfileLikesPostsByUsers';
 import { useQueryPostByUserDetail } from '../../../FireBase/Query/Posts/useQueryPostByUserDetail';
 import { useQueryPostsByUsers } from '../../../FireBase/Query/Posts/useQueryPostsByUsers';
+import { DocumentData } from 'firebase/firestore';
 
 type PostByUser = Omit<PostDetailData, 'email'> & Pick<UserData, 'name' | 'profilePhoto' | 'email'>;
 
@@ -34,7 +35,7 @@ const PostDetailListItem: VFC<Props> = (props) => {
   const router = useRouter();
 
   //既にいいねしているか投稿かどうか確認
-  const { data: liked } = useFetch(
+  const { data: liked } = useFetch<DocumentData, (email: string, id: string | string[]) => Promise<DocumentData>>(
     userEmail && router.query.id ? `firestore/users/${userEmail.email}/likedPosts/${router.query.id}` : null,
     () => queryLikePostCheck(userEmail.email, router.query.id)
   );
@@ -57,7 +58,7 @@ const PostDetailListItem: VFC<Props> = (props) => {
               await updateAddOrDeletLikes(props.postByUser),
                 // 投稿のいいね数を更新
                 mutate(
-                  userEmail ? `firestore/users/${userEmail.email}/postsByFollowing` : null,
+                  userEmail ? [`firestore/users/${userEmail.email}/postsByFollowing`, userEmail.email] : null,
                   queryPostsByFollowings
                 );
               // 投稿詳細のいいね数を更新
@@ -68,9 +69,6 @@ const PostDetailListItem: VFC<Props> = (props) => {
               mutate(userEmail ? `firestore/users/${userEmail.email}/likedPosts` : null, () =>
                 queryProfileLikedPostsByUsers(userEmail.email)
               );
-              {
-                console.log({ email: userEmail.email, postId: router.query.id });
-              }
             }}
           >
             <AiFillHeart className={`inline-block mr-2 align-top  `} />

@@ -1,26 +1,32 @@
-import { useRouter } from 'next/router';
+import { NextRouter, useRouter } from 'next/router';
 import React, { memo } from 'react';
 import { useQueryProfileLikesPostsByUsers } from '../../../FireBase/Query/Profile/useQueryProfileLikesPostsByUsers';
+import { PostData } from '../../../types/PostData';
+import { UserData } from '../../../types/UserData';
 import { useFetch } from '../../hooks/useFetch';
 import { useFetchArray } from '../../hooks/useFetchArray';
 import PostListItem from '../Post/PostListItem';
 import SkeletonLoading from '../SkeletonLoading';
+
+type PostsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
 //プロフィールに表示するいいねした投稿一覧
 const ProfileLikePost = () => {
   const { queryUser, queryProfileLikedPostsByUsers, queryUsersByLikedPosts } = useQueryProfileLikesPostsByUsers();
   const router = useRouter();
 
-  const { data: user, error: userError } = useFetch(router.query.id ? [`firestore/users`, router.query.id] : null, () =>
-    queryUser(router)
+  const { data: user, error: userError } = useFetch<UserData, (router: NextRouter) => Promise<UserData>>(
+    router.query.id ? [`firestore/users`, router.query.id] : null,
+    () => queryUser(router)
   );
 
   const {
     data: likedPosts,
     error: likedPostsError,
     isEmpty: likedPostsIsEmpty,
-  } = useFetchArray(user ? `firestore/users/${user.email}/likedPosts` : null, () =>
-    queryProfileLikedPostsByUsers(user.email)
+  } = useFetchArray<PostData, undefined, (email: string) => Promise<PostData[]>>(
+    user ? `firestore/users/${user.email}/likedPosts` : null,
+    () => queryProfileLikedPostsByUsers(user.email)
   );
 
   const {
@@ -28,8 +34,9 @@ const ProfileLikePost = () => {
     error: usersByLikedPostsError,
     isLoading: usersByLikedPostsIsLoading,
     isEmpty: usersByLikedPostsIsEmpty,
-  } = useFetchArray(likedPosts && user ? [`firestore/users`, user.email] : null, () =>
-    queryUsersByLikedPosts(likedPosts)
+  } = useFetchArray<PostsByUsers, string, (likedPosts: PostData[]) => Promise<PostsByUsers[]>>(
+    likedPosts && user ? [`firestore/users`, user.email] : null,
+    () => queryUsersByLikedPosts(likedPosts)
   );
 
   if (!userError && !likedPostsError && usersByLikedPostsIsLoading) {

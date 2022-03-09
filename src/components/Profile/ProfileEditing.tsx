@@ -7,6 +7,7 @@ import { useUpdateProfileEdit } from '../../../FireBase/Mutation/Update/useUpdat
 import { useDropzoneUpload } from '../../hooks/useDropzoneUpload';
 import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 import { useFetch } from '../../hooks/useFetch';
+import { UserData } from '../../../types/UserData';
 
 //プロフィール編集画面
 const ProfileEditing: VFC = () => {
@@ -19,7 +20,10 @@ const ProfileEditing: VFC = () => {
     data: user,
     isLoading: userIsLoading,
     error: userError,
-  } = useFetch(userEmail ? [`firestore/users/${userEmail.email}`, userEmail.email] : null, () => queryUserEditInfo());
+  } = useFetch<UserData, () => Promise<UserData>>(
+    userEmail ? [`firestore/users/${userEmail.email}`, userEmail.email] : null,
+    () => queryUserEditInfo()
+  );
 
   if (userIsLoading) {
     return (

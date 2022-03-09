@@ -5,6 +5,10 @@ import { useRecoilSetEmail } from '../../hooks/useRecoilSetEmail';
 import SkeletonLoading from '../SkeletonLoading';
 import { useFetchArray } from '../../hooks/useFetchArray';
 import { useQueryPostsByUsers } from '../../../FireBase/Query/Posts/useQueryPostsByUsers';
+import { PostData } from '../../../types/PostData';
+import { UserData } from '../../../types/UserData';
+
+type postsByUsers = Omit<PostData, 'email'> & Pick<UserData, 'userId' | 'name' | 'profilePhoto' | 'email'>;
 
 //ホーム画面一覧
 const Post: VFC = () => {
@@ -16,14 +20,20 @@ const Post: VFC = () => {
     data: posts,
     error: postsError,
     isEmpty: postsIsEmpty,
-  } = useFetchArray(userEmail ? `firestore/users/${userEmail.email}/postsByFollowing` : null, queryPostsByFollowings);
+  } = useFetchArray<PostData, string, () => Promise<PostData[]>>(
+    userEmail ? [`firestore/users/${userEmail.email}/postsByFollowing`, userEmail.email] : null,
+    queryPostsByFollowings
+  );
 
   const {
     data: postsByUsers,
     error: postsByUsersError,
     isLoading: postsByUsersIsLoading,
     isEmpty: postsByUsersIsEmpty,
-  } = useFetchArray(posts ? `firestore/users` : null, () => queryPostsByUsers(posts));
+  } = useFetchArray<postsByUsers, string | number, (posts: PostData[]) => Promise<postsByUsers[]>>(
+    posts && userEmail ? [`firestore/users`, userEmail.email, posts.length] : null,
+    () => queryPostsByUsers(posts)
+  );
 
   if (!postsError && postsByUsersIsLoading) {
     return <SkeletonLoading />;

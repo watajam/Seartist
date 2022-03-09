@@ -166,14 +166,14 @@ const ProfileUser: VFC<Props> = (props) => {
         <ProfileMultifunctionButtonLoadingItem />
       ) : userFollowingInfo === 'フォローする' ? (
         <button
-          onClick={() => updateFollow(props.user?.email)}
+          onClick={async() => updateFollow(props.user?.email)}
           className="p-1 mt-6 w-full text-center text-white bg-orange-400"
         >
           フォローする
         </button>
       ) : userFollowingInfo === 'フォロー中' ? (
         <button
-          onClick={() => updateUnfollow(props.user?.email)}
+          onClick={async() => updateUnfollow(props.user?.email)}
           className="p-1 mt-6 w-full text-center text-white bg-gray-400"
         >
           フォロー中
