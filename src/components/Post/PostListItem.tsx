@@ -46,8 +46,7 @@ const PostListItem: VFC<Props> = (props) => {
             {props.postsByUsers?.profilePhoto !== '' ? (
               <img src={props.postsByUsers?.profilePhoto} className="w-8 h-8 rounded-full" />
             ) : (
-              // <HiUserCircle className="w-8 h-8" />
-              null
+              <HiUserCircle className="w-8 h-8" />
             )}
             <h1 className="ml-2">{props.postsByUsers?.name}</h1>
             <time dateTime={props.postsByUsers?.eventDate} className="ml-auto text-lg">
