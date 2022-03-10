@@ -46,7 +46,8 @@ const PostListItem: VFC<Props> = (props) => {
             {props.postsByUsers?.profilePhoto !== '' ? (
               <img src={props.postsByUsers?.profilePhoto} className="w-8 h-8 rounded-full" />
             ) : (
-              <HiUserCircle className="w-8 h-8" />
+              // <HiUserCircle className="w-8 h-8" />
+              null
             )}
             <h1 className="ml-2">{props.postsByUsers?.name}</h1>
             <time dateTime={props.postsByUsers?.eventDate} className="ml-auto text-lg">
@@ -63,8 +64,8 @@ const PostListItem: VFC<Props> = (props) => {
             </p>
 
             {props.postsByUsers?.image !== '' ? (
-              <div className="flex justify-center mt-6 h-80 bg-gray-100 rounded-2xl outline-none">
-                <img src={props.postsByUsers?.image} className="object-contain text-center" />
+              <div className="h-56 relative overflow-hidden mt-6">
+                <img src={props.postsByUsers?.image} className="object-cover absolute h-full w-full top-0 left-0 rounded-2xl" />
               </div>
             ) : null}
 

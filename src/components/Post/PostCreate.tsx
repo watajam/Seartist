@@ -19,12 +19,14 @@ const PostCreate: VFC = () => {
 
       <form onSubmit={handleSubmit(handleUpload)} className="mt-8">
         {/* 投稿写真 */}
-        <div {...getRootProps()} className="relative h-80 bg-gray-200 rounded-2xl outline-none">
+        <div {...getRootProps()} className="relative h-56 overflow-hidden border-2 rounded-2xl">
           <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <AiOutlineCamera className="w-9 h-9" />
           </span>
           <input {...getInputProps()} />
-          <img src={src} className="object-contain relative m-auto h-80" />
+          {src ? (
+            <img src={src} className="object-cover absolute h-full w-full top-0 left-0 rounded-2xl border-none rounded-2xl" />
+          ) : null}
         </div>
         <button onClick={open} className="block m-auto mt-4 text-base text-gray-400" type="button">
           投稿写真を追加

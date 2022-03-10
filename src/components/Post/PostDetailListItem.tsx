@@ -82,10 +82,12 @@ const PostDetailListItem: VFC<Props> = (props) => {
       </div>
       <p className="mt-4 text-base font-bold">{props.postByUser?.writing}</p>
       {props.postByUser?.image !== '' ? (
-        <div className="flex justify-center mt-6 h-80 bg-gray-100 rounded-2xl outline-none">
-          <img src={props.postByUser?.image} className="object-contain text-center" />
-        </div>
+             <div className="h-56 relative overflow-hidden mt-6">
+             <img src={props.postByUser?.image} className="object-cover absolute h-full w-full top-0 left-0 rounded-2xl" />
+           </div>
+  
       ) : null}
+               
       <table className="mt-6 w-full text-base text-center table-fixed">
         <tbody className="mt-2">
           <tr className="bg-gray-100">
